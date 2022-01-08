@@ -31,11 +31,13 @@ from telegram.utils.helpers import mention_html
 
 from NekoRobot import (
     DEV_USERS,
-    SUDO_USERS,
-    SARDEGNA_USERS,
-    SUPPORT_USERS,
+    LOGGER,
     OWNER_ID,
-    WHITELIST_USERS,
+    DRAGONS,
+    DEMONS,
+    TIGERS,
+    WOLVES,
+    dispatcher,
 )
 from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
