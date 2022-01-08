@@ -42,11 +42,11 @@ class Language:
             return en_string
 
     def reload_strings(self) -> None:
-        for filename in os.listdir(r"./KURUMIBOT/langs"):
+        for filename in os.listdir(r"./NekoRobot/langs"):
             if filename.endswith(".yaml"):
                 language_name = filename[:-5]
                 self.languages[language_name] = yaml.safe_load(
-                    open(r"./KURUMIBOT/langs/" + filename, encoding="utf8")
+                    open(r"./NekoRobot/langs/" + filename, encoding="utf8")
                 )
 
     def get_languages(self) -> Dict:
