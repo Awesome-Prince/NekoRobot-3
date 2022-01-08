@@ -1,18 +1,18 @@
 import html
 from typing import Optional
 
-import KURUMIBOT.modules.sql.blsticker_sql as sql
-from KURUMIBOT import LOGGER, dispatcher
-from KURUMIBOT.modules.connection import connected
-from KURUMIBOT.modules.disable import DisableAbleCommandHandler
-from KURUMIBOT.modules.helper_funcs.alternate import send_message
-from KURUMIBOT.modules.helper_funcs.chat_status import (user_admin,
+import NekoRobot.modules.sql.blsticker_sql as sql
+from NekoRobot import LOGGER, dispatcher
+from NekoRobot.modules.connection import connected
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.alternate import send_message
+from NekoRobot.modules.helper_funcs.chat_status import (user_admin,
                                                            user_not_admin)
-from KURUMIBOT.modules.helper_funcs.misc import split_message
-from KURUMIBOT.modules.helper_funcs.string_handling import extract_time
+from NekoRobot.modules.helper_funcs.misc import split_message
+from NekoRobot.modules.helper_funcs.string_handling import extract_time
 
-from KURUMIBOT.modules.log_channel import loggable
-from KURUMIBOT.modules.warns import warn
+from NekoRobot.modules.log_channel import loggable
+from NekoRobot.modules.warns import warn
 from telegram import (Chat, Message, ParseMode, Update, User, ChatPermissions)
 from telegram.error import BadRequest
 from telegram.ext import (CallbackContext, CommandHandler, Filters,
