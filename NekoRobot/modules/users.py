@@ -6,10 +6,10 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import (CallbackContext, CommandHandler, Filters,
                           MessageHandler, run_async)
 
-import KURUMIBOT.modules.sql.users_sql as sql
-from KURUMIBOT import DEV_USERS, LOGGER, OWNER_ID, dispatcher
-from KURUMIBOT.modules.helper_funcs.chat_status import dev_plus, sudo_plus
-from KURUMIBOT.modules.sql.users_sql import get_all_users
+import NekoRobot.modules.sql.users_sql as sql
+from NekoRobot import DEV_USERS, LOGGER, OWNER_ID, dispatcher
+from NekoRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
+from NekoRobot.modules.sql.users_sql import get_all_users
 
 USERS_GROUP = 4
 CHAT_GROUP = 5
