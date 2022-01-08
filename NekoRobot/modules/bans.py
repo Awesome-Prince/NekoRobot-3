@@ -443,7 +443,7 @@ def selfunban(context: CallbackContext, update: Update) -> Optional[str]:
     return log
 
 
-from tg_bot.modules.language import gs
+from NekoRobot.modules.language import gs
 
 
 def get_help(chat):
