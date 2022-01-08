@@ -164,7 +164,7 @@ def check_afk(update, context, user_id, fst_name, userc_id):
 def __gdpr__(user_id):
     sql.rm_afk(user_id)
 
-from tg_bot.modules.language import gs
+from NekoRobot.modules.language import gs
 
 def get_help(chat):
     return gs(chat, "afk_help")
