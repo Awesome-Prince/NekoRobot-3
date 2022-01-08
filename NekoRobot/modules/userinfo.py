@@ -24,7 +24,7 @@ from telegram.ext.dispatcher import run_async
 from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown, mention_html
     
-from KURUMIBOT import (
+from NekoRobot import (
     DEV_USERS,
     OWNER_ID,
     DRAGONS,
@@ -38,18 +38,18 @@ from KURUMIBOT import (
     SUPPORT_CHAT,
     pgram as fish
 )
-from KURUMIBOT.__main__ import STATS, TOKEN, USER_INFO
-from KURUMIBOT.modules.sql import SESSION
-from KURUMIBOT.modules.sudoers import bot_sys_stats as nao
-import KURUMIBOT.modules.sql.userinfo_sql as sql
-from KURUMIBOT.modules.disable import DisableAbleCommandHandler
-from KURUMIBOT.modules.sql.global_bans_sql import is_user_gbanned
-from KURUMIBOT.modules.sql.afk_sql import is_afk, check_afk_status
-from KURUMIBOT.modules.sql.users_sql import get_user_num_chats
-from KURUMIBOT.modules.helper_funcs.chat_status import sudo_plus
-from KURUMIBOT.modules.helper_funcs.extraction import extract_user
-from KURUMIBOT import telethn
-from KURUMIBOT import pbot
+from NekoRobot.__main__ import STATS, TOKEN, USER_INFO
+from NekoRobot.modules.sql import SESSION
+from NekoRobot.modules.sudoers import bot_sys_stats as nao
+import NekoRobot.modules.sql.userinfo_sql as sql
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.sql.global_bans_sql import is_user_gbanned
+from NekoRobot.modules.sql.afk_sql import is_afk, check_afk_status
+from NekoRobot.modules.sql.users_sql import get_user_num_chats
+from NekoRobot.modules.helper_funcs.chat_status import sudo_plus
+from NekoRobot.modules.helper_funcs.extraction import extract_user
+from NekoRobot import telethn
+from NekoRobot import pbot
 
 NEKO_IMG = "https://telegra.ph/file/08212b07b1d1195cf2874.jpg"
 
