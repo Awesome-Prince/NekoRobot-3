@@ -6,7 +6,7 @@ from telegram.ext import Filters
 from telegram.utils.helpers import mention_html
 from NekoRobot.modules.sql.approve_sql import is_approved
 import NekoRobot.modules.sql.blacklist_sql as sql
-from NekoRobot import log, dispatcher
+from NekoRobot import dispatcher, LOGGER
 from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin, user_not_admin
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.misc import split_message
