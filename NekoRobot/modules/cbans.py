@@ -434,4 +434,4 @@ def get_help(chat):
     return gs(chat, "bans_help")
 
 
-__mod_name__ = "Bans"
+__mod_name__ = "Channel-Bans"
