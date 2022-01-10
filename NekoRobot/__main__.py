@@ -94,8 +94,8 @@ buttons = [
                     ],
                    [
                        InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔Anime Chat", url="https://t.me/indiaanimecommunity"),
-                       InlineKeyboardButton(text="[► Inline ◄]", switch_inline_query_current_chat=""),
+                       InlineKeyboardButton(text="❔Anime Chat", url="https://t.me/KyotoAnimation_Chat"),
+                       InlineKeyboardButton(text="[► Anime Channel ◄]", url="https://t.me/KyotoAnimation_Offical"),
                      ],
                     [                  
                        InlineKeyboardButton(
