@@ -94,8 +94,8 @@ buttons = [
                     ],
                    [
                        InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔Anime Chat", url="https://t.me/KyotoAnimation_Chat"),
-                       InlineKeyboardButton(text="[► Anime Channel ◄]", url="https://t.me/KyotoAnimation_Offical"),
+                       InlineKeyboardButton(text="❔Animes", url="https://t.me/KyotoAnimation_Offical"),
+                       InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Hodacka/NekoRobot-2"),
                      ],
                     [                  
                        InlineKeyboardButton(
