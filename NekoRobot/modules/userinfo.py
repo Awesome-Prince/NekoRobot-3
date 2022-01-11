@@ -326,7 +326,7 @@ def info(update: Update, context: CallbackContext):
         text += "\n\nThe Disaster level of this person is 'God'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Heros Association'."
+        text += "\n\nThis user is member of 'Yūki Black Knights Union'."
         disaster_level_present = True
     elif user.id in DRAGONS:
         text += "\n\nThe Disaster level of this person is 'Dragon'."
@@ -476,14 +476,14 @@ def stats(update, context):
             + "\n*Bot statistics*:\n"
             + "\n".join([mod.__stats__() for mod in STATS])
             + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/Black_Knights_Union)\n\n"
-            + "\n╘══「 by [Lovely Boy](https://t.me/Horimaya) 」\n",
+            + "\n╘══「 by [Lovely Prince](https://t.me/Horimaya) 」\n",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                   [                  
                        InlineKeyboardButton(
-                             text="System Stats 💜",
-                             callback_data="stats_callback")
+                             text="Your Info 💜",
+                             callback_data="myinfo_back")
                      ] 
                 ]
             ),
@@ -498,7 +498,7 @@ def stats(update, context):
                     )
                     + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/Black_Knights_Union)\n\n"
                 )
-                + "╘══「 by [Lovely Boy](https://t.me/Horimaya) 」\n"
+                + "╘══「 by [Lovely Prince](https://t.me/Horimaya) 」\n"
             ),
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
@@ -607,13 +607,13 @@ async def stats_callbacc(_, CallbackQuery):
 async def callback_query_handler(event):
     boy = event.sender_id
     PRO = await telethn.get_entity(boy)
-    MIKU = "➢ YOUR DETAILS BY NEKO \n\n"
-    MIKU += f"• FIRST NAME : {PRO.first_name} \n"
-    MIKU += f"• LAST NAME : {PRO.last_name}\n"
-    MIKU += f"• RESTRICTED : {PRO.restricted} \n"
-    MIKU += f"• USER ID : {boy}\n"
-    MIKU += f"• USERNAME : {PRO.username}\n"
-    await event.answer(MIKU, alert=True)
+    NEKO = "➢ YOUR DETAILS BY NEKO \n\n"
+    NEKO += f"• FIRST NAME : {PRO.first_name} \n"
+    NEKO += f"• LAST NAME : {PRO.last_name}\n"
+    NEKO += f"• RESTRICTED : {PRO.restricted} \n"
+    NEKO += f"• USER ID : {boy}\n"
+    NEKO += f"• USERNAME : {PRO.username}\n"
+    await event.answer(NEKO, alert=True)
 
 @run_async
 def cutiipii_callback_data(update, context):
