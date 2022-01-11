@@ -31,7 +31,7 @@ from NekoRobot.modules.helper_funcs.decorators import kigcmd
 from NekoRobot.modules.helper_funcs.anonymous import user_admin, AdminPerms
 
 
-@kigcmd(command='ban', pass_args=True)
+@kigcmd(command='cban', pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
