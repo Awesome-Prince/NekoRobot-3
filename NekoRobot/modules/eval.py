@@ -29,7 +29,7 @@ import traceback
 from contextlib import redirect_stdout
 
 from NekoRobot import LOGGER, dispatcher
-from NekoRobot.modules.helper_funcs.chat_status import dev_plus
+from NekoRobot import OWNER_ID
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, run_async
 
@@ -71,14 +71,14 @@ def send(msg, bot, update):
             parse_mode=ParseMode.MARKDOWN)
 
 
-@dev_plus
+@OWNER_ID
 @run_async
 def evaluate(update: Update, context: CallbackContext):
     bot = context.bot
     send(do(eval, bot, update), bot, update)
 
 
-@dev_plus
+@OWNER_ID
 @run_async
 def execute(update: Update, context: CallbackContext):
     bot = context.bot
@@ -138,7 +138,7 @@ def do(func, bot, update):
             return result
 
 
-@dev_plus
+@OWNER_ID
 @run_async
 def clear(update: Update, context: CallbackContext):
     bot = context.bot
