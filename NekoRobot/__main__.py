@@ -75,13 +75,13 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = """
-────「 [{}](https://telegra.ph/file/077059d98344e0e047284.jpg) 」────
-*やあ! {} My Darling, Iam your SweetHeart💜,
+PM_START_TEXT = f"""
+────「 [{context.bot.first_name}]({random.choice(NEKO_IMG)}) 」────
+*やあ! {escape_markdown(first_name)} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-• *Uptime:* `{}`
-• `{}` *users, across* `{}` *chats.*
+• *Uptime:* `{escape_markdown(uptime)}`
+• `{sql.num_users())}` *users, across* `{sql.num_chats()}` *chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ➢ Try The Help Buttons Below To Know My Abilities ֍
 """
@@ -254,12 +254,7 @@ def start(update: Update, context: CallbackContext):
             
             first_name = update.effective_user.first_name
             update.effective_message.reply_text(
-                PM_START_TEXT.format(
-                    escape_markdown(context.bot.first_name),
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),                        
+                PM_START_TEXT,                        
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
@@ -392,12 +387,7 @@ def cutiepii_callback_data(update, context):
     elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
-                PM_START_TEXT.format(
-                    escape_markdown(context.bot.first_name),
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),
+                PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
