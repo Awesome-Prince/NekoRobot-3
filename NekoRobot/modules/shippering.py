@@ -1,5 +1,28 @@
-from mrjoker import pbot as app
-from mrjoker.utils.dbfunc import get_couple, save_couple
+"""
+MIT License
+Copyright (C) 2017-2019, Paul Larsen
+Copyright (C) 2022 Hodacka
+Copyright (c) 2022, Yūki • Black Knights Union, <https://github.com/Hodacka/NekoRobot-3>
+This file is part of @NekoXRobot (Telegram Bot)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the Software), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
+from NekoRobot import pbot as app
+from NekoRobot.utils.dbfunc import get_couple, save_couple
 from pyrogram import filters
 import random
 from datetime import datetime
@@ -46,7 +69,7 @@ async def couple(_, message):
             c2_mention = (await app.get_users(c2_id)).mention
 
             couple_selection_message = f"""**Couple of the day:**
-{c1_mention} + {c2_mention} = ❤️
+{c1_mention} + {c2_mention} = 💜
 __New couple of the day may be chosen at 12AM {tomorrow}__"""
             await app.send_message(
                 message.chat.id,
@@ -64,7 +87,7 @@ __New couple of the day may be chosen at 12AM {tomorrow}__"""
             c1_name = (await app.get_users(c1_id)).first_name
             c2_name = (await app.get_users(c2_id)).first_name
             couple_selection_message = f"""Couple of the day:
-[{c1_name}](tg://openmessage?user_id={c1_id}) + [{c2_name}](tg://openmessage?user_id={c2_id}) = ❤️
+[{c1_name}](tg://openmessage?user_id={c1_id}) + [{c2_name}](tg://openmessage?user_id={c2_id}) = 💜
 __New couple of the day may be chosen at 12AM {tomorrow}__"""
             await app.send_message(
                 message.chat.id,
