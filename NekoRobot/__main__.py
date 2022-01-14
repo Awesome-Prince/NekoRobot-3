@@ -134,6 +134,11 @@ For all command use /* [or](https://telegra.ph/file/38b445b037f81c0f53bd2.jpg) *
 
 HELP_IMG = "https://telegra.ph/file/3bf1c58be585793e354ca.jpg"
 
+PM_START_IMG = (
+          "https://telegra.ph/file/e07130313f0b1ac4476f6.jpg",
+          "https://telegra.ph/file/077059d98344e0e047284.jpg",
+  )
+
 NEKO_IMG = (
       "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
       "https://telegra.ph/file/0cea56d9625f265ecc9db.mp4",
@@ -256,7 +261,7 @@ def start(update: Update, context: CallbackContext):
             update.effective_message.reply_text(
                 PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
-                    random.choice(NEKO_IMG),
+                    random.choice(PM_START_IMG),
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
