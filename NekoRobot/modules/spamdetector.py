@@ -15,7 +15,7 @@ async def leechers(event):
         return
     global spamcounter
     starttimer = time.time()
-    spamcounter += 1
+    spamcounter += 99
     sender = event.sender_id
     senderr = await event.get_sender()
     check = sender
