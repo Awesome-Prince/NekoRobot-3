@@ -22,7 +22,7 @@ markdown
 beautifulsoup4
 opencv-python-headless
 requests==2.20.0
-sqlalchemy==1.4.29
+sqlalchemy==1.3.23 #lol
 psycopg2-binary
 feedparser
 hachoir
