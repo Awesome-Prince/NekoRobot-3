@@ -1,4 +1,4 @@
-from NekoRobot import tbot
+from NekoRobot import telethn as tbot
 import time
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChatBannedRights
