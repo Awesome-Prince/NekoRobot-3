@@ -1,3 +1,26 @@
+"""
+MIT License
+Copyright (C) 2017-2019, Paul Larsen
+Copyright (C) 2022 Hodacka
+Copyright (c) 2022, Yūki • Black Knights Union, <https://github.com/Hodacka/NekoRobot-3>
+This file is part of @NekoXRobot (Telegram Bot)
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the Software), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import html
 
 from telegram import (
@@ -11,7 +34,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-from mrjoker import (
+from NekoRobot import (
     DEV_USERS,
     LOGGER,
     OWNER_ID,
@@ -21,9 +44,9 @@ from mrjoker import (
     WOLVES,
     dispatcher,
 )
-import mrjoker.modules.sql.users_sql as sql
-from mrjoker.modules.disable import DisableAbleCommandHandler
-from mrjoker.modules.helper_funcs.chat_status import (
+import NekoRobot.modules.sql.users_sql as sql
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.chat_status import (
     user_admin_no_reply,
     bot_admin,
     can_restrict,
@@ -35,9 +58,9 @@ from mrjoker.modules.helper_funcs.chat_status import (
     user_can_ban,
     can_delete,
 )
-from mrjoker.modules.helper_funcs.extraction import extract_user_and_text
-from mrjoker.modules.helper_funcs.string_handling import extract_time
-from mrjoker.modules.log_channel import gloggable, loggable
+from NekoRobot.modules.helper_funcs.extraction import extract_user_and_text
+from NekoRobot.modules.helper_funcs.string_handling import extract_time
+from NekoRobot.modules.log_channel import gloggable, loggable
 
 
 @run_async
