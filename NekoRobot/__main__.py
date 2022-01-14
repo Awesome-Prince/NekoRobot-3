@@ -75,7 +75,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = """
+PM_START_TEXT = f"""
 ────「 [{context.bot.first_name}]({random.choice(PM_START_IMG)}) 」────
 *やあ! {escape_markdown(first_name)} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
