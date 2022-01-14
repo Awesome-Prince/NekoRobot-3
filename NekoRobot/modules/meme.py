@@ -2,18 +2,18 @@ import html
 import random
 import time
 
-import mrjoker.modules.funs as fun_strings
-from mrjoker import dispatcher
-from mrjoker.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
-from mrjoker.modules.helper_funcs.chat_status import is_user_admin
-from mrjoker.modules.helper_funcs.alternate import typing_action
-from mrjoker.modules.helper_funcs.filters import CustomFilters
-from mrjoker.modules.helper_funcs.extraction import extract_user
+import NekoRobot.modules.funs as fun_strings
+from NekoRobot import dispatcher
+from NekoRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
+from NekoRobot.modules.helper_funcs.alternate import typing_action
+from NekoRobot.modules.helper_funcs.filters import CustomFilters
+from NekoRobot.modules.helper_funcs.extraction import extract_user
 from telegram import ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, run_async, CommandHandler, Filters
 
-import mrjoker.modules.helper_funcs.string_store as fun
+import NekoRobot.modules.helper_funcs.string_store as fun
 
 GIF_ID = "CgACAgQAAx0CSVUvGgAC7KpfWxMrgGyQs-GUUJgt-TSO8cOIDgACaAgAAlZD0VHT3Zynpr5nGxsE"
 
