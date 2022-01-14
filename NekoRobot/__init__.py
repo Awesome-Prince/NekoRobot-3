@@ -45,7 +45,7 @@ logging.basicConfig(
               logging.StreamHandler()],
     level=logging.INFO)
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger("[NeKoXRoBot]")
 
 # if version < 3.6, stop bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:
