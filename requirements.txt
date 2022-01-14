@@ -62,7 +62,7 @@ Pyrogram
 PyYAML>=5.3.1
 pretty_errors
 nltk==3.6.5
-
+futures==3.1.1
 
 
 
