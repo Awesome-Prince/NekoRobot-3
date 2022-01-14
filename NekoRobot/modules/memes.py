@@ -9,8 +9,8 @@ from PIL import Image
 from spongemock import spongemock
 from telegram.ext import run_async
 
-from mrjoker import dispatcher
-from mrjoker.modules.disable import DisableAbleCommandHandler
+from NekoRobot import dispatcher
+from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 
 @run_async
