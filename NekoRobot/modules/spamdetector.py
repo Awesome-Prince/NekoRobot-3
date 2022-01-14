@@ -15,13 +15,13 @@ async def leechers(event):
         return
     global spamcounter
     starttimer = time.time()
-    spamcounter += 99
+    spamcounter += 1
     sender = event.sender_id
     senderr = await event.get_sender()
     check = sender
     USERSPAM = []
 
-    if len(USERSPAM) >= 1:
+    if len(USERSPAM) >= 50:
         if event.sender_id == USERSPAM[0]:
             pass
         else:
