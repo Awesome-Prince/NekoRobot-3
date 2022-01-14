@@ -1,7 +1,7 @@
 import sys
 import traceback
 from functools import wraps
-from mrjoker import pbot, SUPPORT_CHAT
+from NekoRobot import pbot, SUPPORT_CHAT
 
 def split_limits(text):
     if len(text) < 2048:
