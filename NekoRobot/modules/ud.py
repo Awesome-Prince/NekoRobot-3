@@ -1,8 +1,8 @@
 from telegram import Update, Bot
 from telegram.ext import run_async
 
-from mrjoker.modules.disable import DisableAbleCommandHandler
-from mrjoker import dispatcher
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot import dispatcher
 
 from requests import get
 
