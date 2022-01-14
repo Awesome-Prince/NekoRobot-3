@@ -75,13 +75,13 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = f"""
-────「 [Neko Robot]({random.choice(PM_START_IMG)}) 」────
-*やあ! {escape_markdown(first_name)} My Darling, Iam your SweetHeart💜,
+PM_START_TEXT = """
+────「 [{}]({}) 」────
+*やあ! {} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-• *Uptime:* `{escape_markdown(uptime)}`
-• `{sql.num_users()}` *users, across* `{sql.num_chats()}` *chats.*
+• *Uptime:* `{}`
+• `{}` *users, across* `{}` *chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ➢ Try The Help Buttons Below To Know My Abilities ֍
 """
@@ -133,11 +133,6 @@ For all command use /* [or](https://telegra.ph/file/38b445b037f81c0f53bd2.jpg) *
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
 
 HELP_IMG = "https://telegra.ph/file/3bf1c58be585793e354ca.jpg"
-
-PM_START_IMG = (
-          "https://telegra.ph/file/e07130313f0b1ac4476f6.jpg",
-          "https://telegra.ph/file/077059d98344e0e047284.jpg",
-  )
 
 NEKO_IMG = (
       "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
@@ -259,7 +254,13 @@ def start(update: Update, context: CallbackContext):
             
             first_name = update.effective_user.first_name
             update.effective_message.reply_text(
-                PM_START_TEXT,                        
+                PM_START_TEXT.format(
+                    escape_markdown(context.bot.first_name),
+                    random.choice(NEKO_IMG),
+                    escape_markdown(first_name),
+                    escape_markdown(uptime),
+                    sql.num_users(),
+                    sql.num_chats()),                        
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
@@ -392,7 +393,13 @@ def cutiepii_callback_data(update, context):
     elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
-                PM_START_TEXT,
+                PM_START_TEXT.format(
+                    escape_markdown(context.bot.first_name),
+                    random.choice(NEKO_IMG),
+                    escape_markdown(first_name),
+                    escape_markdown(uptime),
+                    sql.num_users(),
+                    sql.num_chats()),
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
@@ -692,4 +699,3 @@ if __name__ == '__main__':
     telethn.start(bot_token=TOKEN)
     pbot.start()
     main()
-
