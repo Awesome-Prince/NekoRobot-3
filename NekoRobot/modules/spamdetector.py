@@ -56,7 +56,7 @@ async def leechers(event):
     dev = await event.respond(final)
 
     client = MongoClient(MONGO_DB_URI)
-    db = client["missjuliarobot"]
+    db = client["EmiliaAnimeBot"]
     leechers = db.leecher
 
     users = leechers.find({})
