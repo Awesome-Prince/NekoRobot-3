@@ -81,7 +81,7 @@ PM_START_TEXT = f"""
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 • *Uptime:* `{escape_markdown(uptime)}`
-• `{sql.num_users())}` *users, across* `{sql.num_chats()}` *chats.*
+• `{sql.num_users()}` *users, across* `{sql.num_chats()}` *chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ➢ Try The Help Buttons Below To Know My Abilities ֍
 """
