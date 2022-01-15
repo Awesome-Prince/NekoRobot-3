@@ -5,7 +5,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-from SerenaRobot import (
+from NekoRobot import (
     DEV_USERS,
     LOGGER,
     OWNER_ID,
@@ -15,8 +15,8 @@ from SerenaRobot import (
     WOLVES,
     dispatcher,
 )
-from SerenaRobot.modules.disable import DisableAbleCommandHandler
-from SerenaRobot.modules.helper_funcs.chat_status import (
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
     can_restrict,
     connection_status,
@@ -27,9 +27,9 @@ from SerenaRobot.modules.helper_funcs.chat_status import (
     user_can_ban,
     can_delete,
 )
-from SerenaRobot.modules.helper_funcs.extraction import extract_user_and_text
-from SerenaRobot.modules.helper_funcs.string_handling import extract_time
-from SerenaRobot.modules.log_channel import gloggable, loggable
+from NekoRobot.modules.helper_funcs.extraction import extract_user_and_text
+from NekoRobot.modules.helper_funcs.string_handling import extract_time
+from NekoRobot.modules.log_channel import gloggable, loggable
 
 
 @run_async
@@ -428,7 +428,7 @@ dispatcher.add_handler(UNBAN_HANDLER)
 dispatcher.add_handler(ROAR_HANDLER)
 dispatcher.add_handler(PUNCHME_HANDLER)
 
-__mod_name__ = "BAN/MUTE🔇"
+__mod_name__ = "BAN/MUTE"
 __handlers__ = [
     BAN_HANDLER,
     TEMPBAN_HANDLER,
