@@ -396,10 +396,10 @@ def neko_about_callback(update, context):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Bᴜɢ'ꜱ", url="t.me/SiderzChat"
+                            text="Master", url="t.me/Horimaya"
                         ),
                         InlineKeyboardButton(
-                            text="Bᴏᴛ Lɪꜱᴛ", url="t.me/SiderzBot/11"
+                            text="Developer", url="t.me/H0daka"
                         ),
                     ],
                     [InlineKeyboardButton(text="Back", callback_data="neko_back")],
