@@ -138,7 +138,7 @@ PM_START_IMG = (
           "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
           "https://telegra.ph/file/77010a90512337770b58b.jpg",
           "https://telegra.ph/file/694d33a2d794e73c737fb.jpg",
-          "https://telegra.ph/file/f060611c436c21ce90ea1.jpg",
+          "https://telegra.ph/file/6a1a2e5fe4a112ac3ab66.jpg",
   )
 
 NEKO_IMG = (
