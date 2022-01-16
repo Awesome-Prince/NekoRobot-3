@@ -384,12 +384,12 @@ def neko_about_callback(update, context):
     query = update.callback_query
     if query.data == "about_":
         query.message.edit_text(
-            text=f"""[◈](https://telegra.ph/file/0719635a2edcbea04be7a.jpg) *Hey {escape_markdown(first_name)} Darling,
-                    ➖➖➖➖➖➖➖➖➖➖➖➖➖
-                    Neko Info ➣ :-
-                    ◈ I Am An Anime Themed Advance Group Management Bot With A Lot Of Sexy Features.
-                    ➖➖➖➖➖➖➖➖➖➖➖➖➖
-                    ◈ Check The Buttons To Know About Me More.*""",
+            text=f"[◈](https://telegra.ph/file/0719635a2edcbea04be7a.jpg) Hey {escape_markdown(first_name)} Darling,"
+              f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
+              f"\n\n Neko Info ➣ :-"
+              f"\n\n ◈ I Am An Anime Themed Advance Group Management Bot With A Lot Of Sexy Features."
+              f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
+              f"\n\n ◈ Check The Buttons To Know About Me More.*",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
