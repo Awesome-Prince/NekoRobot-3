@@ -135,9 +135,9 @@ For all command use /* [or](https://telegra.ph/file/38b445b037f81c0f53bd2.jpg) *
 HELP_IMG = "https://telegra.ph/file/3bf1c58be585793e354ca.jpg"
 
 PM_START_IMG = (
-          "https://telegra.ph/file/077059d98344e0e047284.jpg",
-          "https://telegra.ph/file/233c3aae1f44b5c5b059a.jpg",
-          "https://telegra.ph/file/f5e35a13524097369e848.jpg",
+          "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
+          "https://telegra.ph/file/77010a90512337770b58b.jpg",
+          "https://telegra.ph/file/694d33a2d794e73c737fb.jpg",
           "https://telegra.ph/file/f060611c436c21ce90ea1.jpg",
   )
 
