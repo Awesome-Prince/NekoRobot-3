@@ -689,7 +689,7 @@ def main():
     settings_callback_handler = CallbackQueryHandler(
         settings_button, pattern=r"stngs_")
 
-    about_callback_handler = CallbackQueryHandler(neko_callback_data, pattern=r"neko_")
+    about_callback_handler = CallbackQueryHandler(neko_about_callback, pattern=r"neko_")
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate,
                                      migrate_chats)
@@ -697,13 +697,13 @@ def main():
     # dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
-    dispatcher.add_handler(settings_handler)
+    dispatcher.add_handispatcher.add_error_handler(error_callback)dler(settings_handler)
     dispatcher.add_handler(about_callback_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
     dispatcher.add_handler(migrate_handler)
     dispatcher.add_handler(donate_handler)
-
+    dispatcher.add_handler(about_callback_handler)
     dispatcher.add_error_handler(error_callback)
 
     if WEBHOOK:
