@@ -384,11 +384,12 @@ def neko_about_callback(update, context):
     query = update.callback_query
     if query.data == "about_":
         query.message.edit_text(
-            text=""" Neko - A bot to manage your groups with additional features!
-            \nHere's the basic help regarding use of Neko.
-            
-            \nAlmost all modules usage defined in the help menu, checkout by sending `/help`
-            \nReport error/bugs click the Button""",
+            text=f"""[◈](https://telegra.ph/file/0719635a2edcbea04be7a.jpg) *Hey {escape_markdown(first_name)} Darling,
+                    ➖➖➖➖➖➖➖➖➖➖➖➖➖
+                    Neko Info ➣ :-
+                    ◈ I Am An Anime Themed Advance Group Management Bot With A Lot Of Sexy Features.
+                    ➖➖➖➖➖➖➖➖➖➖➖➖➖
+                    ◈ Check The Buttons To Know About Me More.*""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
