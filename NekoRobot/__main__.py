@@ -406,7 +406,22 @@ def neko_about_callback(update, context):
                 ]
             ),
         )
-        
+        elif query.data == "neko_back":
+        first_name = update.effective_user.first_name
+        query.message.edit_text(
+                PM_START_TEXT.format(
+                    escape_markdown(context.bot.first_name),
+                    random.choice(PM_START_IMG),
+                    escape_markdown(first_name),
+                    escape_markdown(uptime),
+                    sql.num_users(),
+                    sql.num_chats()),
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.MARKDOWN,
+                timeout=60,
+                disable_web_page_preview=True,
+        )
+
 @run_async
 def neko_callback_data(update, context):
     query = update.callback_query
@@ -429,7 +444,7 @@ def neko_callback_data(update, context):
         query.message.edit_text(
                 PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
-                    random.choice(NEKO_IMG),
+                    random.choice(PM_START_IMG),
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
