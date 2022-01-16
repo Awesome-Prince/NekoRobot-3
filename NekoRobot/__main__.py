@@ -93,16 +93,16 @@ buttons = [
                             url=f"t.me/NekoXRobot?startgroup=true")
                     ],
                    [
-                       InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔Animes", url="https://t.me/KyotoAnimation_Offical"),
-                       InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Hodacka/NekoRobot-2"),
+                       InlineKeyboardButton(text="[► 𝐇𝐞𝐥𝐩 ◄]", callback_data="help_back"),
+                       InlineKeyboardButton(text="❔𝐀𝐧𝐢𝐦𝐞𝐬", url="https://t.me/KyotoAnimation_Offical"),
+                       InlineKeyboardButton(text="[► 𝐀𝐛𝐨𝐮𝐭 ◄]", callback="about_"),
                      ],
                     [                  
                        InlineKeyboardButton(
-                             text="🚑 Support",
+                             text="🚑 𝐒𝐮𝐩𝐩𝐨𝐫𝐭",
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                        InlineKeyboardButton(
-                             text="📢 Updates",
+                             text="📢 𝐔𝐩𝐝𝐚𝐭𝐞𝐬",
                              url="https://t.me/Black_Knights_Union")
                      ], 
     ]
@@ -285,10 +285,10 @@ def start(update: Update, context: CallbackContext):
                 [
                   [                  
                        InlineKeyboardButton(
-                             text="Support🚑",
+                             text="𝐒𝐮𝐩𝐩𝐨𝐫𝐭🚑",
                              url=f"https://t.me/NekoXSupport"),
                        InlineKeyboardButton(
-                             text="Updates🛰️",
+                             text="𝐔𝐩𝐝𝐚𝐭𝐞𝐬🛰️",
                              url="https://t.me/Black_Knights_Union")
                      ] 
                 ]
@@ -381,7 +381,7 @@ def help_button(update, context):
 
 
 @run_async
-def cutiepii_callback_data(update, context):
+def neko_callback_data(update, context):
     query = update.callback_query
     uptime = get_readable_time((time.time() - StartTime))
     if query.data == "neko_":
@@ -392,7 +392,7 @@ def cutiepii_callback_data(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="[► Back ◄]", callback_data="neko_back")
+                    InlineKeyboardButton(text="[► 𝐁𝐚𝐜𝐤 ◄]", callback_data="neko_back")
                  ]
                 ]
             ),
@@ -436,7 +436,7 @@ def get_help(update: Update, context: CallbackContext):
             reply_markup=InlineKeyboardMarkup(
                 [
                   [
-                  InlineKeyboardButton(text="Click here", url="https://t.me/NekoXRobot?start=help")
+                  InlineKeyboardButton(text="𝐂𝐥𝐢𝐜𝐤 𝐇𝐞𝐫𝐞", url="https://t.me/NekoXRobot?start=help")
                   ]
                 ]
             ),
@@ -450,7 +450,7 @@ def get_help(update: Update, context: CallbackContext):
         send_help(
             chat.id, text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Back",
+                [[InlineKeyboardButton(text="𝐁𝐚𝐜𝐤",
                                        callback_data="help_back")]]))
 
     else:
