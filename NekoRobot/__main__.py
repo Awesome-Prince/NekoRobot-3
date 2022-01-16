@@ -95,7 +95,7 @@ buttons = [
                    [
                        InlineKeyboardButton(text="[► 𝐇𝐞𝐥𝐩 ◄]", callback_data="help_back"),
                        InlineKeyboardButton(text="❔𝐀𝐧𝐢𝐦𝐞𝐬", url="https://t.me/KyotoAnimation_Offical"),
-                       InlineKeyboardButton(text="[► 𝐀𝐛𝐨𝐮𝐭 ◄]", callback="about_"),
+                       InlineKeyboardButton(text="[► 𝐀𝐛𝐨𝐮𝐭 ◄]", callback_data="about_"),
                      ],
                     [                  
                        InlineKeyboardButton(
