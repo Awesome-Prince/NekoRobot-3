@@ -406,7 +406,7 @@ def neko_about_callback(update, context):
                 ]
             ),
         )
-        elif query.data == "neko_back":
+    elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
                 PM_START_TEXT.format(
