@@ -346,7 +346,7 @@ def help_button(update, context):
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="Back", callback_data="help_back")
+                        text="𝐁𝐚𝐜𝐤", callback_data="help_back")
                 ]]))
 
         elif prev_match:
@@ -379,7 +379,33 @@ def help_button(update, context):
     except BadRequest:
         pass
 
-
+@run_async
+def neko_about_callback(update, context):
+    query = update.callback_query
+    if query.data == "about_":
+        query.message.edit_text(
+            text=""" Neko - A bot to manage your groups with additional features!
+            \nHere's the basic help regarding use of Neko.
+            
+            \nAlmost all modules usage defined in the help menu, checkout by sending `/help`
+            \nReport error/bugs click the Button""",
+            parse_mode=ParseMode.MARKDOWN,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            text="Bᴜɢ'ꜱ", url="t.me/SiderzChat"
+                        ),
+                        InlineKeyboardButton(
+                            text="Bᴏᴛ Lɪꜱᴛ", url="t.me/SiderzBot/11"
+                        ),
+                    ],
+                    [InlineKeyboardButton(text="Back", callback_data="neko_back")],
+                ]
+            ),
+        )
+        
 @run_async
 def neko_callback_data(update, context):
     query = update.callback_query
