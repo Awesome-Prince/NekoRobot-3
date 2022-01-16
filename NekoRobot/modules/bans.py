@@ -32,7 +32,7 @@ from telegram.utils.helpers import mention_html
 from NekoRobot import (
     DEV_USERS,
     SUDO_USERS,
-    WOLF_USERS,
+    DEMONS,
     SUPPORT_USERS,
     OWNER_ID,
     WHITELIST_USERS,
@@ -113,7 +113,7 @@ def ban(update: Update, context: CallbackContext) -> Optional[str]:  # sourcery 
             message.reply_text("My sudos are ban immune")
         elif user_id in SUPPORT_USERS:
             message.reply_text("My support users are ban immune")
-        elif user_id in WOLF_USERS:
+        elif user_id in DEMONS:
             message.reply_text("Bring an order from Eagle Union to fight a Sardegna.")
         elif user_id in WHITELIST_USERS:
             message.reply_text("Neptunians are ban immune!")
