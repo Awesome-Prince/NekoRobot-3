@@ -689,7 +689,7 @@ def main():
     settings_callback_handler = CallbackQueryHandler(
         settings_button, pattern=r"stngs_")
 
-    about_callback_handler = CallbackQueryHandler(neko_callback_data, pattern=r("neko_")
+    about_callback_handler = CallbackQueryHandler(neko_callback_data, pattern=r"neko_")
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate,
                                      migrate_chats)
