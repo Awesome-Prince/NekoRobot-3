@@ -2,7 +2,7 @@ import threading
 import traceback
 
 from sqlalchemy.sql.sqltypes import BigInteger
-from tg_bot.modules.sql import BASE, SESSION
+from NekoRobot.modules.sql import BASE, SESSION
 from sqlalchemy import Column, String
 from sqlalchemy.dialects import postgresql
 
