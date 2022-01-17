@@ -10,7 +10,7 @@ def start() -> scoped_session:
     log.info("[PostgreSQL] Connecting to database......")
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine)
-    return scoped_session(sessionmaker(bind=engine, autoflush=False))
+    return scoped_session(sessionmaker(bind=engine, autoflush=True))
 
 
 BASE = declarative_base()
