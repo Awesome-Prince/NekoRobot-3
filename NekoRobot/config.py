@@ -16,14 +16,16 @@ class Config(object):
     # REQUIRED
     # Login to https://my.telegram.org and fill in these slots with the details given by it
 
-    API_ID = "1234"
-    API_HASH = "1234"
-    BOT_ID = "1234"
+    API_ID = 1234
+    API_HASH = 1234
+
+    BOT_ID = 1234
     TOKEN = ""  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 1732814103  # If you dont know, run the bot and do /id in your private chat with it, also an integer
     OWNER_USERNAME = "Horimaya"
-    SUDO_USERS = "1700123830"
-    SUPPORT_USERS = "2099092782"
+    SUDO_USERS = 1700123830
+    SUPPORT_USERS = 1233
+
     SUPPORT_CHAT = "NekoXSupport"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
         -1001739802989
@@ -33,7 +35,7 @@ class Config(object):
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
     # RECOMMENDED
-    SQLALCHEMY_DATABASE_URI = "1234"  # needed for any database modules
+    SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
     REDIS_URI = "1234"
 
 
