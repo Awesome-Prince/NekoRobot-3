@@ -29,7 +29,7 @@ from NekoRobot import DB_URI, KInit, log
 
 
 def start() -> scoped_session:
-    engine = create_engine(DB_URI, client_encoding="utf8", echo=KInit.DEBUG)
+    engine = create_engine(DB_URI, client_encoding="utf8", echo=DEBUG)
     log.info("[PostgreSQL] Connecting to database......")
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine)
