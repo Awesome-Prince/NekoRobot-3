@@ -26,7 +26,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 from NekoRobot import DB_URI, logging
-
+from NekoRobot.logging import DEBUG
 
 def start() -> scoped_session:
     engine = create_engine(DB_URI, client_encoding="utf8", echo=DEBUG)
