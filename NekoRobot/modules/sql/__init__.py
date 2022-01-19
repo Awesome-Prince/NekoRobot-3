@@ -25,11 +25,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-from NekoRobot import DB_URI, logging, DEBUG
+from NekoRobot import DB_URI, logging
 
 
 def start() -> scoped_session:
-    engine = create_engine(DB_URI, client_encoding="utf8", echo=DEBUG)
+    engine = create_engine(DB_URI, client_encoding="utf8")
     logging.info("[PostgreSQL] Connecting to database......")
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine)
