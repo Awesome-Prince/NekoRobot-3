@@ -25,12 +25,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-from NekoRobot import DB_URI, log
+from NekoRobot import DB_URI, logging
 
 
 def start() -> scoped_session:
     engine = create_engine(DB_URI, client_encoding="utf8", echo=DEBUG)
-    log.info("[PostgreSQL] Connecting to database......")
+    logging.info("[PostgreSQL] Connecting to database......")
     BASE.metadata.bind = engine
     BASE.metadata.create_all(engine)
     return scoped_session(sessionmaker(bind=engine, autoflush=True))
@@ -40,7 +40,7 @@ BASE = declarative_base()
 try:
     SESSION: scoped_session = start()
 except Exception as e:
-    log.exception(f'[PostgreSQL] Failed to connect due to {e}')
+    logging.exception(f'[PostgreSQL] Failed to connect due to {e}')
     exit()
    
-log.info("[PostgreSQL] Connection successful, session started.")
+logging.info("[PostgreSQL] Connection successful, session started.")
