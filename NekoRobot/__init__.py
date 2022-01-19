@@ -31,7 +31,7 @@ import aiohttp
 import telegram.ext as tg
 from redis import StrictRedis
 from pyrogram import Client, errors
-from telethon.sessions import StringSession
+from telethon.sessions import MemorySession
 from telethon import TelegramClient
 from aiohttp import ClientSession
 from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
@@ -45,7 +45,7 @@ logging.basicConfig(
               logging.StreamHandler()],
     level=logging.INFO)
 
-LOGGER = logging.getLogger("[NeKoXRoBot]")
+LOGGER = logging.getLogger("[NekoRobot]")
 
 # if version < 3.6, stop bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:
