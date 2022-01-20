@@ -65,7 +65,7 @@ nltk==3.6.5
 futures==3.1.1
 ffmpeg==1.4
 ffmpeg-python
-
+markdown2
 youtube-search-python
 asyncio
 dateparser==1.0.0
