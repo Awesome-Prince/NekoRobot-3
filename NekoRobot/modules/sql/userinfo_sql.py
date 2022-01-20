@@ -24,7 +24,7 @@ SOFTWARE.
 import threading
 
 from NekoRobot.modules.sql import BASE, SESSION
-from sqlalchemy import Column, Integer, UnicodeText, BigInt
+from sqlalchemy import Column, Integer, UnicodeText, BigInt,
 
 
 class UserInfo(BASE):
