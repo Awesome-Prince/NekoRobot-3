@@ -95,7 +95,7 @@ buttons = [
                    [
                        InlineKeyboardButton(text="[► 𝐇𝐞𝐥𝐩 ◄]", callback_data="help_back"),
                        InlineKeyboardButton(text="❔𝐀𝐧𝐢𝐦𝐞𝐬", url="https://t.me/KyotoAnimation_Offical"),
-                       InlineKeyboardButton(text="[► 𝐏𝐫𝐢𝐧𝐜𝐞 ◄]", url="t.me/Horimaya"),
+                       InlineKeyboardButton(text="[► 𝐏𝐫𝐢𝐧𝐜𝐞 ◄]", url="t.me/Awesome_Prince"),
                      ],
                     [                  
                        InlineKeyboardButton(
@@ -151,7 +151,7 @@ NEKO_IMG = (
 )
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
-Click here to donate in [Telegram](https://t.me/Horimaya)"""
+Click here to donate in [Telegram](https://t.me/Awesome_Prince)"""
 
 IMPORTED = {}
 MIGRATEABLE = []
