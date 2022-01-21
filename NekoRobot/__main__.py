@@ -681,7 +681,28 @@ def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[Hey , My Darling Iam Still Alive!](https://telegra.ph/file/64ee5f3252027eb80c882.mp4)", parse_mode=ParseMode.MARKDOWN) 
+            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[Iam Alive!](https://telegra.ph/file/4533d130b73a7dd20b83d.jpg)", parse_mode=ParseMode.MARKDOWN,
+
+            reply_markup=InlineKeyboardMarkup(
+
+                [
+
+                  [                  
+
+                       InlineKeyboardButton(
+
+                             text="[► Summon Me ◄]",
+
+                             url=f"t.me/NekoXRobot?startgroup=true"),
+
+
+                     ] 
+
+                ]
+
+            ),
+
+        ) " 
         except Unauthorized:
             LOGGER.warning(
                 "Bot isnt able to send message to support_chat, go and check!")
