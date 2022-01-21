@@ -51,7 +51,7 @@ alphabet_detector
 pybase64
 pySmartDL
 validators
-nekos.py
+nekos.py==1.0.3
 aiofiles
 pyrate-limiter
 cachetools
@@ -95,3 +95,4 @@ cloudmersive_virus_api_client
 youtube_search
 pretty-errors
 odmantic
+pyrogram
