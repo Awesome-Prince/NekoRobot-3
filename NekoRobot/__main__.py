@@ -127,12 +127,12 @@ I Use My Powers To Help Admins To Manage Their Groups!
  ➛ /settings:
    • in PM: will send you your settings for all supported modules.
    • in a group: will redirect you to pm, with all that chat's settings.
-For all command use /* [or](https://telegra.ph/file/38b445b037f81c0f53bd2.jpg) *!* 
+For all command use /* [or](https://telegra.ph/file/9bc1f4196f8942392c499.jpg) *!* 
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
 
-HELP_IMG = "https://telegra.ph/file/3bf1c58be585793e354ca.jpg"
+HELP_IMG = "https://telegra.ph/file/8f409f690d3e3c23ba23f.jpg"
 
 PM_START_IMG = (
           "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
@@ -142,13 +142,9 @@ PM_START_IMG = (
   )
 
 NEKO_IMG = (
-      "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
-      "https://telegra.ph/file/0cea56d9625f265ecc9db.mp4",
-      "https://telegra.ph/file/a131993b0f1e8517eacb2.mp4",
-      "https://telegra.ph/file/6f43ded36dba5f256bba7.mp4",
-      "https://telegra.ph/file/61acd313cc536bd1c6217.mp4",
-      "https://telegra.ph/file/f329cdd740c55bf955deb.mp4",
-)
+      "https://telegra.ph/file/005aecdce2b0c3f4aff43.mp4",
+      "https://telegra.ph/file/3f427714b4d880a658eab.mp4",
+      )
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
 Click here to donate in [Telegram](https://t.me/Awesome_Prince)"""
@@ -263,7 +259,6 @@ def start(update: Update, context: CallbackContext):
             update.effective_message.reply_text(
                 PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
-                    random.choice(PM_START_IMG),
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
