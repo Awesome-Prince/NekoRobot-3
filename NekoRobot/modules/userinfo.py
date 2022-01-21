@@ -51,7 +51,7 @@ from NekoRobot.modules.helper_funcs.extraction import extract_user
 from NekoRobot import telethn
 from NekoRobot import pbot
 
-NEKO_IMG = "https://telegra.ph/file/08212b07b1d1195cf2874.jpg"
+NEKO_IMG = "https://telegra.ph/file/703ebbb52ee64c0cfcf84.jpg"
 
 def no_by_per(totalhp, percentage):
     """
