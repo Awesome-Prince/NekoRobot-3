@@ -1,7 +1,7 @@
 # Neko
 <p>
 
-  <a href="https://t.me/NekoXRobot"><img src="https://telegra.ph/file/2b14a861b2835dfe34712.mp4" /></a>
+  <a href="https://t.me/NekoXRobot"><img src="https://telegra.ph/file/38d8d80632bca0556aae9.jpg" /></a>
 
     
 
@@ -21,9 +21,9 @@
 
 A modular Telegram Group Management bot made using [Neko](https://t.me/NekoXRobot) as base repo.
 
-Can be found on telegram as [Neko Chan](https://t.me/NekoXRobot).
+Can be found on telegram as [Neko Robot](https://t.me/NekoXRobot).
 
-The Support group can be reached out to at [Neko Support](https://t.me/NekoXSupport), where you can ask for help about [Neko Chan](https://t.me/NekoXRobot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
+The Support group can be reached out to at [Neko Support](https://t.me/NekoXSupport), where you can ask for help about [Neko Robot](https://t.me/NekoXRobot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
 
 ## How to setup/deploy.
 
