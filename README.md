@@ -1,5 +1,12 @@
 # Neko
-![Neko](https://telegra.ph/file/2b14a861b2835dfe34712.mp4)
+<p>
+
+  <a href="https://t.me/NekoXRobot"><img src="https://telegra.ph/file/2b14a861b2835dfe34712.mp4" /></a>
+
+    
+
+ </p>
+
 
 # Railway Deploy
 [![Deploy To Railway](https://railway.app/button.svg)](https://railway.app)
