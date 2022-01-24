@@ -16,10 +16,10 @@ from telegram import TelegramError, Update
 from telegram.ext import run_async, CallbackContext
 from telegram.utils.helpers import mention_html
 
-from KURUMIBOT import dispatcher
-from KURUMIBOT.modules.disable import DisableAbleCommandHandler
-from KURUMIBOT.events import register as Cutiepii
-from KURUMIBOT import telethn as bot
+from NekoRobot import dispatcher
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.events import register as Cutiepii
+from NekoRobot import telethn as bot
 
 combot_stickers_url = "https://combot.org/telegram/stickers?q="
 
@@ -138,7 +138,7 @@ def kang(update: Update, context: CallbackContext):
         elif msg.reply_to_message.sticker and msg.reply_to_message.sticker.emoji:
             sticker_emoji = msg.reply_to_message.sticker.emoji
         else:
-            sticker_emoji = "👀"
+            sticker_emoji = "💜"
 
         if not is_animated:
             try:
