@@ -2,8 +2,8 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from KURUMIBOT import pgram as app
-from KURUMIBOT.utils.errors import capture_err
+from NekoRobot import pgram as app
+from NekoRobot.utils.errors import capture_err
 
 __MODULE__ = "WebSS"
 __HELP__ = "/webss | .webss [URL] - Take A Screenshot Of A Webpage"
