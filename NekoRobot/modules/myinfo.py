@@ -17,11 +17,11 @@ from NekoRobot import dispatcher
 
 edit_time = 5
 """ =======================CONSTANTS====================== """
-file1 = "https://telegra.ph/file/0eaa3fff64d8c82347b3e.jpg"
-file2 = "https://telegra.ph/file/3cab40c48f095f3307da4.jpg"
-file3 = "https://telegra.ph/file/7319947cede4fef8ba841.jpg"
-file4 = "https://telegra.ph/file/665cd1fe141d78d19c072.jpg"
-file5 = "https://telegra.ph/file/d96a1255cfa3bf9daf2d1.jpg"
+file1 = "https://telegra.ph/file/36440524ecd0a6b65138f.jpg"
+file2 = "https://telegra.ph/file/b0868af85d1d17554a6d4.jpg"
+file3 = "https://telegra.ph/file/60c612b4736560f9b98b9.jpg"
+file4 = "https://telegra.ph/file/a502e6322a201f5949058.jpg"
+file5 = "https://telegra.ph/file/737a7b4d519887c35ed21.jpg"
 """ =======================CONSTANTS====================== """
 
 @register(pattern="/myinfo")
