@@ -71,7 +71,7 @@ async def callback_query_handler(event):
     NEKO += f"RESTRICTED : {PRO.restricted} \n"
     NEKO += f"USER ID : {boy}\n"
     NEKO += f"USERNAME : {PRO.username}\n"
-    await event.answer(LILIE, alert=True)
+    await event.answer(NEKO, alert=True)
   except Exception as e:
     await event.reply(f"{e}")
 
