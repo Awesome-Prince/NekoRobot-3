@@ -107,7 +107,37 @@ buttons = [
                      ], 
     ]
 
+SECOND_PM_START_TEXT = """
+────「 [{}](https://telegra.ph/file/36bb5b56abdf4ca7a07e5.jpg) 」────
+*やあ! {} My Darling, Iam your SweetHeart💜,
+I am an Anime themed advance group management bot with a lot of Sexy Features.*
+➖➖➖➖➖➖➖➖➖➖➖➖➖
+◈ *Uptime:* `{}`
+◈ `{}` *users, across* `{}` *chats.*
+➖➖➖➖➖➖➖➖➖➖➖➖➖
+➢ Try The Help Buttons Below To Know My Abilities 
+"""
 
+buttons = [
+    [
+                        InlineKeyboardButton(
+                            text=f"Add Neko To Your Group",
+                            url=f"t.me/NekoXRobot?startgroup=true")
+                    ],
+                   [
+                       InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
+                       InlineKeyboardButton(text="❔Animes", url="https://t.me/KyotoAnimation_Offical"),
+                       InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-2"),
+                     ],
+                    [                  
+                       InlineKeyboardButton(
+                             text="🚑 Support",
+                             url=f"https://t.me/{SUPPORT_CHAT}"),
+                       InlineKeyboardButton(
+                             text="📢 Updates",
+                             url="https://t.me/Black_Knights_Union")
+                     ], 
+    ]
 
 
 
@@ -429,7 +459,7 @@ def neko_callback_data(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="[► 𝐁𝐚𝐜𝐤 ◄]", callback_data="neko_back")
+                    InlineKeyboardButton(text="[► Back ◄]", callback_data="neko_back")
                  ]
                 ]
             ),
@@ -437,9 +467,8 @@ def neko_callback_data(update, context):
     elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
-                PM_START_TEXT.format(
+                SECOND_PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
-                    random.choice(PM_START_IMG),
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
