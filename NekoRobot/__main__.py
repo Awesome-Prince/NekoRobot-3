@@ -502,7 +502,7 @@ def get_help(update: Update, context: CallbackContext):
             reply_markup=InlineKeyboardMarkup(
                 [
                   [
-                  InlineKeyboardButton(text="𝐂𝐥𝐢𝐜𝐤 𝐇𝐞𝐫𝐞", url="https://t.me/NekoXRobot?start=help")
+                  InlineKeyboardButton(text="Click Here", url="https://t.me/NekoXRobot?start=help")
                   ]
                 ]
             ),
@@ -516,7 +516,7 @@ def get_help(update: Update, context: CallbackContext):
         send_help(
             chat.id, text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="𝐁𝐚𝐜𝐤",
+                [[InlineKeyboardButton(text="Back",
                                        callback_data="help_back")]]))
 
     else:
