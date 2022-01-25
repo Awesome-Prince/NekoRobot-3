@@ -1,8 +1,8 @@
 import random
 from PIL import Image
-from KURUMIBOT import telethn as miku
+from NekoRobot import telethn as neko
 from telethon import events
-@miku.on(events.NewMessage(pattern="/wish ?(.*)"))
+@neko.on(events.NewMessage(pattern="/wish ?(.*)"))
 async def wish(e):
 
  if e.is_reply:
