@@ -89,20 +89,20 @@ I am an Anime themed advance group management bot with a lot of Sexy Features.*
 buttons = [
     [
                         InlineKeyboardButton(
-                            text=f"𝐀𝐝𝐝 𝐍𝐞𝐤𝐨 𝐓𝐨 𝐘𝐨𝐮𝐫 𝐆𝐫𝐨𝐮𝐩",
+                            text=f"Add Neko To Your Group",
                             url=f"t.me/NekoXRobot?startgroup=true")
                     ],
                    [
-                       InlineKeyboardButton(text="[► 𝐇𝐞𝐥𝐩 ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔𝐀𝐧𝐢𝐦𝐞𝐬", url="https://t.me/KyotoAnimation_Offical"),
-                       InlineKeyboardButton(text="[► 𝐏𝐫𝐢𝐧𝐜𝐞 ◄]", url="t.me/Awesome_Prince"),
+                       InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
+                       InlineKeyboardButton(text="❔Animes", url="https://t.me/KyotoAnimation_Offical"),
+                       InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-2"),
                      ],
                     [                  
                        InlineKeyboardButton(
-                             text="🚑 𝐒𝐮𝐩𝐩𝐨𝐫𝐭",
+                             text="🚑 Support",
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                        InlineKeyboardButton(
-                             text="📢 𝐔𝐩𝐝𝐚𝐭𝐞𝐬",
+                             text="📢 Updates",
                              url="https://t.me/Black_Knights_Union")
                      ], 
     ]
@@ -280,10 +280,10 @@ def start(update: Update, context: CallbackContext):
                 [
                   [                  
                        InlineKeyboardButton(
-                             text="𝐒𝐮𝐩𝐩𝐨𝐫𝐭🚑",
+                             text="Support🚑",
                              url=f"https://t.me/NekoXSupport"),
                        InlineKeyboardButton(
-                             text="𝐔𝐩𝐝𝐚𝐭𝐞𝐬🛰️",
+                             text="Updates🛰️",
                              url="https://t.me/Black_Knights_Union")
                      ] 
                 ]
@@ -341,7 +341,7 @@ def help_button(update, context):
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup([[
                     InlineKeyboardButton(
-                        text="𝐁𝐚𝐜𝐤", callback_data="help_back")
+                        text="Back", callback_data="help_back")
                 ]]))
 
         elif prev_match:
@@ -391,7 +391,7 @@ def neko_about_callback(update, context):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Master", url="t.me/Horimaya"
+                            text="Master", url="t.me/Awesome-Prince"
                         ),
                         InlineKeyboardButton(
                             text="Developer", url="t.me/H0daka"
