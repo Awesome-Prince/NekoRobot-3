@@ -9,10 +9,10 @@ from datetime import datetime
 import random
 from PIL import Image
 from io import BytesIO
-from KURUMIBOT import telethn as bot
-from KURUMIBOT import telethn as tgbot
-from KURUMIBOT.events import register
-from KURUMIBOT import dispatcher
+from NekoRobot import telethn as bot
+from NekoRobot import telethn as tgbot
+from NekoRobot.events import register
+from NekoRobot import dispatcher
 
 
 edit_time = 5
@@ -30,7 +30,7 @@ async def proboyx(event):
     current_time = datetime.utcnow()
     betsy = event.sender.first_name
     button = [[custom.Button.inline("Click Here",data="information")]]
-    on = await bot.send_file(event.chat_id, file=file2,caption= f"♡ Hey {betsy}, I'm Miku\n♡ I'm Created By [卄σ∂αкα](tg://user?id=2099092782)\n♡ Click The Button Below To Get Your Info", buttons=button)
+    on = await bot.send_file(event.chat_id, file=file2,caption= f"♡ Hey {betsy}, I'm Neko\n♡ I'm Created By [Prince](tg://user?id=1732814103)\n♡ Click The Button Below To Get Your Info", buttons=button)
 
     await asyncio.sleep(edit_time)
     ok = await bot.edit_message(event.chat_id, on, file=file3, buttons=button) 
@@ -64,13 +64,13 @@ async def callback_query_handler(event):
   try:
     boy = event.sender_id
     PRO = await bot.get_entity(boy)
-    LILIE = "YOUR DETAILS BY MIKU \n\n"
-    LILIE += f"FIRST NAME : {PRO.first_name} \n"
-    LILIE += f"LAST NAME : {PRO.last_name}\n"
-    LILIE += f"YOU BOT : {PRO.bot} \n"
-    LILIE += f"RESTRICTED : {PRO.restricted} \n"
-    LILIE += f"USER ID : {boy}\n"
-    LILIE += f"USERNAME : {PRO.username}\n"
+    NEKO = "YOUR DETAILS BY NEKO \n\n"
+    NEKO += f"FIRST NAME : {PRO.first_name} \n"
+    NEKO += f"LAST NAME : {PRO.last_name}\n"
+    NEKO += f"YOU BOT : {PRO.bot} \n"
+    NEKO += f"RESTRICTED : {PRO.restricted} \n"
+    NEKO += f"USER ID : {boy}\n"
+    NEKO += f"USERNAME : {PRO.username}\n"
     await event.answer(LILIE, alert=True)
   except Exception as e:
     await event.reply(f"{e}")
@@ -79,7 +79,7 @@ __help__ = """
 /myinfo: shows your info in inline button
 """
 
-__mod_name__ = "myinfoℹ️"
+__mod_name__ = "myinfo"
 __command_list__ = [
     "myinfo"
 ]
