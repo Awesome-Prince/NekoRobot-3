@@ -434,9 +434,8 @@ def neko_about_callback(update, context):
     elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
-                PM_START_TEXT.format(
+                SECOND_PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
-                    random.choice(PM_START_IMG),
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
