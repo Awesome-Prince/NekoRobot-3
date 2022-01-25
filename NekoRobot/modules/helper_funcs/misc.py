@@ -96,12 +96,12 @@ def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
     # can only have a certain amount of buttons side by side
     if len(pairs) > 8:
         pairs = pairs[modulo_page * 8:8 * (modulo_page + 1)] + [
-            (EqInlineKeyboardButton("⫷", callback_data="{}_prev({})".format(prefix, modulo_page)),
-                EqInlineKeyboardButton("Close", callback_data="cutiepii_back"),
-             EqInlineKeyboardButton("⫸", callback_data="{}_prev({})".format(prefix, modulo_page)))]
+            (EqInlineKeyboardButton("«", callback_data="{}_prev({})".format(prefix, modulo_page)),
+                EqInlineKeyboardButton("Close", callback_data="neko_back"),
+             EqInlineKeyboardButton("»", callback_data="{}_prev({})".format(prefix, modulo_page)))]
 
     else:
-        pairs += [[EqInlineKeyboardButton("Close", callback_data="cutiepii_back")]]
+        pairs +=[[EqInlineKeyboardButton("Close", callback_data="neko_back")]]
 
     return pairs
 
