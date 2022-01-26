@@ -126,7 +126,7 @@ pytube==11.0.1
 pytweening==1.0.4
 
 ratelim==0.1.6
-requests==2.26.0
+requests==2.27.1
 six==1.16.0
 soupsieve==2.2.1
 SpeechRecognition==3.8.1
