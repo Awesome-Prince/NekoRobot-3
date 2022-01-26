@@ -6,11 +6,11 @@ import datetime
 import os
 import sys
 import smtplib
-from NekoRobot.neko.adv_modules.news import speak_news, getNewsUrl
-from OCR import OCR
-from diction import translate
-from helpers import *
-from youtube import youtube
+from NekoRobot.adv_modules.news import speak_news, getNewsUrl
+from NekoRobot.adv_modules.OCR import OCR
+from NekoRobot.adv_modules.diction import translate
+from NekoRobot.adv_modules.helpers import *
+from NekoRobot.adv_modules.youtube import youtube
 from sys import platform
 import os
 import getpass
