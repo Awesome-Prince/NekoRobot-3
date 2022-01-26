@@ -1,7 +1,7 @@
 """
 MIT License
 Copyright (C) 2017-2019, Paul Larsen
-Copyright (C) 2022 Hodacka
+Copyright (C) 2022 Awesome-Prince
 Copyright (c) 2022, Yūki • Black Knights Union, <https://github.com/Hodacka/NekoRobot-3>
 This file is part of @NekoXRobot (Telegram Bot)
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -52,9 +52,9 @@ def shell(update: Update, context: CallbackContext):
         reply += f"*Stderr*\n`{stderr}`\n"
         LOGGER.error(f"Shell - {cmd} - {stderr}")
     if len(reply) > 3000:
-        with open('shell_output.txt', 'w') as file:
+        with open('Giv_Credits.py', 'w') as file:
             file.write(reply)
-        with open('shell_output.txt', 'rb') as doc:
+        with open('Giv_Credits.py', 'rb') as doc:
             context.bot.send_document(
                 document=doc,
                 filename=doc.name,
