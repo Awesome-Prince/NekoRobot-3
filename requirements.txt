@@ -21,7 +21,7 @@ faker
 markdown
 beautifulsoup4
 opencv-python-headless
-requests==2.20.0
+requests==
 sqlalchemy==1.3.23
 psycopg2-binary
 feedparser
