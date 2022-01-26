@@ -1,26 +1,26 @@
 <h2 align="center">
-    ──「𝐂𝐡𝐢𝐤𝐚 𝐅𝐮𝐣𝐢𝐰𝐚𝐫𝐚」──
+    ──「𝐍𝐞𝐤𝐨 𝐑𝐨𝐛𝐨𝐭」──
 </h2>
 
 <p align="center">
-  <img src="https://telegra.ph/file/193b10ac0eefdc9316a8e.jpg">
+  <img src="https://telegra.ph/file/38d8d80632bca0556aae9.jpg">
 </p>
 
 <p align="center">
-<a href="https://app.codacy.com/gh/Wahyu213/ChikaFujiwaraProBot?utm_source=github.com&utm_medium=referral&utm_content=Wahyu213/ChikaFujiwaraProBot&utm_campaign=Badge_Grade_Settings" alt="Codacy Badge">
+<a href="https://app.codacy.com/gh/Awesome-Prince/NekoRobot?utm_source=github.com&utm_medium=referral&utm_content=Awesome-Prince/NekoRobot&utm_campaign=Badge_Grade_Settings" alt="Codacy Badge">
 <img src="https://api.codacy.com/project/badge/Grade/6141417ceaf84545bab6bd671503df51" /> </a>
-<a href="https://github.com/Wahyu213/ChikaFujiwaraRobot" alt="Libraries.io dependency status for GitHub repo"> <img src="https://img.shields.io/librariesio/github/animekaizoku/SaitamaRobot" /> </a>
+<a href="https://github.com/Awesome-Prince/NekoRobot" alt="Libraries.io dependency status for GitHub repo"> <img src="https://img.shields.io/librariesio/github/animekaizoku/SaitamaRobot" /> </a>
 </p>
 <p align="center">
-<a href="https://github.com/Wahyu213/ChikaFujiwaraProBot" alt="GitHub release (latest by date including pre-releases)"> <img src="https://img.shields.io/github/v/release/animekaizoku/saitamarobot?include_prereleases?style=flat&logo=github" /> </a>
+<a href="https://github.com/Awesome-Prince/NekoRobot" alt="GitHub release (latest by date including pre-releases)"> <img src="https://img.shields.io/github/v/release/animekaizoku/saitamarobot?include_prereleases?style=flat&logo=github" /> </a>
 <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg?style=flat&logo=python&color=blue" /> </a>
-<a href="https://t.me/zenfrans" alt="Zen!"> <img src="https://aleen42.github.io/badges/src/telegram.svg" /> </a>
+<a href="https://t.me/Awesome_Prince" alt="Owner!"> <img src="https://aleen42.github.io/badges/src/telegram.svg" /> </a>
 
 ## Starting the bot.
 
 Once you've setup your database and your configuration (see below) is complete, simply run:
 
-`python3 -m tg_bot`
+`python3 -m NekoRobot`
 
 
 ## Setting up the bot (Read this before trying to use!):
@@ -45,15 +45,12 @@ from tg_bot.sample_config import Config
 
 
 class Development(Config):
-    OWNER_ID = 1938466384  # my telegram ID
-    OWNER_USERNAME = "zenfrans"  # my telegram username
+    OWNER_ID = 12234  # my telegram ID
+    OWNER_USERNAME = "Awesome-Prince"  # my telegram username
     API_KEY = "your bot api key"  # my api key, as provided by the botfather
     SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost:5432/database'  # sample db credentials
-    MESSAGE_DUMP = '-1234567890' # some group chat that your bot is a member of
-    USE_MESSAGE_DUMP = True
-    SUDO_USERS = [1674247332, 1848248678]  # List of id's for users which have sudo access to the bot.
     LOAD = []
-    NO_LOAD = ['translation']
+    NO_LOAD = ['rss]
 ```
 
 If you can't have a config.py file (EG on heroku), it is also possible to use environment variables.
@@ -65,7 +62,6 @@ The following env variables are supported:
  - `OWNER_USERNAME`: Your username
 
  - `DATABASE_URL`: Your database URL
- - `MESSAGE_DUMP`: optional: a chat where your replied saved messages are stored, to stop people deleting their old 
  - `LOAD`: Space separated list of modules you would like to load
  - `NO_LOAD`: Space separated list of modules you would like NOT to load
  - `WEBHOOK`: Setting this to ANYTHING will enable webhooks when in env mode
@@ -138,15 +134,15 @@ repeat for your username, password, hostname (localhost?), port (5432?), and db 
 
 ## NOTE:
 
-  I'm making this note to whoever comes to see this repo. (I came through a lot to make this bot) - I would not say such dumb thing like this, the whole credits goes to [tg_bot](https://github.com/PaulSonOfLars/tgbot.git). You might ask me what you did?, well i did some edits with my knowledge to make this bot like my own. I don't give a shit about any illegal problems if anyone comes with that GPLv3 license stuff. After all i came through a lot from many developers, No one ever told me/us anything not even a simple guide. So i will make this repo public so anyone can learn or get code from here for my future updates.
+  I'm making this note to whoever comes to see this repo. (I came through a lot to make this bot) - I would not say such dumb thing like this, the whole credits goes to [tg_bot](https://github.com/Awesome-Rj/CutiepiiRobot.git). You might ask me what you did?, well i did some edits with my knowledge to make this bot like my own. I don't give a shit about any illegal problems if anyone comes with that GPLv3 license stuff. After all i came through a lot from many developers, No one ever told me/us anything not even a simple guide. So i will make this repo public so anyone can learn or get code from here for my future updates.
 ## Bot stuff
     
-* Bot Support chat : [Support](https://t.me/OkaeriUserbot)
-* Bot News/Updates : [update](https://t.me/nbzoning)
+* Bot Support chat : [Support](https://t.me/NekoXSupport)
+* Bot Updates : [update](https://t.me/Black_Knights_Union)
 
 ## CREDITS
 
-This whole repo was forked and edited from [tg_bot](https://github.com/PaulSonOfLars/tgbot.git)
+This whole repo was forked and edited from [Cutiepii_Robot](https://github.com/Awesome-Rj/CutiepiiRobot.git)
 Appropriate copyright and Code ownership goes to the respective creators/developers/owners.
 Some code has been created by my own and my team.
 I thank everyone who is behind this huge project. 
