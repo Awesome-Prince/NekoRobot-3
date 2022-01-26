@@ -6,7 +6,7 @@ import datetime
 import os
 import sys
 import smtplib
-from news import speak_news, getNewsUrl
+from NekoRobot.neko.adv_modules.news import speak_news, getNewsUrl
 from OCR import OCR
 from diction import translate
 from helpers import *
