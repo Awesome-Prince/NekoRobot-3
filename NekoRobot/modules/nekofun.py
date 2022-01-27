@@ -28,3 +28,6 @@ from asyncio import gather, get_event_loop, sleep
 from aiohttp import ClientSession
 from pyrogram import Client, filters, idle
 from Python_ARQ import ARQ
+
+if "?" in responsess:
+        responsess2 = responsess.replace("?", "Nani?👀")
