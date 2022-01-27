@@ -21,7 +21,7 @@ engine.setProperty('voice', voices[0].id)
 
 # print(voices[0].id)
 
-class Jarvis:
+class Neko:
     def __init__(self) -> None:
         if platform == "linux" or platform == "linux2":
             self.chrome_path = '/usr/bin/google-chrome'
@@ -230,7 +230,7 @@ class Jarvis:
 
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     bot_ = Neko()
     bot_.wishMe()
     while True:
