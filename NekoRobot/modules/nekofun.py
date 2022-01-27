@@ -29,5 +29,5 @@ from aiohttp import ClientSession
 from pyrogram import Client, filters, idle
 from Python_ARQ import ARQ
 
-if "?" in responsess:
-        responsess2 = responsess.replace("?", "Nani?👀")
+if "?" in response:
+        response2 = response.replace("?", "Nani?👀")
