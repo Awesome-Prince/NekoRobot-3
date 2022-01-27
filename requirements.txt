@@ -112,7 +112,7 @@ loc==0.0.2
 MouseInfo==0.1.3
 Pillow==9.0.0
 psutil==5.8.0
-PyAudio
+PyAudio @ file:///C:/Users/Paulo/Documents/projects/hacktoberfest/NekoRobot/PyAudio-0.2.11-cp38-cp38-win_amd64.whl
 PyAutoGUI==0.9.53
 PyGetWindow==0.0.9
 pyjokes==0.6.0
