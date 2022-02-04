@@ -17,7 +17,7 @@ neko
 """
 
 @pbot.on_callback_query(filters.regex("neko"))
-async def okaybhai(_, CallbackQuery):
+async def neko(_, CallbackQuery):
     await CallbackQuery.answer("What's up!")
     out = start_pannel()
     await CallbackQuery.edit_message_text(
