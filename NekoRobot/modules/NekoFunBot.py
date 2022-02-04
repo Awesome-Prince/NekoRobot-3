@@ -1,7 +1,7 @@
 import asyncio
 import random
 import time
-import pbot as app
+from NekoRobot import pbot
 from sys import version as pyver
 from typing import Dict, List, Union
 
@@ -16,7 +16,7 @@ neko
 - check neko is online.
 """
 
-@app.on_callback_query(filters.regex("neko"))
+@pbot.on_callback_query(filters.regex("neko"))
 async def okaybhai(_, CallbackQuery):
     await CallbackQuery.answer("What's up!")
     out = start_pannel()
