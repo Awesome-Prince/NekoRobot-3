@@ -76,7 +76,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-────「 [{}](https://telegra.ph/file/36bb5b56abdf4ca7a07e5.jpg) 」────
+────「 [{}](https://telegra.ph/file/67de3d84438b478a1ce26.jpg) 」────
 *やあ! {} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -94,7 +94,7 @@ buttons = [
                     ],
                    [
                        InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔Animes", url="https://t.me/KyotoAnimation_Offical"),
+                       InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/Waifu_Hunters"),
                        InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-2"),
                      ],
                     [                  
@@ -108,7 +108,7 @@ buttons = [
     ]
 
 SECOND_PM_START_TEXT = """
-────「 [{}](https://telegra.ph/file/36bb5b56abdf4ca7a07e5.jpg) 」────
+────「 [{}](https://telegra.ph/file/67de3d84438b478a1ce26.jpg) 」────
 *やあ! {} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -152,17 +152,17 @@ HELP_STRINGS = """
 *{} is here! 
 I Use My Powers To Help Admins To Manage Their Groups! 
 *Main* commands available :
- ➛ /help: PM's you this message.
- ➛ /help <module name>: PM's you info about that module.
- ➛ /settings:
-   • in PM: will send you your settings for all supported modules.
-   • in a group: will redirect you to pm, with all that chat's settings.
-For all command use /* [or](https://telegra.ph/file/9bc1f4196f8942392c499.jpg) *!* 
+ ❥ /help: PM's you this message.
+ ❥ /help <module name>: PM's you info about that module.
+ ❥ /settings:
+   ✐ in PM: will send you your settings for all supported modules.
+   ✐ in a group: will redirect you to pm, with all that chat's settings.
+For all command use /* [or](https://telegra.ph/file/ea5474693c78c58b9cf81.jpg) *!* 
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
 
-HELP_IMG = "https://telegra.ph/file/8f409f690d3e3c23ba23f.jpg"
+HELP_IMG = "https://telegra.ph/file/ea5474693c78c58b9cf81.jpg"
 
 PM_START_IMG = (
           "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
@@ -172,8 +172,8 @@ PM_START_IMG = (
   )
 
 NEKO_IMG = (
-      "https://telegra.ph/file/005aecdce2b0c3f4aff43.mp4",
-      "https://telegra.ph/file/3f427714b4d880a658eab.mp4",
+      "https://telegra.ph/file/7e4913f409eb2419bc647.mp4",
+      "https://telegra.ph/file/85d18b849c4f3d6ae7b23.mp4",
       )
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
