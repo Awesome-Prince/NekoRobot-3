@@ -16,7 +16,7 @@ neko
 - check neko is online.
 """
 
-@pbot.on_callback_query(filters.regex("neko"))
+@pbot.on_callback_query(filters.regex("neko")
 async def neko(_, CallbackQuery):
     await CallbackQuery.answer("What's up!")
     out = start_pannel()
