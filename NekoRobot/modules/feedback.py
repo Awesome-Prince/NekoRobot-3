@@ -16,11 +16,11 @@ async def feedback(e):
     user_name = e.sender.first_name
     mention = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
     NEKO = (
-        "https://telegra.ph/file/74a0524a3effdcd95bc2f.jpg",
-        "https://telegra.ph/file/428fad92dd055364b5e3c.jpg",
-        "https://telegra.ph/file/2dd04f407b16bc2cfdf76.jpg",
-        "https://telegra.ph/file/affec1dd47c32c6968c7f.jpg",
-        "https://telegra.ph/file/42b9c60d1ac6bd113d963.jpg",
+        "https://telegra.ph/file/e5c3bbe019bcf1b9ae5f2.jpg",
+        "https://telegra.ph/file/0ba843f671d4a1a0a85bc.jpg",
+        "https://telegra.ph/file/a41b6429a30efb83eec1b.jpg",
+        "https://telegra.ph/file/43800df04a77f0c6283b8.jpg",
+        "https://telegra.ph/file/6e44ad8e4a2a1a9bafa5e.jpg",
     )
     UNFEED = ("https://telegra.ph/file/80eaba068d71e0715b425.jpg",)
     BUTTON = [[Button.url("View Feedback✨", f"https://t.me/NekoXRobot")]]
