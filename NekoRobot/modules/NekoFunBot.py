@@ -14,4 +14,9 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, run_async, CommandHandler, Filters
 
 
-
+@run_async
+@typing_action
+def neko(update, context):
+    message = update.effective_message
+    reply = random.choice(fun.NEKO)
+    message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
