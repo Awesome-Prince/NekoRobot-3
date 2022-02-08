@@ -1,28 +1,17 @@
-import asyncio
+import html
 import random
 import time
-from NekoRobot import pbot
-from sys import version as pyver
-from typing import Dict, List, Union
 
-import psutil
-from pyrogram import filters
-from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
-                            InlineKeyboardMarkup, Message)
+import NekoRobot.modules.funs as fun_strings
+from NekoRobot import dispatcher
+from NekoRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
+from NekoRobot.modules.helper_funcs.alternate import typing_action
+from NekoRobot.modules.helper_funcs.filters import CustomFilters
+from NekoRobot.modules.helper_funcs.extraction import extract_user
+from telegram import ChatPermissions, ParseMode, Update
+from telegram.error import BadRequest
+from telegram.ext import CallbackContext, run_async, CommandHandler, Filters
 
-__MODULE__ = "FunBot"
-__HELP__ = """
-neko 
-- check neko is online.
-"""
-
-@pbot.on_callback_query(filters.regex("neko"))
-async def neko(CallbackQuery):
-    await CallbackQuery.answer("What's up!")
-    out = start_pannel()
-    await CallbackQuery.edit_message_text(
-        text="Mewo (=^･ｪ･^=)",
-        reply_markup=InlineKeyboardMarkup(out[1]),
-    )
 
 
