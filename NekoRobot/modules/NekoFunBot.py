@@ -20,3 +20,8 @@ def neko(update, context):
     message = update.effective_message
     reply = random.choice(fun.NEKO)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
+
+    
+    GDNIGHT_HANDLER = DisableAbleMessageHandler(
+    Filters.regex(r"(?i)(Neko|neko)"), neko, friendly="neko"
+)
