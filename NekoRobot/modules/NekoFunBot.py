@@ -14,7 +14,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, run_async, CommandHandler, Filters
 
 
-Dispatcher.run_async
+
 @typing_action
 def neko.Dispatcher.run_async(update, context):
     message = update.effective_message
