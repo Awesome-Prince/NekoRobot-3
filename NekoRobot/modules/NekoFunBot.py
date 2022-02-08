@@ -22,6 +22,6 @@ def neko(update, context):
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
 
     
-    GDNIGHT_HANDLER = DisableAbleMessageHandler(
+    NEKO_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"(?i)(Neko|neko)"), neko, friendly="neko"
 )
