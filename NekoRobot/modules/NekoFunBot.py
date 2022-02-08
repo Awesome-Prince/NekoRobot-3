@@ -16,7 +16,7 @@ from telegram.ext import CallbackContext, run_async, CommandHandler, Filters
 
 Dispatcher.run_async
 @typing_action
-def neko(update, context):
+def neko.Dispatcher.run_async(update, context):
     message = update.effective_message
     reply = random.choice(fun.NEKO)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
