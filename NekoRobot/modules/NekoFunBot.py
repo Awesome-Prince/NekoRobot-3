@@ -2,7 +2,7 @@ import html
 import random
 import time
 
-import NekoRobot.modules.funs as fun_strings
+import NekoRobot.modules.NekoFunBot_Strings as fun_strings
 from NekoRobot import dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
