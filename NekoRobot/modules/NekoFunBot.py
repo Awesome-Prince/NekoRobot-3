@@ -16,11 +16,11 @@ from telegram.ext import CallbackContext, run_async, CommandHandler, Filters
 
 
 @typing_action
-def Dispatcher.run_async(update, context):
+def neko(update, context):
     message = update.effective_message
     reply = random.choice(fun.NEKO)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
-
+    Dispatcher.run_async
     
     NEKO_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"(?i)(Neko|neko)"), neko, friendly="neko"
