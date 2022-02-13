@@ -29,8 +29,8 @@ from NekoRobot import (
     pgram,
     sw, LOGGER
 )
-from KURUMIBOT.modules.helper_funcs.misc import article
-from KURUMIBOT.modules.helper_funcs.decorators import kiginline
+from NekoRobot.modules.helper_funcs.misc import article
+from NekoRobot.modules.helper_funcs.decorators import kiginline
 
 
 def remove_prefix(text, prefix):
