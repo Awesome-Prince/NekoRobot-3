@@ -96,7 +96,7 @@ async def alive_function(answers):
     )
 
     msg = f"""
-**[Neko 💜](https://T.me/NekoXRobot):**
+**[Neko Robot](https://telegra.ph/file/7ce3238f7d8ea3c853b30.jpg):**
 **MainBot:** `{bot_state}`
 **UserBot:** `Alive`
 **Python:** `3.9`
