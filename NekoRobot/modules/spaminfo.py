@@ -1,5 +1,5 @@
-from KURUMIBOT.modules.helper_funcs.extraction import extract_user
-from KURUMIBOT.modules.helper_funcs.decorators import kigcmd
+from NekoRobot.modules.helper_funcs.extraction import extract_user
+from NekoRobot.modules.helper_funcs.decorators import kigcmd
 import requests, telegram, datetime, time
 
 
