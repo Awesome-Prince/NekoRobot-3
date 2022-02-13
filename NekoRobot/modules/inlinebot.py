@@ -17,9 +17,9 @@ from telegram.error import BadRequest
 from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler,
                           Filters, MessageHandler)
 from telegram.utils.helpers import mention_html
-import KURUMIBOT.modules.sql.users_sql as sql
-from KURUMIBOT.modules.sudoers import bot_sys_stats as wall
-from KURUMIBOT import (
+import NekoRobot.modules.sql.users_sql as sql
+from NekoRobot.modules.sudoers import bot_sys_stats as wall
+from NekoRobot import (
     OWNER_ID,
     DRAGONS,
     DEMONS,
@@ -57,7 +57,7 @@ def inlinequery(update: Update, _) -> None:
             "keyboard": ".spb ",
         },
         {
-            "title": "Account info on Miku",
+            "title": "Account info on Neko",
             "description": "Look up a Telegram account in Miku database",
             "message_text": "Click the button below to look up a person in Miku database using their Telegram ID",
             "thumb_urL": "https://telegra.ph/file/d687f2d9867d7edfa0506.jpg",
@@ -467,7 +467,7 @@ def media_query(query: str, update: Update, context: CallbackContext) -> None:
                 [
                     InlineKeyboardButton(
                         text="Report error",
-                        url="https://t.me/MikusSupport",
+                        url="https://t.me/NekoXSupport",
                     ),
                     InlineKeyboardButton(
                         text="Search again",
