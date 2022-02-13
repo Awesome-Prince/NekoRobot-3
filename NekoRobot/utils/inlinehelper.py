@@ -20,9 +20,9 @@ from pyrogram.types import (
 )
 from search_engine_parser import GoogleSearch
 
-from KURUMIBOT import OWNER_ID, pgram, arq
-from KURUMIBOT.utils.pluginhelpers import convert_seconds_to_minutes as time_convert
-from KURUMIBOT.utils.pluginhelpers import fetch
+from NekoRobot import OWNER_ID, pgram, arq
+from NekoRobot.utils.pluginhelpers import convert_seconds_to_minutes as time_convert
+from NekoRobot.utils.pluginhelpers import fetch
 
 SUDOERS = OWNER_ID
 app = pgram
@@ -49,8 +49,8 @@ async def paste(content):
 async def inline_help_func(__HELP__):
     buttons = InlineKeyboard(row_width=2)
     buttons.add(
-        InlineKeyboardButton("❗ More Help.", url=f"t.me/MikuWaifuBot?start=start"),
-        InlineKeyboardButton("🔄 Go Inline", switch_inline_query_current_chat=""),
+        InlineKeyboardButton("More Help", url=f"t.me/NekoXRobot?start=start"),
+        InlineKeyboardButton("Go Inline", switch_inline_query_current_chat=""),
     )
     answerss = [
         InlineQueryResultArticle(
@@ -70,18 +70,18 @@ async def alive_function(answers):
     bot_state = "Dead" if not await app.get_me() else "Alive"
    # ubot_state = 'Dead' if not await app2.get_me() else 'Alive'
     buttons.add(
-        InlineKeyboardButton("❗ Main Bot", url="https://t.me/MikuWaifuBot"),
-        InlineKeyboardButton("🔄 Go Inline", switch_inline_query_current_chat=""),
+        InlineKeyboardButton("Main Bot", url="https://t.me/NekoXRobot"),
+        InlineKeyboardButton("Go Inline", switch_inline_query_current_chat=""),
     )
 
     msg = f"""
-**[Miku ❤️](https://t.me/MikuWaifuBot):**
+**[Neko 💜](https://t.me/NekoXRobot):**
 **MainBot:** `{bot_state}`
 **UserBot:** `Alive`
 **Python:** `3.9`
 **Pyrogram:** `{pyrover}`
 **Platform:** `{sys.platform}`
-**Profiles:** [BOT](t.me/MikuWaifuBot) | [UBOT](t.me/H0daka)
+**Profiles:** [BOT](t.me/NekoXRobot) | [OWNER](t.me/Awesome_Prince)
 """
 
     answers.append(
