@@ -1,9 +1,9 @@
 import speedtest
-from KURUMIBOT import DEV_USERS, dispatcher
-from KURUMIBOT.modules.helper_funcs.chat_status import dev_plus
+from NekoRobot import DEV_USERS, dispatcher
+from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext
-from KURUMIBOT.modules.helper_funcs.decorators import kigcmd, kigcallback
+from NekoRobot.modules.helper_funcs.decorators import kigcmd, kigcallback
 
 
 def convert(speed):
