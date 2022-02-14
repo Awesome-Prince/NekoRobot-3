@@ -65,7 +65,7 @@ def inlinequery(update: Update, _) -> None:
         },
         {
             "title": "About",
-            "description": "Know about Miku",
+            "description": "Know about Neko",
             "message_text": "Click the button below to get to know about Miku.",
             "thumb_urL": "https://telegra.ph/file/99d8f926d6b99c6cb826c.jpg",
             "keyboard": ".about ",
@@ -194,7 +194,7 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
             [
                 InlineKeyboardButton(
                     text="Report Error",
-                    url=f"https://t.me/MikusSupport",
+                    url=f"https://t.me/NekoXSupport",
                 ),
                 InlineKeyboardButton(
                     text="Search again",
@@ -231,7 +231,7 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
     user = context.bot.get_chat(user_id)
     sql.update_user(user.id, user.username)
     about_text = f"""
-    [Miku ❤️](https://t.me/MikuWaifuBot)\n*Bot State:* `Alive`\n*Python:* `{python_version()}`\n*Pyrogram:* `{pyrover}`\n*Platform:* `{sys.platform}`\n*python-telegram-bot:* `v{str(__version__)}`
+    [Neko 💜](https://t.me/NekoXRobot)\n*Bot State:* `Alive`\n*Python:* `{python_version()}`\n*Pyrogram:* `{pyrover}`\n*Platform:* `{sys.platform}`\n*python-telegram-bot:* `v{str(__version__)}`
     """
     results: list = []
     kb = InlineKeyboardMarkup(
@@ -239,7 +239,7 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
             [
                 InlineKeyboardButton(
                     text='Support',
-                    url=f'https://t.me/MikusSupport',
+                    url=f'https://t.me/NekoXSupport',
                 ),
                 InlineKeyboardButton(
                     text='Sys Stats',
@@ -255,7 +255,7 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
             title="Alive",
             description="Check Bot's Stats",
             thumb_url="https://telegra.ph/file/396d27f7cba3f83efceab.jpg",
-            photo_url="https://telegra.ph/file/55669ba6d3475e5d77e8d.jpg",
+            photo_url="https://telegra.ph/file/3f47e307df1594c9d6abd.jpg",
             caption=about_text,
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=kb,
