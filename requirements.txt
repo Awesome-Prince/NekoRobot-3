@@ -16,7 +16,7 @@ googletrans
 aioredis==2.0.0
 gpytranslate
 gtts
-python-telegram-bot==15.10
+python-telegram-bot==13.10
 faker
 markdown
 beautifulsoup4
