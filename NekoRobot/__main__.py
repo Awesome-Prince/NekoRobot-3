@@ -76,7 +76,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-────「 [{}](https://telegra.ph/file/67de3d84438b478a1ce26.jpg) 」────
+────「 [{}](https://telegra.ph/file/0862b2874ec5cd3180b3c.jpg) 」────
 *やあ! {} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -157,12 +157,12 @@ I Use My Powers To Help Admins To Manage Their Groups!
  ❥ /settings:
    ✐ in PM: will send you your settings for all supported modules.
    ✐ in a group: will redirect you to pm, with all that chat's settings.
-For all command use /* [or](https://telegra.ph/file/ea5474693c78c58b9cf81.jpg) *!* 
+For all command use /* [or](https://telegra.ph/file/d68908d701cbe2f8db578.jpg) *!* 
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
 
-HELP_IMG = "https://telegra.ph/file/ea5474693c78c58b9cf81.jpg"
+HELP_IMG = "https://telegra.ph/file/d68908d701cbe2f8db578.jpg"
 
 PM_START_IMG = (
           "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
