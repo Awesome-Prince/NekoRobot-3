@@ -172,8 +172,12 @@ PM_START_IMG = (
   )
 
 NEKO_IMG = (
-      "https://telegra.ph/file/7e4913f409eb2419bc647.mp4",
-      "https://telegra.ph/file/85d18b849c4f3d6ae7b23.mp4",
+      "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
+      "https://telegra.ph/file/0cea56d9625f265ecc9db.mp4",
+      "https://telegra.ph/file/a131993b0f1e8517eacb2.mp4",
+      "https://telegra.ph/file/6f43ded36dba5f256bba7.mp4",
+      "https://telegra.ph/file/61acd313cc536bd1c6217.mp4",
+      "https://telegra.ph/file/f329cdd740c55bf955deb.mp4",
       )
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
