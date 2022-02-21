@@ -31,7 +31,7 @@ from pyrate_limiter import (BucketFullException, Duration, RequestRate, Limiter,
                             MemoryListBucket)
 
 if ALLOW_EXCL:
-    CMD_STARTERS = ('/', '!', '?', '.', '~')
+    CMD_STARTERS = ('/', '!', '+')
 else:
     CMD_STARTERS = ('/',)
 
@@ -164,5 +164,3 @@ class CustomMessageHandler(MessageHandler):
         def check_update(self, update):
             if isinstance(update, Update) and update.effective_message:
                 return self.filters(update)
-              
-              #none
