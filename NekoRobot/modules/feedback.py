@@ -9,7 +9,7 @@ from NekoRobot import telethn as tbot
 from ..events import register
 
 
-@register(pattern="/feedback ?(.*)")
+@register(pattern="/bug ?(.*)")
 async def feedback(e):
     quew = e.pattern_match.group(1)
     user_id = e.sender.id
@@ -23,9 +23,9 @@ async def feedback(e):
         "https://telegra.ph/file/6e44ad8e4a2a1a9bafa5e.jpg",
     )
     UNFEED = ("https://telegra.ph/file/80eaba068d71e0715b425.jpg",)
-    BUTTON = [[Button.url("View Feedback✨", f"https://t.me/NekoXRobot")]]
-    TEXT = "Thanks For Your Feedback, I Hope You Enjoy Our Service"
-    GIVE = "Give Some Text For Feedback✨"
+    BUTTON = [[Button.url("View Message✨", f"https://t.me/NekoXSupport")]]
+    TEXT = "Thanks For Reporting, I Hope You Enjoy Our Service"
+    GIVE = "Give Some Text For Send a Report✨"
     logger_text = f"""
 **New Feedback**
 
