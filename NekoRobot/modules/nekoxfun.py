@@ -1,8 +1,5 @@
 """
 MIT License
-MIT License
-MIT License
-MIT License
 Copyright (C) 2022 Awesome-Prince
 Copyright (c) 2022, Yūki • Black Knights Union, <https://github.com/Awesome-Prince/NekoRobot-3>
 This file is part of @NekoXRobot (Telegram Bot)
