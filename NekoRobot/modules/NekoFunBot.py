@@ -20,8 +20,8 @@ SOFTWARE.
 """
 import requests
 import random
-from Hottie_Robot import dispatcher
-from Hottie_Robot.modules.disable import MessageHandler
+from NekoRobot import dispatcher
+from NekoRobot.modules.disable import MessageHandler
 from telegram.ext import run_async, Filters
 from telegram import Message
 
