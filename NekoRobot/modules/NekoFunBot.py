@@ -44,6 +44,7 @@ K = (
 
 sleep_type = random.choice(K)
 
+@run_async
 def kiss(update, context):
     url = "https://nekos.best/api/v2/kiss"
     r = requests.get(url)
@@ -53,6 +54,7 @@ def kiss(update, context):
     msg.reply_video(kissme, caption="*Kisses u with all my love*~")
 
 
+@run_async
 def pat(update, context):
     msg = update.effective_message
     name = (
@@ -67,6 +69,7 @@ def pat(update, context):
     msg.reply_video(patme, caption=random.choice(OWO).format(name))
 
 
+@run_async
 def hug(update, context):
     msg = update.effective_message
     if msg.reply_to_message:
@@ -85,7 +88,8 @@ def hug(update, context):
        hugme = e["results"][0]["url"]
        msg = update.effective_message
        msg.reply_video(hugme, caption="*Hugs u with all my love*~")
-        
+      
+@run_async
 def slap(update, context):
     msg = update.effective_message
     if msg.reply_to_message:
@@ -106,6 +110,7 @@ def slap(update, context):
        msg.reply_video(slapme, caption="Here... Take this from me.")
 
 
+@run_async
 def cute(update, context):
     msg = update.effective_message
     name = msg.from_user.first_name
@@ -117,6 +122,7 @@ def cute(update, context):
         cuteme, caption="Thank UwU {}-Kun  *smiles and hides ^~^*".format(name)
     )
 
+@run_async
 def sleep(update, context):
     if sleep_type == "Text":
         msg = update.effective_message           
