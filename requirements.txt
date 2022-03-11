@@ -16,7 +16,7 @@ googletrans
 aioredis==2.0.0
 gpytranslate
 gtts
-python-telegram-bot==13.10
+python-telegram-bot==13.11
 faker
 markdown
 beautifulsoup4
@@ -109,20 +109,6 @@ geocoder==1.38.1
 idna==3.2
 jsonlib-python3==1.6.1
 loc==0.0.2
-MouseInfo==0.1.3
-Pillow==9.0.0
-
-
-
-
-
-
-psutil==5.8.0
-PyAutoGUI==0.9.53
-PyGetWindow==0.0.9
-pyjokes==0.6.0
-PyMsgBox==1.0.9
-pyperclip==1.8.2
 
 PyRect==0.1.4
 PyScreeze==0.1.28
