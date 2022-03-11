@@ -1,5 +1,5 @@
 
-from NekoRobot import IntEnum, unique
+from enum import IntEnum, unique
 
 from NekoRobot.modules.helper_funcs.string_handling import \
     button_markdown_parser
