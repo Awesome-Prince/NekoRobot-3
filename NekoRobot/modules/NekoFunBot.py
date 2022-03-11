@@ -25,12 +25,6 @@ from NekoRobot.modules.disable import MessageHandler
 from telegram.ext import run_async, Filters
 from telegram import Message
 
-NEKO= (
-      "*licks {}'s face* Where are my cookies?"
-      "Ara Ara! {}Do you wanna play? *raises cat ears* ^attentive^"
-      "(*)^(*) *lazy arrival* zzzZZ(Z) {}-kun I'm hungry..."
-)
-
 OWO = (
     "*Neko pats {} on the head.",
     "*gently rubs {}'s head*.",
@@ -116,12 +110,7 @@ def slap(update, context):
        msg.reply_video(slapme, caption="Here... Take this from me.")
 
 
-@run_async
-def neko(update, context):
-    if neko_type == "Text":
-        msg = update.effective_message           
-        msg.reply_text(random.choice(NEKO).format(name))
-        
+
 @run_async
 def cute(update, context):
     msg = update.effective_message
@@ -164,7 +153,6 @@ HUG_HANDLER = MessageHandler(Filters.regex("(?i)Neko hug"), hug, run_async=True)
 SLAP_HANDLER = MessageHandler(Filters.regex("(?i)Neko slap"), slap, run_async=True)
 CUTE_HANDLER = MessageHandler(Filters.regex("(?i)Neko cute"), cute, run_async=True)
 SLEEP_HANDLER = MessageHandler(Filters.regex('^(Neko sleep|sleep)$'), sleep, run_async=True)
-NEKO_HANDLER = MessageHandler(Filters.regex("(?i)Neko"), neko, run_async=True)
 
 dispatcher.add_handler(KISS_HANDLER)
 dispatcher.add_handler(PAT_HANDLER)
@@ -172,4 +160,4 @@ dispatcher.add_handler(HUG_HANDLER)
 dispatcher.add_handler(SLAP_HANDLER)
 dispatcher.add_handler(CUTE_HANDLER)
 dispatcher.add_handler(SLEEP_HANDLER)
-dispatcher.add_handler(NEKO_HANDLER)
+
