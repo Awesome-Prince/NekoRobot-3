@@ -111,6 +111,14 @@ def slap(update, context):
 
 
 @run_async
+def neko(update, context):
+    if neko_type == "Text":
+        msg = update.effective_message           
+        msg.reply_text(
+           ". . . (∪｡∪)｡｡｡zzzZZ"
+       )
+        
+@run_async
 def cute(update, context):
     msg = update.effective_message
     name = msg.from_user.first_name
