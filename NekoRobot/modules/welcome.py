@@ -63,7 +63,7 @@ VERIFIED_USER_WAITLIST = {}
 
 NEKO_IMG = "https://telegra.ph/file/e321b823276a3c54c1dce.mp4"
 NEKO = "https://telegra.ph/file/be5388d1c407d5fe0ca14.jpg"
-NEKO_VID = "https://telegra.ph/file/e997d98975496adc09fe7.mp4"
+NEKO_VID = "https://telegra.ph/file/cf5a6cad607d0172809cf.mp4"
 WAIFUS_IMG = "https://telegra.ph/file/e9284f19f009784e24043.jpg"
 
 
@@ -494,13 +494,13 @@ def left_member(update: Update, context: CallbackContext):
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
                 update.effective_message.reply_video(
-                MIKU_VID, caption= "Oi! Genos! He left..", reply_to_message_id=reply)
+                NEKO_VID, caption= "Oi! Genos! He left..", reply_to_message_id=reply)
                 return
 
             # Give the devs a special goodbye
             elif left_mem.id in DEV_USERS:
                 update.effective_message.reply_text(
-                    "See you later at the Hero's Association!",
+                    "See you later at the Yūki Network!",
                     reply_to_message_id=reply,
                 )
                 return
