@@ -62,9 +62,9 @@ ENUM_FUNC_MAP = {
 VERIFIED_USER_WAITLIST = {}
 
 NEKO_IMG = "https://telegra.ph/file/be3430b7151fd64706679.mp4"
-NEKO = "https://telegra.ph/file/25442c7b0b61372df7ce9.jpg"
+NEKO = "https://telegra.ph/file/be5388d1c407d5fe0ca14.jpg"
 NEKO_VID = "https://telegra.ph/file/e997d98975496adc09fe7.mp4"
-WAIFUS_IMG = "https://telegra.ph/file/a6c91884e06744ad48fb7.jpg"
+WAIFUS_IMG = "https://telegra.ph/file/e9284f19f009784e24043.jpg"
 
 
 # do not async
