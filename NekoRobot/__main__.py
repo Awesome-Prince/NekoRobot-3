@@ -76,14 +76,14 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-────「 [{}](https://telegra.ph/file/0862b2874ec5cd3180b3c.jpg) 」────
+────「 [{}](https://telegra.ph/file/8857df73722f4893dcda9.jpg) 」────
 *やあ! {} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ◈ *Uptime:* `{}`
 ◈ `{}` *users, across* `{}` *chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-➢ Try The Help Buttons Below To Know My Abilities 
+➢ Try The Help Buttons Below To Know My Abilities ✦
 """
 
 buttons = [
@@ -157,12 +157,12 @@ I Use My Powers To Help Admins To Manage Their Groups!
  ❥ /settings:
    ✐ in PM: will send you your settings for all supported modules.
    ✐ in a group: will redirect you to pm, with all that chat's settings.
-For all command use /* [or](https://telegra.ph/file/d68908d701cbe2f8db578.jpg) *!* 
+For all command use /* [or](https://telegra.ph/file/82d26fc3839c1500ab0c4.jpg) *!* 
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
 
-HELP_IMG = "https://telegra.ph/file/d68908d701cbe2f8db578.jpg"
+HELP_IMG = "https://telegra.ph/file/82d26fc3839c1500ab0c4.jpg"
 
 PM_START_IMG = (
           "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
@@ -181,7 +181,7 @@ NEKO_IMG = (
       )
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
-Click here to donate in [Telegram](https://t.me/Awesome_Prince)"""
+Click here to donate in [Telegram](https://t.me/DarlingPrince)"""
 
 IMPORTED = {}
 MIGRATEABLE = []
