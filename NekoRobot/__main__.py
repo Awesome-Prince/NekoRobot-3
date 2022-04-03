@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import subprosess
 import importlib
 import time
 import re
@@ -450,8 +451,8 @@ def neko_about_callback(update, context):
                 disable_web_page_preview=True,
         )
 
-@run_async
-def neko_callback_data(update, context):
+
+async def neko_callback_data(update, context):
     query = update.callback_query
     uptime = get_readable_time((time.time() - StartTime))
     if query.data == "neko_":
