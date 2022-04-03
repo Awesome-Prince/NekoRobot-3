@@ -24,6 +24,37 @@ from NekoRobot import dispatcher
 from NekoRobot.modules.disable import MessageHandler
 from telegram.ext import run_async, Filters
 from telegram import Message
+from telegram import ParseMode, Update
+from telegram.error import BadRequest
+from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
+from telegram.utils.helpers import mention_html
+from telethon import events
+from telethon.tl import functions, types
+from telethon import events
+from telethon.errors import *
+from telethon.tl import *
+from telethon import *
+
+from NekoRobot import DRAGONS, dispatcher, telethn as bot
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.chat_status import (
+    bot_admin,
+    can_pin,
+    can_promote,
+    connection_status,
+    user_admin,
+    user_can_changeinfo,
+    user_can_pin,
+    user_can_promote,
+    ADMIN_CACHE,
+)
+
+from NekoRobot.modules.helper_funcs.extraction import (
+    extract_user,
+    extract_user_and_text,
+)
+from NekoRobot.modules.log_channel import loggable
+from NekoRobot.modules.helper_funcs.alternate import send_message
 
 OWO = (
     "*Neko pats {} on the head.",
