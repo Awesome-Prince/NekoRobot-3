@@ -28,6 +28,7 @@ import time
 import spamwatch
 import aiohttp
 
+from Python_ARQ import ARQ
 import telegram.ext as tg
 from redis import StrictRedis
 from pyrogram import Client, errors
