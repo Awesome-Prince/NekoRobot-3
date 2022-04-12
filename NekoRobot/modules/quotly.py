@@ -1,16 +1,16 @@
-*Stdout*
-`from io import BytesIO
+
+from io import BytesIO
 from traceback import format_exc
 
 from pyrogram import filters
 from pyrogram.types import Message
-from XForceSTB import pgram as app
-from XForceSTB.pyrogramee.errors import capture_err
+from NekoRobot import pgram as app
+from NekoRobot.pyrogramee.errors import capture_err
 
 from Python_ARQ import ARQ
 from aiohttp import ClientSession
 
-from XForceSTB.arqclient import arq
+from NekoRobot.arqclient import arq
 
 
 async def quotify(messages: list):
