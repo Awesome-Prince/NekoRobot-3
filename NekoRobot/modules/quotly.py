@@ -10,7 +10,7 @@ from NekoRobot.pyro.errors import capture_err
 from Python_ARQ import ARQ
 from aiohttp import ClientSession
 
-from NekoRobot.arqclient import arq
+from NekoRobot import arq
 
 
 async def quotify(messages: list):
