@@ -138,7 +138,7 @@ def do(func, bot, update):
             return result
 
 
-@support_plus
+@dev_plus
 @run_async
 def clear(update: Update, context: CallbackContext):
     bot = context.bot
