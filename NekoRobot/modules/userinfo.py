@@ -52,7 +52,8 @@ from NekoRobot.modules.helper_funcs.extraction import extract_user
 from NekoRobot import telethn
 from NekoRobot import pbot
 
-NEKO_IMG = "https://telegra.ph/file/a21731c0c4c7f27a3ec16.jpg"
+MIKU_IMG = "https://telegra.ph/file/a21731c0c4c7f27a3ec16.jpg"
+
 
 def no_by_per(totalhp, percentage):
     """
@@ -182,7 +183,7 @@ def get_id(update: Update, context: CallbackContext):
 
     else:
         msg.reply_text(
-            f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
+            f"<b>{message.chat.title}</b>'s id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
         )
 
 
@@ -243,15 +244,11 @@ def info(update: Update, context: CallbackContext):
     buttons = [
     [
                         InlineKeyboardButton(
-                             text="Health 🛰",
-                             url="https://t.me/CrowdXStrike/12"),
+                             text="Health",
+                             url="https://t.me/MikuXproBot?start=health"),
                        InlineKeyboardButton(
-                             text="Your Info 💌",
-                             callback_data="myinfo_back"),
-                    ],
-    [                  InlineKeyboardButton(
-                             text="[❌]",
-                             callback_data="cutiipii_back"),
+                             text="Disasters",
+                             url="https://t.me/MikuXproBot?start=disasters"),
                     ],
     ]
     user_id = extract_user(update.effective_message, args)
@@ -327,7 +324,7 @@ def info(update: Update, context: CallbackContext):
         text += "\n\nThe Disaster level of this person is 'God'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Yūki Black Knights Union'."
+        text += "\n\nThis user is member of 'Heros Association'."
         disaster_level_present = True
     elif user.id in DRAGONS:
         text += "\n\nThe Disaster level of this person is 'Dragon'."
@@ -341,7 +338,7 @@ def info(update: Update, context: CallbackContext):
     elif user.id in WOLVES:
         text += "\n\nThe Disaster level of this person is 'Wolf'."
         disaster_level_present = True
-    elif user.id == 1482952149:
+    elif user.id == 5291415314:
          text += "\n\nCo-Owner Of A Bot."
          disaster_level_present = True
 
@@ -472,19 +469,19 @@ def stats(update, context):
     status += "*➢ Uptime:* " + str(botuptime) + "\n"
     try:
         update.effective_message.reply_photo(
-            NEKO_IMG,
+            MIKU_IMG,
             status
             + "\n*Bot statistics*:\n"
             + "\n".join([mod.__stats__() for mod in STATS])
-            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/Black_Knights_Union)\n\n"
-            + "\n╘══「 by [Lovely Prince](https://t.me/Awesome_Prince) 」\n",
+            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/Makima_ultraxBot)\n\n"
+            + "\n╘══「 by [Fang](https://t.me/deadxpol) 」\n",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                   [                  
                        InlineKeyboardButton(
-                             text="Your Info 💜",
-                             callback_data="myinfo_back")
+                             text="Repo",
+                             url="github.com")
                      ] 
                 ]
             ),
@@ -497,20 +494,17 @@ def stats(update, context):
                         "\n*Bot statistics*:\n"
                         + "\n".join(mod.__stats__() for mod in STATS)
                     )
-                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/Black_Knights_Union)\n\n"
+                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/MikuXUpdates)\n\n"
                 )
-                + "╘══「 by [Lovely Prince](https://t.me/Awesome_Prince) 」\n"
+                + "╘══「 by [卄σ∂αкα](https://t.me/h0daka) 」\n"
             ),
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                   [                  
                        InlineKeyboardButton(
-                             text="Support🚑",
-                             url=f"https://t.me/NekoXSupport"),
-                       InlineKeyboardButton(
-                             text="Updates🛰️",
-                             url="https://t.me/Black_Knights_Union")
+                             text="Repo",
+                             url="github.com")
                      ] 
                 ]
             ),
@@ -599,55 +593,6 @@ def __user_info__(user_id):
     result = result.strip("\n")
     return result
 
-@pbot.on_callback_query(filters.regex("stats_callback"))
-async def stats_callbacc(_, CallbackQuery):
-    text = await bot_sys_stats()
-    await pbot.answer_callback_query(CallbackQuery.id, text, show_alert=True)
-
-@telethn.on(events.callbackquery.CallbackQuery(data=re.compile(b"myinfo_back")))
-async def callback_query_handler(event):
-    boy = event.sender_id
-    PRO = await telethn.get_entity(boy)
-    NEKO = "➢ YOUR DETAILS BY NEKO \n\n"
-    NEKO += f"• FIRST NAME : {PRO.first_name} \n"
-    NEKO += f"• LAST NAME : {PRO.last_name}\n"
-    NEKO += f"• RESTRICTED : {PRO.restricted} \n"
-    NEKO += f"• USER ID : {boy}\n"
-    NEKO += f"• USERNAME : {PRO.username}\n"
-    await event.answer(NEKO, alert=True)
-
-@run_async
-def cutiipii_callback_data(update, context):
-    query = update.callback_query
-    bot = context.bot
-    uptime = get_readable_time((time.time() - StartTime))
-    if query.data == "cutiipii_":
-        query.message.edit_text(
-            text="""CallBackQueriesData Here""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                 [
-                    InlineKeyboardButton(text="[► Back ◄]", callback_data="cutiipii_back")
-                 ]
-                ]
-            ),
-        )
-    elif query.data == "cutiipii_back":
-        first_name = update.effective_user.first_name
-        query.message.delete()(
-                Text.format(
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql(),
-                    sql()),
-                reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=5,
-                disable_web_page_preview=False,
-        )
-
 __help__ = """
 *ID:*
  • `/id`*:* get the current group id. If used by replying to a message, gets that user's id.
@@ -699,14 +644,12 @@ INFO_HANDLER = DisableAbleCommandHandler("info", info, run_async=True)
 
 SET_ABOUT_HANDLER = DisableAbleCommandHandler("setme", set_about_me, run_async=True)
 GET_ABOUT_HANDLER = DisableAbleCommandHandler("me", about_me, run_async=True)
-miku_callback_handler = CallbackQueryHandler(cutiipii_callback_data, pattern=r"cutiipii_")
 
 dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(ID_HANDLER)
 dispatcher.add_handler(GIFID_HANDLER)
 dispatcher.add_handler(INFO_HANDLER)
 dispatcher.add_handler(SET_BIO_HANDLER)
-dispatcher.add_handler(miku_callback_handler)
 dispatcher.add_handler(GET_BIO_HANDLER)
 dispatcher.add_handler(SET_ABOUT_HANDLER)
 dispatcher.add_handler(GET_ABOUT_HANDLER)
