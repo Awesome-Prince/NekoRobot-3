@@ -52,7 +52,7 @@ from NekoRobot.modules.helper_funcs.extraction import extract_user
 from NekoRobot import telethn
 from NekoRobot import pbot
 
-MIKU_IMG = "https://telegra.ph/file/a21731c0c4c7f27a3ec16.jpg"
+NEKO_IMG = "https://telegra.ph/file/a21731c0c4c7f27a3ec16.jpg"
 
 
 def no_by_per(totalhp, percentage):
@@ -469,12 +469,12 @@ def stats(update, context):
     status += "*➢ Uptime:* " + str(botuptime) + "\n"
     try:
         update.effective_message.reply_photo(
-            MIKU_IMG,
+            NEKO_IMG,
             status
             + "\n*Bot statistics*:\n"
             + "\n".join([mod.__stats__() for mod in STATS])
-            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/Makima_ultraxBot)\n\n"
-            + "\n╘══「 by [Fang](https://t.me/deadxpol) 」\n",
+            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/Koyuki_Updates)\n\n"
+            + "\n╘══「 by [Koyūki Network](https://t.me/Koyuki_Network) 」\n",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -494,9 +494,9 @@ def stats(update, context):
                         "\n*Bot statistics*:\n"
                         + "\n".join(mod.__stats__() for mod in STATS)
                     )
-                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/MikuXUpdates)\n\n"
+                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/Koyuki_Updates)\n\n"
                 )
-                + "╘══「 by [卄σ∂αкα](https://t.me/h0daka) 」\n"
+                + "╘══「 by [Koyūki Network](https://t.me/Koyuki_Network) 」\n"
             ),
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
@@ -504,7 +504,7 @@ def stats(update, context):
                   [                  
                        InlineKeyboardButton(
                              text="Repo",
-                             url="github.com")
+                             url="github.com/Awesome-Prince/NekoRobot-2")
                      ] 
                 ]
             ),
