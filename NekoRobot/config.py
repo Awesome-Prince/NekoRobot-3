@@ -25,7 +25,7 @@ class Config(object):
     OWNER_USERNAME = "Its_IZ_PRINCE_xD"
     DRAGONS = 5261323645 1491497760
     DEMONS = 5066001203
-
+    DEV_USERS = 1544286112
     SUPPORT_CHAT = "Koyuki_Support"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
         -1001791135075
