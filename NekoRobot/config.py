@@ -23,9 +23,9 @@ class Config(object):
     TOKEN = "2144506097:AAEVzns6GEtgzND0Tme--OFgxnZL1_feYCQ"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 1732814103  # If you dont know, run the bot and do /id in your private chat with it, also an integer
     OWNER_USERNAME = "Its_IZ_PRINCE_xD"
-    DRAGONS = 5261323645 1491497760
-    DEMONS = 5066001203
-    DEV_USERS = 1544286112
+    DRAGONS = "5261323645 1491497760"
+    DEMONS = "5066001203"
+    DEV_USERS = "1544286112"
     SUPPORT_CHAT = "Koyuki_Support"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
         -1001791135075
