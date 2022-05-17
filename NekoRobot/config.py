@@ -16,27 +16,28 @@ class Config(object):
     # REQUIRED
     # Login to https://my.telegram.org and fill in these slots with the details given by it
 
-    API_ID = 1234
-    API_HASH = 1234
+    API_ID = 8669198
+    API_HASH = 
 
-    BOT_ID = 1234
-    TOKEN = ""  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    BOT_ID = 2144506097
+    TOKEN = "2144506097:AAEVzns6GEtgzND0Tme--OFgxnZL1_feYCQ"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 1732814103  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "Horimaya"
-    SUDO_USERS = 1700123830
-    SUPPORT_USERS = 1233
+    OWNER_USERNAME = "Its_IZ_PRINCE_xD"
+    DRAGONS = 5261323645 1491497760
+    DEMONS = 5066001203
 
-    SUPPORT_CHAT = "NekoXSupport"  # Your own group for support, do not add the @
+    SUPPORT_CHAT = "Koyuki_Support"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
-        -1001739802989
+        -1001791135075
     )  # Prints any new group the bot is added to, prints just the name and ID.
     EVENT_LOGS = (
-        -1001739802989
+        -1001791135075
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
     # RECOMMENDED
-    SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
-    REDIS_URI = "1234"
+    SQLALCHEMY_DATABASE_URI = "postgres://zbrkaxqs:8JcU08L8AAcec6EEHOWdhoD80su3KIm5@arjuna.db.elephantsql.com/zbrkaxqs"  # needed for any database module
+    DATABASE_URL = "postgres://zbrkaxqs:8JcU08L8AAcec6EEHOWdhoD80su3KIm5@arjuna.db.elephantsql.com/zbrkaxqs"
+    REDIS_URI = ""
 
 
     LOAD = []
@@ -46,7 +47,7 @@ class Config(object):
     URL = None
     HEROKU_API_KEY = ""
     HEROKU_APP_NAME = ""
-    BOT_USERNAME = ""
+    BOT_USERNAME = "NekoXRobot"
     SPAMWATCH_API = 'P5_FWlwgUrpchwJceZDUSDxa41G396dn7J0vSEMWeBhHJ6C4q8VJLzjhfZPxNKUZ'  # go to support.spamwat.ch to get key
     SPAMWATCH_SUPPORT_CHAT = "@SpamWatchSupport"
     ARQ_API_KEY = "1234"
