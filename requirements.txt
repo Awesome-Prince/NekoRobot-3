@@ -37,7 +37,7 @@ Pillow>=4.2.0
 CurrencyConverter
 google_trans_new
 jikanpy
-speedtest-cli
+
 coffeehouse==2.2.4
 regex
 bleach
