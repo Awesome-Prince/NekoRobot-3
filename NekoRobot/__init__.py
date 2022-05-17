@@ -35,7 +35,7 @@ from pyrogram import Client, errors
 from telethon.sessions import MemorySession
 from telethon import TelegramClient
 from aiohttp import ClientSession
- as MongoClient
+
 
 StartTime = time.time()
 
