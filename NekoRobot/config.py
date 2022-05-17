@@ -37,6 +37,8 @@ class Config(object):
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = "postgres://zbrkaxqs:8JcU08L8AAcec6EEHOWdhoD80su3KIm5@arjuna.db.elephantsql.com/zbrkaxqs"  # needed for any database module
     DATABASE_URL = "postgres://zbrkaxqs:8JcU08L8AAcec6EEHOWdhoD80su3KIm5@arjuna.db.elephantsql.com/zbrkaxqs"
+    DB_URL = "postgres://zbrkaxqs:8JcU08L8AAcec6EEHOWdhoD80su3KIm5@arjuna.db.elephantsql.com/zbrkaxqs"
+
     REDIS_URI = ""
 
 
