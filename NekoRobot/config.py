@@ -93,7 +93,7 @@ class Config(object):
     SPAMMERS = None
     REM_BG_API_KEY = ""
     GENIUS_API_TOKEN = ""
-    MONGO_DB_URL = "mongodb+srv://Izazkhan:izazkhan@cluster0.hlltt.mongodb.net/project0?retryWrites=true&w=majority"
+    MONGO_DB_URI = "mongodb+srv://Izazkhan:izazkhan@cluster0.hlltt.mongodb.net/project0?retryWrites=true&w=majority"
     STRING_SESSION = ""
     
 
