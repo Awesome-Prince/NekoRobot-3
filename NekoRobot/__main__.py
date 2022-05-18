@@ -75,9 +75,10 @@ def get_readable_time(seconds: int) -> str:
 
     return ping_time
 
+PM_START_PIC = "https://telegra.ph/file/bdc771a084e2c806ec756.jpg"
 
 PM_START_TEXT = """
-────「 [{}](https://telegra.ph/file/8857df73722f4893dcda9.jpg) 」────
+────「 [{}] 」────
 *やあ! {} My Darling, Iam your SweetHeart💜,
 I am an Anime themed advance group management bot with a lot of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -90,7 +91,7 @@ I am an Anime themed advance group management bot with a lot of Sexy Features.*
 buttons = [
     [
                         InlineKeyboardButton(
-                            text=f"Add Neko To Your Group",
+                            text=f"Add NekoX To Your Group",
                             url=f"t.me/NekoXRobot?startgroup=true")
                     ],
                    [
@@ -158,12 +159,12 @@ I Use My Powers To Help Admins To Manage Their Groups!
  ❥ /settings:
    ✐ in PM: will send you your settings for all supported modules.
    ✐ in a group: will redirect you to pm, with all that chat's settings.
-For all command use /* [or](https://telegra.ph/file/82d26fc3839c1500ab0c4.jpg) *!* 
+For all command use /* [or](https://telegra.ph/file/ab36976c685575c4e1a5f.jpg) *!* 
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
 
-HELP_IMG = "https://telegra.ph/file/82d26fc3839c1500ab0c4.jpg"
+HELP_IMG = "https://telegra.ph/file/ab36976c685575c4e1a5f.jpg"
 
 PM_START_IMG = (
           "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
@@ -291,8 +292,9 @@ def start(update: Update, context: CallbackContext):
         else:
             
             first_name = update.effective_user.first_name
-            update.effective_message.reply_text(
-                PM_START_TEXT.format(
+            update.effective_message.reply_photo(
+                photo=(PM_START_PIC),
+                caption=PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
                     escape_markdown(first_name),
                     escape_markdown(uptime),
