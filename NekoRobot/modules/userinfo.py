@@ -481,7 +481,7 @@ def stats(update, context):
                   [                  
                        InlineKeyboardButton(
                              text="Repo",
-                             url="github.com")
+                             url="github.com/Awesome-Prince/NekoRobot-2")
                      ] 
                 ]
             ),
