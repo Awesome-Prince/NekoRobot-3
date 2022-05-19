@@ -9,11 +9,11 @@ from telegram.ext import filters, CallbackContext
 from telegram.error import BadRequest
 from NekoRobot.modules.sql import afk_sql as sql
 from NekoRobot.modules.users import get_user_id
-from NekoRobot.modules.helper_funcs.decorators import kig_cmd, kig_msg
+from NekoRobot.modules.helper_funcs.decorators import kigcmd, kigmsg
 
 
-@kig_msg(filters.Regex("(?i)^brb"), friendly="afk", group=3)
-@kig_cmd(command="afk", group=3)
+@kigmsg(filters.Regex("(?i)^brb"), friendly="afk", group=3)
+@kigcmd(command="afk", group=3)
 async def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
@@ -39,7 +39,7 @@ async def afk(update: Update, context: CallbackContext):
         await update.effective_message.reply_text(f"{fname} is now away!{notice}")
 
 
-@kig_msg((filters.ALL & filters.ChatType.GROUPS), friendly="afk", group=1)
+@kigmsg((filters.ALL & filters.ChatType.GROUPS), friendly="afk", group=1)
 async def no_longer_afk(update: Update, context: CallbackContext):
     user = update.effective_user
     message = update.effective_message
@@ -70,7 +70,7 @@ async def no_longer_afk(update: Update, context: CallbackContext):
             return
 
 
-@kig_msg(
+@kig_cmd(
     (
         filters.Entity(MessageEntity.MENTION)
         | filters.Entity(MessageEntity.TEXT_MENTION) & filters.ChatType.GROUPS
