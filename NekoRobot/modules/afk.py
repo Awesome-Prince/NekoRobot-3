@@ -70,7 +70,7 @@ async def no_longer_afk(update: Update, context: CallbackContext):
             return
 
 
-@kig_cmd(
+@kig_msg(
     (
         filters.Entity(MessageEntity.MENTION)
         | filters.Entity(MessageEntity.TEXT_MENTION) & filters.ChatType.GROUPS
