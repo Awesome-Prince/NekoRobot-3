@@ -35,7 +35,7 @@ from pyrogram import Client, errors
 from telethon.sessions import MemorySession
 from telethon import TelegramClient
 from aiohttp import ClientSession
-
+from NekoRobot.hacking_script import PM_START_TEXT
 
 StartTime = time.time()
 
