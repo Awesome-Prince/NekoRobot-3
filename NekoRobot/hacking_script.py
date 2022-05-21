@@ -12,3 +12,6 @@ I am an Anime themed advance group management bot with a lot of Sexy Features.*
 
 
 PM_START_PIC = "https://telegra.ph/file/bdc771a084e2c806ec756.jpg"
+
+
+## Don't Remove That Credits in PM_START_TEXT if yoy removed your app will be crashed.
