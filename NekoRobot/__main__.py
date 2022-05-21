@@ -38,6 +38,7 @@ from NekoRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
 from NekoRobot.modules import ALL_MODULES
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
 from NekoRobot.modules.helper_funcs.misc import paginate_modules
+from NekoRobot.hacking_script import PM_START_TEXT, PM_START_PIC
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update)
 from telegram.error import (BadRequest, ChatMigrated, NetworkError,
@@ -126,12 +127,7 @@ For all command use /* [or](https://telegra.ph/file/ab36976c685575c4e1a5f.jpg) *
 
 HELP_IMG = "https://telegra.ph/file/ab36976c685575c4e1a5f.jpg"
 
-PM_START_IMG = (
-          "https://telegra.ph/file/faea7b266c0a3e447143f.jpg",
-          "https://telegra.ph/file/77010a90512337770b58b.jpg",
-          "https://telegra.ph/file/694d33a2d794e73c737fb.jpg",
-          "https://telegra.ph/file/6a1a2e5fe4a112ac3ab66.jpg",
-  )
+
 
 NEKO_IMG = (
       "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
