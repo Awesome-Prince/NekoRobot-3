@@ -134,7 +134,7 @@ repeat for your username, password, hostname (localhost?), port (5432?), and db 
 
 ## NOTE:
 
-  I'm making this note to whoever comes to see this repo. (I came through a lot to make this bot) - I would not say such dumb thing like this, the whole credits goes to [Cutiepii_Robot](https://github.com/Awesome-Rj/CutiepiiRobot.git). You might ask me what you did?, well i did some edits with my knowledge to make this bot like my own. I don't give a shit about any illegal problems if anyone comes with that GPLv3 license stuff. After all i came through a lot from many developers, No one ever told me/us anything not even a simple guide. So i will make this repo public so anyone can learn or get code from here for my future updates.
+  I'm making this note to whoever comes to see this repo. (I came through a lot to make this bot) - I would not say such dumb thing like this, the whole credits goes to [Cutiepii_Robot](https://github.com/Awesome-Rj/CutiepiiRobot.git). You might ask mee what you did?, well i did some edits with my knowledge to make this bot like my own. I don't give a shit about any illegal problems if anyone comes with that GPLv3 license stuff. After all i came through a lot from many developers, No one ever told me/us anything not even a simple guide. So i will make this repo public so anyone can learn or get code from here for my future updates.
 ## Bot stuff
     
 * Bot Support chat : [Support](https://t.me/Koyuki_upport)
