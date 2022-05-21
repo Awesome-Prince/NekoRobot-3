@@ -100,26 +100,6 @@ buttons = [
     ]
 
 
-buttons = [
-    [
-                        InlineKeyboardButton(
-                            text=f"Add Neko To Your Group",
-                            url=f"t.me/NekoXRobot?startgroup=true")
-                    ],
-                   [
-                       InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/Besties_XD"),
-                       InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-3"),
-                     ],
-                    [                  
-                       InlineKeyboardButton(
-                             text="🚑 Support",
-                             url=f"https://t.me/{SUPPORT_CHAT}"),
-                       InlineKeyboardButton(
-                             text="📢 Updates",
-                             url="https://t.me/Koyuki_Updates")
-                     ], 
-    ]
 
 
 
