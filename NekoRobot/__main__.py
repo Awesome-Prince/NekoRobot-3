@@ -38,7 +38,7 @@ from NekoRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
 from NekoRobot.modules import ALL_MODULES
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
 from NekoRobot.modules.helper_funcs.misc import paginate_modules
-from NekoRobot.hacking_script import PM_START_TEXT, PM_START_PIC
+from NekoRobot.hacking_script import PM_START_TEXT
 from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
                       Update)
 from telegram.error import (BadRequest, ChatMigrated, NetworkError,
@@ -248,9 +248,8 @@ def start(update: Update, context: CallbackContext):
         else:
             
             first_name = update.effective_user.first_name
-            update.effective_message.reply_photo(
-                photo=(PM_START_PIC),
-                caption=PM_START_TEXT.format(
+            update.effective_message.reply_text(
+                PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
                     escape_markdown(first_name),
                     escape_markdown(uptime),
