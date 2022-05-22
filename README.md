@@ -27,7 +27,8 @@ This repo was just reamped to suit an Anime-centric community. All original cred
 + ➢ [Lovely-Prince](https://github.com/Awesome-Prince) : OWNER | DEV
 + ➢ [STB](https://github.com/STBxD) : DEV
 + ➢ [AASF-CYBERKING](https://github.com/AASFCYBERKING) : NEKO FUN MODULE, LIVEGRAM MODULE
-+ ➢ [H0DAKA](https://github.com//H0daka) : FIXED SOME ERRORS
++ ➢ [H0DAKA](https://github.com/H0daka) : FIXED SOME ERRORS
++ ➢ [CTZFAMILY](https://github.com/CTZFAMILY) : FUN MODULE, SOME MODULES
 + ➢ [AkshayRajput](https://github.com/TheHamkerCat) : ARQ MODULES
 + ➢ [TheRealPhoenix](https://github.com/rsktg) : BASE
 + ➢ [DragSama](https://github.com/DragSama) : ANIME
