@@ -23,7 +23,7 @@ SOFTWARE.
 """
 from pyrogram import filters
 
-from NekoRobot import pyrogram as app
+import pyrogram as app
 from NekoRobot.services.decorators.errors import capture_err
 from NekoRobot.utils.http import get
 
