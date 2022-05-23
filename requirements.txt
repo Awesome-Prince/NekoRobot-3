@@ -36,7 +36,7 @@ Pillow>=4.2.0
 CurrencyConverter
 google_trans_new
 jikanpy
-
+pygithub
 coffeehouse==2.2.4
 regex
 bleach
@@ -60,7 +60,7 @@ TgCrypto
 Pyrogram==1.4.9
 PyYAML>=5.3.1
 pretty_errors
-
+gitpython
 futures==3.1.1
 ffmpeg==1.4
 ffmpeg-python
