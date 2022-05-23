@@ -30,7 +30,6 @@ pynewtonmath
 spongemock
 zalgo-text
 geopy
-github
 psutil
 aiohttp>=2.2.5
 Pillow>=4.2.0
