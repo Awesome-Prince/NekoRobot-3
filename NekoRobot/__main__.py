@@ -386,7 +386,7 @@ def neko_about_callback(update, context):
                             text="Master", url="t.me/Awesome-Prince"
                         ),
                         InlineKeyboardButton(
-                            text="Developer", url="t.me/H0daka"
+                            text="Support", url="t.me/Koyuki_Support"
                         ),
                     ],
                     [InlineKeyboardButton(text="Back", callback_data="neko_back")],
