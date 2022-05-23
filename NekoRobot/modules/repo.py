@@ -24,7 +24,7 @@ SOFTWARE.
 from pyrogram import filters
 
 import pyrogram as app
-from NekoRobot.services.decorators.errors import capture_err
+from NekoRobot.utils.errors import capture_err
 from NekoRobot.utils.http import get
 
 __MODULE__ = "Repo"
