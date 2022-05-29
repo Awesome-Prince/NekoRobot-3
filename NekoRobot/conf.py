@@ -2,7 +2,7 @@ from envparse import env
 from NekoRobot import LOGGER
 
 DEFAULTS = {
-    "LOAD_MODULES": True
+    "LOAD_MODULES": True,
 }
 
 def get_str_key(name, required=False):
