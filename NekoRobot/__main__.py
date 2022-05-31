@@ -2,8 +2,8 @@
 MIT License
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022 Awesome-Prince
-Copyright (c) 2022, Yūki • Black Knights Union, <https://github.com/Awesome-Prince/NekoRobot-3>
-This file is part of @NekoXRobot (Telegram Bot)
+Copyright (c) 2022, Yūki • Black Knights Union, <https://github.com/Awesome-Princehttp://t.me/OokamiMiobot>
+This file is part of @OokamiMiobot (Telegram Bot)
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the Software), to deal
 in the Software without restriction, including without limitation the rights
@@ -82,21 +82,21 @@ def get_readable_time(seconds: int) -> str:
 buttons = [
     [
                         InlineKeyboardButton(
-                            text=f"Add NekoX To Your Group",
-                            url=f"t.me/NekoXRobot?startgroup=true")
+                            text=f"Add Ookami mio bot To Your Group",
+                            url=f"t.me/OokamiMiobot ?startgroup=true")
                     ],
                    [
-                       InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/Besties_XD"),
-                       InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-3"),
+                       InlineKeyboardButton(text="[► Dev ◄]", "https://t.me/Siva_korean"),
+                       InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/SENKUCHAT"),
+                       InlineKeyboardButton(text="[► DEV 2 ◄]", url="https://t.me/MXNITRO"),
                      ],
                     [                  
                        InlineKeyboardButton(
                              text="🚑 Support",
-                             url=f"https://t.me/{SUPPORT_CHAT}"),
+                             url=f"https://t.me/SENKUCHAT"),
                        InlineKeyboardButton(
                              text="📢 Updates",
-                             url="https://t.me/Koyuki_Updates")
+                             url="https://t.me/SENKUCHAT")
                      ], 
     ]
 
@@ -120,26 +120,26 @@ I Use My Powers To Help Admins To Manage Their Groups!
  ❥ /settings:
    ✐ in PM: will send you your settings for all supported modules.
    ✐ in a group: will redirect you to pm, with all that chat's settings.
-For all command use /* [or](https://telegra.ph/file/ab36976c685575c4e1a5f.jpg) *!* 
+For all command use /* [or]("https://telegra.ph//file/67d63986016b68b660e4f.jpg") *!* 
 """.format(
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
 
-HELP_IMG = "https://telegra.ph/file/ab36976c685575c4e1a5f.jpg"
+HELP_IMG("https://telegra.ph//file/67d63986016b68b660e4f.jpg")
 
 
 
 NEKO_IMG = (
-      "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
-      "https://telegra.ph/file/0cea56d9625f265ecc9db.mp4",
-      "https://telegra.ph/file/a131993b0f1e8517eacb2.mp4",
-      "https://telegra.ph/file/6f43ded36dba5f256bba7.mp4",
-      "https://telegra.ph/file/61acd313cc536bd1c6217.mp4",
-      "https://telegra.ph/file/f329cdd740c55bf955deb.mp4",
+      "https://telegra.ph//file/5a5c71efd96ab22e1232d.mp4",
+      "https://telegra.ph//file/bf4162f0513a053491060.mp4",
+      "https://telegra.ph//file/3423d18a9ad222f3c9109.mp4",
+      "https://telegra.ph//file/72b72cad9bbf751e2b54a.mp4",
+      "https://telegra.ph//file/323ef74397b08aa4b5dbd.mp4",
+      "https://telegra.ph//file/507a12c729f35c581074d.mp4",
       )
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
-Click here to donate in [Telegram](https://t.me/DarlingPrince)"""
+Click here to donate in [Telegram](https://t.me/Siva_korean)"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -152,7 +152,7 @@ CHAT_SETTINGS = {}
 USER_SETTINGS = {}
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("NekoRobot.modules." + module_name)
+    imported_module = importlib.import_module("Ookamimiobot.modules." + module_name)
 
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
@@ -273,10 +273,10 @@ def start(update: Update, context: CallbackContext):
                   [                  
                        InlineKeyboardButton(
                              text="Support🚑",
-                             url=f"https://t.me/Koyuki_Support"),
+                             url=f"https://t.me/SENKUCHAT"),
                        InlineKeyboardButton(
                              text="Updates🛰️",
-                             url="https://t.me/Koyuki_Updates")
+                             url="https://t.me/SENKUCHAT")
                      ] 
                 ]
             ),
@@ -367,13 +367,13 @@ def help_button(update, context):
         pass
 
 @run_async
-def neko_about_callback(update, context):
+def Ookamimio_about_callback(update, context):
     query = update.callback_query
     if query.data == "about_":
         query.message.edit_text(
-            text=f"[◈](https://telegra.ph/file/0719635a2edcbea04be7a.jpg) Hey {escape_markdown(first_name)} Darling,"
+            text=f"[◈](https://telegra.ph//file/6e6f5058a6e15e931b9b3.jpg) Hey {escape_markdown(first_name)} Darling,"
               f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
-              f"\n\n Neko Info ➣ :-"
+              f"\n\n Ookamimio Info ➣ :-"
               f"\n\n ◈ I Am An Anime Themed Advance Group Management Bot With A Lot Of Sexy Features."
               f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
               f"\n\n ◈ Check The Buttons To Know About Me More.*",
@@ -383,17 +383,17 @@ def neko_about_callback(update, context):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Master", url="t.me/Awesome-Prince"
+                            text="Master", url="t.me/siva_korean"
                         ),
                         InlineKeyboardButton(
-                            text="Support", url="t.me/Koyuki_Support"
+                            text="Support", url="t.me/MXNITRO"
                         ),
                     ],
-                    [InlineKeyboardButton(text="Back", callback_data="neko_back")],
+                    [InlineKeyboardButton(text="Back", callback_data="Ookamimio_back")],
                 ]
             ),
         )
-    elif query.data == "neko_back":
+    elif query.data == "Ookamimio_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
                     PM_START_TEXT.format(
@@ -420,12 +420,12 @@ async def neko_callback_data(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                  [
-                    InlineKeyboardButton(text="[► Back ◄]", callback_data="neko_back")
+                    InlineKeyboardButton(text="[► Back ◄]", callback_data="Ookamimio_back")
                  ]
                 ]
             ),
         )
-    elif query.data == "neko_back":
+    elif query.data == "Ookamimio_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
                     PM_START_TEXT.format(
@@ -462,7 +462,7 @@ def get_help(update: Update, context: CallbackContext):
             reply_markup=InlineKeyboardMarkup(
                 [
                   [
-                  InlineKeyboardButton(text="Click Here", url="https://t.me/NekoXRobot?start=help")
+                  InlineKeyboardButton(text="Click Here", url="https://t.me/Ookamimiobot?start=help")
                   ]
                 ]
             ),
