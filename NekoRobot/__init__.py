@@ -32,6 +32,7 @@ from Python_ARQ import ARQ
 import telegram.ext as tg
 from redis import StrictRedis
 from pyrogram import Client, errors
+from redis import StrictRedis
 from telethon.sessions import MemorySession
 from telethon import TelegramClient
 from aiohttp import ClientSession
@@ -226,6 +227,23 @@ else:
 
 
 DEV_USERS.add(1732814103)
+
+
+REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
+
+try:
+
+    REDIS.ping()
+
+    LOGGER.info("[NEKOROBOT]: Connecting To Koyūki • Data Center • Chennai • Redis Database")
+except BaseException:
+
+    raise Exception("[NEKOROBOT ERROR]: Your Koyūki • Data Center • Chennai • Redis Database Is Not Alive, Please Check Again.")
+
+finally:
+
+   REDIS.ping()
+LOGGER.info("[NEKOROBOT]: Connection To The Koyūki • Data Center • Chennai • Redis Database Established Successfully!")
 
 
 if not SPAMWATCH_API:
