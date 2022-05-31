@@ -65,7 +65,7 @@ def inlinequery(update: Update, _) -> None:
         },
         {
             "title": "About",
-            "description": "Know about Neko X,
+            "description": "Know about Neko X",
             "message_text": "Click the button below to get to know about Neko X.",
             "thumb_urL": "https://telegra.ph/file/0bf1b29555518a0d45948.jpg",
             "keyboard": ".about ",
