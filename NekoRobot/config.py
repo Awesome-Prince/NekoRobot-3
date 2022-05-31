@@ -27,6 +27,7 @@ class Config(object):
     #RECOMMENDED
     SQLALCHEMY_DATABASE_URI = 'postgres://tluamgmb:wzHC-TipPrkuPGtbqHUpVNeGpqicuQCV@castor.db.elephantsql.com/tluamgmb'  # needed for any database modules
     DB_URL = "postgresql://postgres:IE2wA6q9yKhLpaqeJ0RT@containers-us-west-17.railway.app:5819/railway"
+    REDIS_URL = ""
     LOAD = []
     NO_LOAD = ['rss', 'cleaner', 'connection', 'math']
     WEBHOOK = False
