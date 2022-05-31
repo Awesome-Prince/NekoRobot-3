@@ -4,7 +4,7 @@ import os
 
 
 def get_user_list(config, key):
-    with open('{}/KURUMIBOT/{}'.format(os.getcwd(), config),
+    with open('{}/NekoRobot/{}'.format(os.getcwd(), config),
               'r') as json_file:
         return json.load(json_file)[key]
 
@@ -15,12 +15,12 @@ class Config(object):
     # REQUIRED
     #Login to https://my.telegram.org and fill in these slots with the details given by it
 
-    API_ID = 8669198  # integer value, dont use ""
-    API_HASH = "80de719a4fe743dbcc28bdcc5ed0eb7b"
+    API_ID = 1234567  # integer value, dont use ""
+    API_HASH = "123458494"
     TOKEN = "5096800645:AAEqiDu0tIAz6Tj5mNPP38R9AyfzEWr1SO0"  #This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 1732814103 # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "Horimaya"
-    SUPPORT_CHAT = 'Genshin_Support'  #Your own group for support, do not add the @
+    OWNER_USERNAME = "DarlingPrince"
+    SUPPORT_CHAT = 'Koyuki_Support'  #Your own group for support, do not add the @
     JOIN_LOGGER = -1001739802989  #Prints any new group the bot is added to, prints just the name and ID.
     EVENT_LOGS = -1001739802989  #Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
