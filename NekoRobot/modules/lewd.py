@@ -511,16 +511,6 @@ def kuni(update, context):
     msg.reply_video(nekos.img(target))
 
 
-def waifu(update, context):
-    msg = update.effective_message
-    target = "waifu"
-    with open("temp.png", "wb") as f:
-        f.write(requests.get(nekos.img(target)).content)
-    img = Image.open("temp.png")
-    img.save("temp.webp", "webp")
-    msg.reply_document(open("temp.webp", "rb"))
-    os.remove("temp.webp")
-
 
 def kiss(update, context):
     msg = update.effective_message
@@ -673,7 +663,6 @@ PUSSY_HANDLER = CommandHandler("pussy", pussy, run_async=True)
 HENTAIGIF_HANDLER = CommandHandler("hentaigif", hentaigif, run_async=True)
 CLASSIC_HANDLER = CommandHandler("classic", classic, run_async=True)
 KUNI_HANDLER = CommandHandler("kuni", kuni, run_async=True)
-WAIFU_HANDLER = CommandHandler("waifu", waifu, run_async=True)
 LEWD_HANDLER = CommandHandler("lewd", lewd, run_async=True)
 KISS_HANDLER = CommandHandler("kiss", kiss, run_async=True)
 FEMDOM_HANDLER = CommandHandler("femdom", femdom, run_async=True)
@@ -731,7 +720,6 @@ dispatcher.add_handler(PUSSY_HANDLER)
 dispatcher.add_handler(HENTAIGIF_HANDLER)
 dispatcher.add_handler(CLASSIC_HANDLER)
 dispatcher.add_handler(KUNI_HANDLER)
-dispatcher.add_handler(WAIFU_HANDLER)
 dispatcher.add_handler(LEWD_HANDLER)
 dispatcher.add_handler(KISS_HANDLER)
 dispatcher.add_handler(FEMDOM_HANDLER)
@@ -788,7 +776,6 @@ __handlers__ = [
     HENTAIGIF_HANDLER,
     CLASSIC_HANDLER,
     KUNI_HANDLER,
-    WAIFU_HANDLER,
     LEWD_HANDLER,
     KISS_HANDLER,
     FEMDOM_HANDLER,
@@ -850,7 +837,6 @@ __help__ = """
    ➢ `/hentaigif`*:* Sends Random Hentai GIFs.
    ➢ `/classic`*:* Sends Random Classic Hentai GIFs.
    ➢ `/kuni`*:* Sends Random Pussy Lick GIFs.
-   ➢ `/waifu`*:* Sends Random Waifu Stickers.
    ➢ `/kiss`*:* Sends Random Kissing GIFs.
    ➢ `/femdom`*:* Sends Random Femdom source Images.
    ➢ `/cuddle`*:* Sends Random Cuddle GIFs.
