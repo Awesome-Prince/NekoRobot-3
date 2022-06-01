@@ -38,6 +38,7 @@ from NekoRobot import (
 
 from telegram import Chat, ChatMember, ParseMode, Update, User
 from telegram.ext import CallbackContext
+from pyrogram import filters
 
 # stores admemes in memory for 10 min.
 ADMIN_CACHE = TTLCache(maxsize=512, ttl=60 * 10, timer=perf_counter)
@@ -452,3 +453,6 @@ def connection_status(func):
 from NekoRobot.modules import connection
 
 connected = connection.connected
+
+def callbacks_in_filters(data):
+    return filters.create(lambda flt, _, query: flt.data in query.data, data=data)
