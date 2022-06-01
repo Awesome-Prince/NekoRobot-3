@@ -33,7 +33,7 @@ import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
                           OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
                           SUPPORT_CHAT, dispatcher, StartTime, telethn, updater, pbot)
-# needed to dynamically load modules
+# needed to load dynamic modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from NekoRobot.modules import ALL_MODULES
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
