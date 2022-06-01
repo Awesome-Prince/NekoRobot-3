@@ -1166,6 +1166,7 @@ def animequotes(update: Update, context: CallbackContext):
 
 
 
+# Waifu Module Made by @H0daka
 
 
 def waifu(update, context):
@@ -1192,7 +1193,6 @@ def waifu(update, context):
                 parse_mode=ParseMode.MARKDOWN,
             )
 
-@typing_action
 def protecc(update, context):
     message = update.effective_message
     user = update.effective_user
