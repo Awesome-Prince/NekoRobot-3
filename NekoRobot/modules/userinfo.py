@@ -358,9 +358,9 @@ def info(update: Update, context: CallbackContext):
 
     for mod in USER_INFO:
         try:
-            mod_info = mod.__user_info__(user.id).strip()
+            mod_info = mod.__user_info__(user.id).result()
         except TypeError:
-            mod_info = mod.__user_info__(user.id, chat.id).strip()
+            mod_info = mod.__user_info__(user.id, chat.id).result()
         if mod_info:
             text += "\n\n" + mod_info
 
