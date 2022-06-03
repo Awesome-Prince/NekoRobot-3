@@ -1168,7 +1168,7 @@ def animequotes(update: Update, context: CallbackContext):
 
 
 
-
+@typing_action
 def waifu(update, context):
     search = random.choice(WAIFUS_PIC)
     variables = {"query": search}
