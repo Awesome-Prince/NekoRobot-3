@@ -1166,7 +1166,7 @@ def animequotes(update: Update, context: CallbackContext):
 
 
 
-# Waifu Module Made by @H0daka
+
 
 
 def waifu(update, context):
@@ -1182,7 +1182,7 @@ def waifu(update, context):
         if image:
             image = image.get("large")
             update.effective_message.reply_photo(
-                photo=image, caption= f"*A waifu appeared!*\nAdd them to your harem by sending /protecc character name • Powered By @Koyuki_Network",
+                photo=image, caption= f"*A waifu appeared!*\nAdd them to your harem by sending /protecc character name \nPowered By @Koyuki_Network",
                   
                 parse_mode=ParseMode.MARKDOWN,
             )
@@ -1192,7 +1192,7 @@ def waifu(update, context):
                 "Oops Waifu Ran Away",
                 parse_mode=ParseMode.MARKDOWN,
             )
-
+@typing_action
 def protecc(update, context):
     message = update.effective_message
     user = update.effective_user
