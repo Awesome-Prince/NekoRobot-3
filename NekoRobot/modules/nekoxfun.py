@@ -348,17 +348,6 @@ def poke(update, context):
 #    msg.reply_video(nekos.img(target))
 
 
-@run_async
-def waifu(update, context):
-    msg = update.effective_message
-    target = "waifu"
-    with open("temp.png", "wb") as f:
-        f.write(requests.get(nekos.img(target)).content)
-    img = Image.open("temp.png")
-    img.save("temp.webp", "webp")
-    msg.reply_document(open("temp.webp", "rb"))
-    os.remove("temp.webp")
-
 
 @run_async
 def kiss(update, context):
@@ -475,7 +464,7 @@ POKE_HANDLER = CommandHandler("poke", poke)
 #HENTAIGIF_HANDLER = CommandHandler("hentaigif", hentaigif)
 #CLASSIC_HANDLER = CommandHandler("classic", classic)
 #KUNI_HANDLER = CommandHandler("kuni", kuni)
-WAIFU_HANDLER = CommandHandler("waifu", waifu)
+
 #LEWD_HANDLER = CommandHandler("lewd", lewd)
 KISS_HANDLER = CommandHandler("kiss", kiss)
 #FEMDOM_HANDLER = CommandHandler("femdom", femdom)
@@ -528,7 +517,7 @@ dispatcher.add_handler(POKE_HANDLER)
 #dispatcher.add_handler(HENTAIGIF_HANDLER)
 #dispatcher.add_handler(CLASSIC_HANDLER)
 #dispatcher.add_handler(KUNI_HANDLER)
-dispatcher.add_handler(WAIFU_HANDLER)
+
 #dispatcher.add_handler(LEWD_HANDLER)
 dispatcher.add_handler(KISS_HANDLER)
 #dispatcher.add_handler(FEMDOM_HANDLER)
