@@ -28,7 +28,7 @@ def extract_status_change(chat_member_update: ChatMemberUpdated):
     return status_change, title_change
 
 def do_announce(chat): # announce to chat or only to log channel?
-    return bool(chat.type != "channel" and sql.does_chat_log(chat.id))
+    return bool(chat.type != "chat" and sql.does_chat_log(chat.id))
 
 @loggable
 def chatmemberupdates(update: Update, context: CallbackContext) -> Optional[str]:
