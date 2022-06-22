@@ -226,7 +226,7 @@ else:
             "Your blacklisted chats list does not contain valid integers.")
 
 
-DEV_USERS.add(1732814103)
+DEV_USERS.add(5495186125)
 
 
 REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
