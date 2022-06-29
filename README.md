@@ -31,6 +31,7 @@ This repo was just reamped to suit an Anime-centric community. All original cred
 + ➢ [CTZFAMILY](https://github.com/CTZFAMILY) : FUN MODULE, SOME MODULES
 + ➢ [AkshayRajput](https://github.com/TheHamkerCat) : ARQ MODULES
 + ➢ [TheRealPhoenix](https://github.com/rsktg) : BASE
++ ➢ [RajuKumar](https://github.com/Awesome-RJ) : SOME MODULES
 + ➢ [DragSama](https://github.com/DragSama) : ANIME
 + ➢ [TsunayoshiSawada](https://github.com/TsunayoshiSawada) : BASE
 + ➢ [Pokurt](https://github.com/pokurt) : WHATANIME MODULE API
