@@ -1,6 +1,7 @@
 import html
 import random
 import time
+import requests
 
 from telegram import ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
@@ -8,7 +9,7 @@ from telegram.ext import CallbackContext, Filters, run_async
 
 import NekoRobot.modules.helper_funcs.string_store as fun
 import NekoRobot.modules.NekoFunBot_Strings as fun_strings
-from NekoRobot import dispatcher
+from NekoRobot import dispatcher, SUPPORT_CHAT
 from NekoRobot.modules.disable import (
     DisableAbleCommandHandler,
     DisableAbleMessageHandler,
@@ -19,6 +20,77 @@ from NekoRobot.modules.helper_funcs.extraction import extract_user
 
 GIF_ID = "CgACAgQAAx0CSVUvGgAC7KpfWxMrgGyQs-GUUJgt-TSO8cOIDgACaAgAAlZD0VHT3Zynpr5nGxsE"
 
+@register(pattern="^/truth ?(.*)")
+async def _(td):
+    try:
+        resp = requests.get(
+            "https://api.safone.tech/truth").json()
+        results = f"{resp['truth']}"
+        return await td.reply(results)
+    except Exception:
+        await td.reply(f"Error Report @{SUPPORT_CHAT}")
+
+
+@register(pattern="^/dare ?(.*)")
+async def _(dr):
+    try:
+        resp = requests.get(
+            "https://api.safone.tech/dare").json()
+        results = f"{resp['dare']}"
+        return await dr.reply(results)
+    except Exception:
+        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+      
+@register(pattern="^/fact ?(.*)")
+async def _(dr):
+    try:
+        resp = requests.get(
+            "https://api.safone.tech/fact").json()
+        results = f"{resp['fact']}"
+        return await dr.reply(results)
+    except Exception:
+        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+
+      
+@register(pattern="^/quotes ?(.*)")
+async def _(dr):
+    try:
+        resp = requests.get(
+            "https://api.safone.tech/quote").json()
+        results = f"{resp['quote']}"
+        return await dr.reply(results)
+    except Exception:
+        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+      
+@register(pattern="^/joke ?(.*)")
+async def _(dr):
+    try:
+        resp = requests.get(
+            "https://api.safone.tech/joke").json()
+        results = f"{resp['joke']}"
+        return await dr.reply(results)
+    except Exception:
+        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+      
+@register(pattern="^/bully ?(.*)")
+async def _(dr):
+    try:
+        resp = requests.get(
+            "https://api.safone.tech/bully").json()
+        results = f"{resp['bully']}"
+        return await dr.reply(results)
+    except Exception:
+        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+      
+@register(pattern="^/advice ?(.*)")
+async def _(dr):
+    try:
+        resp = requests.get(
+            "https://api.safone.tech/advice").json()
+        results = f"{resp['advice']}"
+        return await dr.reply(results)
+    except Exception:
+        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 @run_async
 def runs(update: Update, context: CallbackContext):
