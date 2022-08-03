@@ -1,20 +1,13 @@
 import html
 from typing import Optional
 
-from telegram import Update, ParseMode
+from telegram import ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import Filters, CallbackContext
+from telegram.ext import CallbackContext, Filters
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import (
-    DEV_USERS,
-    DRAGONS,
-    TIGERS,
-    DEMONS,
-    OWNER_ID,
-    WOLVES,
-    LOGGER,
-)
+from NekoRobot import DEMONS, DEV_USERS, DRAGONS, LOGGER, OWNER_ID, TIGERS, WOLVES
+from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
     can_restrict,
@@ -23,21 +16,21 @@ from NekoRobot.modules.helper_funcs.chat_status import (
     is_user_ban_protected,
     is_user_in_chat,
 )
+from NekoRobot.modules.helper_funcs.decorators import kigcmd
 from NekoRobot.modules.helper_funcs.extraction import extract_user_and_text
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
-from NekoRobot.modules.log_channel import loggable, gloggable
-from NekoRobot.modules.helper_funcs.decorators import kigcmd
-
-from NekoRobot.modules.helper_funcs.anonymous import user_admin, AdminPerms
+from NekoRobot.modules.log_channel import gloggable, loggable
 
 
-@kigcmd(command='cban', pass_args=True)
+@kigcmd(command="cban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @loggable
-def cban(update: Update, context: CallbackContext) -> Optional[str]:  # sourcery no-metrics
+def cban(
+    update: Update, context: CallbackContext
+) -> Optional[str]:  # sourcery no-metrics
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
@@ -46,17 +39,20 @@ def cban(update: Update, context: CallbackContext) -> Optional[str]:  # sourcery
     log_message = ""
     reason = ""
     if message.reply_to_message and message.reply_to_message.sender_chat:
-        r = bot._request.post(bot.base_url + '/banChatSenderChat', {
-            'sender_chat_id': message.reply_to_message.sender_chat.id,
-            'chat_id': chat.id
-        },
-                              )
+        r = bot._request.post(
+            bot.base_url + "/banChatSenderChat",
+            {
+                "sender_chat_id": message.reply_to_message.sender_chat.id,
+                "chat_id": chat.id,
+            },
+        )
         if r:
-            message.reply_text("Channel {} was banned successfully from {}".format(
-                html.escape(message.reply_to_message.sender_chat.title),
-                html.escape(chat.title)
-            ),
-                parse_mode="html"
+            message.reply_text(
+                "Channel {} was banned successfully from {}".format(
+                    html.escape(message.reply_to_message.sender_chat.title),
+                    html.escape(chat.title),
+                ),
+                parse_mode="html",
             )
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
@@ -117,8 +113,10 @@ def cban(update: Update, context: CallbackContext) -> Optional[str]:  # sourcery
         context.bot.sendMessage(
             chat.id,
             "{} was banned by {} in <b>{}</b>\n<b>Reason</b>: <code>{}</code>".format(
-                mention_html(member.user.id, member.user.first_name), mention_html(user.id, user.first_name),
-                message.chat.title, reason
+                mention_html(member.user.id, member.user.first_name),
+                mention_html(user.id, user.first_name),
+                message.chat.title,
+                reason,
             ),
             parse_mode=ParseMode.HTML,
         )
@@ -143,7 +141,7 @@ def cban(update: Update, context: CallbackContext) -> Optional[str]:  # sourcery
     return ""
 
 
-@kigcmd(command='tcban', pass_args=True)
+@kigcmd(command="tcban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
@@ -166,7 +164,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != 'User not found':
+        if excp.message != "User not found":
             raise
         message.reply_text("I can't seem to find this user.")
         return log_message
@@ -232,7 +230,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@kigcmd(command='kick', pass_args=True)
+@kigcmd(command="kick", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
@@ -253,7 +251,7 @@ def kick(update: Update, context: CallbackContext) -> str:
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != 'User not found':
+        if excp.message != "User not found":
             raise
         message.reply_text("I can't seem to find this user.")
         return log_message
@@ -290,7 +288,7 @@ def kick(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@kigcmd(command='kickme', pass_args=True, filters=Filters.chat_type.groups)
+@kigcmd(command="kickme", pass_args=True, filters=Filters.chat_type.groups)
 @bot_admin
 @can_restrict
 def kickme(update: Update, context: CallbackContext):
@@ -306,7 +304,7 @@ def kickme(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Huh? I can't :/")
 
 
-@kigcmd(command='uncban', pass_args=True)
+@kigcmd(command="uncban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
@@ -319,17 +317,20 @@ def uncban(update: Update, context: CallbackContext) -> Optional[str]:
     log_message = ""
     bot, args = context.bot, context.args
     if message.reply_to_message and message.reply_to_message.sender_chat:
-        r = bot._request.post(bot.base_url + '/unbanChatSenderChat', {
-            'sender_chat_id': message.reply_to_message.sender_chat.id,
-            'chat_id': chat.id
-        },
-                              )
+        r = bot._request.post(
+            bot.base_url + "/unbanChatSenderChat",
+            {
+                "sender_chat_id": message.reply_to_message.sender_chat.id,
+                "chat_id": chat.id,
+            },
+        )
         if r:
-            message.reply_text("Channel {} was unbanned successfully from {}".format(
-                html.escape(message.reply_to_message.sender_chat.title),
-                html.escape(chat.title)
-            ),
-                parse_mode="html"
+            message.reply_text(
+                "Channel {} was unbanned successfully from {}".format(
+                    html.escape(message.reply_to_message.sender_chat.title),
+                    html.escape(chat.title),
+                ),
+                parse_mode="html",
             )
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
@@ -348,7 +349,7 @@ def uncban(update: Update, context: CallbackContext) -> Optional[str]:
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != 'User not found':
+        if excp.message != "User not found":
             raise
         message.reply_text("I can't seem to find this user.")
         return log_message
@@ -364,8 +365,10 @@ def uncban(update: Update, context: CallbackContext) -> Optional[str]:
     bot.sendMessage(
         chat.id,
         "{} was unbanned by {} in <b>{}</b>\n<b>Reason</b>: <code>{}</code>".format(
-            mention_html(member.user.id, member.user.first_name), mention_html(user.id, user.first_name),
-            message.chat.title, reason
+            mention_html(member.user.id, member.user.first_name),
+            mention_html(user.id, user.first_name),
+            message.chat.title,
+            reason,
         ),
         parse_mode=ParseMode.HTML,
     )
@@ -382,7 +385,7 @@ def uncban(update: Update, context: CallbackContext) -> Optional[str]:
     return log
 
 
-@kigcmd(command='selfunban', pass_args=True)
+@kigcmd(command="selfunban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict

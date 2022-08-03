@@ -147,7 +147,7 @@ SLAP_TEMPLATES = (
 NEKO = (
     "*licks {user1}'s face* Where are my cookies?",
     "Hello UwU {user1} I'm here to play, Meow",
-    )
+)
 
 PAT_TEMPLATES = (
     "{user1} pats {user2} on the head.",

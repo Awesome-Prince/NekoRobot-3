@@ -21,18 +21,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from telethon import events, Button, custom
-import re, os
-from NekoRobot.events import register
+from telethon import Button
+
 from NekoRobot import telethn as tbot
-from NekoRobot import telethn as tgbot
+from NekoRobot.events import register
+
 PHOTO = "https://telegra.ph/file/a21731c0c4c7f27a3ec16.jpg"
+
+
 @register(pattern=("/alive"))
 async def awake(event):
-  NEKO = f"**♡ hey {event.sender.first_name} I,m Neko Robot** \n\n"
-  NEKO += "**♡ I'm Working with Cuteness**\n\n"
-  NEKO += "**♡ Neko: LATEST Version**\n\n"
-  NEKO += "**♡ My Creator:** [LovelyPrince](t.me/DarlingPrince)\n\n"
-  NEKO += "**♡ python-Telegram-Bot: 13.11**\n\n"
-  BUTTON = [[Button.url("🚑 Support", "https://t.me/Koyuki_Support"), Button.url("📢 Updates", "https://t.me/Koyuki_Updates")]]
-  await tbot.send_file(event.chat_id, PHOTO, caption=NEKO,  buttons=BUTTON)
+    NEKO = f"**♡ hey {event.sender.first_name} I,m Neko Robot** \n\n"
+    NEKO += "**♡ I'm Working with Cuteness**\n\n"
+    NEKO += "**♡ Neko: LATEST Version**\n\n"
+    NEKO += "**♡ My Creator:** [LovelyPrince](t.me/DarlingPrince)\n\n"
+    NEKO += "**♡ python-Telegram-Bot: 13.11**\n\n"
+    BUTTON = [
+        [
+            Button.url("🚑 Support", "https://t.me/Koyuki_Support"),
+            Button.url("📢 Updates", "https://t.me/Koyuki_Updates"),
+        ]
+    ]
+    await tbot.send_file(event.chat_id, PHOTO, caption=NEKO, buttons=BUTTON)

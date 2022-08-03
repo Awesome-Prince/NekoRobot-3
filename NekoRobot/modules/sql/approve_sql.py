@@ -23,7 +23,7 @@ SOFTWARE.
 
 import threading
 
-from sqlalchemy import Column, String, UnicodeText, Integer, func, distinct
+from sqlalchemy import Column, Integer, String
 
 from NekoRobot.modules.sql import BASE, SESSION
 

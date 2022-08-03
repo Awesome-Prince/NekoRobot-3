@@ -1,42 +1,50 @@
 import html
-import random
-import sys
 import json
+import sys
 from datetime import datetime
 from platform import python_version
 from typing import List
 from uuid import uuid4
-from pyrogram import __version__ as pyrover
-from pyrogram import filters
 
 import requests
-from telegram import InlineQueryResultArticle, ParseMode, InlineQueryResultPhoto, InputTextMessageContent, Update, InlineKeyboardMarkup, \
-    InlineKeyboardButton
-from telegram import __version__
+from pyrogram import __version__ as pyrover
+from pyrogram import filters
+from telegram import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InlineQueryResultArticle,
+    InlineQueryResultPhoto,
+    InputTextMessageContent,
+    ParseMode,
+    Update,
+    __version__,
+)
 from telegram.error import BadRequest
-from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler,
-                          Filters, MessageHandler)
+from telegram.ext import CallbackContext
 from telegram.utils.helpers import mention_html
+
 import NekoRobot.modules.sql.users_sql as sql
-from NekoRobot.modules.sudoers import bot_sys_stats as wall
 from NekoRobot import (
-    OWNER_ID,
-    DRAGONS,
     DEMONS,
     DEV_USERS,
+    DRAGONS,
+    LOGGER,
+    OWNER_ID,
     TIGERS,
     WOLVES,
     pgram,
-    sw, LOGGER
+    sw,
 )
-from NekoRobot.modules.helper_funcs.miku_misc import article
 from NekoRobot.modules.helper_funcs.decorators import kiginline
+from NekoRobot.modules.helper_funcs.miku_misc import article
+from NekoRobot.modules.sudoers import bot_sys_stats as wall
 
 
 def remove_prefix(text, prefix):
     if text.startswith(prefix):
         text = text.replace(prefix, "", 1)
     return text
+
 
 @kiginline()
 def inlinequery(update: Update, _) -> None:
@@ -52,7 +60,7 @@ def inlinequery(update: Update, _) -> None:
             "title": "SpamProtection INFO",
             "description": "Look up a person/bot/channel/chat on @Intellivoid SpamProtection API",
             "message_text": "Click the button below to look up a person/bot/channel/chat on @Intellivoid SpamProtection API using "
-                            "username or telegram id",
+            "username or telegram id",
             "thumb_urL": "https://telegra.ph/file/0bf1b29555518a0d45948.jpg",
             "keyboard": ".spb ",
         },
@@ -101,9 +109,7 @@ def inlinequery(update: Update, _) -> None:
                             [
                                 InlineKeyboardButton(
                                     text="Click Here",
-                                    switch_inline_query_current_chat=ihelp[
-                                        "keyboard"
-                                    ],
+                                    switch_inline_query_current_chat=ihelp["keyboard"],
                                 )
                             ]
                         ]
@@ -131,7 +137,7 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
     except (BadRequest, ValueError):
         user = bot.get_chat(user_id)
 
-    chat = update.effective_chat
+    update.effective_chat
     sql.update_user(user.id, user.username)
 
     text = (
@@ -186,9 +192,6 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
     num_chats = sql.get_user_num_chats(user.id)
     text += f"\n• <b>Chat count</b>: <code>{num_chats}</code>"
 
-
-
-
     kb = InlineKeyboardMarkup(
         [
             [
@@ -200,23 +203,24 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
                     text="Search again",
                     switch_inline_query_current_chat=".info ",
                 ),
-
             ],
         ]
-        )
+    )
 
     results = [
         InlineQueryResultArticle(
             id=str(uuid4()),
             thumb_url="https://telegra.ph/file/0bf1b29555518a0d45948.jpg",
             title=f"User info of {html.escape(user.first_name)}",
-            input_message_content=InputTextMessageContent(text, parse_mode=ParseMode.HTML,
-                                                          disable_web_page_preview=True),
-            reply_markup=kb
+            input_message_content=InputTextMessageContent(
+                text, parse_mode=ParseMode.HTML, disable_web_page_preview=True
+            ),
+            reply_markup=kb,
         ),
     ]
 
     update.inline_query.answer(results, cache_time=5)
+
 
 @pgram.on_callback_query(filters.regex("pingCB"))
 async def stats_callbacc(_, CallbackQuery):
@@ -226,7 +230,7 @@ async def stats_callbacc(_, CallbackQuery):
 
 def about(query: str, update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
-    query = update.inline_query.query
+    update.inline_query.query
     user_id = update.effective_user.id
     user = context.bot.get_chat(user_id)
     sql.update_user(user.id, user.username)
@@ -238,16 +242,16 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
         [
             [
                 InlineKeyboardButton(
-                    text='Support',
-                    url=f'https://t.me/Koyuki_Support',
+                    text="Support",
+                    url=f"https://t.me/Koyuki_Support",
                 ),
                 InlineKeyboardButton(
-                    text='Sys Stats',
-                    callback_data='pingCB',
+                    text="Sys Stats",
+                    callback_data="pingCB",
                 ),
-
             ],
-        ])
+        ]
+    )
 
     results.append(
         InlineQueryResultPhoto(
@@ -269,9 +273,11 @@ def spb(query: str, update: Update, context: CallbackContext) -> None:
     query = update.inline_query.query
     user_id = update.effective_user.id
     srdata = None
-    apst = requests.get(f'https://api.intellivoid.net/spamprotection/v1/lookup?query={context.bot.username}')
+    apst = requests.get(
+        f"https://api.intellivoid.net/spamprotection/v1/lookup?query={context.bot.username}"
+    )
     api_status = apst.status_code
-    if (api_status != 200):
+    if api_status != 200:
         stats = f"API RETURNED {api_status}"
     else:
         try:
@@ -306,12 +312,16 @@ def spb(query: str, update: Update, context: CallbackContext) -> None:
             stats += f"*Spam Prediction*:\n"
             stats += f' • *Ham Prediction*: `{a["results"]["spam_prediction"]["ham_prediction"]}`\n'
             stats += f' • *Spam Prediction*: `{a["results"]["spam_prediction"]["spam_prediction"]}`\n'
-            stats += f'*Blacklisted*: `{a["results"]["attributes"]["is_blacklisted"]}`\n'
+            stats += (
+                f'*Blacklisted*: `{a["results"]["attributes"]["is_blacklisted"]}`\n'
+            )
             if a["results"]["attributes"]["is_blacklisted"] is True:
                 stats += (
                     f' • *Reason*: `{a["results"]["attributes"]["blacklist_reason"]}`\n'
                 )
-                stats += f' • *Flag*: `{a["results"]["attributes"]["blacklist_flag"]}`\n'
+                stats += (
+                    f' • *Flag*: `{a["results"]["attributes"]["blacklist_flag"]}`\n'
+                )
             stats += f'*PTID*:\n`{a["results"]["private_telegram_id"]}`\n'
 
         else:
@@ -328,9 +338,9 @@ def spb(query: str, update: Update, context: CallbackContext) -> None:
                     text="Search again",
                     switch_inline_query_current_chat=".spb ",
                 ),
-
             ],
-        ])
+        ]
+    )
 
     a = "the entity was not found"
     results = [
@@ -338,17 +348,17 @@ def spb(query: str, update: Update, context: CallbackContext) -> None:
             id=str(uuid4()),
             title=f"SpamProtection API info of {srdata or a}",
             thumb_url="https://telegra.ph/file/0bf1b29555518a0d45948.jpg",
-            input_message_content=InputTextMessageContent(stats, parse_mode=ParseMode.MARKDOWN,
-                                                          disable_web_page_preview=True),
-            reply_markup=kb
+            input_message_content=InputTextMessageContent(
+                stats, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
+            ),
+            reply_markup=kb,
         ),
     ]
 
     update.inline_query.answer(results, cache_time=5)
 
 
-
-MEDIA_QUERY = '''query ($search: String) {
+MEDIA_QUERY = """query ($search: String) {
   Page (perPage: 10) {
     media (search: $search) {
       id
@@ -379,7 +389,7 @@ MEDIA_QUERY = '''query ($search: String) {
       siteUrl
     }
   }
-}'''
+}"""
 
 
 def media_query(query: str, update: Update, context: CallbackContext) -> None:
@@ -390,18 +400,23 @@ def media_query(query: str, update: Update, context: CallbackContext) -> None:
 
     try:
         results: List = []
-        r = requests.post('https://graphql.anilist.co',
-                          data=json.dumps({'query': MEDIA_QUERY, 'variables': {'search': query}}),
-                          headers={'Content-Type': 'application/json', 'Accept': 'application/json'})
+        r = requests.post(
+            "https://graphql.anilist.co",
+            data=json.dumps({"query": MEDIA_QUERY, "variables": {"search": query}}),
+            headers={"Content-Type": "application/json", "Accept": "application/json"},
+        )
         res = r.json()
-        data = res['data']['Page']['media']
+        data = res["data"]["Page"]["media"]
         res = data
         for data in res:
             title_en = data["title"].get("english") or "N/A"
             title_ja = data["title"].get("romaji") or "N/A"
             format = data.get("format") or "N/A"
             type = data.get("type") or "N/A"
-            bannerimg = data.get("bannerImage") or "https://telegra.ph/file/0bf1b29555518a0d45948.jpg.jpg"
+            bannerimg = (
+                data.get("bannerImage")
+                or "https://telegra.ph/file/0bf1b29555518a0d45948.jpg.jpg"
+            )
             try:
                 des = data.get("description").replace("<br>", "").replace("</br>", "")
                 description = des.replace("<i>", "").replace("</i>", "") or "N/A"
@@ -414,15 +429,17 @@ def media_query(query: str, update: Update, context: CallbackContext) -> None:
                 description = description or "N/A"
 
             if len((str(description))) > 700:
-                description = description [0:700] + "....."
+                description = description[0:700] + "....."
 
             avgsc = data.get("averageScore") or "N/A"
             status = data.get("status") or "N/A"
             genres = data.get("genres") or "N/A"
             genres = ", ".join(genres)
-            img = f"https://img.anili.st/media/{data['id']}" or "https://telegra.ph/file/0bf1b29555518a0d45948.jpg"
+            img = (
+                f"https://img.anili.st/media/{data['id']}"
+                or "https://telegra.ph/file/0bf1b29555518a0d45948.jpg"
+            )
             aurl = data.get("siteUrl")
-
 
             kb = InlineKeyboardMarkup(
                 [
@@ -435,9 +452,9 @@ def media_query(query: str, update: Update, context: CallbackContext) -> None:
                             text="Search again",
                             switch_inline_query_current_chat=".anilist ",
                         ),
-
                     ],
-                ])
+                ]
+            )
 
             txt = f"<b>{title_en} | {title_ja}</b>\n"
             txt += f"<b>Format</b>: <code>{format}</code>\n"
@@ -449,15 +466,15 @@ def media_query(query: str, update: Update, context: CallbackContext) -> None:
             txt += f"<a href='{img}'>&#xad</a>"
 
             results.append(
-                InlineQueryResultArticle
-                    (
+                InlineQueryResultArticle(
                     id=str(uuid4()),
                     title=f"{title_en} | {title_ja} | {format}",
                     thumb_url=img,
                     description=f"{description}",
-                    input_message_content=InputTextMessageContent(txt, parse_mode=ParseMode.HTML,
-                                                                  disable_web_page_preview=False),
-                    reply_markup=kb
+                    input_message_content=InputTextMessageContent(
+                        txt, parse_mode=ParseMode.HTML, disable_web_page_preview=False
+                    ),
+                    reply_markup=kb,
                 )
             )
     except Exception as e:
@@ -473,21 +490,21 @@ def media_query(query: str, update: Update, context: CallbackContext) -> None:
                         text="Search again",
                         switch_inline_query_current_chat=".anilist ",
                     ),
-
                 ],
-            ])
+            ]
+        )
 
         results.append(
-
-            InlineQueryResultArticle
-                (
+            InlineQueryResultArticle(
                 id=str(uuid4()),
                 title=f"Media {query} not found",
-                input_message_content=InputTextMessageContent(f"Media {query} not found due to {e}", parse_mode=ParseMode.MARKDOWN,
-                                                              disable_web_page_preview=True),
-                reply_markup=kb
+                input_message_content=InputTextMessageContent(
+                    f"Media {query} not found due to {e}",
+                    parse_mode=ParseMode.MARKDOWN,
+                    disable_web_page_preview=True,
+                ),
+                reply_markup=kb,
             )
-
         )
 
     update.inline_query.answer(results, cache_time=5)

@@ -4,11 +4,11 @@ from telegram import Update
 from telegram.ext import CallbackContext
 from telegram.utils.helpers import mention_html
 
-from NekoRobot.modules.log_channel import loggable
-from NekoRobot.modules.helper_funcs.decorators import kigcmd
-
 import NekoRobot.modules.sql.logger_sql as sql
-from NekoRobot.modules.helper_funcs.anonymous import user_admin as u_admin, AdminPerms
+from NekoRobot.modules.helper_funcs.anonymous import AdminPerms
+from NekoRobot.modules.helper_funcs.anonymous import user_admin as u_admin
+from NekoRobot.modules.helper_funcs.decorators import kigcmd
+from NekoRobot.modules.log_channel import loggable
 
 
 @kigcmd(command="announce", pass_args=True)
@@ -17,7 +17,7 @@ from NekoRobot.modules.helper_funcs.anonymous import user_admin as u_admin, Admi
 def announcestat(update: Update, context: CallbackContext) -> str:
     args = context.args
     if len(args) > 0:
-        u = update.effective_user
+        update.effective_user
         message = update.effective_message
         chat = update.effective_chat
         user = update.effective_user
@@ -51,9 +51,10 @@ def announcestat(update: Update, context: CallbackContext) -> str:
             "Your current setting is: {}\n"
             "When True, any admin actions in your group will be announced."
             "When False, admin actions in your group will not be announced.".format(
-                sql.does_chat_log(update.effective_chat.id))
+                sql.does_chat_log(update.effective_chat.id)
+            )
         )
-        return ''
+        return ""
 
 
 def __migrate__(old_chat_id, new_chat_id):

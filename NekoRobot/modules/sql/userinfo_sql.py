@@ -23,10 +23,10 @@ SOFTWARE.
 
 import threading
 
-from NekoRobot.modules.sql import BASE, SESSION
 from sqlalchemy import Column, UnicodeText
 from sqlalchemy.sql.sqltypes import BigInteger
 
+from NekoRobot.modules.sql import BASE, SESSION
 
 
 class UserInfo(BASE):

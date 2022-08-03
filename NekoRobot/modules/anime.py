@@ -1,24 +1,27 @@
 import datetime
 import html
 import json
+import os
+import random
 import textwrap
+
 import bs4
 import jikanpy
 import requests
-import random
-import os
-
-from bs4 import BeautifulSoup
-from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update, Message
-from telegram.ext import CommandHandler, CallbackQueryHandler, CallbackContext
+from telegram import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+    ParseMode,
+    Update,
+)
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import OWNER_ID, REDIS, dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import typing_action
-from NekoRobot.modules.helper_funcs.chat_status import callbacks_in_filters
 
 kaizoku_btn = "Kaizoku ☠️"
 kayo_btn = "Kayo 🏴‍☠️"
@@ -100,208 +103,206 @@ QUOTES_IMG = (
 )
 
 WAIFUS_PIC = (
-"Ram",
-"Rem"
-"Asuna Yuuki",
-"Miku Nakano",
-"Emilia",
-"Zero Two",
-"Tohru",
-"Natsunagi Nagisa",
-"Mai Sakurajima",
-"Shouko Makinohara",
-"Megumin",
-"Kanna Kamui"
-"Umaru Doma",
-"Rikka Takanashi",
-"Enterprise",
-"Sakura Haruno",
-"Hinata Hyuuga",
-"Kurumi Tokisaki",
-"Shinobu Kochou",
-"Nezuko Kamado"
-"Nami",
-"Nico Robin",
-"Boa Hancock",
-"Viola",
-"Yuno Gasai",
-"Himawari Uzumaki",
-"Kaguya Shinomiya",
-"Kanae Kochou",
-"Yukinon",
-"Marin Kitagawa",
-"Siesta",
-"Asia",
-"Rias",
-"Gabi",
-"Mikasa Ackerman",
-"Shouko Komi",
-"Micchon Shikimori",
-"Yor Forger",
-"Anya Forger",
-"Artoria Pendragon",
-"Maki Zenin",
-"Rukia Kuchiki",
-"Nobara Kugisaki",
-"Orihime Inoue",
-"Rangiku",
-"Unohana",
-"Belldandy",
-"Queen Beryl",
-"Euphemia li Britannia",
-"Bulma",
-"C.C.",
-"Cammy",
-"Caulifla and Kale",
-"Chi",
-"Chi-Chi",
-"Chun-Li",
-"Lacus Clyne",
-"Tomoyo Daidouji",
-"Dejiko",
-"Lala Satalin Deviluke",
-"Momo Belia Deviluke",
-"Nana Astar Deviluke",
-"Chrome Dokuro",
-"Felicia",
-"Maya Fey",
-"Mia Fey",
-"Pearl Fey",
-"Haruhi Fujioka",
-"Chika Fujiwara",
-"Toko FukawaYumeko Jabami",
-"Oscar François de Jarjayes",
-"Abigail Jones",
-"Junko Enoshima",
-"Jynx",
-"Yumeko Jabami",
-"Oscar François de Jarjayes",
-"Abigail Jones",
-"Junko Enoshima",
-"Jynx",
-"K",
-"K.R.T. Girls",
-"Kagura",
-"Kaho Mizuki",
-"Kamiya Kaoru",
-"Mitsuri Kanroji",
-"Urumi Kanzaki",
-"Yuu Kashima",
-"Sakura Kasugano",
-"Misato Katsuragi",
-"Tomie Kawakami",
-"Ami Kawashima",
-"Nadeshiko Kinomoto",
-"Kyoko Kirigiri",
-"Saya Kisaragi",
-"Miyuki Kobayakawa",
-"Yuri Koigakubo",
-"Yotsuba Koiwai",
-"Kirino Kosaka",
-"Yui Kotegawa",
-"Rukia Kuchiki",
-"Nobara Kugisaki",
-"Minamo Kurosawa",
-"Motoko Kusanagi",
-"Minori Kushieda",
-"Anna Kyoyama",
-"Nunnally Lamperouge",
-"Leafa",
-"Connie Lee",
-"Lenalee Lee",
-"Leona Heidern",
-"Lillie",
-"Lina Inverse",
-"Luna",
-"Mai Shiranui",
-"Makimachi Misao",
-"Hitomi Manaka",
-"Mako Mankanshoku",
-"Mari Illustrious Makinami",
-"Wendy Marvell",
-"Ayeka Masaki Jurai",
-"Meiling Li",
-"Michelle Chang",
-"Chiyo Mihama",
-"Mai Minakami",
-"Fujiko Mine",
-"Lynn Minmay",
-"Mikoto Misaka",
-"Misty",
-"Morrigan Aensland",
-"Multi",
-"Naga the Serpent",
-"Mio Naganohara",
-"Nino Nakano",
-"Nakoruru",
-"Nakuru Akizuki",
-"Chiaki Nanami",
-"Naru Narusegawa",
-"Atsuko Natsume",
-"Nausicaä",
-"Queen Nehelenia",
-"Darya Nikitina",
-"Himari Noihara",
-"Arale Norimaki",
-"Nyaruko",
-"Yuzuriha Ogawa",
-"Mamako Oosuki",
-"PaninyaSuo Pavlichenko",
-"Yomiko Readman",
-"Revy",
-"Winry Rockbell",
-"Roll",
-"Rose",
-"Rebecca Rossellini",
-"Ruri",
-"Haruna Sairenji",
-"Chiyo Sakura",
-"Sakura Matou",
-"Izumi Sakurai",
-"Sarah Bryant",
-"Erza Scarlet",
-"Senko-san",
-"Yuzuki Seo",
-"Mika Shimotsuki",
-"Shinonome",
-"Kuroko Shirai",
-"Noelle Silva",
-"Sinon",
-"Skuld",
-"Sonomi Daidouji",
-"Asuka Langley Soryu",
-"Kallen Stadtfeld",
-"Celty Sturluson",
-"Suika",
-"Super Sonico",
-"Haruhi Suzumiya",
-"Secre Swallowtail",
-"Swindler",
-"Kiyomi Takada",
-"Saya Takagi",
-"Sora Takenouchi",
-"Taki ",
-"Takino",
-"Yukari Tanizaki",
-"Utena Tenjou",
-"Teresa Beria",
-"Origami Tobiichi",
-"Rin Tohsaka",
-"Akane Tsunemori",
-"Sarada Uchiha",
-"Ulala",
-"Hana Uzaki",
-"Shion Uzuki",
-"Faye Valentine",
-"Mereoleona Vermillion",
-"Mimosa Vermillion",
-"Videl",
-"Mei Mei",
-"Misa Amane",
-"Makima",
-"Power",
-"Batman"
+    "Ram",
+    "Rem" "Asuna Yuuki",
+    "Miku Nakano",
+    "Emilia",
+    "Zero Two",
+    "Tohru",
+    "Natsunagi Nagisa",
+    "Mai Sakurajima",
+    "Shouko Makinohara",
+    "Megumin",
+    "Kanna Kamui" "Umaru Doma",
+    "Rikka Takanashi",
+    "Enterprise",
+    "Sakura Haruno",
+    "Hinata Hyuuga",
+    "Kurumi Tokisaki",
+    "Shinobu Kochou",
+    "Nezuko Kamado" "Nami",
+    "Nico Robin",
+    "Boa Hancock",
+    "Viola",
+    "Yuno Gasai",
+    "Himawari Uzumaki",
+    "Kaguya Shinomiya",
+    "Kanae Kochou",
+    "Yukinon",
+    "Marin Kitagawa",
+    "Siesta",
+    "Asia",
+    "Rias",
+    "Gabi",
+    "Mikasa Ackerman",
+    "Shouko Komi",
+    "Micchon Shikimori",
+    "Yor Forger",
+    "Anya Forger",
+    "Artoria Pendragon",
+    "Maki Zenin",
+    "Rukia Kuchiki",
+    "Nobara Kugisaki",
+    "Orihime Inoue",
+    "Rangiku",
+    "Unohana",
+    "Belldandy",
+    "Queen Beryl",
+    "Euphemia li Britannia",
+    "Bulma",
+    "C.C.",
+    "Cammy",
+    "Caulifla and Kale",
+    "Chi",
+    "Chi-Chi",
+    "Chun-Li",
+    "Lacus Clyne",
+    "Tomoyo Daidouji",
+    "Dejiko",
+    "Lala Satalin Deviluke",
+    "Momo Belia Deviluke",
+    "Nana Astar Deviluke",
+    "Chrome Dokuro",
+    "Felicia",
+    "Maya Fey",
+    "Mia Fey",
+    "Pearl Fey",
+    "Haruhi Fujioka",
+    "Chika Fujiwara",
+    "Toko FukawaYumeko Jabami",
+    "Oscar François de Jarjayes",
+    "Abigail Jones",
+    "Junko Enoshima",
+    "Jynx",
+    "Yumeko Jabami",
+    "Oscar François de Jarjayes",
+    "Abigail Jones",
+    "Junko Enoshima",
+    "Jynx",
+    "K",
+    "K.R.T. Girls",
+    "Kagura",
+    "Kaho Mizuki",
+    "Kamiya Kaoru",
+    "Mitsuri Kanroji",
+    "Urumi Kanzaki",
+    "Yuu Kashima",
+    "Sakura Kasugano",
+    "Misato Katsuragi",
+    "Tomie Kawakami",
+    "Ami Kawashima",
+    "Nadeshiko Kinomoto",
+    "Kyoko Kirigiri",
+    "Saya Kisaragi",
+    "Miyuki Kobayakawa",
+    "Yuri Koigakubo",
+    "Yotsuba Koiwai",
+    "Kirino Kosaka",
+    "Yui Kotegawa",
+    "Rukia Kuchiki",
+    "Nobara Kugisaki",
+    "Minamo Kurosawa",
+    "Motoko Kusanagi",
+    "Minori Kushieda",
+    "Anna Kyoyama",
+    "Nunnally Lamperouge",
+    "Leafa",
+    "Connie Lee",
+    "Lenalee Lee",
+    "Leona Heidern",
+    "Lillie",
+    "Lina Inverse",
+    "Luna",
+    "Mai Shiranui",
+    "Makimachi Misao",
+    "Hitomi Manaka",
+    "Mako Mankanshoku",
+    "Mari Illustrious Makinami",
+    "Wendy Marvell",
+    "Ayeka Masaki Jurai",
+    "Meiling Li",
+    "Michelle Chang",
+    "Chiyo Mihama",
+    "Mai Minakami",
+    "Fujiko Mine",
+    "Lynn Minmay",
+    "Mikoto Misaka",
+    "Misty",
+    "Morrigan Aensland",
+    "Multi",
+    "Naga the Serpent",
+    "Mio Naganohara",
+    "Nino Nakano",
+    "Nakoruru",
+    "Nakuru Akizuki",
+    "Chiaki Nanami",
+    "Naru Narusegawa",
+    "Atsuko Natsume",
+    "Nausicaä",
+    "Queen Nehelenia",
+    "Darya Nikitina",
+    "Himari Noihara",
+    "Arale Norimaki",
+    "Nyaruko",
+    "Yuzuriha Ogawa",
+    "Mamako Oosuki",
+    "PaninyaSuo Pavlichenko",
+    "Yomiko Readman",
+    "Revy",
+    "Winry Rockbell",
+    "Roll",
+    "Rose",
+    "Rebecca Rossellini",
+    "Ruri",
+    "Haruna Sairenji",
+    "Chiyo Sakura",
+    "Sakura Matou",
+    "Izumi Sakurai",
+    "Sarah Bryant",
+    "Erza Scarlet",
+    "Senko-san",
+    "Yuzuki Seo",
+    "Mika Shimotsuki",
+    "Shinonome",
+    "Kuroko Shirai",
+    "Noelle Silva",
+    "Sinon",
+    "Skuld",
+    "Sonomi Daidouji",
+    "Asuka Langley Soryu",
+    "Kallen Stadtfeld",
+    "Celty Sturluson",
+    "Suika",
+    "Super Sonico",
+    "Haruhi Suzumiya",
+    "Secre Swallowtail",
+    "Swindler",
+    "Kiyomi Takada",
+    "Saya Takagi",
+    "Sora Takenouchi",
+    "Taki ",
+    "Takino",
+    "Yukari Tanizaki",
+    "Utena Tenjou",
+    "Teresa Beria",
+    "Origami Tobiichi",
+    "Rin Tohsaka",
+    "Akane Tsunemori",
+    "Sarada Uchiha",
+    "Ulala",
+    "Hana Uzaki",
+    "Shion Uzuki",
+    "Faye Valentine",
+    "Mereoleona Vermillion",
+    "Mimosa Vermillion",
+    "Videl",
+    "Mei Mei",
+    "Misa Amane",
+    "Makima",
+    "Power",
+    "Batman",
 )
+
 
 def shorten(description, info="anilist.co"):
     msg = ""
@@ -312,6 +313,7 @@ def shorten(description, info="anilist.co"):
         msg += f"\n*Description*: {description}"
     return msg
 
+
 def extract_arg(message: Message):
     split = message.text.split(" ", 1)
     if len(split) > 1:
@@ -320,6 +322,7 @@ def extract_arg(message: Message):
     if reply is not None:
         return reply.text
     return None
+
 
 # time formatter from uniborg
 def t(milliseconds: int) -> str:
@@ -466,7 +469,7 @@ def airing(update, context):
     variables = {"search": search_str[1]}
     response = requests.post(
         url, json={"query": airing_query, "variables": variables}
-     ).json()
+    ).json()
     if "errors" in response.keys():
         update.effective_message.reply_text("Anime not found!")
         return
@@ -611,7 +614,8 @@ def character(update, context):
             buttons = [
                 [
                     InlineKeyboardButton(
-                        "Add To Favourite Character", callback_data=f"xanime_fvrtchar={char_name}"
+                        "Add To Favourite Character",
+                        callback_data=f"xanime_fvrtchar={char_name}",
                     )
                 ]
             ]
@@ -876,7 +880,9 @@ def removefvrtchar(update, context):
     args = context.args
     query = " ".join(args)
     if not query:
-        message.reply_text("Please enter a your Favourite Character name to remove from your List.")
+        message.reply_text(
+            "Please enter a your Favourite Character name to remove from your List."
+        )
         return
     fvrt_char = list(REDIS.sunion(f"anime_fvrtchar{user.id}"))
     removewlist = removewlist[1]
@@ -1165,9 +1171,6 @@ def animequotes(update: Update, context: CallbackContext):
     reply_photo(random.choice(QUOTES_IMG))
 
 
-
-
-
 @typing_action
 def waifu(update, context):
     search = random.choice(WAIFUS_PIC)
@@ -1182,8 +1185,8 @@ def waifu(update, context):
         if image:
             image = image.get("large")
             update.effective_message.reply_photo(
-                photo=image, caption= f"*A waifu appeared!*\nAdd them to your harem by sending /protecc character name \nPowered By @Koyuki_Network",
-                  
+                photo=image,
+                caption=f"*A waifu appeared!*\nAdd them to your harem by sending /protecc character name \nPowered By @Koyuki_Network",
                 parse_mode=ParseMode.MARKDOWN,
             )
             REDIS.sadd(f"waifus{update.effective_chat.id}", char_name)
@@ -1192,6 +1195,8 @@ def waifu(update, context):
                 "Oops Waifu Ran Away",
                 parse_mode=ParseMode.MARKDOWN,
             )
+
+
 @typing_action
 def protecc(update, context):
     message = update.effective_message
@@ -1214,44 +1219,46 @@ def protecc(update, context):
         WAIFUS = list(REDIS.sunion(f"waifus{update.effective_chat.id}"))
         if char_name in WAIFUS:
             REDIS.sadd(f"anime_waifu{user.id}", char_name)
-            update.effective_message.reply_text(f"OwO you protecc'd {char_name}. This waifu has been added to your harem. | Powered By @Koyuki_Network")
+            update.effective_message.reply_text(
+                f"OwO you protecc'd {char_name}. This waifu has been added to your harem. | Powered By @Koyuki_Network"
+            )
             REDIS.srem(f"waifus{update.effective_chat.id}", char_name)
         else:
             update.effective_message.reply_text("rip, that's not quite right...")
+
 
 def fvrt_waifu(update, context):
     update.effective_chat
     user = update.effective_user
     message = update.effective_message
     buttons = [
-                [
-                    InlineKeyboardButton(
-                        "Inline 🌐", switch_inline_query_current_chat="harem"
-                    )
-                ]
-            ]
+        [InlineKeyboardButton("Inline 🌐", switch_inline_query_current_chat="harem")]
+    ]
     fvrt_char = list(REDIS.sunion(f"anime_waifu{user.id}"))
     fvrt_char.sort()
     fvrt_char = f"\n• ".join(fvrt_char)
-    if fvrt_char: 
+    if fvrt_char:
         lol = list(REDIS.sunion(f"anime_waifu{user.id}"))
         search = random.choice(lol)
         variables = {"query": search}
         json = requests.post(
-        url, json={"query": character_query, "variables": variables}
+            url, json={"query": character_query, "variables": variables}
         ).json()
         if json:
             json = json["data"]["Character"]
             image = json.get("image", None)
             loml = image.get("large")
             message.reply_document(
-            document=loml,
-            caption= "{}'s harem in {} \n• {}".format(user.username, update.effective_chat.title, fvrt_char),
-            reply_markup=InlineKeyboardMarkup(buttons),
-           )
+                document=loml,
+                caption="{}'s harem in {} \n• {}".format(
+                    user.username, update.effective_chat.title, fvrt_char
+                ),
+                reply_markup=InlineKeyboardMarkup(buttons),
+            )
             os.remove(loml)
     else:
         message.reply_text("You havn't added any waifu in your harem!")
+
 
 __help__ = """
 × `/anime <anime>`*:* returns information about the anime from AniList.
@@ -1281,9 +1288,7 @@ MANGALIST_HANDLER = DisableAbleCommandHandler("mangalist", readmanga, run_async=
 FVRT_CHAR_HANDLER = DisableAbleCommandHandler(
     ["characterlist", "fcl"], fvrtchar, run_async=True
 )
-HAREM_HANDLER = DisableAbleCommandHandler(
-    "harem", fvrt_waifu, run_async=True
-)
+HAREM_HANDLER = DisableAbleCommandHandler("harem", fvrt_waifu, run_async=True)
 REMOVE_WATCHLIST_HANDLER = DisableAbleCommandHandler(
     ["removewatchlist", "rwl"], removewatchlist, run_async=True
 )
@@ -1297,9 +1302,7 @@ BUTTON_HANDLER = CallbackQueryHandler(button, pattern="anime_.*", run_async=True
 ANIME_STUFFS_HANDLER = CallbackQueryHandler(
     animestuffs, pattern="xanime_.*", run_async=True
 )
-ANIMEQUOTES_HANDLER = DisableAbleCommandHandler(
-    "aq", animequotes, run_async=True
-)
+ANIMEQUOTES_HANDLER = DisableAbleCommandHandler("aq", animequotes, run_async=True)
 QUOTE = DisableAbleCommandHandler("quote", quotes)
 CHANGE_QUOTE = CallbackQueryHandler(change_quote, pattern=r"change_.*", run_async=True)
 QUOTE_CHANGE = CallbackQueryHandler(change_quote, pattern=r"quote_.*", run_async=True)
@@ -1338,8 +1341,7 @@ __command_list__ = [
     "character",
     "user",
     "upcoming",
-    "airing" 
-    "kayo",
+    "airing" "kayo",
     "kaizoku",
     "animequotes",
 ]

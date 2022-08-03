@@ -21,15 +21,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import asyncio
 from asyncio import sleep
 
 from telethon import events
 from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
-from telethon.tl.types import ChatBannedRights, ChannelParticipantsAdmins
+from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
 
-from NekoRobot import telethn, OWNER_ID, DEV_USERS, DRAGONS, DEMONS
+from NekoRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, telethn
 
 # =================== CONSTANT ===================
 
@@ -71,10 +70,9 @@ async def is_administrator(user_id: int, message):
     return admin
 
 
-
 @telethn.on(events.NewMessage(pattern=f"^[!/]zombies ?(.*)"))
 async def zombies(event):
-    """ For .zombies command, list all the zombies in a chat. """
+    """For .zombies command, list all the zombies in a chat."""
 
     con = event.pattern_match.group(1).lower()
     del_u = 0
@@ -134,5 +132,3 @@ async def zombies(event):
         \n`{del_a}` Zombie Admin Accounts Are Not Removed!"
 
     await cleaning_zombies.edit(del_status)
-
-    

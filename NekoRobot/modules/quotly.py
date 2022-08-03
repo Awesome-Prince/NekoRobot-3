@@ -1,16 +1,12 @@
-
 from io import BytesIO
 from traceback import format_exc
 
 from pyrogram import filters
 from pyrogram.types import Message
-from NekoRobot import pgram as app
-from NekoRobot.pyro.errors import capture_err
-
-from Python_ARQ import ARQ
-from aiohttp import ClientSession
 
 from NekoRobot import arq
+from NekoRobot import pgram as app
+from NekoRobot.pyro.errors import capture_err
 
 
 async def quotify(messages: list):
@@ -41,13 +37,9 @@ def isArgInt(message: Message) -> bool:
 @capture_err
 async def quotly_func(client, message: Message):
     if not message.reply_to_message:
-        return await message.reply_text(
-            "Reply to a message to quote it."
-        )
+        return await message.reply_text("Reply to a message to quote it.")
     if not message.reply_to_message.text:
-        return await message.reply_text(
-            "Replied message has no text, can't quote it."
-        )
+        return await message.reply_text("Replied message has no text, can't quote it.")
     m = await message.reply_text("Quoting Messages")
     if len(message.command) < 2:
         messages = [message.reply_to_message]
@@ -84,9 +76,7 @@ async def quotly_func(client, message: Message):
             )
             messages = [reply_message]
     else:
-        await m.edit(
-            "Incorrect argument, check quotly module in help section."
-        )
+        await m.edit("Incorrect argument, check quotly module in help section.")
         return
     try:
         if not message:
@@ -110,10 +100,10 @@ async def quotly_func(client, message: Message):
         e = format_exc()
         print(e)
 
+
 __mod_name__ = "Quotly"
 
 __help__ = """
  - `/q` : Create a quote from a message
 
 """
-

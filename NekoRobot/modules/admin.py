@@ -26,23 +26,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import os
 import html
+import os
 
 from telegram import ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
+from telegram.ext import CallbackContext, CommandHandler, Filters
 from telegram.utils.helpers import mention_html
-from telethon import events
-from telethon.tl import functions, types
+from telethon import *
 from telethon import events
 from telethon.errors import *
 from telethon.tl import *
-from telethon import *
+from telethon.tl import functions, types
 
-from NekoRobot import DRAGONS, dispatcher, telethn as bot
+from NekoRobot import DRAGONS, dispatcher
+from NekoRobot import telethn as bot
 from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import (
+    ADMIN_CACHE,
     bot_admin,
     can_pin,
     can_promote,
@@ -50,16 +52,13 @@ from NekoRobot.modules.helper_funcs.chat_status import (
     user_admin,
     user_can_changeinfo,
     user_can_pin,
-    user_can_promote,
-    ADMIN_CACHE,
 )
-
 from NekoRobot.modules.helper_funcs.extraction import (
     extract_user,
     extract_user_and_text,
 )
 from NekoRobot.modules.log_channel import loggable
-from NekoRobot.modules.helper_funcs.alternate import send_message
+
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -71,7 +70,8 @@ async def is_register_admin(chat, user):
         )
     if isinstance(chat, types.InputPeerUser):
         return True
-    
+
+
 async def can_promote_users(message):
     result = await bot(
         functions.channels.GetParticipantRequest(
@@ -83,6 +83,7 @@ async def can_promote_users(message):
     return isinstance(p, types.ChannelParticipantCreator) or (
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.ban_users
     )
+
 
 async def can_ban_users(message):
     result = await bot(
@@ -96,7 +97,6 @@ async def can_ban_users(message):
         isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.ban_users
     )
 
-    
 
 @bot.on(events.NewMessage(pattern="/users$"))
 async def get_users(show):
@@ -152,8 +152,8 @@ def set_sticker(update: Update, context: CallbackContext):
             msg.reply_text(f"Error! {excp.message}.")
     else:
         msg.reply_text("You need to reply to some sticker to set chat sticker set!")
-       
-    
+
+
 @bot_admin
 @user_admin
 def setchatpic(update: Update, context: CallbackContext):
@@ -188,7 +188,8 @@ def setchatpic(update: Update, context: CallbackContext):
                 os.remove("gpic.png")
     else:
         msg.reply_text("Reply to some photo or file to set new chat pic!")
-        
+
+
 @bot_admin
 @user_admin
 def rmchatpic(update: Update, context: CallbackContext):
@@ -205,7 +206,8 @@ def rmchatpic(update: Update, context: CallbackContext):
     except BadRequest as excp:
         msg.reply_text(f"Error! {excp.message}.")
         return
-    
+
+
 @bot_admin
 @user_admin
 def set_desc(update: Update, context: CallbackContext):
@@ -227,8 +229,9 @@ def set_desc(update: Update, context: CallbackContext):
         context.bot.set_chat_description(chat.id, desc)
         msg.reply_text(f"Successfully updated chat description in {chat.title}!")
     except BadRequest as excp:
-        msg.reply_text(f"Error! {excp.message}.")        
-        
+        msg.reply_text(f"Error! {excp.message}.")
+
+
 @bot_admin
 @user_admin
 def setchat_title(update: Update, context: CallbackContext):
@@ -255,8 +258,8 @@ def setchat_title(update: Update, context: CallbackContext):
     except BadRequest as excp:
         msg.reply_text(f"Error! {excp.message}.")
         return
-        
-        
+
+
 @connection_status
 @bot_admin
 @can_promote
@@ -292,7 +295,7 @@ def promote(update: Update, context: CallbackContext) -> str:
     except:
         return
 
-    if user_member.status in ('administrator', 'creator'):
+    if user_member.status in ("administrator", "creator"):
         message.reply_text("How am I meant to promote someone that's already an admin?")
         return
 
@@ -338,6 +341,7 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     return log_message
 
+
 @connection_status
 @bot_admin
 @can_promote
@@ -373,7 +377,7 @@ def midpromote(update: Update, context: CallbackContext) -> str:
     except:
         return
 
-    if user_member.status in ('administrator', 'creator'):
+    if user_member.status in ("administrator", "creator"):
         message.reply_text("How am I meant to promote someone that's already an admin?")
         return
 
@@ -414,6 +418,7 @@ def midpromote(update: Update, context: CallbackContext) -> str:
 
     return log_message
 
+
 @connection_status
 @bot_admin
 @can_promote
@@ -449,7 +454,7 @@ def lowpromote(update: Update, context: CallbackContext) -> str:
     except:
         return
 
-    if user_member.status in ('administrator', 'creator'):
+    if user_member.status in ("administrator", "creator"):
         message.reply_text("How am I meant to promote someone that's already an admin?")
         return
 
@@ -525,7 +530,7 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
     except:
         return
 
-    if user_member.status in ('administrator', 'creator'):
+    if user_member.status in ("administrator", "creator"):
         message.reply_text("How am I meant to promote someone that's already an admin?")
         return
 
@@ -572,6 +577,7 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
 
     return log_message
 
+
 @bot.on(events.NewMessage(pattern="/middemote(?: |$)(.*)"))
 async def middemote(dmod):
     if dmod.is_group:
@@ -613,7 +619,7 @@ async def middemote(dmod):
         await dmod.reply("**Failed to demote.**")
         return
 
-    
+
 @bot.on(events.NewMessage(pattern="/lowdemote(?: |$)(.*)"))
 async def lowdemote(dmod):
     if dmod.is_group:
@@ -655,7 +661,7 @@ async def lowdemote(dmod):
         await dmod.reply("**Failed to demote.**")
         return
 
-    
+
 @connection_status
 @bot_admin
 @can_promote
@@ -892,21 +898,30 @@ def unpin(update, context):
 def pinned(update: Update, context: CallbackContext) -> str:
     bot = context.bot
     msg = update.effective_message
-    msg_id = update.effective_message.reply_to_message.message_id if update.effective_message.reply_to_message else update.effective_message.message_id
+    msg_id = (
+        update.effective_message.reply_to_message.message_id
+        if update.effective_message.reply_to_message
+        else update.effective_message.message_id
+    )
 
     chat = bot.getChat(chat_id=msg.chat.id)
     if chat.pinned_message:
         pinned_id = chat.pinned_message.message_id
         if msg.chat.username:
             link_chat_id = msg.chat.username
-            message_link = (f"https://t.me/{link_chat_id}/{pinned_id}")
+            message_link = f"https://t.me/{link_chat_id}/{pinned_id}"
         elif (str(msg.chat.id)).startswith("-100"):
             link_chat_id = (str(msg.chat.id)).replace("-100", "")
-            message_link = (f"https://t.me/c/{link_chat_id}/{pinned_id}")
-            
-        msg.reply_text(f'The pinned message of {html.escape(chat.title)} is <a href="{message_link}">here</a>.', reply_to_message_id=msg_id, parse_mode=ParseMode.HTML, disable_web_page_preview=True,)
+            message_link = f"https://t.me/c/{link_chat_id}/{pinned_id}"
+
+        msg.reply_text(
+            f'The pinned message of {html.escape(chat.title)} is <a href="{message_link}">here</a>.',
+            reply_to_message_id=msg_id,
+            parse_mode=ParseMode.HTML,
+            disable_web_page_preview=True,
+        )
     else:
-        msg.reply_text(f'There is no pinned message in {html.escape(chat.title)}!')
+        msg.reply_text(f"There is no pinned message in {html.escape(chat.title)}!")
 
 
 @bot_admin
@@ -944,7 +959,7 @@ def adminlist(update, context):
         send_message(update.effective_message, "This command only works in Groups.")
         return
 
-    chat = update.effective_chat
+    update.effective_chat
     chat_id = update.effective_chat.id
     chat_name = update.effective_message.chat.title  # -> unused variable
 
@@ -1098,28 +1113,54 @@ __help__ = """
   ➢ `/setsticker`*:* Set group sticker
 """
 
-SET_DESC_HANDLER = CommandHandler("setdesc", set_desc, filters=Filters.chat_type.groups, run_async=True)
-SET_STICKER_HANDLER = CommandHandler("setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True)
-SETCHATPIC_HANDLER = CommandHandler("setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True)
-RMCHATPIC_HANDLER = CommandHandler("delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True)
-SETCHAT_TITLE_HANDLER = CommandHandler("setgtitle", setchat_title, filters=Filters.chat_type.groups, run_async=True)
+SET_DESC_HANDLER = CommandHandler(
+    "setdesc", set_desc, filters=Filters.chat_type.groups, run_async=True
+)
+SET_STICKER_HANDLER = CommandHandler(
+    "setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True
+)
+SETCHATPIC_HANDLER = CommandHandler(
+    "setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True
+)
+RMCHATPIC_HANDLER = CommandHandler(
+    "delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True
+)
+SETCHAT_TITLE_HANDLER = CommandHandler(
+    "setgtitle", setchat_title, filters=Filters.chat_type.groups, run_async=True
+)
 
-ADMINLIST_HANDLER = DisableAbleCommandHandler(["admins", "adminlist"], adminlist, run_async=True)
+ADMINLIST_HANDLER = DisableAbleCommandHandler(
+    ["admins", "adminlist"], adminlist, run_async=True
+)
 
-PIN_HANDLER = CommandHandler("pin", pin, filters=Filters.chat_type.groups, run_async=True)
-UNPIN_HANDLER = CommandHandler("unpin", unpin, filters=Filters.chat_type.groups, run_async=True)
-PINNED_HANDLER = CommandHandler("pinned", pinned, filters=Filters.chat_type.groups, run_async=True)
+PIN_HANDLER = CommandHandler(
+    "pin", pin, filters=Filters.chat_type.groups, run_async=True
+)
+UNPIN_HANDLER = CommandHandler(
+    "unpin", unpin, filters=Filters.chat_type.groups, run_async=True
+)
+PINNED_HANDLER = CommandHandler(
+    "pinned", pinned, filters=Filters.chat_type.groups, run_async=True
+)
 
 INVITE_HANDLER = DisableAbleCommandHandler("invitelink", invite, run_async=True)
 
 PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, run_async=True)
-FULLPROMOTE_HANDLER = DisableAbleCommandHandler("fullpromote", fullpromote, run_async=True)
-LOW_PROMOTE_HANDLER = DisableAbleCommandHandler("lowpromote", lowpromote, run_async=True)
-MID_PROMOTE_HANDLER = DisableAbleCommandHandler("midpromote", midpromote, run_async=True)
+FULLPROMOTE_HANDLER = DisableAbleCommandHandler(
+    "fullpromote", fullpromote, run_async=True
+)
+LOW_PROMOTE_HANDLER = DisableAbleCommandHandler(
+    "lowpromote", lowpromote, run_async=True
+)
+MID_PROMOTE_HANDLER = DisableAbleCommandHandler(
+    "midpromote", midpromote, run_async=True
+)
 DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, run_async=True)
 
 SET_TITLE_HANDLER = CommandHandler("title", set_title, run_async=True)
-ADMIN_REFRESH_HANDLER = CommandHandler("admincache", refresh_admin, filters=Filters.chat_type.groups, run_async=True)
+ADMIN_REFRESH_HANDLER = CommandHandler(
+    "admincache", refresh_admin, filters=Filters.chat_type.groups, run_async=True
+)
 
 dispatcher.add_handler(SET_DESC_HANDLER)
 dispatcher.add_handler(SET_STICKER_HANDLER)
@@ -1141,20 +1182,15 @@ dispatcher.add_handler(ADMIN_REFRESH_HANDLER)
 
 __mod_name__ = "Admins"
 __command_list__ = [
-    "setdesc"
-    "setsticker"
-    "setgpic"
-    "delgpic"
-    "setgtitle"
-    "adminlist",
-    "admins", 
-    "invitelink", 
-    "promote", 
+    "setdesc" "setsticker" "setgpic" "delgpic" "setgtitle" "adminlist",
+    "admins",
+    "invitelink",
+    "promote",
     "fullpromote",
     "lowpromote",
     "midpromote",
-    "demote", 
-    "admincache"
+    "demote",
+    "admincache",
 ]
 __handlers__ = [
     SET_DESC_HANDLER,

@@ -23,10 +23,9 @@ SOFTWARE.
 
 import threading
 
-from sqlalchemy import Integer, Column, String, func, distinct, Boolean
-from sqlalchemy.dialects import postgresql
+from sqlalchemy import Boolean, Column, Integer, String
 
-from NekoRobot.modules.sql import SESSION, BASE
+from NekoRobot.modules.sql import BASE, SESSION
 
 
 class SPinSettings(BASE):
@@ -40,7 +39,6 @@ class SPinSettings(BASE):
     def __init__(self, chat_id, message_id):
         self.chat_id = str(chat_id)
         self.message_id = message_id
-
 
     def __repr__(self):
         return "<Pin Settings for {} in {}>".format(self.chat_id, self.message_id)

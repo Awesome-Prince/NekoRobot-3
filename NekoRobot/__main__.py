@@ -21,32 +21,57 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import subprocess
 import importlib
-import time
+import random
 import re
+import time
 from sys import argv
 from typing import Optional
-import random
-import NekoRobot.modules.sql.users_sql as sql
 
-from NekoRobot import (ALLOW_EXCL, CERT_PATH, DONATION_LINK, LOGGER,
-                          OWNER_ID, PORT, SUPPORT_CHAT, TOKEN, URL, WEBHOOK,
-                          SUPPORT_CHAT, dispatcher, StartTime, telethn, updater, pbot)
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram.error import (
+    BadRequest,
+    ChatMigrated,
+    NetworkError,
+    TelegramError,
+    TimedOut,
+    Unauthorized,
+)
+from telegram.ext import (
+    CallbackContext,
+    CallbackQueryHandler,
+    CommandHandler,
+    Filters,
+    MessageHandler,
+)
+from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
+from telegram.utils.helpers import escape_markdown
+
+import NekoRobot.modules.sql.users_sql as sql
+from NekoRobot import (
+    ALLOW_EXCL,
+    CERT_PATH,
+    DONATION_LINK,
+    LOGGER,
+    OWNER_ID,
+    PORT,
+    SUPPORT_CHAT,
+    TOKEN,
+    URL,
+    WEBHOOK,
+    StartTime,
+    dispatcher,
+    pbot,
+    telethn,
+    updater,
+)
+from NekoRobot.hacking_script import PM_START_TEXT
+
 # needed to load dynamic modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from NekoRobot.modules import ALL_MODULES
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
 from NekoRobot.modules.helper_funcs.misc import paginate_modules
-from NekoRobot.hacking_script import PM_START_TEXT
-from telegram import (InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
-                      Update)
-from telegram.error import (BadRequest, ChatMigrated, NetworkError,
-                            TelegramError, TimedOut, Unauthorized)
-from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler,
-                          Filters, MessageHandler)
-from telegram.ext.dispatcher import DispatcherHandlerStop, run_async
-from telegram.utils.helpers import escape_markdown
 
 
 def get_readable_time(seconds: int) -> str:
@@ -77,40 +102,26 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-
-
 buttons = [
     [
-                        InlineKeyboardButton(
-                            text=f"Add NekoX To Your Group",
-                            url=f"t.me/NekoXRobot?startgroup=true")
-                    ],
-                   [
-                       InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-                       InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/Besties_XD"),
-                       InlineKeyboardButton(text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-3"),
-                     ],
-                    [                  
-                       InlineKeyboardButton(
-                             text="🚑 Support",
-                             url=f"https://t.me/{SUPPORT_CHAT}"),
-                       InlineKeyboardButton(
-                             text="📢 Updates",
-                             url="https://t.me/Koyuki_Updates")
-                     ], 
-    ]
+        InlineKeyboardButton(
+            text=f"Add NekoX To Your Group", url=f"t.me/NekoXRobot?startgroup=true"
+        )
+    ],
+    [
+        InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
+        InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/Besties_XD"),
+        InlineKeyboardButton(
+            text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-3"
+        ),
+    ],
+    [
+        InlineKeyboardButton(text="🚑 Support", url=f"https://t.me/{SUPPORT_CHAT}"),
+        InlineKeyboardButton(text="📢 Updates", url="https://t.me/Koyuki_Updates"),
+    ],
+]
 
 
-
-
-
-
-
-
-
-
-
-                    
 HELP_STRINGS = """
 *{} is here! 
 I Use My Powers To Help Admins To Manage Their Groups! 
@@ -122,21 +133,23 @@ I Use My Powers To Help Admins To Manage Their Groups!
    ✐ in a group: will redirect you to pm, with all that chat's settings.
 For all command use /* [or](https://telegra.ph/file/ab36976c685575c4e1a5f.jpg) *!*
 """.format(
-    dispatcher.bot.first_name, ""
-    if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n")
+    dispatcher.bot.first_name,
+    ""
+    if not ALLOW_EXCL
+    else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n",
+)
 
 HELP_IMG = "https://telegra.ph/file/ab36976c685575c4e1a5f.jpg"
 
 
-
 NEKO_IMG = (
-      "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
-      "https://telegra.ph/file/0cea56d9625f265ecc9db.mp4",
-      "https://telegra.ph/file/a131993b0f1e8517eacb2.mp4",
-      "https://telegra.ph/file/6f43ded36dba5f256bba7.mp4",
-      "https://telegra.ph/file/61acd313cc536bd1c6217.mp4",
-      "https://telegra.ph/file/f329cdd740c55bf955deb.mp4",
-      )
+    "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
+    "https://telegra.ph/file/0cea56d9625f265ecc9db.mp4",
+    "https://telegra.ph/file/a131993b0f1e8517eacb2.mp4",
+    "https://telegra.ph/file/6f43ded36dba5f256bba7.mp4",
+    "https://telegra.ph/file/61acd313cc536bd1c6217.mp4",
+    "https://telegra.ph/file/f329cdd740c55bf955deb.mp4",
+)
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
 Click here to donate in [Telegram](https://t.me/DarlingPrince)"""
@@ -160,8 +173,7 @@ for module_name in ALL_MODULES:
     if not imported_module.__mod_name__.lower() in IMPORTED:
         IMPORTED[imported_module.__mod_name__.lower()] = imported_module
     else:
-        raise Exception(
-            "Can't have two modules with the same name! Please change one")
+        raise Exception("Can't have two modules with the same name! Please change one")
 
     if hasattr(imported_module, "__help__") and imported_module.__help__:
         HELPABLE[imported_module.__mod_name__.lower()] = imported_module
@@ -198,7 +210,8 @@ def send_help(chat_id, text, keyboard=None):
         text=text,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
-        reply_markup=keyboard)
+        reply_markup=keyboard,
+    )
 
 
 @run_async
@@ -218,15 +231,16 @@ def start(update: Update, context: CallbackContext):
             if args[0].lower() == "help":
                 send_help(update.effective_chat.id, HELP_STRINGS)
             elif args[0].lower().startswith("ghelp_"):
-                mod = args[0].lower().split('_', 1)[1]
+                mod = args[0].lower().split("_", 1)[1]
                 if not HELPABLE.get(mod, False):
                     return
                 send_help(
-                    update.effective_chat.id, HELPABLE[mod].__help__,
-                    InlineKeyboardMarkup([[
-                        InlineKeyboardButton(
-                            text="Back", callback_data="help_back")
-                    ]]))
+                    update.effective_chat.id,
+                    HELPABLE[mod].__help__,
+                    InlineKeyboardMarkup(
+                        [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                    ),
+                )
             elif args[0].lower() == "markdownhelp":
                 IMPORTED["extras"].markdown_help_sender(update)
             elif args[0].lower() == "disasters":
@@ -236,17 +250,15 @@ def start(update: Update, context: CallbackContext):
                 chat = dispatcher.bot.getChat(match.group(1))
 
                 if is_user_admin(chat, update.effective_user.id):
-                    send_settings(
-                        match.group(1), update.effective_user.id, False)
+                    send_settings(match.group(1), update.effective_user.id, False)
                 else:
-                    send_settings(
-                        match.group(1), update.effective_user.id, True)
+                    send_settings(match.group(1), update.effective_user.id, True)
 
             elif args[0][1:].isdigit() and "rules" in IMPORTED:
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            
+
             first_name = update.effective_user.first_name
             update.effective_message.reply_text(
                 PM_START_TEXT.format(
@@ -254,7 +266,8 @@ def start(update: Update, context: CallbackContext):
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
-                    sql.num_chats()),                        
+                    sql.num_chats(),
+                ),
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
@@ -262,25 +275,25 @@ def start(update: Update, context: CallbackContext):
     else:
         first_name = update.effective_user.first_name
         update.effective_message.reply_animation(
-                random.choice(NEKO_IMG), caption= "<b>Yes,Darling I'm alive! Haven't sleep since</b>: <code>{}</code>".format(
+            random.choice(NEKO_IMG),
+            caption="<b>Yes,Darling I'm alive! Haven't sleep since</b>: <code>{}</code>".format(
                 uptime
- 
             ),
-            
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
                 [
-                  [                  
-                       InlineKeyboardButton(
-                             text="Support🚑",
-                             url=f"https://t.me/Koyuki_Support"),
-                       InlineKeyboardButton(
-                             text="Updates🛰️",
-                             url="https://t.me/Koyuki_Updates")
-                     ] 
+                    [
+                        InlineKeyboardButton(
+                            text="Support🚑", url=f"https://t.me/Koyuki_Support"
+                        ),
+                        InlineKeyboardButton(
+                            text="Updates🛰️", url="https://t.me/Koyuki_Updates"
+                        ),
+                    ]
                 ]
             ),
         )
+
 
 # for test purposes
 def error_callback(update: Update, context: CallbackContext):
@@ -325,16 +338,20 @@ def help_button(update, context):
     try:
         if mod_match:
             module = mod_match.group(1)
-            text = ("Here is the help for the *{}* module:\n".format(
-                HELPABLE[module].__mod_name__) + HELPABLE[module].__help__)
+            text = (
+                "Here is the help for the *{}* module:\n".format(
+                    HELPABLE[module].__mod_name__
+                )
+                + HELPABLE[module].__help__
+            )
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton(
-                        text="Back", callback_data="help_back")
-                ]]))
+                reply_markup=InlineKeyboardMarkup(
+                    [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+                ),
+            )
 
         elif prev_match:
             curr_page = int(prev_match.group(1))
@@ -342,7 +359,9 @@ def help_button(update, context):
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(curr_page - 1, HELPABLE, "help")))
+                    paginate_modules(curr_page - 1, HELPABLE, "help")
+                ),
+            )
 
         elif next_match:
             next_page = int(next_match.group(1))
@@ -350,14 +369,18 @@ def help_button(update, context):
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(next_page + 1, HELPABLE, "help")))
+                    paginate_modules(next_page + 1, HELPABLE, "help")
+                ),
+            )
 
         elif back_match:
             query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(0, HELPABLE, "help")))
+                    paginate_modules(0, HELPABLE, "help")
+                ),
+            )
 
         # ensure no spinny white circle
         context.bot.answer_callback_query(query.id)
@@ -366,28 +389,25 @@ def help_button(update, context):
     except BadRequest:
         pass
 
+
 @run_async
 def neko_about_callback(update, context):
     query = update.callback_query
     if query.data == "about_":
         query.message.edit_text(
             text=f"[◈](https://telegra.ph/file/0719635a2edcbea04be7a.jpg) Hey {escape_markdown(first_name)} Darling,"
-              f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
-              f"\n\n Neko Info ➣ :-"
-              f"\n\n ◈ I Am An Anime Themed Advance Group Management Bot With A Lot Of Sexy Features."
-              f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
-              f"\n\n ◈ Check The Buttons To Know About Me More.*",
+            f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
+            f"\n\n Neko Info ➣ :-"
+            f"\n\n ◈ I Am An Anime Themed Advance Group Management Bot With A Lot Of Sexy Features."
+            f"\n\n ➖➖➖➖➖➖➖➖➖➖➖➖➖"
+            f"\n\n ◈ Check The Buttons To Know About Me More.*",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(
-                            text="Master", url="t.me/Awesome-Prince"
-                        ),
-                        InlineKeyboardButton(
-                            text="Support", url="t.me/Koyuki_Support"
-                        ),
+                        InlineKeyboardButton(text="Master", url="t.me/Awesome-Prince"),
+                        InlineKeyboardButton(text="Support", url="t.me/Koyuki_Support"),
                     ],
                     [InlineKeyboardButton(text="Back", callback_data="neko_back")],
                 ]
@@ -396,16 +416,17 @@ def neko_about_callback(update, context):
     elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
-                    PM_START_TEXT.format(
-                    escape_markdown(context.bot.first_name),
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),
-                reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.MARKDOWN,
-                timeout=60,
-                disable_web_page_preview=True,
+            PM_START_TEXT.format(
+                escape_markdown(context.bot.first_name),
+                escape_markdown(first_name),
+                escape_markdown(uptime),
+                sql.num_users(),
+                sql.num_chats(),
+            ),
+            reply_markup=InlineKeyboardMarkup(buttons),
+            parse_mode=ParseMode.MARKDOWN,
+            timeout=60,
+            disable_web_page_preview=True,
         )
 
 
@@ -418,26 +439,24 @@ async def neko_callback_data(update, context):
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [
-                 [
-                    InlineKeyboardButton(text="[► Back ◄]", callback_data="neko_back")
-                 ]
-                ]
+                [[InlineKeyboardButton(text="[► Back ◄]", callback_data="neko_back")]]
             ),
         )
     elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         query.message.edit_text(
-                    PM_START_TEXT.format(
-                    escape_markdown(context.bot.first_name),
-                    escape_markdown(first_name),
-                    escape_markdown(uptime),
-                    sql.num_users(),
-                    sql.num_chats()),
-                reply_markup=InlineKeyboardMarkup(buttons),
-                timeout=60,
-                disable_web_page_preview=False,
+            PM_START_TEXT.format(
+                escape_markdown(context.bot.first_name),
+                escape_markdown(first_name),
+                escape_markdown(uptime),
+                sql.num_users(),
+                sql.num_chats(),
+            ),
+            reply_markup=InlineKeyboardMarkup(buttons),
+            timeout=60,
+            disable_web_page_preview=False,
         )
+
 
 @run_async
 def get_help(update: Update, context: CallbackContext):
@@ -450,20 +469,30 @@ def get_help(update: Update, context: CallbackContext):
             module = args[1].lower()
             update.effective_message.reply_text(
                 f"Contact me in PM to get help of {module.capitalize()}",
-                reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton(
-                        text="Help",
-                        url="t.me/{}?start=ghelp_{}".format(
-                            context.bot.username, module))
-                ]]))
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="Help",
+                                url="t.me/{}?start=ghelp_{}".format(
+                                    context.bot.username, module
+                                ),
+                            )
+                        ]
+                    ]
+                ),
+            )
             return
         update.effective_message.reply_photo(
-            HELP_IMG, caption= "Contact me in PM to get the list of possible commands.",
+            HELP_IMG,
+            caption="Contact me in PM to get the list of possible commands.",
             reply_markup=InlineKeyboardMarkup(
                 [
-                  [
-                  InlineKeyboardButton(text="Click Here", url="https://t.me/NekoXRobot?start=help")
-                  ]
+                    [
+                        InlineKeyboardButton(
+                            text="Click Here", url="https://t.me/NekoXRobot?start=help"
+                        )
+                    ]
                 ]
             ),
         )
@@ -471,13 +500,19 @@ def get_help(update: Update, context: CallbackContext):
 
     elif len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
-        text = "Here is the available help for the *{}* module:\n".format(HELPABLE[module].__mod_name__) \
-               + HELPABLE[module].__help__
+        text = (
+            "Here is the available help for the *{}* module:\n".format(
+                HELPABLE[module].__mod_name__
+            )
+            + HELPABLE[module].__help__
+        )
         send_help(
-            chat.id, text,
+            chat.id,
+            text,
             InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Back",
-                                       callback_data="help_back")]]))
+                [[InlineKeyboardButton(text="Back", callback_data="help_back")]]
+            ),
+        )
 
     else:
         send_help(chat.id, HELP_STRINGS)
@@ -486,35 +521,42 @@ def get_help(update: Update, context: CallbackContext):
 def send_settings(chat_id, user_id, user=False):
     if user:
         if USER_SETTINGS:
-            settings = "\n\n".join("*{}*:\n{}".format(
-                mod.__mod_name__, mod.__user_settings__(user_id))
-                                   for mod in USER_SETTINGS.values())
+            settings = "\n\n".join(
+                "*{}*:\n{}".format(mod.__mod_name__, mod.__user_settings__(user_id))
+                for mod in USER_SETTINGS.values()
+            )
             dispatcher.bot.send_message(
                 user_id,
                 "These are your current settings:" + "\n\n" + settings,
-                parse_mode=ParseMode.MARKDOWN)
+                parse_mode=ParseMode.MARKDOWN,
+            )
 
         else:
             dispatcher.bot.send_message(
                 user_id,
                 "Seems like there aren't any user specific settings available :'(",
-                parse_mode=ParseMode.MARKDOWN)
+                parse_mode=ParseMode.MARKDOWN,
+            )
 
     else:
         if CHAT_SETTINGS:
             chat_name = dispatcher.bot.getChat(chat_id).title
             dispatcher.bot.send_message(
                 user_id,
-                text="Which module would you like to check {}'s settings for?"
-                .format(chat_name),
+                text="Which module would you like to check {}'s settings for?".format(
+                    chat_name
+                ),
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
+                    paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)
+                ),
+            )
         else:
             dispatcher.bot.send_message(
                 user_id,
                 "Seems like there aren't any chat settings available :'(\nSend this "
                 "in a group chat you're admin in to find its current settings!",
-                parse_mode=ParseMode.MARKDOWN)
+                parse_mode=ParseMode.MARKDOWN,
+            )
 
 
 @run_async
@@ -531,17 +573,23 @@ def settings_button(update: Update, context: CallbackContext):
             chat_id = mod_match.group(1)
             module = mod_match.group(2)
             chat = bot.get_chat(chat_id)
-            text = "*{}* has the following settings for the *{}* module:\n\n".format(escape_markdown(chat.title),
-                                                                                     CHAT_SETTINGS[module].__mod_name__) + \
-                   CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
+            text = "*{}* has the following settings for the *{}* module:\n\n".format(
+                escape_markdown(chat.title), CHAT_SETTINGS[module].__mod_name__
+            ) + CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
             query.message.reply_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
-                reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton(
-                        text="Back",
-                        callback_data="stngs_back({})".format(chat_id))
-                ]]))
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="Back",
+                                callback_data="stngs_back({})".format(chat_id),
+                            )
+                        ]
+                    ]
+                ),
+            )
 
         elif prev_match:
             chat_id = prev_match.group(1)
@@ -552,7 +600,10 @@ def settings_button(update: Update, context: CallbackContext):
                 "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
-                        curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
+                        curr_page - 1, CHAT_SETTINGS, "stngs", chat=chat_id
+                    )
+                ),
+            )
 
         elif next_match:
             chat_id = next_match.group(1)
@@ -563,7 +614,10 @@ def settings_button(update: Update, context: CallbackContext):
                 "you're interested in.".format(chat.title),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
-                        next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id)))
+                        next_page + 1, CHAT_SETTINGS, "stngs", chat=chat_id
+                    )
+                ),
+            )
 
         elif back_match:
             chat_id = back_match.group(1)
@@ -573,7 +627,9 @@ def settings_button(update: Update, context: CallbackContext):
                 "you're interested in.".format(escape_markdown(chat.title)),
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)))
+                    paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)
+                ),
+            )
 
         # ensure no spinny white circle
         bot.answer_callback_query(query.id)
@@ -586,8 +642,7 @@ def settings_button(update: Update, context: CallbackContext):
         elif excp.message == "Message can't be deleted":
             pass
         else:
-            LOGGER.exception("Exception in settings buttons. %s",
-                             str(query.data))
+            LOGGER.exception("Exception in settings buttons. %s", str(query.data))
 
 
 @run_async
@@ -602,12 +657,19 @@ def get_settings(update: Update, context: CallbackContext):
             text = "Click here to get this chat's settings, as well as yours."
             msg.reply_text(
                 text,
-                reply_markup=InlineKeyboardMarkup([[
-                    InlineKeyboardButton(
-                        text="Settings",
-                        url="t.me/{}?start=stngs_{}".format(
-                            context.bot.username, chat.id))
-                ]]))
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="Settings",
+                                url="t.me/{}?start=stngs_{}".format(
+                                    context.bot.username, chat.id
+                                ),
+                            )
+                        ]
+                    ]
+                ),
+            )
         else:
             text = "Click here to check your settings."
 
@@ -622,15 +684,15 @@ def donate(update: Update, context: CallbackContext):
     bot = context.bot
     if chat.type == "private":
         update.effective_message.reply_text(
-            DONATE_STRING,
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True)
+            DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
+        )
 
         if OWNER_ID != 254318997 and DONATION_LINK:
             update.effective_message.reply_text(
                 "You can also donate to the person currently running me "
                 "[here]({})".format(DONATION_LINK),
-                parse_mode=ParseMode.MARKDOWN)
+                parse_mode=ParseMode.MARKDOWN,
+            )
 
     else:
         try:
@@ -638,13 +700,16 @@ def donate(update: Update, context: CallbackContext):
                 user.id,
                 DONATE_STRING,
                 parse_mode=ParseMode.MARKDOWN,
-                disable_web_page_preview=True)
+                disable_web_page_preview=True,
+            )
 
             update.effective_message.reply_text(
-                "I've PM'ed you about donating to my creator!")
+                "I've PM'ed you about donating to my creator!"
+            )
         except Unauthorized:
             update.effective_message.reply_text(
-                "Contact me in PM first to get donation information.")
+                "Contact me in PM first to get donation information."
+            )
 
 
 def migrate_chats(update: Update, context: CallbackContext):
@@ -670,49 +735,40 @@ def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "[Iam Alive!](https://telegra.ph/file/4533d130b73a7dd20b83d.jpg)", parse_mode=ParseMode.MARKDOWN,
-
-            reply_markup=InlineKeyboardMarkup(
-
-                [
-
-                  [                  
-
-                       InlineKeyboardButton(
-
-                             text="[► Summon Me ◄]",
-
-                             url=f"t.me/NekoXRobot?startgroup=true"),
-
-
-                     ] 
-
-                ]
-
-            ),
-
-        )
+            dispatcher.bot.sendMessage(
+                f"@{SUPPORT_CHAT}",
+                "[Iam Alive!](https://telegra.ph/file/4533d130b73a7dd20b83d.jpg)",
+                parse_mode=ParseMode.MARKDOWN,
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="[► Summon Me ◄]",
+                                url=f"t.me/NekoXRobot?startgroup=true",
+                            ),
+                        ]
+                    ]
+                ),
+            )
         except Unauthorized:
             LOGGER.warning(
-                "Bot isnt able to send message to support_chat, go and check!")
+                "Bot isnt able to send message to support_chat, go and check!"
+            )
         except BadRequest as e:
             LOGGER.warning(e.message)
 
-    test_handler = CommandHandler("test", test)
+    CommandHandler("test", test)
     start_handler = CommandHandler("start", start)
 
     help_handler = CommandHandler("help", get_help)
-    help_callback_handler = CallbackQueryHandler(
-        help_button, pattern=r"help_.*")
+    help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*")
 
-    settings_handler = CommandHandler("settings", get_settings)
-    settings_callback_handler = CallbackQueryHandler(
-        settings_button, pattern=r"stngs_")
+    CommandHandler("settings", get_settings)
+    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
     about_callback_handler = CallbackQueryHandler(neko_about_callback, pattern=r"neko_")
     donate_handler = CommandHandler("donate", donate)
-    migrate_handler = MessageHandler(Filters.status_update.migrate,
-                                     migrate_chats)
+    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
     # dispatcher.add_handler(test_handler)
     dispatcher.add_handler(start_handler)
@@ -730,8 +786,7 @@ def main():
         updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
 
         if CERT_PATH:
-            updater.bot.set_webhook(
-                url=URL + TOKEN, certificate=open(CERT_PATH, 'rb'))
+            updater.bot.set_webhook(url=URL + TOKEN, certificate=open(CERT_PATH, "rb"))
         else:
             updater.bot.set_webhook(url=URL + TOKEN)
 
@@ -745,8 +800,7 @@ def main():
         telethn.run_until_disconnected()
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
     pbot.start()

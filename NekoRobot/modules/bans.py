@@ -23,40 +23,39 @@ SOFTWARE.
 
 import html
 
-from telegram import (
-    ParseMode,
-    Update,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-)
-from telegram.ext import CallbackContext, Filters, CommandHandler, run_async, CallbackQueryHandler
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
+from telegram.ext import (
+    CallbackContext,
+    CallbackQueryHandler,
+    CommandHandler,
+    Filters,
+    run_async,
+)
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import (
+    DEMONS,
     DEV_USERS,
+    DRAGONS,
     LOGGER,
     OWNER_ID,
-    DRAGONS,
-    DEMONS,
     TIGERS,
     WOLVES,
     dispatcher,
 )
-import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import (
-    user_admin_no_reply,
     bot_admin,
+    can_delete,
     can_restrict,
     connection_status,
     is_user_admin,
     is_user_ban_protected,
     is_user_in_chat,
     user_admin,
+    user_admin_no_reply,
     user_can_ban,
-    can_delete,
 )
 from NekoRobot.modules.helper_funcs.extraction import extract_user_and_text
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
@@ -156,7 +155,9 @@ def ban(update: Update, context: CallbackContext) -> str:
                         InlineKeyboardButton(
                             text="❕Unban", callback_data=f"unbanb_unban={user_id}"
                         ),
-                        InlineKeyboardButton(text="❌ Delete", callback_data="unbanb_del"),
+                        InlineKeyboardButton(
+                            text="❌ Delete", callback_data="unbanb_del"
+                        ),
                     ]
                 ]
             ),
@@ -186,7 +187,6 @@ def ban(update: Update, context: CallbackContext) -> str:
 
 
 @run_async
-
 @connection_status
 @bot_admin
 @can_restrict
@@ -265,7 +265,9 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
                         InlineKeyboardButton(
                             text="✅ Unban", callback_data=f"unbanb_unban={user_id}"
                         ),
-                        InlineKeyboardButton(text="❌ Delete", callback_data="unbanb_del"),
+                        InlineKeyboardButton(
+                            text="❌ Delete", callback_data="unbanb_del"
+                        ),
                     ]
                 ]
             ),
@@ -292,13 +294,6 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
             message.reply_text("Well damn, I can't ban that user.")
 
     return log_message
-    
- 
-
-    
-
-
-
 
 
 @connection_status
@@ -324,7 +319,6 @@ def unbanb_btn(update: Update, context: CallbackContext) -> str:
                     show_alert=True,
                 )
                 return ""
-            log_message = ""
             try:
                 member = chat.get_member(user_id)
             except BadRequest:
@@ -350,6 +344,7 @@ def unbanb_btn(update: Update, context: CallbackContext) -> str:
         query.message.delete()
         bot.answer_callback_query(query.id, text="Deleted!")
         return ""
+
 
 @run_async
 @connection_status
@@ -521,7 +516,6 @@ def selfunban(context: CallbackContext, update: Update) -> str:
     return log
 
 
-        
 __help__ = """
  • `/punchme`*:* punches the user who issued the command.
  • `/kickme`*:* kicks the user who issued the command.
@@ -547,8 +541,9 @@ PUNCH_HANDLER = CommandHandler(["punch", "kick"], punch)
 UNBAN_HANDLER = CommandHandler("unban", unban)
 UNBAN_BUTTON_HANDLER = CallbackQueryHandler(unbanb_btn, pattern=r"unbanb_")
 ROAR_HANDLER = CommandHandler("roar", selfunban)
-PUNCHME_HANDLER = DisableAbleCommandHandler(["punchme", "kickme"], punchme, filters=Filters.group)
-
+PUNCHME_HANDLER = DisableAbleCommandHandler(
+    ["punchme", "kickme"], punchme, filters=Filters.group
+)
 
 
 dispatcher.add_handler(BAN_HANDLER)
@@ -563,7 +558,6 @@ dispatcher.add_handler(PUNCHME_HANDLER)
 __mod_name__ = "Bans/Mute"
 __handlers__ = [
     BAN_HANDLER,
-
     TEMPBAN_HANDLER,
     PUNCH_HANDLER,
     UNBAN_HANDLER,

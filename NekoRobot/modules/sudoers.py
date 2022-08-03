@@ -21,22 +21,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import asyncio
 import os
-import subprocess
 import time
 
 import psutil
-from pyrogram import filters
 
-from NekoRobot import (StartTime, DEV_USERS, pgram)
-import NekoRobot.utils.formatter as formatter
 import NekoRobot.modules.sql.users_sql as sql
-
-
-
+import NekoRobot.utils.formatter as formatter
+from NekoRobot import StartTime
 
 # Stats Module
+
 
 async def bot_sys_stats():
     bot_uptime = int(time.time() - StartTime)
@@ -60,4 +55,3 @@ async def bot_sys_stats():
 ────────────────────────
 """
     return stats
-

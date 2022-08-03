@@ -24,8 +24,8 @@ SOFTWARE.
 
 from pyrogram import filters
 
-from NekoRobot.pyro.pluginshelper import admins_only, get_text
 from NekoRobot import pbot
+from NekoRobot.pyro.pluginshelper import admins_only, get_text
 
 
 @pbot.on_message(filters.command("tagall") & ~filters.edited & ~filters.bot)

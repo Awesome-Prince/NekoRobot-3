@@ -1,14 +1,11 @@
-
-import socket
 import json
+import socket
 import sys
 from random import randint
 from time import time
 
 import aiohttp
-from aiohttp import ClientSession
 from googletrans import Translator
-from motor import version as mongover
 from pykeyboard import InlineKeyboard
 from pyrogram import __version__ as pyrover
 from pyrogram.raw.functions import Ping
@@ -20,7 +17,7 @@ from pyrogram.types import (
 )
 from search_engine_parser import GoogleSearch
 
-from NekoRobot import OWNER_ID, pgram, arq
+from NekoRobot import OWNER_ID, arq, pgram
 from NekoRobot.utils.pluginhelpers import convert_seconds_to_minutes as time_convert
 from NekoRobot.utils.pluginhelpers import fetch
 
@@ -68,7 +65,7 @@ async def inline_help_func(__HELP__):
 async def alive_function(answers):
     buttons = InlineKeyboard(row_width=2)
     bot_state = "Dead" if not await app.get_me() else "Alive"
-   # ubot_state = 'Dead' if not await app2.get_me() else 'Alive'
+    # ubot_state = 'Dead' if not await app2.get_me() else 'Alive'
     buttons.add(
         InlineKeyboardButton("Main Bot", url="https://t.me/NekoXRobot"),
         InlineKeyboardButton("Go Inline", switch_inline_query_current_chat=""),
@@ -418,7 +415,7 @@ async def ping_func(answers):
     ping = Ping(ping_id=randint(696969, 6969696))
     await app.send(ping)
     t2 = time()
-    ping = f'{round(t2 - t1, 2)} Seconds'
+    ping = f"{round(t2 - t1, 2)} Seconds"
     answers.append(
         InlineQueryResultArticle(
             title=ping, input_message_content=InputTextMessageContent(f"__**{ping}**__")

@@ -1,8 +1,6 @@
 from asyncio import Lock, create_task
 from time import time
-from pyrogram import filters
-from pyrogram.types import Message
-from NekoRobot import BOT_ID, BOT_USERNAME, DEV_USERS
+
 from NekoRobot.services.sections import bold, section, w
 
 tasks = {}

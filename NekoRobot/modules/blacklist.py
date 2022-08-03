@@ -1,25 +1,28 @@
 import html
 import re
-from telegram import ParseMode, ChatPermissions
+
+from telegram import ChatPermissions, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import Filters
 from telegram.utils.helpers import mention_html
-from NekoRobot.modules.sql.approve_sql import is_approved
+
 import NekoRobot.modules.sql.blacklist_sql as sql
-from NekoRobot import dispatcher, LOGGER
-from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin, user_not_admin
+from NekoRobot import dispatcher
+from NekoRobot.modules.connection import connected
+from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
+from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
+from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
+from NekoRobot.modules.helper_funcs.chat_status import user_not_admin
+from NekoRobot.modules.helper_funcs.decorators import kigcmd, kigmsg
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.misc import split_message
-from NekoRobot.modules.log_channel import loggable
-from NekoRobot.modules.warns import warn
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
-from NekoRobot.modules.connection import connected
-from NekoRobot.modules.helper_funcs.decorators import kigcmd, kigmsg
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
-
-from NekoRobot.modules.helper_funcs.anonymous import user_admin, AdminPerms
+from NekoRobot.modules.log_channel import loggable
+from NekoRobot.modules.sql.approve_sql import is_approved
+from NekoRobot.modules.warns import warn
 
 BLACKLIST_GROUP = -3
+
 
 @kigcmd(command="blacklist", pass_args=True, admin_ok=True)
 @u_admin
@@ -65,6 +68,7 @@ def blacklist(update, context):
             return
         send_message(update.effective_message, text, parse_mode=ParseMode.HTML)
 
+
 @kigcmd(command="addblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
@@ -89,11 +93,7 @@ def add_blacklist(update, context):
     if len(words) > 1:
         text = words[1]
         to_blacklist = list(
-            {
-                trigger.strip()
-                for trigger in text.split("\n")
-                if trigger.strip()
-            }
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
         )
 
         for trigger in to_blacklist:
@@ -123,6 +123,7 @@ def add_blacklist(update, context):
             "Tell me which words you would like to add in blacklist.",
         )
 
+
 @kigcmd(command="unblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
@@ -147,11 +148,7 @@ def unblacklist(update, context):
     if len(words) > 1:
         text = words[1]
         to_unblacklist = list(
-            {
-                trigger.strip()
-                for trigger in text.split("\n")
-                if trigger.strip()
-            }
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
         )
 
         successful = 0
@@ -206,6 +203,7 @@ def unblacklist(update, context):
             update.effective_message,
             "Tell me which words you would like to remove from blacklist!",
         )
+
 
 @kigcmd(command="blacklistmode", pass_args=True)
 @loggable
@@ -340,8 +338,13 @@ def findall(p, s):
         i = s.find(p, i + 1)
 
 
-
-@kigmsg(((Filters.text | Filters.command | Filters.sticker | Filters.photo) & Filters.chat_type.groups), group=BLACKLIST_GROUP)
+@kigmsg(
+    (
+        (Filters.text | Filters.command | Filters.sticker | Filters.photo)
+        & Filters.chat_type.groups
+    ),
+    group=BLACKLIST_GROUP,
+)
 @user_not_admin
 def del_blacklist(update, context):  # sourcery no-metrics
     chat = update.effective_chat
@@ -457,6 +460,7 @@ def __stats__():
 __mod_name__ = "Blacklists"
 
 from NekoRobot.modules.language import gs
+
 
 def get_help(chat):
     return gs(chat, "blacklist_help")

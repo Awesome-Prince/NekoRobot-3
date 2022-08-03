@@ -1,9 +1,11 @@
 from envparse import env
+
 from NekoRobot import LOGGER
 
 DEFAULTS = {
     "LOAD_MODULES": True,
 }
+
 
 def get_str_key(name, required=False):
     if name in DEFAULTS:
@@ -18,6 +20,7 @@ def get_str_key(name, required=False):
         sys.exit(2)
     else:
         return data
+
 
 def get_int_key(name, required=False):
     if name in DEFAULTS:

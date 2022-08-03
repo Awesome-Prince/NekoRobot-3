@@ -1,16 +1,17 @@
 from typing import Union
 
 from future.utils import string_types
-from telegram import ParseMode, Update, Chat
+from telegram import Chat, ParseMode, Update
 from telegram.ext import CommandHandler, MessageHandler
 from telegram.utils.helpers import escape_markdown
 
 from NekoRobot import dispatcher
+from NekoRobot.modules.connection import connected
+from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.handlers import CMD_STARTERS
 from NekoRobot.modules.helper_funcs.misc import is_module_loaded
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
-from NekoRobot.modules.connection import connected
 from NekoRobot.modules.language import gs
+
 
 def get_help(chat):
     return gs(chat, "disable_help")
@@ -23,11 +24,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 
 # If module is due to be loaded, then setup all the magical handlers
 if is_module_loaded(FILENAME):
-    from NekoRobot.modules.helper_funcs.chat_status import (
-        user_admin,
-        is_user_admin,
-    )
-
+    from NekoRobot.modules.helper_funcs.chat_status import is_user_admin, user_admin
     from NekoRobot.modules.sql import disable_sql as sql
 
     DISABLE_CMDS = []
@@ -74,9 +71,9 @@ if is_module_loaded(FILENAME):
                         # disabled, admincmd, user admin
                         if sql.is_command_disabled(chat.id, command[0].lower()):
                             # check if command was disabled
-                            is_disabled = command[
-                                0
-                            ] in ADMIN_CMDS and is_user_admin(update, user.id)
+                            is_disabled = command[0] in ADMIN_CMDS and is_user_admin(
+                                update, user.id
+                            )
                             if not is_disabled:
                                 return None
                             else:
@@ -154,7 +151,6 @@ if is_module_loaded(FILENAME):
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
         if conn:
             chat = dispatcher.bot.getChat(conn)
-            chat_id = conn
             chat_name = dispatcher.bot.getChat(conn).title
         else:
             if update.effective_message.chat.type == "private":
@@ -164,7 +160,7 @@ if is_module_loaded(FILENAME):
                 )
                 return ""
             chat = update.effective_chat
-            chat_id = update.effective_chat.id
+            update.effective_chat.id
             chat_name = update.effective_message.chat.title
 
         if len(args) >= 1:
@@ -222,7 +218,6 @@ if is_module_loaded(FILENAME):
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
         if conn:
             chat = dispatcher.bot.getChat(conn)
-            chat_id = conn
         else:
             if update.effective_message.chat.type == "private":
                 send_message(
@@ -231,7 +226,7 @@ if is_module_loaded(FILENAME):
                 )
                 return ""
             chat = update.effective_chat
-            chat_id = update.effective_chat.id
+            update.effective_chat.id
 
         text = build_curr_disabled(chat.id)
         send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)

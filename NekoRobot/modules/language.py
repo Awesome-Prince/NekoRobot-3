@@ -21,22 +21,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Union, List, Dict, Callable, Generator, Any
 import itertools
 from collections.abc import Iterable
-from telegram.ext import CommandHandler, CallbackQueryHandler
-from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
+from typing import Generator, List, Union
 
-from NekoRobot import dispatcher
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import CallbackQueryHandler, CommandHandler
+
 import NekoRobot.modules.sql.language_sql as sql
+from NekoRobot import dispatcher
+from NekoRobot.langs import get_language, get_languages, get_string
 from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
-from NekoRobot.langs import get_string, get_languages, get_language
 
 
-
-def paginate(
-    iterable: Iterable, page_size: int
-) -> Generator[List, None, None]:
+def paginate(iterable: Iterable, page_size: int) -> Generator[List, None, None]:
     while True:
         i1, i2 = itertools.tee(iterable)
         iterable, page = (
@@ -62,10 +60,13 @@ def set_lang(update: Update, _) -> None:
         get_language(sql.get_chat_lang(chat.id))[:-3]
     )
 
-    keyb = [InlineKeyboardButton(
-                text=name,
-                callback_data=f"setLang_{code}",
-            ) for code, name in get_languages().items()]
+    keyb = [
+        InlineKeyboardButton(
+            text=name,
+            callback_data=f"setLang_{code}",
+        )
+        for code, name in get_languages().items()
+    ]
     keyb = list(paginate(keyb, 2))
     keyb.append(
         [

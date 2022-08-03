@@ -1,11 +1,18 @@
-from  uuid  import  uuid4
-
-from math import ceil
 from typing import Dict, List
+from uuid import uuid4
+
+from telegram import (
+    MAX_MESSAGE_LENGTH,
+    Bot,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InlineQueryResultArticle,
+    InputTextMessageContent,
+    ParseMode,
+)
+from telegram.error import TelegramError
 
 from NekoRobot import NO_LOAD
-from telegram import MAX_MESSAGE_LENGTH, Bot, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, InlineQueryResultArticle, InputTextMessageContent
-from telegram.error import TelegramError
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
@@ -41,30 +48,51 @@ def split_message(msg: str) -> List[str]:
 def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
     if not chat:
         modules = sorted(
-            [EqInlineKeyboardButton(x.__mod_name__,
-                                    callback_data="{}_module({})".format(prefix, x.__mod_name__.lower())) for x
-             in module_dict.values()])
+            [
+                EqInlineKeyboardButton(
+                    x.__mod_name__,
+                    callback_data="{}_module({})".format(
+                        prefix, x.__mod_name__.lower()
+                    ),
+                )
+                for x in module_dict.values()
+            ]
+        )
     else:
         modules = sorted(
-            [EqInlineKeyboardButton(x.__mod_name__,
-                                    callback_data="{}_module({},{})".format(prefix, chat, x.__mod_name__.lower())) for x
-             in module_dict.values()])
+            [
+                EqInlineKeyboardButton(
+                    x.__mod_name__,
+                    callback_data="{}_module({},{})".format(
+                        prefix, chat, x.__mod_name__.lower()
+                    ),
+                )
+                for x in module_dict.values()
+            ]
+        )
 
-    pairs = [
-    modules[i * 3:(i + 1) * 3] for i in range((len(modules) + 3 - 1) // 3)
-    ]
+    pairs = [modules[i * 3 : (i + 1) * 3] for i in range((len(modules) + 3 - 1) // 3)]
 
     round_num = len(modules) / 3
     calc = len(modules) - round(round_num)
     if calc in [1, 2]:
         pairs.append((modules[-1],))
     else:
-        pairs += [[
-            (EqInlineKeyboardButton("Try inline", switch_inline_query_current_chat="",)),
+        pairs += [
+            [
+                (
+                    EqInlineKeyboardButton(
+                        "Try inline",
+                        switch_inline_query_current_chat="",
+                    )
+                ),
                 EqInlineKeyboardButton("Back", callback_data="neko_back"),
-             EqInlineKeyboardButton("Support", url="t.me/Koyuki_Support")]]
+                EqInlineKeyboardButton("Support", url="t.me/Koyuki_Support"),
+            ]
+        ]
 
     return pairs
+
 
 def article(
     title: str = "",
@@ -86,6 +114,7 @@ def article(
         ),
         reply_markup=reply_markup,
     )
+
 
 def send_to_list(
     bot: Bot, send_to: list, message: str, markdown=False, html=False

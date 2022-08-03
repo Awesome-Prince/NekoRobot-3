@@ -21,17 +21,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import traceback
-
-import requests
 import html
+import io
 import random
 import sys
+import traceback
+
 import pretty_errors
-import io
-from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
+import requests
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext, CommandHandler
-from NekoRobot import dispatcher, DEV_USERS, OWNER_ID
+
+from NekoRobot import DEV_USERS, OWNER_ID, dispatcher
 
 pretty_errors.mono()
 
@@ -69,7 +70,9 @@ def error_callback(update: Update, context: CallbackContext):
         stringio = io.StringIO()
         pretty_errors.output_stderr = stringio
         output = pretty_errors.excepthook(
-            type(context.error), context.error, context.error.__traceback__,
+            type(context.error),
+            context.error,
+            context.error.__traceback__,
         )
         pretty_errors.output_stderr = sys.stderr
         pretty_error = stringio.getvalue()
@@ -77,7 +80,9 @@ def error_callback(update: Update, context: CallbackContext):
     except:
         pretty_error = "Failed to create pretty error."
     tb_list = traceback.format_exception(
-        None, context.error, context.error.__traceback__,
+        None,
+        context.error,
+        context.error.__traceback__,
     )
     tb = "".join(tb_list)
     pretty_message = (
@@ -90,7 +95,7 @@ def error_callback(update: Update, context: CallbackContext):
         "Message: {}\n\n"
         "Full Traceback: {}"
     ).format(
-            pretty_error,
+        pretty_error,
         update.effective_user.id,
         update.effective_chat.title if update.effective_chat else "",
         update.effective_chat.id if update.effective_chat else "",
@@ -99,7 +104,8 @@ def error_callback(update: Update, context: CallbackContext):
         tb,
     )
     key = requests.post(
-        "https://nekobin.com/api/documents", json={"content": pretty_message},
+        "https://nekobin.com/api/documents",
+        json={"content": pretty_message},
     ).json()
     e = html.escape(f"{context.error}")
     if not key.get("result", {}).get("key"):
@@ -107,19 +113,19 @@ def error_callback(update: Update, context: CallbackContext):
             f.write(pretty_message)
         context.bot.send_document(
             OWNER_ID,
-                open("error.txt", "rb"),
-                caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-                parse_mode="html",
+            open("error.txt", "rb"),
+            caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+            parse_mode="html",
         )
         return
     key = key.get("result").get("key")
     url = f"https://nekobin.com/{key}.py"
     context.bot.send_message(
         OWNER_ID,
-            text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("Nekobin", url=url)]],
-            ),
+        text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("Nekobin", url=url)]],
+        ),
         parse_mode="html",
     )
 

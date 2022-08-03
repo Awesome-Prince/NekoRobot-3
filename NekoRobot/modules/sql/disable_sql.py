@@ -23,8 +23,9 @@ SOFTWARE.
 
 import threading
 
-from NekoRobot.modules.sql import BASE, SESSION
 from sqlalchemy import Column, String, UnicodeText, distinct, func
+
+from NekoRobot.modules.sql import BASE, SESSION
 
 
 class Disable(BASE):
@@ -102,8 +103,7 @@ def num_disabled():
 
 def migrate_chat(old_chat_id, new_chat_id):
     with DISABLE_INSERTION_LOCK:
-        chats = SESSION.query(Disable).filter(
-            Disable.chat_id == str(old_chat_id)).all()
+        chats = SESSION.query(Disable).filter(Disable.chat_id == str(old_chat_id)).all()
         for chat in chats:
             chat.chat_id = str(new_chat_id)
             SESSION.add(chat)

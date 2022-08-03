@@ -25,9 +25,9 @@ SOFTWARE.
 # New chat added -> setup permissions
 import threading
 
-from sqlalchemy import Column, String, Boolean
+from sqlalchemy import Boolean, Column, String
 
-from NekoRobot.modules.sql import SESSION, BASE
+from NekoRobot.modules.sql import BASE, SESSION
 
 
 class Permissions(BASE):
@@ -256,8 +256,12 @@ def is_restr_locked(chat_id, lock_type):
     elif lock_type == "previews":
         return curr_restr.preview
     elif lock_type == "all":
-        return (curr_restr.messages and curr_restr.media and
-                curr_restr.other and curr_restr.preview)
+        return (
+            curr_restr.messages
+            and curr_restr.media
+            and curr_restr.other
+            and curr_restr.preview
+        )
 
 
 def get_locks(chat_id):

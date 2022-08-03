@@ -1,9 +1,10 @@
-from NekoRobot import telethn as client
-import os, logging, asyncio, io, sys, traceback
-from datetime import datetime
-from os import environ, execle
+import io
 import sys
+import traceback
+
 from telethon.sync import events
+
+from NekoRobot import telethn as client
 
 # telethon eval
 

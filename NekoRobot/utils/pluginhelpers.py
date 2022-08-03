@@ -21,37 +21,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-import aiohttp
-
 import asyncio
-
 import math
-
 import shlex
-
 import sys
-
 import time
-
 import traceback
-
 from functools import wraps
-
 from typing import Callable, Coroutine, Dict, List, Tuple, Union
 
+import aiohttp
 from PIL import Image
-
 from pyrogram import Client
-
 from pyrogram.errors import FloodWait, MessageNotModified
-
 from pyrogram.types import Chat, Message, User
 
-from NekoRobot import OWNER_ID, SUPPORT_CHAT
-
+from NekoRobot import OWNER_ID, SUPPORT_CHAT, pbot
 from NekoRobot.utils.errors import split_limits
 
-from NekoRobot import pbot
 
 def get_user(message: Message, text: str) -> [int, str, None]:
 
@@ -81,6 +68,7 @@ def get_user(message: Message, text: str) -> [int, str, None]:
 
     return user_s, reason_
 
+
 async def is_admin(event, user):
 
     try:
@@ -94,6 +82,7 @@ async def is_admin(event, user):
         is_mod = False
 
     return is_mod
+
 
 def get_readable_time(seconds: int) -> int:
 
@@ -133,6 +122,7 @@ def get_readable_time(seconds: int) -> int:
 
     return ping_time
 
+
 def time_formatter(milliseconds: int) -> str:
 
     seconds, milliseconds = divmod(int(milliseconds), 1000)
@@ -144,20 +134,15 @@ def time_formatter(milliseconds: int) -> str:
     days, hours = divmod(hours, 24)
 
     tmp = (
-
         ((str(days) + " day(s), ") if days else "")
-
         + ((str(hours) + " hour(s), ") if hours else "")
-
         + ((str(minutes) + " minute(s), ") if minutes else "")
-
         + ((str(seconds) + " second(s), ") if seconds else "")
-
         + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
-
     )
 
     return tmp[:-2]
+
 
 async def delete_or_pass(message):
 
@@ -167,13 +152,14 @@ async def delete_or_pass(message):
 
     return await message.delete()
 
+
 def humanbytes(size):
 
     if not size:
 
         return ""
 
-    power = 2 ** 10
+    power = 2**10
 
     raised_to_pow = 0
 
@@ -186,6 +172,7 @@ def humanbytes(size):
         raised_to_pow += 1
 
     return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+
 
 async def progress(current, total, message, start, type_of_ps, file_name=None):
 
@@ -210,19 +197,13 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
         estimated_total_time = elapsed_time + time_to_completion
 
         progress_str = "{0}{1} {2}%\n".format(
-
             "".join("🔴" for i in range(math.floor(percentage / 10))),
-
             "".join("🔘" for i in range(10 - math.floor(percentage / 10))),
-
             round(percentage, 2),
-
         )
 
         tmp = progress_str + "{0} of {1}\nETA: {2}".format(
-
             humanbytes(current), humanbytes(total), time_formatter(estimated_total_time)
-
         )
 
         if file_name:
@@ -230,9 +211,7 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
             try:
 
                 await message.edit(
-
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
-
                 )
 
             except FloodWait as e:
@@ -257,6 +236,7 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
 
                 pass
 
+
 def get_text(message: Message) -> [None, str]:
 
     text_to_return = message.text
@@ -277,6 +257,7 @@ def get_text(message: Message) -> [None, str]:
 
         return None
 
+
 async def iter_chats(client):
 
     chats = []
@@ -288,6 +269,7 @@ async def iter_chats(client):
             chats.append(dialog.chat.id)
 
     return chats
+
 
 async def fetch_audio(client, message):
 
@@ -331,6 +313,7 @@ async def fetch_audio(client, message):
 
     return final_warner
 
+
 async def edit_or_reply(message, text, parse_mode="md"):
 
     if message.from_user.id:
@@ -340,14 +323,13 @@ async def edit_or_reply(message, text, parse_mode="md"):
             kk = message.reply_to_message.message_id
 
             return await message.reply_text(
-
                 text, reply_to_message_id=kk, parse_mode=parse_mode
-
             )
 
         return await message.reply_text(text, parse_mode=parse_mode)
 
     return await message.edit(text, parse_mode=parse_mode)
+
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 
@@ -356,24 +338,18 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     args = shlex.split(cmd)
 
     process = await asyncio.create_subprocess_exec(
-
         *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
-
     )
 
     stdout, stderr = await process.communicate()
 
     return (
-
         stdout.decode("utf-8", "replace").strip(),
-
         stderr.decode("utf-8", "replace").strip(),
-
         process.returncode,
-
         process.pid,
-
     )
+
 
 async def convert_to_image(message, client) -> [None, str]:
 
@@ -382,17 +358,11 @@ async def convert_to_image(message, client) -> [None, str]:
     final_path = None
 
     if not (
-
         message.reply_to_message.photo
-
         or message.reply_to_message.sticker
-
         or message.reply_to_message.media
-
         or message.reply_to_message.animation
-
         or message.reply_to_message.audio
-
     ):
 
         return None
@@ -420,9 +390,7 @@ async def convert_to_image(message, client) -> [None, str]:
             final_path = "lottie_proton.png"
 
             cmd = (
-
                 f"lottie_convert.py --frame 0 -if lottie -of png {path_s} {final_path}"
-
             )
 
             await runcmd(cmd)
@@ -442,6 +410,7 @@ async def convert_to_image(message, client) -> [None, str]:
         await runcmd(f"ffmpeg -i {vid_path} -filter:v scale=500:500 -an {final_path}")
 
     return final_path
+
 
 def get_text(message: Message) -> [None, str]:
 
@@ -465,9 +434,11 @@ def get_text(message: Message) -> [None, str]:
 
         return None
 
+
 # Admin check
 
 admins: Dict[str, List[User]] = {}
+
 
 def set(chat_id: Union[str, int], admins_: List[User]):
 
@@ -476,6 +447,7 @@ def set(chat_id: Union[str, int], admins_: List[User]):
         chat_id = str(chat_id)
 
     admins[chat_id] = admins_
+
 
 def get(chat_id: Union[str, int]) -> Union[List[User], bool]:
 
@@ -489,6 +461,7 @@ def get(chat_id: Union[str, int]) -> Union[List[User], bool]:
 
     return False
 
+
 async def get_administrators(chat: Chat) -> List[User]:
 
     _get = get(chat.id)
@@ -498,23 +471,14 @@ async def get_administrators(chat: Chat) -> List[User]:
         return _get
 
     set(
-
         chat.id,
-
-        (
-
-            member.user
-
-            for member in await chat.get_member(filter="administrators")
-
-        ),
-
+        (member.user for member in await chat.get_member(filter="administrators")),
     )
 
     return await get_administrators(chat)
 
-def admins_only(func: Callable) -> Coroutine:
 
+def admins_only(func: Callable) -> Coroutine:
     async def wrapper(client: Client, message: Message):
 
         if message.from_user.id == OWNER_ID:
@@ -531,12 +495,12 @@ def admins_only(func: Callable) -> Coroutine:
 
     return wrapper
 
+
 # @Mr_Dark_Prince
 
+
 def capture_err(func):
-
     @wraps(func)
-
     async def capture(client, message, *args, **kwargs):
 
         try:
@@ -548,29 +512,18 @@ def capture_err(func):
             exc_type, exc_obj, exc_tb = sys.exc_info()
 
             errors = traceback.format_exception(
-
                 etype=exc_type,
-
                 value=exc_obj,
-
                 tb=exc_tb,
-
             )
 
             error_feedback = split_limits(
-
                 "**ERROR** | `{}` | `{}`\n\n```{}```\n\n```{}```\n".format(
-
                     0 if not message.from_user else message.from_user.id,
-
                     0 if not message.chat else message.chat.id,
-
                     message.text or message.caption,
-
                     "".join(errors),
-
                 ),
-
             )
 
             for x in error_feedback:
@@ -581,7 +534,9 @@ def capture_err(func):
 
     return capture
 
+
 # Special credits to TheHamkerCat
+
 
 async def member_permissions(chat_id, user_id):
 
@@ -622,6 +577,7 @@ async def member_permissions(chat_id, user_id):
         perms.append("can_pin_messages")
 
     return perms
+
 
 async def current_chat_permissions(chat_id):
 
@@ -675,7 +631,9 @@ async def current_chat_permissions(chat_id):
 
     return perms
 
+
 # URL LOCK
+
 
 def get_url(message_1: Message) -> Union[str, None]:
 
@@ -715,6 +673,7 @@ def get_url(message_1: Message) -> Union[str, None]:
 
     return text[offset : offset + length]
 
+
 async def fetch(url):
 
     async with aiohttp.ClientSession() as session, session.get(url) as resp:
@@ -728,6 +687,7 @@ async def fetch(url):
             data = await resp.text()
 
     return data
+
 
 async def convert_seconds_to_minutes(seconds: int):
 
@@ -743,19 +703,17 @@ async def convert_seconds_to_minutes(seconds: int):
 
     return "%02d:%02d" % (minutes, seconds)
 
+
 async def json_object_prettify(objecc):
 
     dicc = objecc.__dict__
 
     return "".join(
-
         f"**{key}:** `{value}`\n"
-
         for key, value in dicc.items()
-
         if key not in ["pinned_message", "photo", "_", "_client"]
-
     )
+
 
 async def json_prettify(data):
 

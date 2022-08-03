@@ -1,16 +1,19 @@
 # Module to blacklist users and prevent them from using commands by @TheRealPhoenix
 import html
-import NekoRobot.modules.sql.blacklistusers_sql as sql
-from NekoRobot import (DEV_USERS, OWNER_ID, DRAGONS, DEMONS, TIGERS, WOLVES,
-                          dispatcher)
-from NekoRobot.modules.helper_funcs.chat_status import dev_plus
-from NekoRobot.modules.helper_funcs.extraction import (extract_user,
-                                                          extract_user_and_text)
-from NekoRobot.modules.log_channel import gloggable
+
 from telegram import ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
+
+import NekoRobot.modules.sql.blacklistusers_sql as sql
+from NekoRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES, dispatcher
+from NekoRobot.modules.helper_funcs.chat_status import dev_plus
+from NekoRobot.modules.helper_funcs.extraction import (
+    extract_user,
+    extract_user_and_text,
+)
+from NekoRobot.modules.log_channel import gloggable
 
 BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
 BLABLEUSERS = [OWNER_ID] + DEV_USERS
@@ -30,8 +33,7 @@ def bl_user(update: Update, context: CallbackContext) -> str:
         return ""
 
     if user_id == bot.id:
-        message.reply_text(
-            "How am I supposed to do my work if I am ignoring myself?")
+        message.reply_text("How am I supposed to do my work if I am ignoring myself?")
         return ""
 
     if user_id in BLACKLISTWHITELIST:
@@ -117,14 +119,13 @@ def bl_users(update: Update, context: CallbackContext):
                 f"• {mention_html(user.id, html.escape(user.first_name))} :- {reason}"
             )
         else:
-            users.append(
-                f"• {mention_html(user.id, html.escape(user.first_name))}")
+            users.append(f"• {mention_html(user.id, html.escape(user.first_name))}")
 
     message = "<b>Blacklisted Users</b>\n"
     if not users:
         message += "Noone is being ignored as of yet."
     else:
-        message += '\n'.join(users)
+        message += "\n".join(users)
 
     update.effective_message.reply_text(message, parse_mode=ParseMode.HTML)
 

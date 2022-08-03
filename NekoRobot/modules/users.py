@@ -20,10 +20,10 @@ from time import sleep
 
 from telegram import TelegramError
 from telegram.error import BadRequest
-from telegram.ext import MessageHandler, Filters, CommandHandler
+from telegram.ext import CommandHandler, Filters, MessageHandler
 
 import NekoRobot.modules.sql.users_sql as sql
-from NekoRobot import dispatcher, OWNER_ID, LOGGER
+from NekoRobot import LOGGER, OWNER_ID, dispatcher
 from NekoRobot.modules.helper_funcs.filters import CustomFilters
 
 USERS_GROUP = 4

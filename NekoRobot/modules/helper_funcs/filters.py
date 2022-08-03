@@ -21,9 +21,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from NekoRobot import DEV_USERS, DRAGONS, DEMONS
 from telegram import Message
 from telegram.ext import MessageFilter
+
+from NekoRobot import DEMONS, DEV_USERS, DRAGONS
 
 
 class CustomFilters:

@@ -1,8 +1,7 @@
-
-
-from telegram.error import BadRequest
 from functools import wraps
+
 from telegram import ChatAction
+from telegram.error import BadRequest
 
 
 def send_message(message, text, *args, **kwargs):
@@ -19,7 +18,8 @@ def typing_action(func):
     @wraps(func)
     def command_func(update, context, *args, **kwargs):
         context.bot.send_chat_action(
-            chat_id=update.effective_chat.id, action=ChatAction.TYPING)
+            chat_id=update.effective_chat.id, action=ChatAction.TYPING
+        )
         return func(update, context, *args, **kwargs)
 
     return command_func

@@ -23,8 +23,9 @@ SOFTWARE.
 
 import threading
 
-from NekoRobot.modules.sql import BASE, SESSION
 from sqlalchemy import Column, String, UnicodeText, distinct, func
+
+from NekoRobot.modules.sql import BASE, SESSION
 
 
 class Rules(BASE):

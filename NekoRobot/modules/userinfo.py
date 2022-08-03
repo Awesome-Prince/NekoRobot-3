@@ -1,56 +1,49 @@
-
-
-import html
-import re
-import os
-import requests
-import subprocess
-import importlib
 import datetime
+import html
 import platform
 import time
-from typing import List
-
-from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
 from platform import python_version
+
+import requests
+from psutil import boot_time, cpu_percent, disk_usage, virtual_memory
+from telegram import (
+    MAX_MESSAGE_LENGTH,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    MessageEntity,
+    ParseMode,
+    Update,
+)
+from telegram import __version__ as ptbver
+from telegram.error import BadRequest
+from telegram.ext import CallbackContext, CommandHandler
+from telegram.utils.helpers import escape_markdown, mention_html
+from telethon import events
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.types import ChannelParticipantsAdmins
-from telethon import events
-from pyrogram import filters
 
-from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update, MessageEntity, __version__ as ptbver, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import (CallbackContext, CallbackQueryHandler, CommandHandler,
-                          Filters, MessageHandler)
-from telegram.ext.dispatcher import run_async
-from telegram.error import BadRequest
-from telegram.utils.helpers import escape_markdown, mention_html
-    
+import NekoRobot.modules.sql.userinfo_sql as sql
 from NekoRobot import (
-    DEV_USERS,
-    OWNER_ID,
-    DRAGONS,
     DEMONS,
+    DEV_USERS,
+    DRAGONS,
+    INFOPIC,
+    OWNER_ID,
+    SUPPORT_CHAT,
     TIGERS,
     WOLVES,
-    INFOPIC,
+    StartTime,
     dispatcher,
     sw,
-    StartTime,
-    SUPPORT_CHAT,
-    pgram as fish
+    telethn,
 )
 from NekoRobot.__main__ import STATS, TOKEN, USER_INFO
-from NekoRobot.modules.sql import SESSION
-from NekoRobot.modules.sudoers import bot_sys_stats as nao
-import NekoRobot.modules.sql.userinfo_sql as sql
 from NekoRobot.modules.disable import DisableAbleCommandHandler
-from NekoRobot.modules.sql.global_bans_sql import is_user_gbanned
-from NekoRobot.modules.sql.afk_sql import is_afk, check_afk_status
-from NekoRobot.modules.sql.users_sql import get_user_num_chats
 from NekoRobot.modules.helper_funcs.chat_status import sudo_plus
 from NekoRobot.modules.helper_funcs.extraction import extract_user
-from NekoRobot import telethn
-from NekoRobot import pbot
+from NekoRobot.modules.sql.afk_sql import check_afk_status, is_afk
+from NekoRobot.modules.sql.global_bans_sql import is_user_gbanned
+from NekoRobot.modules.sql.users_sql import get_user_num_chats
 
 NEKO_IMG = "https://telegra.ph/file/a21731c0c4c7f27a3ec16.jpg"
 
@@ -73,6 +66,7 @@ def get_percentage(totalhp, earnedhp):
     per_of_totalhp = 100 - matched_less * 100.0 / totalhp
     per_of_totalhp = str(int(per_of_totalhp))
     return per_of_totalhp
+
 
 def get_readable_time(seconds: int) -> str:
     count = 0
@@ -97,6 +91,7 @@ def get_readable_time(seconds: int) -> str:
     ping_time += ":".join(time_list)
 
     return ping_time
+
 
 def hpmanager(user):
     total_hp = (get_user_num_chats(user.id) + 10) * 10
@@ -178,18 +173,21 @@ def get_id(update: Update, context: CallbackContext):
 
     elif chat.type == "private":
         msg.reply_text(
-            f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
+            f"Your id is <code>{chat.id}</code>.",
+            parse_mode=ParseMode.HTML,
         )
 
     else:
         msg.reply_text(
-            f"<b>{message.chat.title}</b>'s id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML,
+            f"<b>{message.chat.title}</b>'s id is <code>{chat.id}</code>.",
+            parse_mode=ParseMode.HTML,
         )
 
 
 @telethn.on(
     events.NewMessage(
-        pattern="/ginfo ", from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or []),
+        pattern="/ginfo ",
+        from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or []),
     ),
 )
 async def group_info(event) -> None:
@@ -197,7 +195,8 @@ async def group_info(event) -> None:
     try:
         entity = await event.client.get_entity(chat)
         totallist = await event.client.get_participants(
-            entity, filter=ChannelParticipantsAdmins,
+            entity,
+            filter=ChannelParticipantsAdmins,
         )
         ch_full = await event.client(GetFullChannelRequest(channel=entity))
     except:
@@ -225,7 +224,6 @@ async def group_info(event) -> None:
     await event.reply(msg)
 
 
-
 def gifid(update: Update, context: CallbackContext):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.animation:
@@ -242,14 +240,10 @@ def info(update: Update, context: CallbackContext):
     message = update.effective_message
     chat = update.effective_chat
     buttons = [
-    [
-                        InlineKeyboardButton(
-                             text="Health",
-                             url="https://t.me/"),
-                       InlineKeyboardButton(
-                             text="Disasters",
-                             url="https://t.me/"),
-                    ],
+        [
+            InlineKeyboardButton(text="Health", url="https://t.me/"),
+            InlineKeyboardButton(text="Disasters", url="https://t.me/"),
+        ],
     ]
     user_id = extract_user(update.effective_message, args)
 
@@ -318,30 +312,20 @@ def info(update: Update, context: CallbackContext):
     except:
         pass  # don't crash if api is down somehow...
 
-    disaster_level_present = False
-
     if user.id == OWNER_ID:
         text += "\n\nThe Disaster level of this person is 'God'."
-        disaster_level_present = True
     elif user.id in DEV_USERS:
         text += "\n\nThis user is member of 'Heros Association'."
-        disaster_level_present = True
     elif user.id in DRAGONS:
         text += "\n\nThe Disaster level of this person is 'Dragon'."
-        disaster_level_present = True
     elif user.id in DEMONS:
         text += "\n\nThe Disaster level of this person is 'Demon'."
-        disaster_level_present = True
     elif user.id in TIGERS:
         text += "\n\nThe Disaster level of this person is 'Tiger'."
-        disaster_level_present = True
     elif user.id in WOLVES:
         text += "\n\nThe Disaster level of this person is 'Wolf'."
-        disaster_level_present = True
     elif user.id == 5291415314:
-         text += "\n\nCo-Owner Of A Bot."
-         disaster_level_present = True
-
+        text += "\n\nCo-Owner Of A Bot."
 
     try:
         user_member = chat.get_member(user.id)
@@ -369,28 +353,29 @@ def info(update: Update, context: CallbackContext):
             profile = context.bot.get_user_profile_photos(user.id).photos[0][-1]
             context.bot.sendChatAction(chat.id, "upload_photo")
             context.bot.send_photo(
-            chat.id,
-            photo=profile,
-            caption=(text),
-            reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.HTML,            
-        )
+                chat.id,
+                photo=profile,
+                caption=(text),
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.HTML,
+            )
         # Incase user don't have profile pic, send normal text
         except IndexError:
             message.reply_text(
-            text,
-        reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.HTML,            
-                   )
+                text,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=ParseMode.HTML,
+            )
 
     else:
         message.reply_text(
             text,
-        reply_markup=InlineKeyboardMarkup(buttons),
-                parse_mode=ParseMode.HTML,            
-                   )
+            reply_markup=InlineKeyboardMarkup(buttons),
+            parse_mode=ParseMode.HTML,
+        )
 
     rep.delete()
+
 
 def about_me(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -413,7 +398,6 @@ def about_me(update: Update, context: CallbackContext):
         )
     else:
         update.effective_message.reply_text("There isnt one, use /setme to set one.")
-
 
 
 def set_about_me(update: Update, context: CallbackContext):
@@ -447,6 +431,7 @@ def set_about_me(update: Update, context: CallbackContext):
                 ),
             )
 
+
 @sudo_plus
 def stats(update, context):
     uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y-%m-%d %H:%M:%S")
@@ -478,11 +463,11 @@ def stats(update, context):
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
-                  [                  
-                       InlineKeyboardButton(
-                             text="Repo",
-                             url="github.com/Awesome-Prince/NekoRobot-2")
-                     ] 
+                    [
+                        InlineKeyboardButton(
+                            text="Repo", url="github.com/Awesome-Prince/NekoRobot-2"
+                        )
+                    ]
                 ]
             ),
         )
@@ -501,16 +486,16 @@ def stats(update, context):
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
-                  [                  
-                       InlineKeyboardButton(
-                             text="Repo",
-                             url="github.com/Awesome-Prince/NekoRobot-2")
-                     ] 
+                    [
+                        InlineKeyboardButton(
+                            text="Repo", url="github.com/Awesome-Prince/NekoRobot-2"
+                        )
+                    ]
                 ]
             ),
         )
-        
-        
+
+
 def about_bio(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -563,7 +548,8 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         text = message.text
         bio = text.split(
-            None, 1,
+            None,
+            1,
         )  # use python's maxsplit to only remove the cmd, hence keeping newlines.
 
         if len(bio) == 2:
@@ -575,7 +561,8 @@ def set_about_bio(update: Update, context: CallbackContext):
             else:
                 message.reply_text(
                     "Bio needs to be under {} characters! You tried to set {}.".format(
-                        MAX_MESSAGE_LENGTH // 4, len(bio[1]),
+                        MAX_MESSAGE_LENGTH // 4,
+                        len(bio[1]),
                     ),
                 )
     else:
@@ -592,6 +579,7 @@ def __user_info__(user_id):
         result += f"<b>What others say:</b>\n{bio}\n"
     result = result.strip("\n")
     return result
+
 
 __help__ = """
 *ID:*

@@ -28,14 +28,16 @@ import os
 # Common imports for eval
 import textwrap
 import traceback
-
 from contextlib import redirect_stdout
+
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler
+
 from NekoRobot import LOGGER, dispatcher
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 namespaces = {}
+
 
 def namespace_of(chat, update, bot):
     if chat not in namespaces:
@@ -49,11 +51,13 @@ def namespace_of(chat, update, bot):
         }
     return namespaces[chat]
 
+
 def log_input(update):
     user = update.effective_user.id
     chat = update.effective_chat.id
     LOGGER.info(f"IN: {update.effective_message.text} (user={user}, chat={chat})")
-    
+
+
 def send(msg, bot, update):
     if len(str(msg)) > 2000:
         with io.BytesIO(str.encode(msg)) as out_file:
@@ -72,16 +76,19 @@ def send(msg, bot, update):
 def evaluate(update: Update, context: CallbackContext):
     bot = context.bot
     send(do(eval, bot, update), bot, update)
-    
+
+
 @dev_plus
 def execute(update: Update, context: CallbackContext):
     bot = context.bot
     send(do(exec, bot, update), bot, update)
-    
+
+
 def cleanup_code(code):
     if code.startswith("```") and code.endswith("```"):
         return "\n".join(code.split("\n")[1:-1])
     return code.strip("` \n")
+
 
 def do(func, bot, update):
     log_input(update)
@@ -104,7 +111,7 @@ def do(func, bot, update):
     try:
         with redirect_stdout(stdout):
             func_return = func()
-    except Exception as e:
+    except Exception:
         value = stdout.getvalue()
         return f"{value}{traceback.format_exc()}"
     else:
@@ -123,6 +130,7 @@ def do(func, bot, update):
         if result:
             return result
 
+
 @dev_plus
 def clear(update: Update, context: CallbackContext):
     bot = context.bot
@@ -131,7 +139,8 @@ def clear(update: Update, context: CallbackContext):
     if update.message.chat_id in namespaces:
         del namespaces[update.message.chat_id]
     send("Cleared locals.", bot, update)
-    
+
+
 EVAL_HANDLER = CommandHandler(
     ("e", "ev", "eva", "eval"),
     evaluate,

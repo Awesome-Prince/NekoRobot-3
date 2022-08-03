@@ -23,64 +23,53 @@ SOFTWARE.
 
 import html
 
-from telegram import Message, Chat, ParseMode, MessageEntity
-from telegram import TelegramError, ChatPermissions
+from alphabet_detector import AlphabetDetector
+from telegram import (
+    Chat,
+    ChatPermissions,
+    Message,
+    MessageEntity,
+    ParseMode,
+    TelegramError,
+)
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, MessageHandler, Filters
+from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-from alphabet_detector import AlphabetDetector
-
 import NekoRobot.modules.sql.locks_sql as sql
-from NekoRobot import dispatcher, DRAGONS, LOGGER
+from NekoRobot import DRAGONS, LOGGER, dispatcher
+from NekoRobot.modules.connection import connected
 from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.chat_status import (
     can_delete,
-    is_user_admin,
-    user_not_admin,
     is_bot_admin,
+    is_user_admin,
     user_admin,
+    user_not_admin,
 )
 from NekoRobot.modules.log_channel import loggable
-from NekoRobot.modules.connection import connected
-
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 
 ad = AlphabetDetector()
 
 LOCK_TYPES = {
-    "audio":
-        Filters.audio,
-    "voice":
-        Filters.voice,
-    "document":
-        Filters.document,
-    "video":
-        Filters.video,
-    "contact":
-        Filters.contact,
-    "photo":
-        Filters.photo,
-    "url":
-        Filters.entity(MessageEntity.URL)
-        | Filters.caption_entity(MessageEntity.URL),
-    "bots":
-        Filters.status_update.new_chat_members,
-    "forward":
-        Filters.forwarded,
-    "game":
-        Filters.game,
-    "location":
-        Filters.location,
-    "egame":
-        Filters.dice,
-    "rtl":
-        "rtl",
-    "button":
-        "button",
-    "inline":
-        "inline",
+    "audio": Filters.audio,
+    "voice": Filters.voice,
+    "document": Filters.document,
+    "video": Filters.video,
+    "contact": Filters.contact,
+    "photo": Filters.photo,
+    "url": Filters.entity(MessageEntity.URL)
+    | Filters.caption_entity(MessageEntity.URL),
+    "bots": Filters.status_update.new_chat_members,
+    "forward": Filters.forwarded,
+    "game": Filters.game,
+    "location": Filters.location,
+    "egame": Filters.dice,
+    "rtl": "rtl",
+    "button": "button",
+    "inline": "inline",
 }
 
 LOCK_CHAT_RESTRICTION = {
@@ -94,36 +83,16 @@ LOCK_CHAT_RESTRICTION = {
         "can_invite_users": False,
         "can_pin_messages": False,
     },
-    "messages": {
-        "can_send_messages": False
-    },
-    "media": {
-        "can_send_media_messages": False
-    },
-    "sticker": {
-        "can_send_other_messages": False
-    },
-    "gif": {
-        "can_send_other_messages": False
-    },
-    "poll": {
-        "can_send_polls": False
-    },
-    "other": {
-        "can_send_other_messages": False
-    },
-    "previews": {
-        "can_add_web_page_previews": False
-    },
-    "info": {
-        "can_change_info": False
-    },
-    "invite": {
-        "can_invite_users": False
-    },
-    "pin": {
-        "can_pin_messages": False
-    },
+    "messages": {"can_send_messages": False},
+    "media": {"can_send_media_messages": False},
+    "sticker": {"can_send_other_messages": False},
+    "gif": {"can_send_other_messages": False},
+    "poll": {"can_send_polls": False},
+    "other": {"can_send_other_messages": False},
+    "previews": {"can_add_web_page_previews": False},
+    "info": {"can_change_info": False},
+    "invite": {"can_invite_users": False},
+    "pin": {"can_pin_messages": False},
 }
 
 UNLOCK_CHAT_RESTRICTION = {
@@ -135,36 +104,16 @@ UNLOCK_CHAT_RESTRICTION = {
         "can_add_web_page_previews": True,
         "can_invite_users": True,
     },
-    "messages": {
-        "can_send_messages": True
-    },
-    "media": {
-        "can_send_media_messages": True
-    },
-    "sticker": {
-        "can_send_other_messages": True
-    },
-    "gif": {
-        "can_send_other_messages": True
-    },
-    "poll": {
-        "can_send_polls": True
-    },
-    "other": {
-        "can_send_other_messages": True
-    },
-    "previews": {
-        "can_add_web_page_previews": True
-    },
-    "info": {
-        "can_change_info": True
-    },
-    "invite": {
-        "can_invite_users": True
-    },
-    "pin": {
-        "can_pin_messages": True
-    },
+    "messages": {"can_send_messages": True},
+    "media": {"can_send_media_messages": True},
+    "sticker": {"can_send_other_messages": True},
+    "gif": {"can_send_other_messages": True},
+    "poll": {"can_send_polls": True},
+    "other": {"can_send_other_messages": True},
+    "previews": {"can_add_web_page_previews": True},
+    "info": {"can_change_info": True},
+    "invite": {"can_invite_users": True},
+    "pin": {"can_pin_messages": True},
 }
 
 PERM_GROUP = 1
@@ -172,13 +121,9 @@ REST_GROUP = 2
 
 
 # NOT ASYNC
-def restr_members(bot,
-                  chat_id,
-                  members,
-                  messages=False,
-                  media=False,
-                  other=False,
-                  previews=False):
+def restr_members(
+    bot, chat_id, members, messages=False, media=False, other=False, previews=False
+):
     for mem in members:
         if mem.user in DRAGONS:
             pass
@@ -196,13 +141,9 @@ def restr_members(bot,
 
 
 # NOT ASYNC
-def unrestr_members(bot,
-                    chat_id,
-                    members,
-                    messages=True,
-                    media=True,
-                    other=True,
-                    previews=True):
+def unrestr_members(
+    bot, chat_id, members, messages=True, media=True, other=True, previews=True
+):
     for mem in members:
         try:
             bot.restrict_chat_member(
@@ -220,8 +161,11 @@ def unrestr_members(bot,
 @run_async
 def locktypes(update, context):
     update.effective_message.reply_text(
-        "\n • ".join(["Locks available: "] +
-                     sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))))
+        "\n • ".join(
+            ["Locks available: "]
+            + sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))
+        )
+    )
 
 
 @run_async
@@ -233,20 +177,20 @@ def lock(update, context) -> str:
     chat = update.effective_chat
     user = update.effective_user
 
-    if (can_delete(chat, context.bot.id) or
-            update.effective_message.chat.type == "private"):
+    if (
+        can_delete(chat, context.bot.id)
+        or update.effective_message.chat.type == "private"
+    ):
         if len(args) >= 1:
             ltype = args[0].lower()
             if ltype in LOCK_TYPES:
                 # Connection check
-                conn = connected(
-                    context.bot, update, chat, user.id, need_admin=True)
+                conn = connected(context.bot, update, chat, user.id, need_admin=True)
                 if conn:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Locked {} for non-admins in {}!".format(
-                        ltype, chat_name)
+                    text = "Locked {} for non-admins in {}!".format(ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
@@ -259,28 +203,29 @@ def lock(update, context) -> str:
                     chat_name = update.effective_message.chat.title
                     text = "Locked {} for non-admins!".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=True)
-                send_message(
-                    update.effective_message, text, parse_mode="markdown")
+                send_message(update.effective_message, text, parse_mode="markdown")
 
-                return ("<b>{}:</b>"
-                        "\n#LOCK"
-                        "\n<b>Admin:</b> {}"
-                        "\nLocked <code>{}</code>.".format(
-                            html.escape(chat.title),
-                            mention_html(user.id, user.first_name),
-                            ltype,
-                        ))
+                return (
+                    "<b>{}:</b>"
+                    "\n#LOCK"
+                    "\n<b>Admin:</b> {}"
+                    "\nLocked <code>{}</code>.".format(
+                        html.escape(chat.title),
+                        mention_html(user.id, user.first_name),
+                        ltype,
+                    )
+                )
 
             elif ltype in LOCK_CHAT_RESTRICTION:
                 # Connection check
-                conn = connected(
-                    context.bot, update, chat, user.id, need_admin=True)
+                conn = connected(context.bot, update, chat, user.id, need_admin=True)
                 if conn:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
                     text = "Locked {} for all non-admins in {}!".format(
-                        ltype, chat_name)
+                        ltype, chat_name
+                    )
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
@@ -302,16 +247,17 @@ def lock(update, context) -> str:
                     ),
                 )
 
-                send_message(
-                    update.effective_message, text, parse_mode="markdown")
-                return ("<b>{}:</b>"
-                        "\n#Permission_LOCK"
-                        "\n<b>Admin:</b> {}"
-                        "\nLocked <code>{}</code>.".format(
-                            html.escape(chat.title),
-                            mention_html(user.id, user.first_name),
-                            ltype,
-                        ))
+                send_message(update.effective_message, text, parse_mode="markdown")
+                return (
+                    "<b>{}:</b>"
+                    "\n#Permission_LOCK"
+                    "\n<b>Admin:</b> {}"
+                    "\nLocked <code>{}</code>.".format(
+                        html.escape(chat.title),
+                        mention_html(user.id, user.first_name),
+                        ltype,
+                    )
+                )
 
             else:
                 send_message(
@@ -319,8 +265,7 @@ def lock(update, context) -> str:
                     "What are you trying to lock...? Try /locktypes for the list of lockables",
                 )
         else:
-            send_message(update.effective_message,
-                         "What are you trying to lock...?")
+            send_message(update.effective_message, "What are you trying to lock...?")
 
     else:
         send_message(
@@ -345,14 +290,12 @@ def unlock(update, context) -> str:
             ltype = args[0].lower()
             if ltype in LOCK_TYPES:
                 # Connection check
-                conn = connected(
-                    context.bot, update, chat, user.id, need_admin=True)
+                conn = connected(context.bot, update, chat, user.id, need_admin=True)
                 if conn:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(
-                        ltype, chat_name)
+                    text = "Unlocked {} for everyone in {}!".format(ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
@@ -365,27 +308,26 @@ def unlock(update, context) -> str:
                     chat_name = update.effective_message.chat.title
                     text = "Unlocked {} for everyone!".format(ltype)
                 sql.update_lock(chat.id, ltype, locked=False)
-                send_message(
-                    update.effective_message, text, parse_mode="markdown")
-                return ("<b>{}:</b>"
-                        "\n#UNLOCK"
-                        "\n<b>Admin:</b> {}"
-                        "\nUnlocked <code>{}</code>.".format(
-                            html.escape(chat.title),
-                            mention_html(user.id, user.first_name),
-                            ltype,
-                        ))
+                send_message(update.effective_message, text, parse_mode="markdown")
+                return (
+                    "<b>{}:</b>"
+                    "\n#UNLOCK"
+                    "\n<b>Admin:</b> {}"
+                    "\nUnlocked <code>{}</code>.".format(
+                        html.escape(chat.title),
+                        mention_html(user.id, user.first_name),
+                        ltype,
+                    )
+                )
 
             elif ltype in UNLOCK_CHAT_RESTRICTION:
                 # Connection check
-                conn = connected(
-                    context.bot, update, chat, user.id, need_admin=True)
+                conn = connected(context.bot, update, chat, user.id, need_admin=True)
                 if conn:
                     chat = dispatcher.bot.getChat(conn)
                     chat_id = conn
                     chat_name = chat.title
-                    text = "Unlocked {} for everyone in {}!".format(
-                        ltype, chat_name)
+                    text = "Unlocked {} for everyone in {}!".format(ltype, chat_name)
                 else:
                     if update.effective_message.chat.type == "private":
                         send_message(
@@ -398,13 +340,13 @@ def unlock(update, context) -> str:
                     chat_name = update.effective_message.chat.title
                     text = "Unlocked {} for everyone!".format(ltype)
 
-                can_change_info = chat.get_member(
-                    context.bot.id).can_change_info
+                can_change_info = chat.get_member(context.bot.id).can_change_info
                 if not can_change_info:
                     send_message(
                         update.effective_message,
                         "I don't have permission to change group info.",
-                        parse_mode="markdown")
+                        parse_mode="markdown",
+                    )
                     return
 
                 current_permission = context.bot.getChat(chat_id).permissions
@@ -416,17 +358,18 @@ def unlock(update, context) -> str:
                     ),
                 )
 
-                send_message(
-                    update.effective_message, text, parse_mode="markdown")
+                send_message(update.effective_message, text, parse_mode="markdown")
 
-                return ("<b>{}:</b>"
-                        "\n#UNLOCK"
-                        "\n<b>Admin:</b> {}"
-                        "\nUnlocked <code>{}</code>.".format(
-                            html.escape(chat.title),
-                            mention_html(user.id, user.first_name),
-                            ltype,
-                        ))
+                return (
+                    "<b>{}:</b>"
+                    "\n#UNLOCK"
+                    "\n<b>Admin:</b> {}"
+                    "\nUnlocked <code>{}</code>.".format(
+                        html.escape(chat.title),
+                        mention_html(user.id, user.first_name),
+                        ltype,
+                    )
+                )
             else:
                 send_message(
                     update.effective_message,
@@ -434,8 +377,7 @@ def unlock(update, context) -> str:
                 )
 
         else:
-            send_message(update.effective_message,
-                         "What are you trying to unlock...?")
+            send_message(update.effective_message, "What are you trying to unlock...?")
 
     return ""
 
@@ -448,10 +390,9 @@ def del_lockables(update, context):
 
     for lockable, filter in LOCK_TYPES.items():
         if lockable == "rtl":
-            if sql.is_locked(chat.id, lockable) and can_delete(
-                    chat, context.bot.id):
+            if sql.is_locked(chat.id, lockable) and can_delete(chat, context.bot.id):
                 if message.caption:
-                    check = ad.detect_alphabet(u"{}".format(message.caption))
+                    check = ad.detect_alphabet("{}".format(message.caption))
                     if "ARABIC" in check:
                         try:
                             message.delete()
@@ -462,7 +403,7 @@ def del_lockables(update, context):
                                 LOGGER.exception("ERROR in lockables")
                         break
                 if message.text:
-                    check = ad.detect_alphabet(u"{}".format(message.text))
+                    check = ad.detect_alphabet("{}".format(message.text))
                     if "ARABIC" in check:
                         try:
                             message.delete()
@@ -474,8 +415,7 @@ def del_lockables(update, context):
                         break
             continue
         if lockable == "button":
-            if sql.is_locked(chat.id, lockable) and can_delete(
-                    chat, context.bot.id):
+            if sql.is_locked(chat.id, lockable) and can_delete(chat, context.bot.id):
                 if message.reply_markup and message.reply_markup.inline_keyboard:
                     try:
                         message.delete()
@@ -487,8 +427,7 @@ def del_lockables(update, context):
                     break
             continue
         if lockable == "inline":
-            if sql.is_locked(chat.id, lockable) and can_delete(
-                    chat, context.bot.id):
+            if sql.is_locked(chat.id, lockable) and can_delete(chat, context.bot.id):
                 if message and message.via_bot:
                     try:
                         message.delete()
@@ -499,8 +438,11 @@ def del_lockables(update, context):
                             LOGGER.exception("ERROR in lockables")
                     break
             continue
-        if (filter(update) and sql.is_locked(chat.id, lockable) and
-                can_delete(chat, context.bot.id)):
+        if (
+            filter(update)
+            and sql.is_locked(chat.id, lockable)
+            and can_delete(chat, context.bot.id)
+        ):
             if lockable == "bots":
                 new_members = update.effective_message.new_chat_members
                 for new_mem in new_members:
@@ -561,8 +503,7 @@ def build_lock_message(chat_id):
     permslist.append("media = `{}`".format(permissions.can_send_media_messages))
     permslist.append("poll = `{}`".format(permissions.can_send_polls))
     permslist.append("other = `{}`".format(permissions.can_send_other_messages))
-    permslist.append("previews = `{}`".format(
-        permissions.can_add_web_page_previews))
+    permslist.append("previews = `{}`".format(permissions.can_add_web_page_previews))
     permslist.append("info = `{}`".format(permissions.can_change_info))
     permslist.append("invite = `{}`".format(permissions.can_invite_users))
     permslist.append("pin = `{}`".format(permissions.can_pin_messages))
@@ -672,10 +613,10 @@ Locking bots will stop non-admins from adding bots to the chat.
 __mod_name__ = "Locks"
 
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
-LOCK_HANDLER = CommandHandler(
-    "lock", lock, pass_args=True)  # , filters=Filters.group)
+LOCK_HANDLER = CommandHandler("lock", lock, pass_args=True)  # , filters=Filters.group)
 UNLOCK_HANDLER = CommandHandler(
-    "unlock", unlock, pass_args=True)  # , filters=Filters.group)
+    "unlock", unlock, pass_args=True
+)  # , filters=Filters.group)
 LOCKED_HANDLER = CommandHandler("locks", list_locks)  # , filters=Filters.group)
 
 dispatcher.add_handler(LOCK_HANDLER)
@@ -684,4 +625,5 @@ dispatcher.add_handler(LOCKTYPES_HANDLER)
 dispatcher.add_handler(LOCKED_HANDLER)
 
 dispatcher.add_handler(
-    MessageHandler(Filters.all & Filters.group, del_lockables), PERM_GROUP)
+    MessageHandler(Filters.all & Filters.group, del_lockables), PERM_GROUP
+)
