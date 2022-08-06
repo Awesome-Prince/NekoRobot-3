@@ -22,7 +22,7 @@ SOFTWARE.
 """
 
 from telethon import events
-
+import pyrogram
 from NekoRobot import telethn
 
 
