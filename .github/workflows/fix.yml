@@ -1,4 +1,4 @@
-name: PyLint
+name: Fixed By Black Sword Man
 
 on: [push, pull_request]
 
@@ -27,9 +27,9 @@ jobs:
       # commit changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'BlackLover: auto fixes'
+          commit_message: 'lmao'
           commit_options: '--no-verify'
           repository: .
           commit_user_name: Awesome-Prince
           commit_user_email: 90893568+Awesome-Prince@users.noreply.github.com
-          commit_author: Awesome-Prince <90893568+Awesome-Prince+@users.noreply.github.com>
+          commit_author: Prince <90893568+Awesome-Prince@users.noreply.github.com>
