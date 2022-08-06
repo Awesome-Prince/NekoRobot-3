@@ -31,5 +31,5 @@ jobs:
           commit_options: '--no-verify'
           repository: .
           commit_user_name: Awesome-Prince
-          commit_user_email: 1243683+Awesome-Prince@users.noreply.github.com
-          commit_author: Awesome-Prince <1243683+Awesome-Prince+@users.noreply.github.com>
+          commit_user_email: 90893568+Awesome-Prince@users.noreply.github.com
+          commit_author: Awesome-Prince <90893568+Awesome-Prince+@users.noreply.github.com>
