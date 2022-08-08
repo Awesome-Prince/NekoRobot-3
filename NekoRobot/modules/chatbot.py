@@ -134,7 +134,7 @@ def chatbot(update: Update, context: CallbackContext):
         Message = message.text
         bot.send_chat_action(chat_id, action="typing")
         kukiurl = requests.get(
-            "https://www.kukiapi.xyz/api/apikey=KUKIur8jgD3nY4/Neko/@Horimaya/message="
+            "https://www.kukiapi.xyz/api/apikey=KUKIur8jgD3nY4/Neko/@BlackLover_Prince/message="
             + Message
         )
         Kuki = json.loads(kukiurl.text)
@@ -162,7 +162,7 @@ __help__ = """
 *Admins only Commands*:
   ➢ `/Chatbot`*:* Shows chatbot control panel
   
-*Powered By @Horimaya*
+*Powered By @BlackLover_Prince*
 """
 
 __mod_name__ = "ChatBot"
