@@ -21,7 +21,7 @@ SOFTWARE.
 import random
 
 import requests
-from telegram.ext import Filters, run_async
+from telegram.ext import Filters
 
 from NekoRobot import dispatcher
 from NekoRobot.modules.disable import MessageHandler
