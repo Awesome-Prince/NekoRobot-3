@@ -3,7 +3,7 @@
 ## Advanced: Decorators
 ```python3
 
-from NekoXRobot.modules.helper_funcs.decorators import nekocmd
+from NekoRobot.modules.helper_funcs.decorators import nekocmd
 from telegram import Update
 from telegram.ext import CallbackContext
 
@@ -24,7 +24,7 @@ __help__ = """
 
 ## Advanced: Pyrogram
 ```python3
-from NekoXRobot import pgram
+from NekoRobot import pgram
 
 @pgram.on_message(filters.command("hi") & ~filters.edited & ~filters.bot)
 async def hmm(client, message):
@@ -41,8 +41,8 @@ __help__ = """
 ## Advanced: Telethon
 ```python3
 
-from NekoXRobot import telethn
-from NekoXRobot.events import register
+from NekoRobot import telethn
+from NekoRobot.events import register
 
 @register(pattern="^/hi$")
 async def hmm(event):
@@ -59,7 +59,7 @@ __help__ = """
 ## Advanced: PTB
 ```python3
 
-from NekoXRobot import dispatcher
+from NekoRobot import dispatcher
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 
