@@ -542,7 +542,7 @@ UNBAN_HANDLER = CommandHandler("unban", unban)
 UNBAN_BUTTON_HANDLER = CallbackQueryHandler(unbanb_btn, pattern=r"unbanb_")
 ROAR_HANDLER = CommandHandler("roar", selfunban)
 PUNCHME_HANDLER = DisableAbleCommandHandler(
-    ["punchme", "kickme"], punchme, filters=Filters.group
+    ["punchme", "kickme"], punchme, filters=Filters.chat_type.groups
 )
 
 
