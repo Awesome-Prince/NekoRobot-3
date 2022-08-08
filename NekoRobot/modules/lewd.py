@@ -3,7 +3,7 @@ MIT License
 
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022 Hodacka
-Copyright (c) 2021, Yūki • Black Knights Union, <https://github.com/Hodacka/NekoRobot-3>
+Copyright (c) 2021, BlackLover  •  Network, <https://github.com/Hodacka/NekoRobot-3>
 
 This file is part of @NekoXRobot (Telegram Bot)
 
