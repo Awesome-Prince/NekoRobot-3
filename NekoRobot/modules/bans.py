@@ -527,7 +527,9 @@ BAN_HANDLER = CommandHandler(["ban", "sban"], ban, run_async=True)
 TEMPBAN_HANDLER = CommandHandler(["tban"], temp_ban, run_async=True)
 PUNCH_HANDLER = CommandHandler(["punch", "kick"], punch, run_async=True)
 UNBAN_HANDLER = CommandHandler("unban", unban, run_async=True)
-UNBAN_BUTTON_HANDLER = CallbackQueryHandler(unbanb_btn, pattern=r"unbanb_", run_async=True)
+UNBAN_BUTTON_HANDLER = CallbackQueryHandler(
+    unbanb_btn, pattern=r"unbanb_", run_async=True
+)
 ROAR_HANDLER = CommandHandler("roar", selfunban, run_async=True)
 PUNCHME_HANDLER = DisableAbleCommandHandler(
     ["punchme", "kickme"], punchme, filters=Filters.chat_type.groups, run_async=True

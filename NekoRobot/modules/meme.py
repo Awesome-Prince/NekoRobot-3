@@ -433,10 +433,16 @@ TABLE_HANDLER = DisableAbleCommandHandler("table", table, run_async=True)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, run_async=True)
 WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify, run_async=True)
 GDMORNING_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"(?i)(gm|good morning)"), goodmorning, friendly="goodmorning", run_async=True
+    Filters.regex(r"(?i)(gm|good morning)"),
+    goodmorning,
+    friendly="goodmorning",
+    run_async=True,
 )
 GDNIGHT_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"(?i)(gn|good night)"), goodnight, friendly="goodnight", run_async=True
+    Filters.regex(r"(?i)(gn|good night)"),
+    goodnight,
+    friendly="goodnight",
+    run_async=True,
 )
 
 dispatcher.add_handler(WEEBIFY_HANDLER)

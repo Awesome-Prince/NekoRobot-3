@@ -170,12 +170,11 @@ RM_CHAT_HANDLER = CallbackQueryHandler(kukirm, pattern=r"rm_chat", run_async=Tru
 CHATBOT_HANDLER = MessageHandler(
     Filters.text
     & (~Filters.regex(r"^#[^\s]+") & ~Filters.regex(r"^!") & ~Filters.regex(r"^\/")),
-    chatbot, run_async=True
+    chatbot,
+    run_async=True,
 )
 LIST_ALL_CHATS_HANDLER = CommandHandler(
-    "allchats",
-    list_all_chats,
-    filters=CustomFilters.dev_filter, run_async=True
+    "allchats", list_all_chats, filters=CustomFilters.dev_filter, run_async=True
 )
 
 dispatcher.add_handler(ADD_CHAT_HANDLER)

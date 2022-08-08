@@ -296,10 +296,16 @@ __help__ = """
 """
 
 SETTING_HANDLER = CommandHandler("reports", report_setting, run_async=True)
-REPORT_HANDLER = CommandHandler("report", report, filters=Filters.chat_type.groups, run_async=True)
-ADMIN_REPORT_HANDLER = MessageHandler(Filters.regex(r"(?i)@admin(s)?"), report, run_async=True)
+REPORT_HANDLER = CommandHandler(
+    "report", report, filters=Filters.chat_type.groups, run_async=True
+)
+ADMIN_REPORT_HANDLER = MessageHandler(
+    Filters.regex(r"(?i)@admin(s)?"), report, run_async=True
+)
 
-REPORT_BUTTON_USER_HANDLER = CallbackQueryHandler(buttons, pattern=r"report_", run_async=True)
+REPORT_BUTTON_USER_HANDLER = CallbackQueryHandler(
+    buttons, pattern=r"report_", run_async=True
+)
 dispatcher.add_handler(REPORT_BUTTON_USER_HANDLER)
 
 dispatcher.add_handler(SETTING_HANDLER)
