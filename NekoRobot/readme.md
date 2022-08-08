@@ -11,6 +11,10 @@ from NekoXRobot import telethn
 ```python3
 from NekoXRobot import arq
 ```
+## Importing aiohttp
+```python3
+from NekoXRobot import aiohttp
+```
 
 # DataBase
 ## Importing Postgres
