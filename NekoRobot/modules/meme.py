@@ -3,7 +3,6 @@ import random
 import time
 
 import requests
-from NekoRobot.events import register
 from telegram import ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters, run_async
@@ -11,6 +10,7 @@ from telegram.ext import CallbackContext, Filters, run_async
 import NekoRobot.modules.helper_funcs.string_store as fun
 import NekoRobot.modules.NekoFunBot_Strings as fun_strings
 from NekoRobot import SUPPORT_CHAT, dispatcher
+from NekoRobot.events import register
 from NekoRobot.modules.disable import (
     DisableAbleCommandHandler,
     DisableAbleMessageHandler,
