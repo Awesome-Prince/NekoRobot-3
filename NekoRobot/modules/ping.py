@@ -26,7 +26,7 @@ from typing import List
 
 import requests
 from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, run_async
+from telegram.ext import CallbackContext
 
 from NekoRobot import StartTime, dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
@@ -91,7 +91,6 @@ def ping_func(to_ping: List[str]) -> List[str]:
     return ping_result
 
 
-
 @sudo_plus
 def ping(update: Update, context: CallbackContext):
     msg = update.effective_message
@@ -108,7 +107,6 @@ def ping(update: Update, context: CallbackContext):
         "<b>Service uptime:</b> <code>{}</code>".format(telegram_ping, uptime),
         parse_mode=ParseMode.HTML,
     )
-
 
 
 @sudo_plus

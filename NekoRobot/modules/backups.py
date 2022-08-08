@@ -28,7 +28,7 @@ from io import BytesIO
 
 from telegram import Message, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, run_async
+from telegram.ext import CommandHandler
 
 # from NekoRobot.modules.sql import warns_sql as warnssql
 import NekoRobot.modules.sql.blacklist_sql as blacklistsql
@@ -46,7 +46,6 @@ from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import typing_action
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.sql import disable_sql as disabledsql
-
 
 
 @user_admin
@@ -140,7 +139,6 @@ def import_data(update, context):
         else:
             text = "Backup fully restored"
         msg.reply_text(text, parse_mode="markdown")
-
 
 
 @user_admin

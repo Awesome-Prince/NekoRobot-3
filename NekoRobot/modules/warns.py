@@ -44,7 +44,6 @@ from telegram.ext import (
     DispatcherHandlerStop,
     Filters,
     MessageHandler,
-    run_async,
 )
 from telegram.utils.helpers import mention_html
 
@@ -178,7 +177,6 @@ def warn(
     return log_reason
 
 
-
 @user_admin_no_reply
 @bot_admin
 @loggable
@@ -210,7 +208,6 @@ def button(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-
 @user_admin
 @can_restrict
 @loggable
@@ -240,7 +237,6 @@ def warn_user(update: Update, context: CallbackContext) -> str:
     else:
         message.reply_text("That looks like an invalid User ID to me.")
     return ""
-
 
 
 @user_admin
@@ -278,7 +274,6 @@ def rmwarn_cmd(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-
 @user_admin
 @bot_admin
 @loggable
@@ -303,7 +298,6 @@ def reset_warns(update: Update, context: CallbackContext) -> str:
     else:
         message.reply_text("No user has been designated!")
     return ""
-
 
 
 def warns(update: Update, context: CallbackContext):
@@ -405,7 +399,6 @@ def remove_warn_filter(update: Update, context: CallbackContext):
     )
 
 
-
 def list_warn_filters(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
     all_handlers = sql.get_chat_warn_triggers(chat.id)
@@ -425,7 +418,6 @@ def list_warn_filters(update: Update, context: CallbackContext):
 
     if filter_list != CURRENT_WARNING_FILTER_STRING:
         update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML)
-
 
 
 @loggable
@@ -452,7 +444,6 @@ def reply_filter(update: Update, context: CallbackContext) -> str:
             warn_filter = sql.get_warn_filter(chat.id, keyword)
             return warn(user, chat, warn_filter.reply, message)
     return ""
-
 
 
 @user_admin
@@ -483,7 +474,6 @@ def set_warn_limit(update: Update, context: CallbackContext) -> str:
 
         msg.reply_text("The current warn limit is {}".format(limit))
     return ""
-
 
 
 @user_admin

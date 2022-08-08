@@ -25,14 +25,12 @@ import subprocess
 
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler
-from telegram.ext.dispatcher import run_async
 
 from NekoRobot import LOGGER, dispatcher
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
 @dev_plus
-
 def shell(update: Update, context: CallbackContext):
     message = update.effective_message
     cmd = message.text.split(" ", 1)

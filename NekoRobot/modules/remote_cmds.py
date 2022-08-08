@@ -23,7 +23,7 @@ SOFTWARE.
 
 from telegram import ChatPermissions, Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 
 from NekoRobot import dispatcher
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -106,7 +106,6 @@ RUNMUTE_ERRORS = {
 }
 
 
-
 @bot_admin
 def rban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -187,7 +186,6 @@ def rban(update: Update, context: CallbackContext):
                 excp.message,
             )
             message.reply_text("Well damn, I can't ban that user.")
-
 
 
 @bot_admin
@@ -274,7 +272,6 @@ def runban(update: Update, context: CallbackContext):
             message.reply_text("Well damn, I can't unban that user.")
 
 
-
 @bot_admin
 def rkick(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -355,7 +352,6 @@ def rkick(update: Update, context: CallbackContext):
                 excp.message,
             )
             message.reply_text("Well damn, I can't punch that user.")
-
 
 
 @bot_admin
@@ -440,7 +436,6 @@ def rmute(update: Update, context: CallbackContext):
                 excp.message,
             )
             message.reply_text("Well damn, I can't mute that user.")
-
 
 
 @bot_admin

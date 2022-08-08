@@ -26,7 +26,7 @@ import sre_constants
 import regex
 import telegram
 from telegram import Update
-from telegram.ext import CallbackContext, Filters, run_async
+from telegram.ext import CallbackContext, Filters
 
 from NekoRobot import LOGGER, dispatcher
 from NekoRobot.modules.disable import DisableAbleMessageHandler
@@ -79,7 +79,6 @@ def separate_sed(sed_string):
         if counter < len(sed_string):
             flags = sed_string[counter:]
         return replace, replace_with, flags.lower()
-
 
 
 def sed(update: Update, context: CallbackContext):

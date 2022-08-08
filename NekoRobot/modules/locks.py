@@ -34,7 +34,6 @@ from telegram import (
 )
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
-from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.locks_sql as sql
@@ -158,7 +157,6 @@ def unrestr_members(
             pass
 
 
-
 def locktypes(update, context):
     update.effective_message.reply_text(
         "\n • ".join(
@@ -166,7 +164,6 @@ def locktypes(update, context):
             + sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))
         )
     )
-
 
 
 @user_admin
@@ -276,7 +273,6 @@ def lock(update, context) -> str:
     return ""
 
 
-
 @user_admin
 @loggable
 @typing_action
@@ -380,7 +376,6 @@ def unlock(update, context) -> str:
             send_message(update.effective_message, "What are you trying to unlock...?")
 
     return ""
-
 
 
 @user_not_admin
@@ -518,7 +513,6 @@ def build_lock_message(chat_id):
     for x in permslist:
         res += "\n • {}".format(x)
     return res
-
 
 
 @user_admin

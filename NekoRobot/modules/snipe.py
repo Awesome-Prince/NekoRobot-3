@@ -1,10 +1,9 @@
 from telegram import TelegramError, Update
 from telegram.ext import CommandHandler
-from telegram.ext.dispatcher import CallbackContext, run_async
+from telegram.ext.dispatcher import CallbackContext
 
 from NekoRobot import LOGGER, dispatcher
 from NekoRobot.modules.helper_funcs.filters import CustomFilters
-
 
 
 def snipe(update: Update, context: CallbackContext):

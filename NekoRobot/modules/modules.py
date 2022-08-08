@@ -25,7 +25,7 @@ import collections
 import importlib
 
 from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 
 from NekoRobot import dispatcher, telethn
 from NekoRobot.__main__ import (
@@ -40,7 +40,6 @@ from NekoRobot.__main__ import (
     USER_SETTINGS,
 )
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
-
 
 
 @dev_plus
@@ -112,7 +111,6 @@ def load(update: Update, context: CallbackContext):
     )
 
 
-
 @dev_plus
 def unload(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -181,7 +179,6 @@ def unload(update: Update, context: CallbackContext):
     unload_messasge.edit_text(
         f"Successfully unloaded module : <b>{text}</b>", parse_mode=ParseMode.HTML
     )
-
 
 
 @sudo_plus

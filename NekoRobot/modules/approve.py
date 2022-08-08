@@ -25,7 +25,7 @@ import html
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CallbackQueryHandler, run_async
+from telegram.ext import CallbackContext, CallbackQueryHandler
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.approve_sql as sql
@@ -38,7 +38,6 @@ from NekoRobot.modules.log_channel import loggable
 
 @loggable
 @user_admin
-
 def approve(update, context):
     message = update.effective_message
     chat_title = message.chat.title
@@ -83,7 +82,6 @@ def approve(update, context):
 
 @loggable
 @user_admin
-
 def disapprove(update, context):
     message = update.effective_message
     chat_title = message.chat.title
@@ -121,7 +119,6 @@ def disapprove(update, context):
 
 
 @user_admin
-
 def approved(update, context):
     message = update.effective_message
     chat_title = message.chat.title
@@ -139,7 +136,6 @@ def approved(update, context):
 
 
 @user_admin
-
 def approval(update, context):
     message = update.effective_message
     chat = update.effective_chat
@@ -159,7 +155,6 @@ def approval(update, context):
         message.reply_text(
             f"{member.user['first_name']} is not an approved user. They are affected by normal commands."
         )
-
 
 
 def unapproveall(update: Update, context: CallbackContext):
@@ -190,7 +185,6 @@ def unapproveall(update: Update, context: CallbackContext):
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN,
         )
-
 
 
 def unapproveall_btn(update: Update, context: CallbackContext):

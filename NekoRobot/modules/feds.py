@@ -37,12 +37,7 @@ from telegram import (
     Update,
 )
 from telegram.error import BadRequest, TelegramError, Unauthorized
-from telegram.ext import (
-    CallbackContext,
-    CallbackQueryHandler,
-    CommandHandler,
-    run_async,
-)
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 from telegram.utils.helpers import mention_html, mention_markdown
 
 import NekoRobot.modules.sql.feds_sql as sql
@@ -83,7 +78,6 @@ UNFBAN_ERRORS = {
     "Chat_admin_required",
     "Have no rights to send a message",
 }
-
 
 
 def new_fed(update: Update, context: CallbackContext):
@@ -139,7 +133,6 @@ def new_fed(update: Update, context: CallbackContext):
         )
 
 
-
 def del_fed(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -186,7 +179,6 @@ def del_fed(update: Update, context: CallbackContext):
     )
 
 
-
 def rename_fed(update, context):
     user = update.effective_user
     msg = update.effective_message
@@ -206,7 +198,6 @@ def rename_fed(update, context):
         msg.reply_text(f"Successfully renamed your fed name to {newname}!")
     else:
         msg.reply_text("Only federation owner can do this!")
-
 
 
 def fed_chat(update: Update, context: CallbackContext):
@@ -234,7 +225,6 @@ def fed_chat(update: Update, context: CallbackContext):
     text += "\n{} (ID: <code>{}</code>)".format(info["fname"], fed_id)
 
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
-
 
 
 def join_fed(update: Update, context: CallbackContext):
@@ -299,7 +289,6 @@ def join_fed(update: Update, context: CallbackContext):
         )
 
 
-
 def leave_fed(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -339,7 +328,6 @@ def leave_fed(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_text("Only group creators can use this command!")
-
 
 
 def user_join_fed(update: Update, context: CallbackContext):
@@ -405,7 +393,6 @@ def user_join_fed(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Only federation owners can do this!")
 
 
-
 def user_demote_fed(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -465,7 +452,6 @@ def user_demote_fed(update: Update, context: CallbackContext):
         return
 
 
-
 def fed_info(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -513,7 +499,6 @@ def fed_info(update: Update, context: CallbackContext):
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
-
 def fed_admin(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -559,7 +544,6 @@ def fed_admin(update: Update, context: CallbackContext):
             text += " • {}\n".format(mention_html(user.id, user.first_name))
 
     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
-
 
 
 def fed_ban(update: Update, context: CallbackContext):
@@ -980,7 +964,6 @@ def fed_ban(update: Update, context: CallbackContext):
     #                 "Fedban affected {} chats. ".format(chats_in_fed))
 
 
-
 def unfban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -1198,7 +1181,6 @@ def unfban(update: Update, context: CallbackContext):
 	"""
 
 
-
 def set_frules(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -1255,7 +1237,6 @@ def set_frules(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Please write rules to set this up!")
 
 
-
 def get_frules(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -1276,7 +1257,6 @@ def get_frules(update: Update, context: CallbackContext):
     text = "*Rules in this fed:*\n"
     text += rules
     update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
-
 
 
 def fed_broadcast(update: Update, context: CallbackContext):
@@ -1338,7 +1318,6 @@ def fed_broadcast(update: Update, context: CallbackContext):
                 failed
             )
         update.effective_message.reply_text(send_text)
-
 
 
 def fed_ban_list(update: Update, context: CallbackContext):
@@ -1521,7 +1500,6 @@ def fed_ban_list(update: Update, context: CallbackContext):
             )
 
 
-
 def fed_notif(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -1554,7 +1532,6 @@ def fed_notif(update: Update, context: CallbackContext):
             "Your current Federation report preferences: `{}`".format(getreport),
             parse_mode="markdown",
         )
-
 
 
 def fed_chats(update: Update, context: CallbackContext):
@@ -1618,7 +1595,6 @@ def fed_chats(update: Update, context: CallbackContext):
                     info["fname"]
                 ),
             )
-
 
 
 def fed_import_bans(update: Update, context: CallbackContext):
@@ -1848,7 +1824,6 @@ def fed_import_bans(update: Update, context: CallbackContext):
         send_message(update.effective_message, text)
 
 
-
 def del_fed_button(update: Update, context: CallbackContext):
     query = update.callback_query
     query.message.chat.id
@@ -1868,7 +1843,6 @@ def del_fed_button(update: Update, context: CallbackContext):
                 ),
                 parse_mode="markdown",
             )
-
 
 
 def fed_stat_user(update: Update, context: CallbackContext):
@@ -1979,7 +1953,6 @@ def fed_stat_user(update: Update, context: CallbackContext):
         )
 
 
-
 def set_fed_log(update: Update, context: CallbackContext):
     args = context.args
     chat = update.effective_chat
@@ -2020,7 +1993,6 @@ def set_fed_log(update: Update, context: CallbackContext):
         )
 
 
-
 def unset_fed_log(update: Update, context: CallbackContext):
     args = context.args
     chat = update.effective_chat
@@ -2059,7 +2031,6 @@ def unset_fed_log(update: Update, context: CallbackContext):
         send_message(
             update.effective_message, "You have not provided your federated ID!"
         )
-
 
 
 def subs_feds(update: Update, context: CallbackContext):
@@ -2126,7 +2097,6 @@ def subs_feds(update: Update, context: CallbackContext):
         )
 
 
-
 def unsubs_feds(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
@@ -2191,7 +2161,6 @@ def unsubs_feds(update: Update, context: CallbackContext):
         )
 
 
-
 def get_myfedsubs(update: Update, context: CallbackContext):
     context.args
     chat = update.effective_chat
@@ -2242,7 +2211,6 @@ def get_myfedsubs(update: Update, context: CallbackContext):
         send_message(update.effective_message, listfed, parse_mode="markdown")
 
 
-
 def get_myfeds_list(update: Update, context: CallbackContext):
     update.effective_chat
     user = update.effective_user
@@ -2283,6 +2251,7 @@ def is_user_fed_owner(fed_id, user_id):
 
 
 # There's no handler for this yet, but updating for v12 in case its used
+
 
 def welcome_fed(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -2349,7 +2318,6 @@ def get_chat(chat_id, chat_data):
         return {"status": False, "value": False}
 
 
-
 def fed_owner_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
         """*👑 Fed Owner Only:*
@@ -2368,7 +2336,6 @@ def fed_owner_help(update: Update, context: CallbackContext):
     )
 
 
-
 def fed_admin_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
         """*🔱 Fed Admins:*
@@ -2384,7 +2351,6 @@ def fed_admin_help(update: Update, context: CallbackContext):
  • `/chatfed `*:* See the Federation in the current chat\n""",
         parse_mode=ParseMode.MARKDOWN,
     )
-
 
 
 def fed_user_help(update: Update, context: CallbackContext):

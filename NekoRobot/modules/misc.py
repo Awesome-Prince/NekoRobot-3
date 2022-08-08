@@ -23,7 +23,6 @@ SOFTWARE.
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, Filters
-from telegram.ext.dispatcher import run_async
 
 from NekoRobot import dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
@@ -54,7 +53,6 @@ Keep in mind that your message <b>MUST</b> contain some text other than just a b
 """
 
 
-
 @user_admin
 def echo(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
@@ -81,7 +79,6 @@ def markdown_help_sender(update: Update):
         "[URL](example.com) [button](buttonurl:github.com) "
         "[button2](buttonurl://google.com:same)"
     )
-
 
 
 def markdown_help(update: Update, context: CallbackContext):

@@ -25,13 +25,7 @@ import html
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import (
-    CallbackContext,
-    CallbackQueryHandler,
-    CommandHandler,
-    Filters,
-    run_async,
-)
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, Filters
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import (
@@ -60,7 +54,6 @@ from NekoRobot.modules.helper_funcs.chat_status import (
 from NekoRobot.modules.helper_funcs.extraction import extract_user_and_text
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
 from NekoRobot.modules.log_channel import gloggable, loggable
-
 
 
 @connection_status
@@ -184,7 +177,6 @@ def ban(update: Update, context: CallbackContext) -> str:
             message.reply_text("Uhm...that didn't work...")
 
     return log_message
-
 
 
 @connection_status
@@ -346,7 +338,6 @@ def unbanb_btn(update: Update, context: CallbackContext) -> str:
         return ""
 
 
-
 @connection_status
 @bot_admin
 @can_restrict
@@ -406,7 +397,6 @@ def punch(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-
 @bot_admin
 @can_restrict
 def punchme(update: Update, context: CallbackContext):
@@ -420,7 +410,6 @@ def punchme(update: Update, context: CallbackContext):
         update.effective_message.reply_text("*removes you out of the group*")
     else:
         update.effective_message.reply_text("Huh? I can't :/")
-
 
 
 @connection_status
@@ -469,7 +458,6 @@ def unban(update: Update, context: CallbackContext) -> str:
         log += f"\n<b>Reason:</b> {reason}"
 
     return log
-
 
 
 @connection_status

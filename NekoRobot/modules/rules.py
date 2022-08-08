@@ -32,14 +32,13 @@ from telegram import (
     User,
 )
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
+from telegram.ext import CallbackContext, CommandHandler, Filters
 from telegram.utils.helpers import escape_markdown
 
 import NekoRobot.modules.sql.rules_sql as sql
 from NekoRobot import dispatcher
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.helper_funcs.string_handling import markdown_parser
-
 
 
 def get_rules(update: Update, context: CallbackContext):
@@ -97,7 +96,6 @@ def send_rules(update, chat_id, from_pm=False):
         )
 
 
-
 @user_admin
 def set_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
@@ -113,7 +111,6 @@ def set_rules(update: Update, context: CallbackContext):
 
         sql.set_rules(chat_id, markdown_rules)
         update.effective_message.reply_text("Successfully set rules for this group.")
-
 
 
 @user_admin

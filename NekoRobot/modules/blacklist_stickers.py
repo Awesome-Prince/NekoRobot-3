@@ -4,7 +4,6 @@ from typing import Optional
 from telegram import Chat, ChatPermissions, Message, ParseMode, Update, User
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
-from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html, mention_markdown
 
 import NekoRobot.modules.sql.blsticker_sql as sql
@@ -17,7 +16,6 @@ from NekoRobot.modules.helper_funcs.misc import split_message
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
 from NekoRobot.modules.log_channel import loggable
 from NekoRobot.modules.warns import warn
-
 
 
 def blackliststicker(update: Update, context: CallbackContext):
@@ -63,7 +61,6 @@ def blackliststicker(update: Update, context: CallbackContext):
             )
             return
     send_message(update.effective_message, text, parse_mode=ParseMode.HTML)
-
 
 
 @user_admin
@@ -154,7 +151,6 @@ def add_blackliststicker(update: Update, context: CallbackContext):
             update.effective_message,
             "Tell me what stickers you want to add to the blacklist.",
         )
-
 
 
 @user_admin
@@ -252,7 +248,6 @@ def unblackliststicker(update: Update, context: CallbackContext):
             update.effective_message,
             "Tell me what stickers you want to add to the blacklist.",
         )
-
 
 
 @loggable
@@ -368,7 +363,6 @@ def blacklist_mode(update: Update, context: CallbackContext):
             )
         send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
     return ""
-
 
 
 @user_not_admin

@@ -31,7 +31,7 @@ from urllib.error import HTTPError, URLError
 import requests
 from bs4 import BeautifulSoup
 from telegram import InputMediaPhoto, TelegramError, Update
-from telegram.ext import CallbackContext, run_async
+from telegram.ext import CallbackContext
 
 from NekoRobot import dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
@@ -39,7 +39,6 @@ from NekoRobot.modules.disable import DisableAbleCommandHandler
 opener = urllib.request.build_opener()
 useragent = "Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36"
 opener.addheaders = [("User-agent", useragent)]
-
 
 
 def reverse(update: Update, context: CallbackContext):

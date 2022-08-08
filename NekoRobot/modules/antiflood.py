@@ -32,7 +32,6 @@ from telegram.ext import (
     CommandHandler,
     Filters,
     MessageHandler,
-    run_async,
 )
 from telegram.utils.helpers import mention_html
 
@@ -50,7 +49,6 @@ from NekoRobot.modules.log_channel import loggable
 from NekoRobot.modules.sql import antiflood_sql as sql
 
 FLOOD_GROUP = 3
-
 
 
 @loggable
@@ -131,7 +129,6 @@ def check_flood(update, context) -> str:
         )
 
 
-
 @user_admin_no_reply
 @bot_admin
 def flood_button(update: Update, context: CallbackContext):
@@ -159,7 +156,6 @@ def flood_button(update: Update, context: CallbackContext):
             )
         except:
             pass
-
 
 
 @user_admin
@@ -257,7 +253,6 @@ def set_flood(update, context) -> str:
     return ""
 
 
-
 def flood(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
@@ -298,7 +293,6 @@ def flood(update, context):
                     limit
                 )
             )
-
 
 
 @user_admin

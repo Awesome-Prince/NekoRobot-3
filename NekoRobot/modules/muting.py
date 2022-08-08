@@ -26,7 +26,7 @@ from typing import Optional
 
 from telegram import Bot, Chat, ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import LOGGER, TIGERS, dispatcher
@@ -68,7 +68,6 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
         return reply
 
     return None
-
 
 
 @connection_status
@@ -116,7 +115,6 @@ def mute(update: Update, context: CallbackContext) -> str:
         message.reply_text("This user is already muted!")
 
     return ""
-
 
 
 @connection_status
@@ -179,7 +177,6 @@ def unmute(update: Update, context: CallbackContext) -> str:
         )
 
     return ""
-
 
 
 @connection_status

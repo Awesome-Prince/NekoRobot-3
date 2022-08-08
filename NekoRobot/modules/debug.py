@@ -2,14 +2,13 @@ import datetime
 import os
 
 from telegram import Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 from telethon import events
 
 from NekoRobot import dispatcher, telethn
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 DEBUG_MODE = False
-
 
 
 @dev_plus
@@ -50,7 +49,6 @@ async def i_do_nothing_yes(event):
 
 
 support_chat = os.getenv("SUPPORT_CHAT")
-
 
 
 @dev_plus

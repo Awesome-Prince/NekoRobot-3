@@ -1,10 +1,8 @@
 from requests import get
 from telegram import Bot, Update
-from telegram.ext import run_async
 
 from NekoRobot import dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
-
 
 
 def ud(bot: Bot, update: Update):

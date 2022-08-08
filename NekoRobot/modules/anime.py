@@ -6,7 +6,7 @@ import bs4
 import jikanpy
 import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
-from telegram.ext import CallbackContext, CallbackQueryHandler, run_async
+from telegram.ext import CallbackContext, CallbackQueryHandler
 
 from NekoRobot import DEV_USERS, DRAGONS, OWNER_ID, dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
@@ -160,7 +160,6 @@ query ($id: Int,$search: String) {
 url = "https://graphql.anilist.co"
 
 
-
 def airing(update: Update, context: CallbackContext):
     message = update.effective_message
     search_str = message.text.split(" ", 1)
@@ -181,7 +180,6 @@ def airing(update: Update, context: CallbackContext):
     else:
         msg += f"\n*Episode*:{response['episodes']}\n*Status*: `N/A`"
     update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
-
 
 
 def anime(update: Update, context: CallbackContext):
@@ -257,7 +255,6 @@ def anime(update: Update, context: CallbackContext):
             )
 
 
-
 def character(update: Update, context: CallbackContext):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -290,7 +287,6 @@ def character(update: Update, context: CallbackContext):
             update.effective_message.reply_text(
                 msg.replace("<b>", "</b>"), parse_mode=ParseMode.MARKDOWN
             )
-
 
 
 def manga(update: Update, context: CallbackContext):
@@ -357,7 +353,6 @@ def manga(update: Update, context: CallbackContext):
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
-
 
 
 def user(update: Update, context: CallbackContext):
@@ -446,7 +441,6 @@ def user(update: Update, context: CallbackContext):
         disable_web_page_preview=False,
     )
     progress_message.delete()
-
 
 
 def upcoming(update: Update, context: CallbackContext):
@@ -561,10 +555,8 @@ def site_search(update: Update, context: CallbackContext, site: str):
         )
 
 
-
 def kaizoku(update: Update, context: CallbackContext):
     site_search(update, context, "kaizoku")
-
 
 
 def kayo(update: Update, context: CallbackContext):

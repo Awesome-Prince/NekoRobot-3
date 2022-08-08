@@ -3,7 +3,7 @@ import time
 
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CallbackQueryHandler, CommandHandler, run_async
+from telegram.ext import CallbackQueryHandler, CommandHandler
 
 import NekoRobot.modules.sql.connection_sql as sql
 from NekoRobot import DEV_USERS, DRAGONS, dispatcher
@@ -14,7 +14,6 @@ user_admin = chat_status.user_admin
 
 
 @user_admin
-
 @typing_action
 def allow_connections(update, context) -> str:
 
@@ -62,7 +61,6 @@ def allow_connections(update, context) -> str:
         )
 
 
-
 @typing_action
 def connection_chat(update, context):
 
@@ -85,7 +83,6 @@ def connection_chat(update, context):
     else:
         message = "You are currently not connected in any group.\n"
     send_message(update.effective_message, message, parse_mode="markdown")
-
 
 
 @typing_action
@@ -318,7 +315,6 @@ CONN_HELP = """
  • More in future!"""
 
 
-
 def help_connect_chat(update, context):
 
     context.args
@@ -328,7 +324,6 @@ def help_connect_chat(update, context):
         return
     else:
         send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
-
 
 
 def connect_button(update, context):

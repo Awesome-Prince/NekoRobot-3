@@ -31,7 +31,6 @@ from telegram.ext import (
     CommandHandler,
     Filters,
     MessageHandler,
-    run_async,
 )
 from telegram.utils.helpers import mention_html
 
@@ -42,7 +41,6 @@ from NekoRobot.modules.sql import reporting_sql as sql
 
 REPORT_GROUP = 12
 REPORT_IMMUNE_USERS = DRAGONS + TIGERS + WOLVES
-
 
 
 @user_admin
@@ -87,7 +85,6 @@ def report_setting(update: Update, context: CallbackContext):
                 f"This group's current setting is: `{sql.chat_should_report(chat.id)}`",
                 parse_mode=ParseMode.MARKDOWN,
             )
-
 
 
 @user_not_admin

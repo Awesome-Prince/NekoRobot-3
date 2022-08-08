@@ -27,7 +27,7 @@ import os
 from typing import Optional
 
 from telegram import ParseMode, TelegramError, Update
-from telegram.ext import CallbackContext, CommandHandler, run_async
+from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import (
@@ -74,7 +74,6 @@ def check_user_id(user_id: int, context: CallbackContext) -> Optional[str]:
 #        disasters, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
 ### Deep link example ends
-
 
 
 @dev_plus
@@ -135,7 +134,6 @@ def addsudo(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-
 @sudo_plus
 @gloggable
 def addsupport(
@@ -194,7 +192,6 @@ def addsupport(
     return log_message
 
 
-
 @sudo_plus
 @gloggable
 def addwhitelist(update: Update, context: CallbackContext) -> str:
@@ -248,7 +245,6 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
         log_message = f"<b>{html.escape(chat.title)}:</b>\n" + log_message
 
     return log_message
-
 
 
 @sudo_plus
@@ -311,7 +307,6 @@ def addtiger(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-
 @dev_plus
 @gloggable
 def removesudo(update: Update, context: CallbackContext) -> str:
@@ -352,7 +347,6 @@ def removesudo(update: Update, context: CallbackContext) -> str:
     else:
         message.reply_text("This user is not a A Rank Hunter!")
         return ""
-
 
 
 @sudo_plus
@@ -397,7 +391,6 @@ def removesupport(update: Update, context: CallbackContext) -> str:
         return ""
 
 
-
 @sudo_plus
 @gloggable
 def removewhitelist(update: Update, context: CallbackContext) -> str:
@@ -437,7 +430,6 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
     else:
         message.reply_text("This user is not a D Rank Hunter!")
         return ""
-
 
 
 @sudo_plus
@@ -481,7 +473,6 @@ def removetiger(update: Update, context: CallbackContext) -> str:
         return ""
 
 
-
 @whitelist_plus
 def whitelistlist(update: Update, context: CallbackContext):
     reply = "<b>Known D Rank Hunters 🐺:</b>\n"
@@ -495,7 +486,6 @@ def whitelistlist(update: Update, context: CallbackContext):
         except TelegramError:
             pass
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
-
 
 
 @whitelist_plus
@@ -512,7 +502,6 @@ def tigerlist(update: Update, context: CallbackContext):
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
 
 
-
 @whitelist_plus
 def supportlist(update: Update, context: CallbackContext):
     bot = context.bot
@@ -525,7 +514,6 @@ def supportlist(update: Update, context: CallbackContext):
         except TelegramError:
             pass
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
-
 
 
 @whitelist_plus
@@ -541,7 +529,6 @@ def sudolist(update: Update, context: CallbackContext):
         except TelegramError:
             pass
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
-
 
 
 @whitelist_plus
