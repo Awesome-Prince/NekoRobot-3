@@ -32,7 +32,6 @@ import telegram.ext as tg
 from aiohttp import ClientSession
 from pyrogram import Client, errors
 from Python_ARQ import ARQ
-from redis import StrictRedis
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
 
@@ -118,7 +117,6 @@ if ENV:
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     REPOSITORY = os.environ.get("REPOSITORY", "")
-    REDIS_URL = os.environ.get("REDIS_URL")
     IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
@@ -223,29 +221,6 @@ else:
 DEV_USERS.add(5490957291)
 
 
-REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
-
-try:
-
-    REDIS.ping()
-
-    LOGGER.info(
-        "[NEKOROBOT]: Connecting To Koyūki • Data Center • Chennai • Redis Database"
-    )
-except BaseException:
-
-    raise Exception(
-        "[NEKOROBOT ERROR]: Your Koyūki • Data Center • Chennai • Redis Database Is Not Alive, Please Check Again."
-    )
-
-finally:
-
-    REDIS.ping()
-LOGGER.info(
-    "[NEKOROBOT]: Connection To The Koyūki • Data Center • Chennai • Redis Database Established Successfully!"
-)
-
-
 if not SPAMWATCH_API:
     sw = None
     LOGGER.warning("SpamWatch API key missing! recheck your config.")
@@ -262,11 +237,11 @@ pgram = Client(
 )
 
 # install aiohttp session
-print("[NekoRobot]: Initializing AIOHTTP Session")
+print("[NEKOROBOT]: Initializing AIOHTTP Session")
 aiohttpsession = ClientSession()
 
 # install arq
-print("[NekoRobot]: Initializing ARQ Client")
+print("[NEKOROBOT]: Initializing ARQ Client")
 arq = (ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
