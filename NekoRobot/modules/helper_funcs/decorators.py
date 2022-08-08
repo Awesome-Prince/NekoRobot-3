@@ -80,7 +80,7 @@ class NekoTelegramHandler:
                         group,
                     )
                 LOGGER.debug(
-                    f"[nekocmd] Loaded handler {command} for function {func.__name__} in group {group}"
+                    f"[NEKOCMD] Loaded handler {command} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
@@ -107,7 +107,7 @@ class NekoTelegramHandler:
                         )
                     )
                 LOGGER.debug(
-                    f"[nekocmd] Loaded handler {command} for function {func.__name__}"
+                    f"[NEKOCMD] Loaded handler {command} for function {func.__name__}"
                 )
 
             return func
@@ -136,7 +136,7 @@ class NekoTelegramHandler:
                         MessageHandler(pattern, func, run_async=run_async), group
                     )
                 LOGGER.debug(
-                    f"[nekoMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
+                    f"[NEKOMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
@@ -150,7 +150,7 @@ class NekoTelegramHandler:
                         MessageHandler(pattern, func, run_async=run_async)
                     )
                 LOGGER.debug(
-                    f"[nekoMSG] Loaded filter pattern {pattern} for function {func.__name__}"
+                    f"[NEKOMSG] Loaded filter pattern {pattern} for function {func.__name__}"
                 )
 
             return func
@@ -165,7 +165,7 @@ class NekoTelegramHandler:
                 )
             )
             LOGGER.debug(
-                f"[nekoCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
+                f"[NEKOCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
             )
             return func
 
@@ -191,7 +191,7 @@ class NekoTelegramHandler:
                 )
             )
             LOGGER.debug(
-                f"[nekoINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
+                f"[NEKOINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
             )
             return func
 
