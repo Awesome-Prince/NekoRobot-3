@@ -754,7 +754,6 @@ def main():
 
     CommandHandler("test", test)
     start_handler = CommandHandler("start"), start, run_async=True)
-
     help_handler = CommandHandler("help"), get_help, run_async=True)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*")
 
