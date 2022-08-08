@@ -1,7 +1,7 @@
 """
 MIT License
 
-Copyright (C) 2021 Hodacka
+Copyright (C) 2021 Awesome-Prince
 
 This file is part of @NekoXRobot (Telegram Bot)
 
