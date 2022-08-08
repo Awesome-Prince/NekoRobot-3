@@ -38,8 +38,8 @@ async def awake(event):
     NEKO += "**♡ python-Telegram-Bot: 13.11**\n\n"
     BUTTON = [
         [
-            Button.url("🚑 Support", "https://t.me/Koyuki_Support"),
-            Button.url("📢 Updates", "https://t.me/Koyuki_Updates"),
+            Button.url("🚑 Support", "https://t.me/BlackLover_Support"),
+            Button.url("📢 Updates", "https://t.me/BlackLover_Updates"),
         ]
     ]
     await tbot.send_file(event.chat_id, PHOTO, caption=NEKO, buttons=BUTTON)

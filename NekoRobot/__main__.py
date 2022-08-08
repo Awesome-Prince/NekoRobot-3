@@ -117,7 +117,7 @@ buttons = [
     ],
     [
         InlineKeyboardButton(text="🚑 Support", url=f"https://t.me/{SUPPORT_CHAT}"),
-        InlineKeyboardButton(text="📢 Updates", url="https://t.me/Koyuki_Updates"),
+        InlineKeyboardButton(text="📢 Updates", url="https://t.me/BlackLover_Updates"),
     ],
 ]
 
@@ -284,10 +284,10 @@ def start(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Support🚑", url=f"https://t.me/Koyuki_Support"
+                            text="Support🚑", url=f"https://t.me/BlackLover_Support"
                         ),
                         InlineKeyboardButton(
-                            text="Updates🛰️", url="https://t.me/Koyuki_Updates"
+                            text="Updates🛰️", url="https://t.me/BlackLover_Updates"
                         ),
                     ]
                 ]
@@ -407,7 +407,7 @@ def neko_about_callback(update, context):
                 [
                     [
                         InlineKeyboardButton(text="Master", url="t.me/Awesome-Prince"),
-                        InlineKeyboardButton(text="Support", url="t.me/Koyuki_Support"),
+                        InlineKeyboardButton(text="Support", url="t.me/BlackLover_Support"),
                     ],
                     [InlineKeyboardButton(text="Back", callback_data="neko_back")],
                 ]

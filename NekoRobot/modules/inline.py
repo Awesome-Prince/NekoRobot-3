@@ -197,7 +197,7 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
             [
                 InlineKeyboardButton(
                     text="Report Error",
-                    url=f"https://t.me/Koyuki_Support",
+                    url=f"https://t.me/BlackLover_Support",
                 ),
                 InlineKeyboardButton(
                     text="Search again",
@@ -243,7 +243,7 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
             [
                 InlineKeyboardButton(
                     text="Support",
-                    url=f"https://t.me/Koyuki_Support",
+                    url=f"https://t.me/BlackLover_Support",
                 ),
                 InlineKeyboardButton(
                     text="Sys Stats",
@@ -332,7 +332,7 @@ def spb(query: str, update: Update, context: CallbackContext) -> None:
             [
                 InlineKeyboardButton(
                     text="Report Error",
-                    url=f"https://t.me/Koyuki_Support",
+                    url=f"https://t.me/BlackLover_Support",
                 ),
                 InlineKeyboardButton(
                     text="Search again",
@@ -484,7 +484,7 @@ def media_query(query: str, update: Update, context: CallbackContext) -> None:
                 [
                     InlineKeyboardButton(
                         text="Report error",
-                        url="https://t.me/Koyuki_Support",
+                        url="https://t.me/BlackLover_Support",
                     ),
                     InlineKeyboardButton(
                         text="Search again",

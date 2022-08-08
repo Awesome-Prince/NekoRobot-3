@@ -1186,7 +1186,7 @@ def waifu(update, context):
             image = image.get("large")
             update.effective_message.reply_photo(
                 photo=image,
-                caption=f"*A waifu appeared!*\nAdd them to your harem by sending /protecc character name \nPowered By @Koyuki_Network",
+                caption=f"*A waifu appeared!*\nAdd them to your harem by sending /protecc character name \nPowered By @BlackLover_Network",
                 parse_mode=ParseMode.MARKDOWN,
             )
             REDIS.sadd(f"waifus{update.effective_chat.id}", char_name)
@@ -1220,7 +1220,7 @@ def protecc(update, context):
         if char_name in WAIFUS:
             REDIS.sadd(f"anime_waifu{user.id}", char_name)
             update.effective_message.reply_text(
-                f"OwO you protecc'd {char_name}. This waifu has been added to your harem. | Powered By @Koyuki_Network"
+                f"OwO you protecc'd {char_name}. This waifu has been added to your harem. | Powered By @BlackLover_Network"
             )
             REDIS.srem(f"waifus{update.effective_chat.id}", char_name)
         else:
