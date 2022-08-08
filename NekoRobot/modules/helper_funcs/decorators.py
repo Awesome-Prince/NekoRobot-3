@@ -39,7 +39,7 @@ from NekoRobot.modules.disable import (
 )
 
 
-class nekoyoTelegramHandler:
+class NekoTelegramHandler:
     def __init__(self, d):
         self._dispatcher = d
 
@@ -198,7 +198,7 @@ class nekoyoTelegramHandler:
         return _inlinequery
 
 
-nekocmd = nekoyoTelegramHandler(d).command
-nekomsg = nekoyoTelegramHandler(d).message
-nekocallback = nekoyoTelegramHandler(d).callbackquery
-nekoinline = nekoyoTelegramHandler(d).inlinequery
+nekocmd = NekoTelegramHandler(d).command
+nekomsg = NekoTelegramHandler(d).message
+nekocallback = NekoTelegramHandler(d).callbackquery
+nekoinline = NekoTelegramHandler(d).inlinequery
