@@ -407,7 +407,9 @@ def neko_about_callback(update, context):
                 [
                     [
                         InlineKeyboardButton(text="Master", url="t.me/Awesome-Prince"),
-                        InlineKeyboardButton(text="Support", url="t.me/BlackLover_Support"),
+                        InlineKeyboardButton(
+                            text="Support", url="t.me/BlackLover_Support"
+                        ),
                     ],
                     [InlineKeyboardButton(text="Back", callback_data="neko_back")],
                 ]
