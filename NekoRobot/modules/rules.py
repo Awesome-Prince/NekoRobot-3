@@ -41,7 +41,7 @@ from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.helper_funcs.string_handling import markdown_parser
 
 
-@run_async
+
 def get_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     send_rules(update, chat_id)
@@ -97,7 +97,7 @@ def send_rules(update, chat_id, from_pm=False):
         )
 
 
-@run_async
+
 @user_admin
 def set_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
@@ -115,7 +115,7 @@ def set_rules(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Successfully set rules for this group.")
 
 
-@run_async
+
 @user_admin
 def clear_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id

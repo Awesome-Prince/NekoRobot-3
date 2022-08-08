@@ -70,7 +70,7 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
     return None
 
 
-@run_async
+
 @connection_status
 @bot_admin
 @user_admin
@@ -118,7 +118,7 @@ def mute(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @connection_status
 @bot_admin
 @user_admin
@@ -181,7 +181,7 @@ def unmute(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @connection_status
 @bot_admin
 @can_restrict

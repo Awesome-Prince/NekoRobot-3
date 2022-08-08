@@ -76,7 +76,7 @@ def check_user_id(user_id: int, context: CallbackContext) -> Optional[str]:
 ### Deep link example ends
 
 
-@run_async
+
 @dev_plus
 @gloggable
 def addsudo(update: Update, context: CallbackContext) -> str:
@@ -135,7 +135,7 @@ def addsudo(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@run_async
+
 @sudo_plus
 @gloggable
 def addsupport(
@@ -194,7 +194,7 @@ def addsupport(
     return log_message
 
 
-@run_async
+
 @sudo_plus
 @gloggable
 def addwhitelist(update: Update, context: CallbackContext) -> str:
@@ -250,7 +250,7 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@run_async
+
 @sudo_plus
 @gloggable
 def addtiger(update: Update, context: CallbackContext) -> str:
@@ -311,7 +311,7 @@ def addtiger(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@run_async
+
 @dev_plus
 @gloggable
 def removesudo(update: Update, context: CallbackContext) -> str:
@@ -354,7 +354,7 @@ def removesudo(update: Update, context: CallbackContext) -> str:
         return ""
 
 
-@run_async
+
 @sudo_plus
 @gloggable
 def removesupport(update: Update, context: CallbackContext) -> str:
@@ -397,7 +397,7 @@ def removesupport(update: Update, context: CallbackContext) -> str:
         return ""
 
 
-@run_async
+
 @sudo_plus
 @gloggable
 def removewhitelist(update: Update, context: CallbackContext) -> str:
@@ -439,7 +439,7 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
         return ""
 
 
-@run_async
+
 @sudo_plus
 @gloggable
 def removetiger(update: Update, context: CallbackContext) -> str:
@@ -481,7 +481,7 @@ def removetiger(update: Update, context: CallbackContext) -> str:
         return ""
 
 
-@run_async
+
 @whitelist_plus
 def whitelistlist(update: Update, context: CallbackContext):
     reply = "<b>Known D Rank Hunters 🐺:</b>\n"
@@ -497,7 +497,7 @@ def whitelistlist(update: Update, context: CallbackContext):
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
 
 
-@run_async
+
 @whitelist_plus
 def tigerlist(update: Update, context: CallbackContext):
     reply = "<b>Known C Rank Hunters 🐯:</b>\n"
@@ -512,7 +512,7 @@ def tigerlist(update: Update, context: CallbackContext):
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
 
 
-@run_async
+
 @whitelist_plus
 def supportlist(update: Update, context: CallbackContext):
     bot = context.bot
@@ -527,7 +527,7 @@ def supportlist(update: Update, context: CallbackContext):
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
 
 
-@run_async
+
 @whitelist_plus
 def sudolist(update: Update, context: CallbackContext):
     bot = context.bot
@@ -543,7 +543,7 @@ def sudolist(update: Update, context: CallbackContext):
     update.effective_message.reply_text(reply, parse_mode=ParseMode.HTML)
 
 
-@run_async
+
 @whitelist_plus
 def devlist(update: Update, context: CallbackContext):
     bot = context.bot

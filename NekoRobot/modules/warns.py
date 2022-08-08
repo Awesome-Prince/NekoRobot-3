@@ -178,7 +178,7 @@ def warn(
     return log_reason
 
 
-@run_async
+
 @user_admin_no_reply
 @bot_admin
 @loggable
@@ -210,7 +210,7 @@ def button(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @user_admin
 @can_restrict
 @loggable
@@ -242,7 +242,7 @@ def warn_user(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @user_admin
 @bot_admin
 def rmwarn_cmd(update: Update, context: CallbackContext) -> str:
@@ -278,7 +278,7 @@ def rmwarn_cmd(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @user_admin
 @bot_admin
 @loggable
@@ -305,7 +305,7 @@ def reset_warns(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 def warns(update: Update, context: CallbackContext):
     args = context.args
     message: Optional[Message] = update.effective_message
@@ -405,7 +405,7 @@ def remove_warn_filter(update: Update, context: CallbackContext):
     )
 
 
-@run_async
+
 def list_warn_filters(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
     all_handlers = sql.get_chat_warn_triggers(chat.id)
@@ -427,7 +427,7 @@ def list_warn_filters(update: Update, context: CallbackContext):
         update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML)
 
 
-@run_async
+
 @loggable
 def reply_filter(update: Update, context: CallbackContext) -> str:
     chat: Optional[Chat] = update.effective_chat
@@ -454,7 +454,7 @@ def reply_filter(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @user_admin
 @loggable
 def set_warn_limit(update: Update, context: CallbackContext) -> str:
@@ -485,7 +485,7 @@ def set_warn_limit(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @user_admin
 def set_warn_strength(update: Update, context: CallbackContext):
     args = context.args

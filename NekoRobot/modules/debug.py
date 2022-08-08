@@ -11,7 +11,7 @@ from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 DEBUG_MODE = False
 
 
-@run_async
+
 @dev_plus
 def debug(update: Update, context: CallbackContext):
     global DEBUG_MODE
@@ -52,7 +52,7 @@ async def i_do_nothing_yes(event):
 support_chat = os.getenv("SUPPORT_CHAT")
 
 
-@run_async
+
 @dev_plus
 def logs(update: Update, context: CallbackContext):
     chat_username = update.effective_chat.username

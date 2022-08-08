@@ -6,7 +6,7 @@ from NekoRobot import dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 
-@run_async
+
 def ud(bot: Bot, update: Update):
     message = update.effective_message
     text = message.text[len("/ud ") :]

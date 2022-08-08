@@ -31,7 +31,7 @@ from NekoRobot.modules.helper_funcs.filters import CustomFilters
 from NekoRobot.modules.log_channel import gloggable
 
 
-@run_async
+
 @user_admin_no_reply
 @gloggable
 def kukirm(update: Update, context: CallbackContext) -> str:
@@ -60,7 +60,7 @@ def kukirm(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @user_admin_no_reply
 @gloggable
 def kukiadd(update: Update, context: CallbackContext) -> str:
@@ -89,7 +89,7 @@ def kukiadd(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-@run_async
+
 @user_admin
 @gloggable
 def kuki(update: Update, context: CallbackContext):

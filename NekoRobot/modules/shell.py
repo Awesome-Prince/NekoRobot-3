@@ -32,7 +32,7 @@ from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
 @dev_plus
-@run_async
+
 def shell(update: Update, context: CallbackContext):
     message = update.effective_message
     cmd = message.text.split(" ", 1)

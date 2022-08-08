@@ -106,7 +106,7 @@ RUNMUTE_ERRORS = {
 }
 
 
-@run_async
+
 @bot_admin
 def rban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -189,7 +189,7 @@ def rban(update: Update, context: CallbackContext):
             message.reply_text("Well damn, I can't ban that user.")
 
 
-@run_async
+
 @bot_admin
 def runban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -274,7 +274,7 @@ def runban(update: Update, context: CallbackContext):
             message.reply_text("Well damn, I can't unban that user.")
 
 
-@run_async
+
 @bot_admin
 def rkick(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -357,7 +357,7 @@ def rkick(update: Update, context: CallbackContext):
             message.reply_text("Well damn, I can't punch that user.")
 
 
-@run_async
+
 @bot_admin
 def rmute(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
@@ -442,7 +442,7 @@ def rmute(update: Update, context: CallbackContext):
             message.reply_text("Well damn, I can't mute that user.")
 
 
-@run_async
+
 @bot_admin
 def runmute(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args

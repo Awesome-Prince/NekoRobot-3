@@ -32,189 +32,189 @@ def is_user_in_chat(chat: Chat, user_id: int) -> bool:
     return member.status not in ("left", "kicked")
 
 
-@run_async
+
 def neko(update, context):
     msg = update.effective_message
     target = "neko"
     msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def feet(update, context):
 #    msg = update.effective_message
 #    target = "feet"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def yuri(update, context):
 #    msg = update.effective_message
 #    target = "yuri"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def trap(update, context):
 #    msg = update.effective_message
 #    target = "trap"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def futanari(update, context):
 #    msg = update.effective_message
 #    target = "futanari"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def hololewd(update, context):
 #    msg = update.effective_message
 #    target = "hololewd"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def lewdkemo(update, context):
 #    msg = update.effective_message
 #    target = "lewdkemo"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def sologif(update, context):
 #    msg = update.effective_message
 #    target = "solog"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def feetgif(update, context):
 #    msg = update.effective_message
 #    target = "feetg"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def cumgif(update, context):
 #    msg = update.effective_message
 #    target = "cum"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def erokemo(update, context):
 #    msg = update.effective_message
 #    target = "erokemo"
 #    msg.reply_photo(nekos.img(target))
 
 
-@run_async
+
 def lesbian(update, context):
     msg = update.effective_message
     target = "les"
     msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def wallpaper(update, context):
 #    msg = update.effective_message
 #    target = "wallpaper"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def lewdk(update, context):
 #   msg = update.effective_message
 #    target = "lewdk"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def ngif(update, context):
 #    msg = update.effective_message
 #    target = "ngif"
 #    msg.reply_video(nekos.img(target))
 
 
-@run_async
+
 def tickle(update, context):
     msg = update.effective_message
     target = "tickle"
     msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def lewd(update, context):
 #    msg = update.effective_message
 #    target = "lewd"
 #    msg.reply_photo(nekos.img(target))
 
 
-@run_async
+
 def feed(update, context):
     msg = update.effective_message
     target = "feed"
     msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def eroyuri(update, context):
 #    msg = update.effective_message
 #    target = "eroyuri"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def eron(update, context):
 #    msg = update.effective_message
 #    target = "eron"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def cum(update, context):
 #    msg = update.effective_message
 #    target = "cum_jpg"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def bjgif(update, context):
 #    msg = update.effective_message
 #    target = "bj"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def bj(update, context):
 #    msg = update.effective_message
 #    target = "blowjob"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def nekonsfw(update, context):
 #    msg = update.effective_message
 #    target = "nsfw_neko_gif"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def solo(update, context):
 #   msg = update.effective_message
 #    target = "solo"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def kemonomimi(update, context):
 #    msg = update.effective_message
 #    target = "kemonomimi"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def avatarlewd(update, context):
 #    msg = update.effective_message
 #    target = "nsfw_avatar"
@@ -226,7 +226,7 @@ def feed(update, context):
 #    os.remove("temp.webp")
 
 
-# @run_async
+# 
 # def gasm(update, context):
 #    msg = update.effective_message
 #    target = "gasm"
@@ -238,28 +238,28 @@ def feed(update, context):
 #    os.remove("temp.webp")
 
 
-@run_async
+
 def poke(update, context):
     msg = update.effective_message
     target = "poke"
     msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def anal(update, context):
 #    msg = update.effective_message
 #    target = "anal"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def hentai(update, context):
 #    msg = update.effective_message
 #    target = "hentai"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def avatar(update, context):
 #    msg = update.effective_message
 #    target = "nsfw_avatar"
@@ -271,14 +271,14 @@ def poke(update, context):
 #    os.remove("temp.webp")
 
 
-# @run_async
+# 
 # def erofeet(update, context):
 #    msg = update.effective_message
 #    target = "erofeet"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def holo(update, context):
 #    msg = update.effective_message
 #    target = "holo"
@@ -294,119 +294,119 @@ def poke(update, context):
 #     msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def pussygif(update, context):
 #    msg = update.effective_message
 #    target = "pussy"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def tits(update, context):
 #    msg = update.effective_message
 #    target = "tits"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def holoero(update, context):
 #    msg = update.effective_message
 #    target = "holoero"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def pussy(update, context):
 #    msg = update.effective_message
 #    target = "pussy_jpg"
 #    msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def hentaigif(update, context):
 #    msg = update.effective_message
 #    target = "random_hentai_gif"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def classic(update, context):
 #    msg = update.effective_message
 #    target = "classic"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def kuni(update, context):
 #    msg = update.effective_message
 #    target = "kuni"
 #    msg.reply_video(nekos.img(target))
 
 
-@run_async
+
 def kiss(update, context):
     msg = update.effective_message
     target = "kiss"
     msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def femdom(update, context):
 #    msg = update.effective_message
 #    target = "femdom"
 #    msg.reply_photo(nekos.img(target))
 
 
-@run_async
+
 def hug(update, context):
     msg = update.effective_message
     target = "cuddle"
     msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def erok(update, context):
 #    msg = update.effective_message
 #    target = "erok"
 #    msg.reply_photo(nekos.img(target))
 
 
-@run_async
+
 def foxgirl(update, context):
     msg = update.effective_message
     target = "fox_girl"
     msg.reply_photo(nekos.img(target))
 
 
-# @run_async
+# 
 # def titsgif(update, context):
 #    msg = update.effective_message
 #    target = "boobs"
 #    msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def ero(update, context):
 #    msg = update.effective_message
 #    target = "ero"
 #    msg.reply_photo(nekos.img(target))
 
 
-@run_async
+
 def smug(update, context):
     msg = update.effective_message
     target = "smug"
     msg.reply_video(nekos.img(target))
 
 
-@run_async
+
 def baka(update, context):
     msg = update.effective_message
     target = "baka"
     msg.reply_video(nekos.img(target))
 
 
-# @run_async
+# 
 # def dva(update, context):
 #    msg = update.effective_message
 #    nsfw = requests.get("https://api.computerfreaker.cf/v1/dva").json()

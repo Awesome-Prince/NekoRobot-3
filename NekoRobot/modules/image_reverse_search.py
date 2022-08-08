@@ -41,7 +41,7 @@ useragent = "Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebK
 opener.addheaders = [("User-agent", useragent)]
 
 
-@run_async
+
 def reverse(update: Update, context: CallbackContext):
     if os.path.isfile("okgoogle.png"):
         os.remove("okgoogle.png")

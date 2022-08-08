@@ -88,7 +88,7 @@ def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = Fa
         return ungbanned_users
 
 
-@run_async
+
 @dev_plus
 def dbcleanup(update: Update, context: CallbackContext):
     msg = update.effective_message
@@ -109,7 +109,7 @@ def dbcleanup(update: Update, context: CallbackContext):
     )
 
 
-@run_async
+
 def callback_button(update: Update, context: CallbackContext):
     bot = context.bot
     query = update.callback_query

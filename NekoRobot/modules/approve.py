@@ -38,7 +38,7 @@ from NekoRobot.modules.log_channel import loggable
 
 @loggable
 @user_admin
-@run_async
+
 def approve(update, context):
     message = update.effective_message
     chat_title = message.chat.title
@@ -83,7 +83,7 @@ def approve(update, context):
 
 @loggable
 @user_admin
-@run_async
+
 def disapprove(update, context):
     message = update.effective_message
     chat_title = message.chat.title
@@ -121,7 +121,7 @@ def disapprove(update, context):
 
 
 @user_admin
-@run_async
+
 def approved(update, context):
     message = update.effective_message
     chat_title = message.chat.title
@@ -139,7 +139,7 @@ def approved(update, context):
 
 
 @user_admin
-@run_async
+
 def approval(update, context):
     message = update.effective_message
     chat = update.effective_chat
@@ -161,7 +161,7 @@ def approval(update, context):
         )
 
 
-@run_async
+
 def unapproveall(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
@@ -192,7 +192,7 @@ def unapproveall(update: Update, context: CallbackContext):
         )
 
 
-@run_async
+
 def unapproveall_btn(update: Update, context: CallbackContext):
     query = update.callback_query
     chat = update.effective_chat

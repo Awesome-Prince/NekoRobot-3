@@ -42,7 +42,7 @@ from NekoRobot.__main__ import (
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
 
 
-@run_async
+
 @dev_plus
 def load(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -112,7 +112,7 @@ def load(update: Update, context: CallbackContext):
     )
 
 
-@run_async
+
 @dev_plus
 def unload(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -183,7 +183,7 @@ def unload(update: Update, context: CallbackContext):
     )
 
 
-@run_async
+
 @sudo_plus
 def listmodules(update: Update, context: CallbackContext):
     message = update.effective_message

@@ -160,7 +160,7 @@ query ($id: Int,$search: String) {
 url = "https://graphql.anilist.co"
 
 
-@run_async
+
 def airing(update: Update, context: CallbackContext):
     message = update.effective_message
     search_str = message.text.split(" ", 1)
@@ -183,7 +183,7 @@ def airing(update: Update, context: CallbackContext):
     update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
-@run_async
+
 def anime(update: Update, context: CallbackContext):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -257,7 +257,7 @@ def anime(update: Update, context: CallbackContext):
             )
 
 
-@run_async
+
 def character(update: Update, context: CallbackContext):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -292,7 +292,7 @@ def character(update: Update, context: CallbackContext):
             )
 
 
-@run_async
+
 def manga(update: Update, context: CallbackContext):
     message = update.effective_message
     search = message.text.split(" ", 1)
@@ -359,7 +359,7 @@ def manga(update: Update, context: CallbackContext):
             )
 
 
-@run_async
+
 def user(update: Update, context: CallbackContext):
     message = update.effective_message
     args = message.text.strip().split(" ", 1)
@@ -448,7 +448,7 @@ def user(update: Update, context: CallbackContext):
     progress_message.delete()
 
 
-@run_async
+
 def upcoming(update: Update, context: CallbackContext):
     jikan = jikanpy.jikan.Jikan()
     upcoming = jikan.top("anime", page=1, subtype="upcoming")
@@ -561,12 +561,12 @@ def site_search(update: Update, context: CallbackContext, site: str):
         )
 
 
-@run_async
+
 def kaizoku(update: Update, context: CallbackContext):
     site_search(update, context, "kaizoku")
 
 
-@run_async
+
 def kayo(update: Update, context: CallbackContext):
     site_search(update, context, "kayo")
 

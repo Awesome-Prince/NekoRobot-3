@@ -29,7 +29,7 @@ from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
-@run_async
+
 @dev_plus
 def send(update, context):
     args = update.effective_message.text.split(None, 1)
