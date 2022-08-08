@@ -35,7 +35,6 @@ coffeehouse
 pymongo==3.12.0
 regex
 bleach
-git+https://github.com/starry69/python-markdown2.git
 wikipedia
 telethon==1.24.0
 spamwatch
