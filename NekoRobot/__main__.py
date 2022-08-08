@@ -752,12 +752,12 @@ def main():
         except BadRequest as e:
             LOGGER.warning(e.message)
 
-    CommandHandler("test", test)
-    start_handler = CommandHandler("start"), start, run_async=True)
-    help_handler = CommandHandler("help"), get_help, run_async=True)
+#   test_handler = CommandHandler("test", test, run_async=True)
+    start_handler = CommandHandler("start", start, run_async=True)
+    help_handler = CommandHandler("help", get_help, run_async=True)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
 
-    CommandHandler("settings"), get_settings, run_async=True)
+    CommandHandler("settings", get_settings, run_async=True)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_", run_async=True)
 
     about_callback_handler = CallbackQueryHandler(neko_about_callback, pattern=r"neko_", run_async=True)
