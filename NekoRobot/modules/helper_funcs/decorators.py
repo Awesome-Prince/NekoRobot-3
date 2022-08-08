@@ -39,7 +39,7 @@ from NekoRobot.modules.disable import (
 )
 
 
-class KigyoTelegramHandler:
+class nekoyoTelegramHandler:
     def __init__(self, d):
         self._dispatcher = d
 
@@ -136,7 +136,7 @@ class KigyoTelegramHandler:
                         MessageHandler(pattern, func, run_async=run_async), group
                     )
                 LOGGER.debug(
-                    f"[KIGMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
+                    f"[nekoMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
@@ -150,7 +150,7 @@ class KigyoTelegramHandler:
                         MessageHandler(pattern, func, run_async=run_async)
                     )
                 LOGGER.debug(
-                    f"[KIGMSG] Loaded filter pattern {pattern} for function {func.__name__}"
+                    f"[nekoMSG] Loaded filter pattern {pattern} for function {func.__name__}"
                 )
 
             return func
@@ -165,7 +165,7 @@ class KigyoTelegramHandler:
                 )
             )
             LOGGER.debug(
-                f"[KIGCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
+                f"[nekoCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
             )
             return func
 
@@ -191,14 +191,14 @@ class KigyoTelegramHandler:
                 )
             )
             LOGGER.debug(
-                f"[KIGINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
+                f"[nekoINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
             )
             return func
 
         return _inlinequery
 
 
-nekocmd = KigyoTelegramHandler(d).command
-kigmsg = KigyoTelegramHandler(d).message
-kigcallback = KigyoTelegramHandler(d).callbackquery
-kiginline = KigyoTelegramHandler(d).inlinequery
+nekocmd = nekoyoTelegramHandler(d).command
+nekomsg = nekoyoTelegramHandler(d).message
+nekocallback = nekoyoTelegramHandler(d).callbackquery
+nekoinline = nekoyoTelegramHandler(d).inlinequery

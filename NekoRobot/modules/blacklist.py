@@ -13,7 +13,7 @@ from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_not_admin
-from NekoRobot.modules.helper_funcs.decorators import kigmsg, nekocmd
+from NekoRobot.modules.helper_funcs.decorators import nekomsg, nekocmd
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.misc import split_message
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
@@ -338,7 +338,7 @@ def findall(p, s):
         i = s.find(p, i + 1)
 
 
-@kigmsg(
+@nekomsg(
     (
         (Filters.text | Filters.command | Filters.sticker | Filters.photo)
         & Filters.chat_type.groups
