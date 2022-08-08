@@ -46,7 +46,6 @@ gtts
 tswift
 pytz
 PyYAML>=5.3.1
-redis==3.5.3
 aioredis==2.0.0
 hiredis==2.0.0
 html2text
