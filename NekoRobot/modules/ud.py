@@ -19,6 +19,6 @@ __help__ = """
 
 __mod_name__ = "Urban dictionary"
 
-ud_handle = DisableAbleCommandHandler("ud", ud)
+ud_handle = DisableAbleCommandHandler("ud", ud, run_async=True)
 
 dispatcher.add_handler(ud_handle)

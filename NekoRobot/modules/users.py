@@ -144,12 +144,12 @@ __mod_name__ = "Users"
 BROADCAST_HANDLER = CommandHandler(
     "broadcast", broadcast, filters=Filters.user(OWNER_ID), run_async=True
 )
-USER_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, log_user)
+USER_HANDLER = MessageHandler(Filters.all & Filters.chat_type.groups, log_user, run_async=True)
 CHATLIST_HANDLER = CommandHandler(
     "chatlist", chats, filters=CustomFilters.dev_filter, run_async=True
 )
 CHAT_CHECKER_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, chat_checker
+    Filters.all & Filters.chat_type.groups, chat_checker, run_async=True
 )
 
 dispatcher.add_handler(USER_HANDLER, USERS_GROUP)

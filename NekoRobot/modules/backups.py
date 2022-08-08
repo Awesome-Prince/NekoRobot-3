@@ -405,8 +405,8 @@ __help__ = """
 
 """
 
-IMPORT_HANDLER = CommandHandler("import", import_data)
-EXPORT_HANDLER = CommandHandler("export", export_data, pass_chat_data=True)
+IMPORT_HANDLER = CommandHandler("import", import_data, run_async=True)
+EXPORT_HANDLER = CommandHandler("export", export_data, pass_chat_data=True, run_async=True)
 
 dispatcher.add_handler(IMPORT_HANDLER)
 dispatcher.add_handler(EXPORT_HANDLER)

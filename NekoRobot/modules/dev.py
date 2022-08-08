@@ -79,9 +79,9 @@ def restart(update: Update, context: CallbackContext):
     os.execv("start.bat", sys.argv)
 
 
-LEAVE_HANDLER = CommandHandler("leave", leave)
-GITPULL_HANDLER = CommandHandler("gitpull", gitpull)
-RESTART_HANDLER = CommandHandler("reboot", restart)
+LEAVE_HANDLER = CommandHandler("leave", leave, run_async=True)
+GITPULL_HANDLER = CommandHandler("gitpull", gitpull, run_async=True)
+RESTART_HANDLER = CommandHandler("reboot", restart, run_async=True)
 
 dispatcher.add_handler(LEAVE_HANDLER)
 dispatcher.add_handler(GITPULL_HANDLER)

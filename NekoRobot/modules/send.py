@@ -35,7 +35,7 @@ def send(update, context):
     send_message(update.effective_message, creply)
 
 
-ADD_CCHAT_HANDLER = DisableAbleCommandHandler("snd", send)
+ADD_CCHAT_HANDLER = DisableAbleCommandHandler("snd", send, run_async=True)
 dispatcher.add_handler(ADD_CCHAT_HANDLER)
 __command_list__ = ["snd"]
 __handlers__ = [ADD_CCHAT_HANDLER]

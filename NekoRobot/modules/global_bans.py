@@ -541,13 +541,13 @@ Constantly help banning spammers off from your group automatically So, you wont 
 *Note:* Users can appeal spamwatch bans at @SpamwatchSupport
 """
 
-GBAN_HANDLER = CommandHandler("gban", gban)
-UNGBAN_HANDLER = CommandHandler("ungban", ungban)
-GBAN_LIST = CommandHandler("gbanlist", gbanlist)
+GBAN_HANDLER = CommandHandler("gban", gban, run_async=True)
+UNGBAN_HANDLER = CommandHandler("ungban", ungban, run_async=True)
+GBAN_LIST = CommandHandler("gbanlist", gbanlist, run_async=True)
 
-GBAN_STATUS = CommandHandler("antispam", gbanstat, filters=Filters.chat_type.groups)
+GBAN_STATUS = CommandHandler("antispam", gbanstat, filters=Filters.chat_type.groups, run_async=True)
 
-GBAN_ENFORCER = MessageHandler(Filters.all & Filters.chat_type.groups, enforce_gban)
+GBAN_ENFORCER = MessageHandler(Filters.all & Filters.chat_type.groups, enforce_gban, run_async=True)
 
 dispatcher.add_handler(GBAN_HANDLER)
 dispatcher.add_handler(UNGBAN_HANDLER)

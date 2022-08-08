@@ -317,10 +317,10 @@ job_rss_update = job.run_repeating(rss_update, interval=60, first=60)
 job_rss_set.enabled = True
 job_rss_update.enabled = True
 
-SHOW_URL_HANDLER = CommandHandler("rss", show_url)
-ADD_URL_HANDLER = CommandHandler("addrss", add_url)
-REMOVE_URL_HANDLER = CommandHandler("removerss", remove_url)
-LIST_URLS_HANDLER = CommandHandler("listrss", list_urls)
+SHOW_URL_HANDLER = CommandHandler("rss", show_url, run_async=True)
+ADD_URL_HANDLER = CommandHandler("addrss", add_url, run_async=True)
+REMOVE_URL_HANDLER = CommandHandler("removerss", remove_url, run_async=True)
+LIST_URLS_HANDLER = CommandHandler("listrss", list_urls, run_async=True)
 
 dispatcher.add_handler(SHOW_URL_HANDLER)
 dispatcher.add_handler(ADD_URL_HANDLER)

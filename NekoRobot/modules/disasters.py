@@ -637,22 +637,22 @@ Group admins/group owners do not need these commands.
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler(("addsudo", "addarank"), addsudo)
-SUPPORT_HANDLER = CommandHandler(("addsupport", "addbrank"), addsupport)
-TIGER_HANDLER = CommandHandler(("addtiger", "addcrank"), addtiger)
-WHITELIST_HANDLER = CommandHandler(("addwhitelist", "adddrank"), addwhitelist)
-UNSUDO_HANDLER = CommandHandler(("removesudo", "removearank"), removesudo)
-UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removebrank"), removesupport)
-UNTIGER_HANDLER = CommandHandler(("removetiger", "removecrank"), removetiger)
+SUDO_HANDLER = CommandHandler(("addsudo", "addarank"), addsudo, run_async=True)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "addbrank"), addsupport, run_async=True)
+TIGER_HANDLER = CommandHandler(("addtiger", "addcrank"), addtiger, run_async=True)
+WHITELIST_HANDLER = CommandHandler(("addwhitelist", "adddrank"), addwhitelist, run_async=True)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removearank"), removesudo, run_async=True)
+UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removebrank"), removesupport, run_async=True)
+UNTIGER_HANDLER = CommandHandler(("removetiger", "removecrank"), removetiger, run_async=True)
 UNWHITELIST_HANDLER = CommandHandler(
-    ("removewhitelist", "removedrank"), removewhitelist
+    ("removewhitelist", "removedrank"), removewhitelist, run_async=True
 )
 
-WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "dranks"], whitelistlist)
-TIGERLIST_HANDLER = CommandHandler(["tigers", "cranks"], tigerlist)
-SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "branks"], supportlist)
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "aranks"], sudolist)
-DEVLIST_HANDLER = CommandHandler(["devlist", "sranks"], devlist)
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "dranks"], whitelistlist, run_async=True)
+TIGERLIST_HANDLER = CommandHandler(["tigers", "cranks"], tigerlist, run_async=True)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "branks"], supportlist, run_async=True)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "aranks"], sudolist, run_async=True)
+DEVLIST_HANDLER = CommandHandler(["devlist", "sranks"], devlist, run_async=True)
 
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)

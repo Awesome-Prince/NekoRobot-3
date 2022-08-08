@@ -608,13 +608,13 @@ __mod_name__ = "Locks"
 
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
 LOCK_HANDLER = CommandHandler(
-    "lock", lock, pass_args=True
+    "lock", lock, pass_args=True, run_async=True
 )  # , filters=Filters.chat_type.groups)
 UNLOCK_HANDLER = CommandHandler(
-    "unlock", unlock, pass_args=True
+    "unlock", unlock, pass_args=True, run_async=True
 )  # , filters=Filters.chat_type.groups)
 LOCKED_HANDLER = CommandHandler(
-    "locks", list_locks
+    "locks", list_locks, run_async=True
 )  # , filters=Filters.chat_type.groups)
 
 dispatcher.add_handler(LOCK_HANDLER)

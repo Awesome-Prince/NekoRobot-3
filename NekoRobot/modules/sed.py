@@ -161,7 +161,7 @@ If you want to use these characters, make sure you escape them!
 __mod_name__ = "Sed/Regex"
 
 SED_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"s([{}]).*?\1.*".format("".join(DELIMITERS))), sed, friendly="sed"
+    Filters.regex(r"s([{}]).*?\1.*".format("".join(DELIMITERS))), sed, friendly="sed", run_async=True
 )
 
 dispatcher.add_handler(SED_HANDLER)

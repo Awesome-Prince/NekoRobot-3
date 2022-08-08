@@ -558,16 +558,16 @@ A button can be added to a note by using standard markdown link syntax - the lin
 
 __mod_name__ = "Notes"
 
-GET_HANDLER = CommandHandler("get", cmd_get)
-HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get)
-SLASH_GET_HANDLER = MessageHandler(Filters.regex(r"^/\d+$"), slash_get)
-SAVE_HANDLER = CommandHandler("save", save)
-DELETE_HANDLER = CommandHandler("clear", clear)
+GET_HANDLER = CommandHandler("get", cmd_get, run_async=True)
+HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get, run_async=True)
+SLASH_GET_HANDLER = MessageHandler(Filters.regex(r"^/\d+$"), slash_get, run_async=True)
+SAVE_HANDLER = CommandHandler("save", save, run_async=True)
+DELETE_HANDLER = CommandHandler("clear", clear, run_async=True)
 
-LIST_HANDLER = DisableAbleCommandHandler(["notes", "saved"], list_notes, admin_ok=True)
+LIST_HANDLER = DisableAbleCommandHandler(["notes", "saved"], list_notes, run_async=True)
 
-CLEARALL = DisableAbleCommandHandler("removeallnotes", clearall)
-CLEARALL_BTN = CallbackQueryHandler(clearall_btn, pattern=r"notes_.*")
+CLEARALL = DisableAbleCommandHandler("removeallnotes", clearall, run_async=True)
+CLEARALL_BTN = CallbackQueryHandler(clearall_btn, pattern=r"notes_.*", run_async=True)
 
 dispatcher.add_handler(GET_HANDLER)
 dispatcher.add_handler(SAVE_HANDLER)
