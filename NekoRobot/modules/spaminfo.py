@@ -4,11 +4,11 @@ import time
 import requests
 import telegram
 
-from NekoRobot.modules.helper_funcs.decorators import kigcmd
+from NekoRobot.modules.helper_funcs.decorators import nekocmd
 from NekoRobot.modules.helper_funcs.extraction import extract_user
 
 
-@kigcmd(command="spbinfo")
+@nekocmd(command="spbinfo")
 def lookup(update, context):
     message = update.effective_message
     args = context.args

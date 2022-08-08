@@ -13,7 +13,7 @@ from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_not_admin
-from NekoRobot.modules.helper_funcs.decorators import kigcmd, kigmsg
+from NekoRobot.modules.helper_funcs.decorators import nekocmd, kigmsg
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.misc import split_message
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
@@ -24,7 +24,7 @@ from NekoRobot.modules.warns import warn
 BLACKLIST_GROUP = -3
 
 
-@kigcmd(command="blacklist", pass_args=True, admin_ok=True)
+@nekocmd(command="blacklist", pass_args=True, admin_ok=True)
 @u_admin
 @typing_action
 def blacklist(update, context):
@@ -69,7 +69,7 @@ def blacklist(update, context):
         send_message(update.effective_message, text, parse_mode=ParseMode.HTML)
 
 
-@kigcmd(command="addblacklist", pass_args=True)
+@nekocmd(command="addblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
 def add_blacklist(update, context):
@@ -124,7 +124,7 @@ def add_blacklist(update, context):
         )
 
 
-@kigcmd(command="unblacklist", pass_args=True)
+@nekocmd(command="unblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
 def unblacklist(update, context):
@@ -205,7 +205,7 @@ def unblacklist(update, context):
         )
 
 
-@kigcmd(command="blacklistmode", pass_args=True)
+@nekocmd(command="blacklistmode", pass_args=True)
 @loggable
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @typing_action

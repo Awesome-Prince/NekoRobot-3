@@ -80,7 +80,7 @@ class KigyoTelegramHandler:
                         group,
                     )
                 LOGGER.debug(
-                    f"[KIGCMD] Loaded handler {command} for function {func.__name__} in group {group}"
+                    f"[nekocmd] Loaded handler {command} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
@@ -107,7 +107,7 @@ class KigyoTelegramHandler:
                         )
                     )
                 LOGGER.debug(
-                    f"[KIGCMD] Loaded handler {command} for function {func.__name__}"
+                    f"[nekocmd] Loaded handler {command} for function {func.__name__}"
                 )
 
             return func
@@ -198,7 +198,7 @@ class KigyoTelegramHandler:
         return _inlinequery
 
 
-kigcmd = KigyoTelegramHandler(d).command
+nekocmd = KigyoTelegramHandler(d).command
 kigmsg = KigyoTelegramHandler(d).message
 kigcallback = KigyoTelegramHandler(d).callbackquery
 kiginline = KigyoTelegramHandler(d).inlinequery
