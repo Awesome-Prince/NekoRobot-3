@@ -43,6 +43,7 @@ from telegram.ext import (
     CommandHandler,
     Filters,
     MessageHandler,
+    run_async
 )
 from telegram.ext.dispatcher import DispatcherHandlerStop
 from telegram.utils.helpers import escape_markdown
@@ -752,16 +753,16 @@ def main():
             LOGGER.warning(e.message)
 
     CommandHandler("test", test)
-    start_handler = CommandHandler("start", start)
+    start_handler = CommandHandler("start"), start, run_async=True)
 
-    help_handler = CommandHandler("help", get_help)
+    help_handler = CommandHandler("help"), get_help, run_async=True)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*")
 
-    CommandHandler("settings", get_settings)
+    CommandHandler("settings"), get_settings, run_async=True)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
 
     about_callback_handler = CallbackQueryHandler(neko_about_callback, pattern=r"neko_")
-    donate_handler = CommandHandler("donate", donate)
+    donate_handler = CommandHandler("donate"), donate, run_async=True)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
     # dispatcher.add_handler(test_handler)
