@@ -792,13 +792,15 @@ def main():
             updater.bot.set_webhook(url=URL + TOKEN)
 
     else:
-        LOGGER.info("Using long polling.")
-        updater.start_polling(timeout=15, read_latency=4, clean=True)
+        LOGGER.info(f"Neko started, Using long polling. | BOT: [@{dispatcher.bot.username}]")
+        updater.start_polling(timeout=15, read_latency=4, drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
 
-    if len(argv) not in (1, 3, 4):
-        telethn.disconnect()
-    else:
+    if len(argv) in {1, 3, 4}:
         telethn.run_until_disconnected()
+
+    else:
+        telethn.disconnect()
+    updater.idle()
 
 
 if __name__ == "__main__":
