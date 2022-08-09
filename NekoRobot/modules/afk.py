@@ -1,4 +1,9 @@
-import random, html
+import html
+import random
+
+from telegram import MessageEntity, Update
+from telegram.error import BadRequest
+from telegram.ext import CallbackContext, Filters, MessageHandler
 
 from NekoRobot import dispatcher
 from NekoRobot.modules.disable import (
@@ -7,12 +12,10 @@ from NekoRobot.modules.disable import (
 )
 from NekoRobot.modules.sql import afk_sql as sql
 from NekoRobot.modules.users import get_user_id
-from telegram import MessageEntity, Update
-from telegram.error import BadRequest
-from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
+
 
 def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
@@ -134,13 +137,16 @@ def check_afk(update, context, user_id, fst_name, userc_id):
             update.effective_message.reply_text(res, parse_mode="html")
 
 
-
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=true)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk"
 )
-NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk, run_async=true)
-AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.group, reply_afk, run_async=true)
+NO_AFK_HANDLER = MessageHandler(
+    Filters.all & Filters.group, no_longer_afk, run_async=true
+)
+AFK_REPLY_HANDLER = MessageHandler(
+    Filters.all & Filters.group, reply_afk, run_async=true
+)
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REGEX_HANDLER, AFK_GROUP)
