@@ -168,7 +168,7 @@ def rban(update: Update, context: CallbackContext):
         return
 
     try:
-        chat.kick_member(user_id)
+        Chat.ban_member(user_id)
         message.reply_text("Banned from chat!")
     except BadRequest as excp:
         if excp.message == "Reply message not found":
