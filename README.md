@@ -25,13 +25,13 @@ This repo was just reamped to suit an Anime-centric community. All original cred
 ### ╔═━「 Creator Info/Credits 」
 
 + ➢ [Lovely-Prince](https://github.com/Awesome-Prince) : OWNER | DEV
++ ➢ [RajuKumar](https://github.com/Awesome-RJ) : DEV
 + ➢ [STB](https://github.com/STBxD) : DEV
 + ➢ [H0DAKA](https://github.com/H0daka) : DEV
 + ➢ [AASF-CYBERKING](https://github.com/AASFCYBERKING) : NEKO FUN MODULE, LIVEGRAM MODULE
 + ➢ [CTZFAMILY](https://github.com/CTZFAMILY) : FUN MODULE, SOME MODULES
 + ➢ [AkshayRajput](https://github.com/TheHamkerCat) : ARQ MODULES
 + ➢ [TheRealPhoenix](https://github.com/rsktg) : BASE
-+ ➢ [RajuKumar](https://github.com/Awesome-RJ) : SOME MODULES
 + ➢ [DragSama](https://github.com/DragSama) : ANIME
 + ➢ [TsunayoshiSawada](https://github.com/TsunayoshiSawada) : BASE
 + ➢ [Pokurt](https://github.com/pokurt) : WHATANIME MODULE API
