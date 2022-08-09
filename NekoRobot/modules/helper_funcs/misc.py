@@ -90,7 +90,7 @@ def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
                 EqInlineKeyboardButton(
                     "◀", callback_data="{}_prev({})".format(prefix, modulo_page)
                 ),
-                EqInlineKeyboardButton("Close", callback_data="neko_back"),
+                EqInlineKeyboardButton("Close", callback_data="about_"),
                 EqInlineKeyboardButton(
                     "▶", callback_data="{}_next({})".format(prefix, modulo_page)
                 ),
@@ -98,7 +98,7 @@ def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
         ]
 
     else:
-        pairs += [[EqInlineKeyboardButton("Close", callback_data="neko_back")]]
+        pairs += [[EqInlineKeyboardButton("Close", callback_data="about_")]]
 
     return pairs
 
