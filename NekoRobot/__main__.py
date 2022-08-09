@@ -52,6 +52,8 @@ from NekoRobot import (
     ALLOW_EXCL,
     BOT_NAME,
     BOT_USERNAME,
+    GROUP_START_IMG,
+    NEKO_IMG,
     CERT_PATH,
     DONATION_LINK,
     LOGGER,
@@ -276,7 +278,7 @@ def start(update: Update, context: CallbackContext):
     else:
         first_name = update.effective_user.first_name
         update.effective_message.reply_animation(
-            random.choice(NEKO_IMG),
+            random.choice(GROUP_START_IMG),
             caption="<b>Yes,Darling I'm alive! Haven't sleep since</b>: <code>{}</code>".format(
                 uptime
             ),
