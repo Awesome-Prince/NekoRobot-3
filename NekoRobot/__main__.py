@@ -496,7 +496,8 @@ def get_help(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Click Here", url=f"https://t.me/{BOT_USERNAME}?start=help"
+                            text="Click Here",
+                            url=f"https://t.me/{BOT_USERNAME}?start=help",
                         )
                     ]
                 ]
@@ -655,7 +656,7 @@ def get_settings(update: Update, context: CallbackContext):
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
 
- # ONLY send settings in PM
+    # ONLY send settings in PM
     if chat.type == chat.PRIVATE:
         send_settings(chat.id, user.id, True)
 
