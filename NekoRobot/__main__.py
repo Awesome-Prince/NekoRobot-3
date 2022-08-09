@@ -56,6 +56,8 @@ from NekoRobot import (
     OWNER_ID,
     PORT,
     SUPPORT_CHAT,
+    BOT_USERNAME,
+    BOT_NAME,
     TOKEN,
     URL,
     WEBHOOK,
@@ -105,7 +107,7 @@ def get_readable_time(seconds: int) -> str:
 buttons = [
     [
         InlineKeyboardButton(
-            text=f"Add NekoX To Your Group", url=f"t.me/NekoXRobot?startgroup=true"
+            text=f"Add {BOT_NAME} To Your Group", url=f"t.me/{BOT_USERNAME}?startgroup=true"
         )
     ],
     [
