@@ -54,10 +54,8 @@ from NekoRobot import (
     BOT_USERNAME,
     CERT_PATH,
     DONATION_LINK,
-    GROUP_START_IMG,
     HELP_IMG,
     LOGGER,
-    NEKO_IMG,
     OWNER_ID,
     PORT,
     SUPPORT_CHAT,
@@ -145,10 +143,7 @@ For all command use /* [or](https://telegra.ph/file/ab36976c685575c4e1a5f.jpg) *
     else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n",
 )
 
-HELP_IMG = "https://telegra.ph/file/ab36976c685575c4e1a5f.jpg"
-
-
-NEKO_IMG = (
+GROUP_START_IMG = (
     "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
     "https://telegra.ph/file/0cea56d9625f265ecc9db.mp4",
     "https://telegra.ph/file/a131993b0f1e8517eacb2.mp4",
