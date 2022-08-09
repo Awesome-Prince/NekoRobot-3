@@ -50,14 +50,14 @@ from telegram.utils.helpers import escape_markdown
 import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot import (
     ALLOW_EXCL,
+    BOT_NAME,
+    BOT_USERNAME,
     CERT_PATH,
     DONATION_LINK,
     LOGGER,
     OWNER_ID,
     PORT,
     SUPPORT_CHAT,
-    BOT_USERNAME,
-    BOT_NAME,
     TOKEN,
     URL,
     WEBHOOK,
@@ -107,7 +107,8 @@ def get_readable_time(seconds: int) -> str:
 buttons = [
     [
         InlineKeyboardButton(
-            text=f"Add {BOT_NAME} To Your Group", url=f"t.me/{BOT_USERNAME}?startgroup=true"
+            text=f"Add {BOT_NAME} To Your Group",
+            url=f"t.me/{BOT_USERNAME}?startgroup=true",
         )
     ],
     [
