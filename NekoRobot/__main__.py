@@ -55,7 +55,7 @@ from NekoRobot import (
     CERT_PATH,
     DONATION_LINK,
     GROUP_START_IMG,
-    HELP_IMG,,
+    HELP_IMG,
     LOGGER,
     NEKO_IMG,
     OWNER_ID,
