@@ -94,8 +94,8 @@ if ENV:
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
     ARQ_API_URL = os.environ.get("ARQ_API_URL", None)
     ARQ_API_KEY = os.environ.get("ARQ_API_KEY", None)
-    BOT_USERNAME = os.environ.get("BOT_USERNAME", "") # Bot Username
-    BOT_NAME = os.environ.get('BOT_NAME', "") # Bot Name
+    BOT_USERNAME = os.environ.get("BOT_USERNAME", "")  # Bot Username
+    BOT_NAME = os.environ.get("BOT_NAME", "")  # Bot Name
     URL = os.environ.get("URL", "")  # Does not contain token
     PORT = int(os.environ.get("PORT", 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
