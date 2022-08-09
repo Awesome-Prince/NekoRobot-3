@@ -129,6 +129,8 @@ if ENV:
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
     BOT_NAME = os.environ.get("BOT_NAME", True)  # Name Of your Bot.4
     BOT_USERNAME = os.environ.get("BOT_USERNAME", "")  # Bot Username
+    HELP_IMG = os.environ.get("HELP_IMG", True)
+    NEKO_PHOTO = os.environ.get("NEKO_PHOTO", True)
     OPENWEATHERMAP_ID = os.environ.get(
         "OPENWEATHERMAP_ID", ""
     )  # From:- https://openweathermap.org/api
