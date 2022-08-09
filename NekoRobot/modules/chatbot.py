@@ -116,6 +116,7 @@ def kuki_message(context: CallbackContext, message):
         return False
 
 
+
 def chatbot(update: Update, context: CallbackContext):
     message = update.effective_message
     chat_id = update.effective_chat.id
@@ -123,20 +124,18 @@ def chatbot(update: Update, context: CallbackContext):
     is_kuki = sql.is_kuki(chat_id)
     if not is_kuki:
         return
-
+	
     if message.text and not message.document:
         if not kuki_message(context, message):
             return
-        Message = message.text
+        neko = message.text
         bot.send_chat_action(chat_id, action="typing")
-        kukiurl = requests.get(
-            "https://www.kukiapi.xyz/api/apikey=KUKIur8jgD3nY4/Neko/@BlackLover_Prince/message="
-            + Message
-        )
-        Kuki = json.loads(kukiurl.text)
-        kuki = Kuki["reply"]
+        url = f"https://www.kukiapi.xyz/api/apikey=KUKIur8jgD3nY4/Neko/@BlackLover_Prince/message={neko}" 
+        request = requests.get(url) 
+        results = json.loads(request.text) 
+        result = f"{results['reply']}"
         sleep(0.3)
-        message.reply_text(kuki, timeout=60)
+        message.reply_text(result)
 
 
 def list_all_chats(update: Update, context: CallbackContext):
@@ -158,7 +157,7 @@ __help__ = """
 *Admins only Commands*:
   ➢ `/Chatbot`*:* Shows chatbot control panel
   
-*Powered By @BlackLover_Prince*
+*Powered By @BlackLover_Network*
 """
 
 __mod_name__ = "ChatBot"
