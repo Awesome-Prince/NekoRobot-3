@@ -496,7 +496,7 @@ def get_help(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="Click Here", url="https://t.me/NekoXRobot?start=help"
+                            text="Click Here", url=f"https://t.me/{BOT_USERNAME}?start=help"
                         )
                     ]
                 ]
@@ -666,8 +666,7 @@ def get_settings(update: Update, context: CallbackContext):
                         [
                             InlineKeyboardButton(
                                 text="Settings",
-                                url="t.me/{}?start=stngs_{}".format(
-                                    context.bot.username, chat.id
+                                url=f"t.me/{BOT_USERNAME}?start=stngs_{}"
                                 ),
                             )
                         ]
@@ -747,7 +746,7 @@ def main():
                         [
                             InlineKeyboardButton(
                                 text="[► Summon Me ◄]",
-                                url=f"t.me/NekoXRobot?startgroup=true",
+                                url=f"t.me/{BOT_USERNAME}?startgroup=true",
                             ),
                         ]
                     ]
