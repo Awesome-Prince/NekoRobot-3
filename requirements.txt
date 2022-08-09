@@ -89,3 +89,4 @@ countryinfo==0.1.2
 python-rapidjson==1.5
 pytimeparse
 markdown2
+gpytranslate
