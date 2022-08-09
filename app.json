@@ -38,7 +38,17 @@
          "description": "Your postgres sql db, empty this field if you dont have one.",
          "required": false,
          "value": "sqldbtype://username:pw@hostname:port/db_name"
-      },      
+      },    
+      "BOT_NAME": {
+         "description": "Your Bot Name.",
+         "required": true,
+         "value": "Neko X"
+      },
+      "BOT_USERNAME": {
+         "description": "Your Bot UserName Without @.",
+         "required": true,
+         "value": "Nekox_Robot"
+      },
       "OWNER_ID": {
          "description": "Your user ID as an integer.",
          "required": true,
