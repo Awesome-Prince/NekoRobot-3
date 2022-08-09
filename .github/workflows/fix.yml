@@ -27,7 +27,7 @@ jobs:
       # commit changes
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Initial commit V13.8"
+          commit_message: "Initial commit V13.12"
           commit_options: '--no-verify'
           repository: .
           commit_user_name: Awesome-Prince
