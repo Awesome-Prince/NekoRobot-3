@@ -130,7 +130,7 @@ def chatbot(update: Update, context: CallbackContext):
         Message = message.text
         bot.send_chat_action(chat_id, action="typing")
         kukiurl = requests.get(
-            f"https://www.kukiapi.xyz/api/apikey=KUKIur8jgD3nY4/Neko/@BlackLover_Prince/message={Message}"
+            f"https://kukiapi.xyz/api/apikey=5281955434-KUKIyq4NCB2Ca8/himawari/@nekoarsh/message={Message}"
         )
 
         Kuki = json.loads(kukiurl.text)
