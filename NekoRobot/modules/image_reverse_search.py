@@ -24,20 +24,18 @@ SOFTWARE.
 
 import os
 import re
-import requests
 import urllib
-import urllib.request
 import urllib.parse
-from urllib.error import URLError, HTTPError
-from bs4 import BeautifulSoup
+import urllib.request
+from urllib.error import HTTPError, URLError
 
-from telegram import InputMediaPhoto, TelegramError
-from telegram import Update
-from telegram.ext import CallbackContext, run_async
+import requests
+from bs4 import BeautifulSoup
+from telegram import InputMediaPhoto, TelegramError, Update
+from telegram.ext import CallbackContext
 
 from NekoRobot import dispatcher
 from NekoRobot.modules.disable import DisableAbleCommandHandler
-
 
 opener = urllib.request.build_opener()
 useragent = "Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36"
@@ -178,6 +176,7 @@ def reverse(update: Update, context: CallbackContext):
     except Exception as exception:
         print(exception)
 
+
 def grs(update: Update, context: CallbackContext):
     if os.path.isfile("okgoogle.png"):
         os.remove("okgoogle.png")
@@ -311,6 +310,7 @@ def grs(update: Update, context: CallbackContext):
         print(e)
     except Exception as exception:
         print(exception)
+
 
 def gg(update: Update, context: CallbackContext):
     if os.path.isfile("okgoogle.png"):
@@ -447,7 +447,6 @@ def gg(update: Update, context: CallbackContext):
         print(exception)
 
 
-
 def ParseSauce(googleurl):
     """Parse/Scrape the HTML code for the info we want."""
 
@@ -499,7 +498,11 @@ def scam(imgspage, lim):
 
 
 REVERSE_HANDLER = DisableAbleCommandHandler(
-    ["reverse", "pp","PP", "Pp"], reverse, pass_args=True, admin_ok=True, run_async=True
+    ["reverse", "pp", "PP", "Pp"],
+    reverse,
+    pass_args=True,
+    admin_ok=True,
+    run_async=True,
 )
 GRS_HANDLER = DisableAbleCommandHandler(
     "grs", grs, pass_args=True, admin_ok=True, run_async=True
