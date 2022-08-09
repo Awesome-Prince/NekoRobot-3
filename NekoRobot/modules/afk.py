@@ -142,10 +142,10 @@ AFK_REGEX_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk"
 )
 NO_AFK_HANDLER = MessageHandler(
-    Filters.all & Filters.group, no_longer_afk, run_async=True
+    Filters.all & Filters.chat_type.groups, no_longer_afk, run_async=True
 )
 AFK_REPLY_HANDLER = MessageHandler(
-    Filters.all & Filters.group, reply_afk, run_async=True
+    Filters.all & Filters.chat_type.groups, reply_afk, run_async=True
 )
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
