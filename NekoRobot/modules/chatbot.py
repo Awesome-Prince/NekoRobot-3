@@ -127,14 +127,16 @@ def chatbot(update: Update, context: CallbackContext):
     if message.text and not message.document:
         if not kuki_message(context, message):
             return
-        neko = message.text
+        Message = message.text
         bot.send_chat_action(chat_id, action="typing")
-        url = f"https://www.kukiapi.xyz/api/apikey=KUKIur8jgD3nY4/Neko/@BlackLover_Prince/message={neko}"
-        request = requests.get(url)
-        results = json.loads(request.text)
-        result = f"{results['reply']}"
+        kukiurl = requests.get(
+            f'https://www.kukiapi.xyz/api/apikey=KUKIur8jgD3nY4/Neko/@BlackLover_Prince/message={Message}'
+        )
+
+        Kuki = json.loads(kukiurl.text)
+        kuki = Kuki['reply']
         sleep(0.3)
-        message.reply_text(result)
+        message.reply_text(kuki, timeout=60)
 
 
 def list_all_chats(update: Update, context: CallbackContext):
