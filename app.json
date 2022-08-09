@@ -49,6 +49,11 @@
          "required": true,
          "value": "Nekox_Robot"
       },
+       "HELP_IMG": {
+         "description": "Group Help Img Link.",
+         "required": true,
+         "value": "https://telegra.ph/file/ab36976c685575c4e1a5f.png"
+      },
       "OWNER_ID": {
          "description": "Your user ID as an integer.",
          "required": true,
