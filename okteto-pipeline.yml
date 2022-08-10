@@ -1,0 +1,3 @@
+deploy:
+    - okteto stack deploy --build -f docker-compose.yml
+# vars: [{"name": "BRANCH", "value": "main"}]
