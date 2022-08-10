@@ -39,8 +39,8 @@ import requests
 from Crypto import Hash, Protocol, Random
 from Crypto.Cipher import AES
 from telegram import Bot, InlineKeyboardButton
-from telegram.constants import MessageLimit, ParseMode
-from telegram.error import TelegramError
+from telegram import MessageLimit, ParseMode
+from telegram import TelegramError
 
 from NekoRobot import NO_LOAD
 
