@@ -1,8 +1,8 @@
 import requests
+from pyrogram import filters
 
 from NekoRobot import pgram
 from NekoRobot.utils.errors import capture_err
-from pyrogram import filters
 
 
 def ikb(data: dict, row_width: int = 2):
@@ -32,8 +32,11 @@ def section(
     text = (bold_ul(title) + n) if underline else bold(title) + n
 
     for key, value in body.items():
-        text += (indent * w + bold(key) +
-                 ((value[0] + n) if isinstance(value, list) else mono(value)))
+        text += (
+            indent * w
+            + bold(key)
+            + ((value[0] + n) if isinstance(value, list) else mono(value))
+        )
     return text
 
 
@@ -46,7 +49,8 @@ async def crypto(_, message):
     currency = message.text.split(None, 1)[1].lower()
 
     btn = ikb(
-        {"Available Currencies": "https://plotcryptoprice.herokuapp.com"}, )
+        {"Available Currencies": "https://plotcryptoprice.herokuapp.com"},
+    )
 
     m = await message.reply("`Processing...`")
 
