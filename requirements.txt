@@ -90,3 +90,5 @@ python-rapidjson==1.5
 pytimeparse
 markdown2
 gpytranslate
+tgcrypto==1.2.3
+pycryptodome
