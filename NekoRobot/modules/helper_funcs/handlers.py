@@ -1,19 +1,17 @@
-import NekoRobot.modules.sql.blacklistusers_sql as sql
-
-from NekoRobot import ALLOW_EXCL
-from NekoRobot import DEV_USERS, DRAGONS, DEMONS, TIGERS, WOLVES
-
-from telegram import Update
-from telegram.ext import CommandHandler, MessageHandler, RegexHandler, Filters
 from pyrate_limiter import (
     BucketFullException,
     Duration,
-    RequestRate,
     Limiter,
     MemoryListBucket,
+    RequestRate,
 )
+from telegram import Update
+from telegram.ext import CommandHandler, Filters, MessageHandler, RegexHandler
 
-CMD_STARTERS = ("/", "!") if ALLOW_EXCL else ("/", )
+import NekoRobot.modules.sql.blacklistusers_sql as sql
+from NekoRobot import ALLOW_EXCL, DEMONS, DEV_USERS, DRAGONS, TIGERS, WOLVES
+
+CMD_STARTERS = ("/", "!") if ALLOW_EXCL else ("/",)
 
 
 class AntiSpam:
@@ -103,14 +101,11 @@ class CustomCommandHandler(CommandHandler):
 
     def handle_update(self, update, dispatcher, check_result, context=None):
         if context:
-            self.collect_additional_context(context, update, dispatcher,
-                                            check_result)
+            self.collect_additional_context(context, update, dispatcher, check_result)
             return self.callback(update, context)
-        optional_args = self.collect_optional_args(dispatcher, update,
-                                                   check_result)
+        optional_args = self.collect_optional_args(dispatcher, update, check_result)
         return self.callback(dispatcher.bot, update, **optional_args)
 
-        
     def collect_additional_context(self, context, update, dispatcher, check_result):
         if isinstance(check_result, bool):
             context.args = update.effective_message.text.split()[1:]
