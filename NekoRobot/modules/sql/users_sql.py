@@ -1,7 +1,5 @@
 import threading
 
-from NekoRobot import dispatcher
-from NekoRobot.modules.sql import BASE, SESSION
 from sqlalchemy import (
     Column,
     ForeignKey,
@@ -11,6 +9,9 @@ from sqlalchemy import (
     UniqueConstraint,
     func,
 )
+
+from NekoRobot import dispatcher
+from NekoRobot.modules.sql import BASE, SESSION
 
 
 class Users(BASE):
