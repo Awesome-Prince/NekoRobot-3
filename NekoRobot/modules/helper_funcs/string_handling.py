@@ -3,9 +3,8 @@ import time
 from typing import Dict, List
 
 import bleach
-import markdown2
 import emoji
-
+import markdown2
 from telegram import MessageEntity
 from telegram.utils.helpers import escape_markdown
 
@@ -129,7 +128,9 @@ def markdown_parser(
 
 
 def button_markdown_parser(
-    txt: str, entities: Dict[MessageEntity, str] = None, offset: int = 0,
+    txt: str,
+    entities: Dict[MessageEntity, str] = None,
+    offset: int = 0,
 ) -> (str, List):
     markdown_note = markdown_parser(txt, entities, offset)
     prev = 0
@@ -153,7 +154,7 @@ def button_markdown_parser(
         else:
             note_data += markdown_note[prev:to_check]
             prev = match.start(1) - 1
-        
+
     note_data += markdown_note[prev:]
 
     return note_data, buttons
@@ -194,7 +195,6 @@ def escape_invalid_curly_brackets(text: str, valids: List[str]) -> str:
         idx += 1
 
     return new_text
-
 
 
 SMART_OPEN = "“"
@@ -285,5 +285,7 @@ def markdown_to_html(text):
     text = text.replace("~", "~~")
     _html = markdown2.markdown(text, extras=["strike", "underline"])
     return bleach.clean(
-        _html, tags=["strong", "em", "a", "code", "pre", "strike", "u"], strip=True,
+        _html,
+        tags=["strong", "em", "a", "code", "pre", "strike", "u"],
+        strip=True,
     )[:-1]
