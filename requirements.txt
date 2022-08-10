@@ -92,3 +92,4 @@ markdown2
 gpytranslate
 tgcrypto==1.2.3
 pycryptodome
+base58
