@@ -1,20 +1,19 @@
+import NekoRobot.modules.sql.blacklistusers_sql as sql
+
+from NekoRobot import ALLOW_EXCL
+from NekoRobot import DEV_USERS, DRAGONS, DEMONS, TIGERS, WOLVES
+
+from telegram import Update
+from telegram.ext import CommandHandler, MessageHandler, RegexHandler, Filters
 from pyrate_limiter import (
     BucketFullException,
     Duration,
+    RequestRate,
     Limiter,
     MemoryListBucket,
-    RequestRate,
 )
-from telegram import Update
-from telegram.ext import CommandHandler, Filters, MessageHandler, RegexHandler
 
-import NekoRobot.modules.sql.blacklistusers_sql as sql
-from NekoRobot import ALLOW_EXCL, DEMONS, DEV_USERS, DRAGONS, TIGERS, WOLVES
-
-if ALLOW_EXCL:
-    CMD_STARTERS = ("/", "+")
-else:
-    CMD_STARTERS = ("/", "+")
+CMD_STARTERS = ("/", "!") if ALLOW_EXCL else ("/", )
 
 
 class AntiSpam:
@@ -67,50 +66,51 @@ class CustomCommandHandler(CommandHandler):
             )
 
     def check_update(self, update):
-        if isinstance(update, Update) and update.effective_message:
-            message = update.effective_message
+        if not isinstance(update, Update) or not update.effective_message:
+            return
+        message = update.effective_message
 
-            try:
-                user_id = update.effective_user.id
-            except:
-                user_id = None
+        try:
+            user_id = update.effective_user.id
+        except:
+            user_id = None
 
-            if user_id:
-                if sql.is_user_blacklisted(user_id):
-                    return False
+        if user_id and sql.is_user_blacklisted(user_id):
+            return False
 
-            if message.text and len(message.text) > 1:
-                fst_word = message.text.split(None, 1)[0]
-                if len(fst_word) > 1 and any(
-                    fst_word.startswith(start) for start in CMD_STARTERS
+        if message.text and len(message.text) > 1:
+            fst_word = message.text.split(None, 1)[0]
+            if len(fst_word) > 1 and any(
+                fst_word.startswith(start) for start in CMD_STARTERS
+            ):
+
+                args = message.text.split()[1:]
+                command = fst_word[1:].split("@")
+                command.append(message.bot.username)
+                if user_id == 1087968824:
+                    user_id = update.effective_chat.id
+                if not (
+                    command[0].lower() in self.command
+                    and command[1].lower() == message.bot.username.lower()
                 ):
-
-                    args = message.text.split()[1:]
-                    command = fst_word[1:].split("@")
-                    command.append(message.bot.username)
-                    if user_id == 1087968824:
-                        user_id = update.effective_chat.id
-                    if not (
-                        command[0].lower() in self.command
-                        and command[1].lower() == message.bot.username.lower()
-                    ):
-                        return None
-                    if SpamChecker.check_user(user_id):
-                        return None
-                    filter_result = self.filters(update)
-                    if filter_result:
-                        return args, filter_result
-                    else:
-                        return False
+                    return None
+                if SpamChecker.check_user(user_id):
+                    return None
+                filter_result = self.filters(update)
+                if filter_result:
+                    return args, filter_result
+                return False
 
     def handle_update(self, update, dispatcher, check_result, context=None):
         if context:
-            self.collect_additional_context(context, update, dispatcher, check_result)
+            self.collect_additional_context(context, update, dispatcher,
+                                            check_result)
             return self.callback(update, context)
-        else:
-            optional_args = self.collect_optional_args(dispatcher, update, check_result)
-            return self.callback(dispatcher.bot, update, **optional_args)
+        optional_args = self.collect_optional_args(dispatcher, update,
+                                                   check_result)
+        return self.callback(dispatcher.bot, update, **optional_args)
 
+        
     def collect_additional_context(self, context, update, dispatcher, check_result):
         if isinstance(check_result, bool):
             context.args = update.effective_message.text.split()[1:]
