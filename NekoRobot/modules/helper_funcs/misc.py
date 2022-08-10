@@ -26,25 +26,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import base64
 import contextlib
-import requests
 import json
 import zlib
-import base64
-import base58
-
-from typing import Dict, List, Optional
 from asyncio import sleep
-from urllib.parse import urlparse, urljoin, urlunparse
-from Crypto import Random, Hash, Protocol
+from typing import Dict, List, Optional
+from urllib.parse import urljoin, urlparse, urlunparse
+
+import base58
+import requests
+from Crypto import Hash, Protocol, Random
 from Crypto.Cipher import AES
+from telegram import Bot, InlineKeyboardButton
+from telegram.constants import MessageLimit, ParseMode
+from telegram.error import TelegramError
 
 from NekoRobot import NO_LOAD
-from telegram import Bot, InlineKeyboardButton
-from telegram.error import TelegramError
-from telegram.constants import ParseMode, MessageLimit
 
 MAX_MESSAGE_LENGTH = MessageLimit.TEXT_LENGTH
+
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
@@ -56,12 +57,14 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
     def __gt__(self, other):
         return self.text > other.text
 
+
 def delete(delmsg, timer):
     sleep(timer)
     try:
         delmsg.delete()
     except:
         return
+
 
 def split_message(msg: str) -> List[str]:
     if len(msg) < MAX_MESSAGE_LENGTH:
@@ -79,9 +82,12 @@ def split_message(msg: str) -> List[str]:
     # Else statement at the end of the for loop, so append the leftover string.
     result.append(small_msg)
 
-    return 
+    return
 
-def paginate_modules(_: int, module_dict: Dict, prefix, chat=None) -> List[List[EqInlineKeyboardButton]]:
+
+def paginate_modules(
+    _: int, module_dict: Dict, prefix, chat=None
+) -> List[List[EqInlineKeyboardButton]]:
     modules = (
         sorted(
             [
@@ -104,17 +110,17 @@ def paginate_modules(_: int, module_dict: Dict, prefix, chat=None) -> List[List[
         )
     )
 
-
-    pairs = [list (a) for a in zip(modules[::3], modules[1::3], modules[2::3])]
+    pairs = [list(a) for a in zip(modules[::3], modules[1::3], modules[2::3])]
 
     round_num = len(modules) / 3
     calc = len(modules) - round(round_num)
     if calc in [1, 2]:
         pairs.append((modules[-1],))
     else:
-        pairs += [[EqInlineKeyboardButton("[► Back ◄]",  callback_data="neko_back")]]
+        pairs += [[EqInlineKeyboardButton("[► Back ◄]", callback_data="neko_back")]]
 
     return pairs
+
 
 async def send_to_list(
     bot: Bot, send_to: list, message: str, markdown=False, html=False
