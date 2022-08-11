@@ -1,4 +1,3 @@
-
 import logging
 import os
 import sys
@@ -220,9 +219,7 @@ pgram = Client(
 )
 
 # Credits Logger
-print(
-    "[NEKOROBOT] NEKO Is Starting. | BlackLover • Network Project | ."
-)
+print("[NEKOROBOT] NEKO Is Starting. | BlackLover • Network Project | .")
 print(
     "[NEKOROBOT] Mewo Mewo! Successfully Connected With BlackLover • Data Center • Chennai"
 )
