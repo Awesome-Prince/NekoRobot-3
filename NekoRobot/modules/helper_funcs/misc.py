@@ -38,10 +38,11 @@ import base58
 import requests
 from Crypto import Hash, Protocol, Random
 from Crypto.Cipher import AES
-from telegram import Bot, InlineKeyboardButton, ParseMode, MAX_MESSAGE_LENGTH
+from telegram import MAX_MESSAGE_LENGTH, Bot, InlineKeyboardButton, ParseMode
 from telegram.error import TelegramError
 
 from NekoRobot import NO_LOAD
+
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
