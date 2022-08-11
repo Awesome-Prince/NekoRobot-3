@@ -49,6 +49,11 @@
          "required": true,
          "value": "Nekox_Robot"
       },
+      "ERROR_LOGS": {
+         "description": "Error Logs (Channel Ya Group Choice Is Yours)",
+         "required": true,
+         "value": ""
+      },
        "HELP_IMG": {
          "description": "Group Help Img Link.",
          "required": true,
