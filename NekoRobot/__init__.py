@@ -219,7 +219,7 @@ pgram = Client(
 )
 
 # Credits Logger
-print("[NEKOROBOT] NEKO Is Starting. | BlackLover • Network Project | .")
+print("[NEKOROBOT] NEKO Is Starting. | BlackLover • Network Project | BSD 2-Clause License.")
 print(
     "[NEKOROBOT] Mewo Mewo! Successfully Connected With BlackLover • Data Center • Chennai"
 )
