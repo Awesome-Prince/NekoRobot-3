@@ -6,9 +6,10 @@ import traceback
 
 import pretty_errors
 import requests
-from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext, CommandHandler
-from NekoRobot import dispatcher, DEV_USERS, ERROR_LOGS
+
+from NekoRobot import DEV_USERS, ERROR_LOGS, dispatcher
 
 pretty_errors.mono()
 
@@ -46,7 +47,9 @@ def error_callback(update: Update, context: CallbackContext):
         stringio = io.StringIO()
         pretty_errors.output_stderr = stringio
         output = pretty_errors.excepthook(
-            type(context.error), context.error, context.error.__traceback__,
+            type(context.error),
+            context.error,
+            context.error.__traceback__,
         )
         pretty_errors.output_stderr = sys.stderr
         pretty_error = stringio.getvalue()
@@ -54,7 +57,9 @@ def error_callback(update: Update, context: CallbackContext):
     except:
         pretty_error = "Failed to create pretty error."
     tb_list = traceback.format_exception(
-        None, context.error, context.error.__traceback__,
+        None,
+        context.error,
+        context.error.__traceback__,
     )
     tb = "".join(tb_list)
     pretty_message = (
@@ -67,7 +72,7 @@ def error_callback(update: Update, context: CallbackContext):
         "Message: {}\n\n"
         "Full Traceback: {}"
     ).format(
-            pretty_error,
+        pretty_error,
         update.effective_user.id,
         update.effective_chat.title if update.effective_chat else "",
         update.effective_chat.id if update.effective_chat else "",
@@ -80,24 +85,24 @@ def error_callback(update: Update, context: CallbackContext):
         data=pretty_message.encode("UTF-8"),
     ).json()
     e = html.escape(f"{context.error}")
-    if not key.get('key'):
+    if not key.get("key"):
         with open("error.txt", "w+") as f:
             f.write(pretty_message)
         context.bot.send_document(
             ERROR_LOGS,
-                open("error.txt", "rb"),
-                caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-                parse_mode="html",
+            open("error.txt", "rb"),
+            caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+            parse_mode="html",
         )
         return
     key = key.get("key")
     url = f"https://www.toptal.com/developers/hastebin/{key}"
     context.bot.send_message(
         ERROR_LOGS,
-            text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("HasteBin", url=url)]],
-            ),
+        text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("HasteBin", url=url)]],
+        ),
         parse_mode="html",
     )
 
@@ -108,7 +113,7 @@ def list_errors(update: Update, context: CallbackContext):
     e = dict(sorted(errors.items(), key=lambda item: item[1], reverse=True))
     msg = "<b>Errors List:</b>\n"
     for x, value in e.items():
-        msg += f'• <code>{x}:</code> <b>{value}</b> #{x.identifier}\n'
+        msg += f"• <code>{x}:</code> <b>{value}</b> #{x.identifier}\n"
     msg += f"{len(errors)} have occurred since startup."
     if len(msg) > 4096:
         with open("errors_msg.txt", "w+") as f:
