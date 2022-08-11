@@ -1,26 +1,3 @@
-"""
-MIT License
-Copyright (C) 2017-2019, Paul Larsen
-Copyright (C) 2022 Awesome-Prince
-Copyright (c) 2022, BlackLover  •  Network, <https://github.com/Awesome-Prince/NekoRobot-3>
-This file is part of @NekoXRobot (Telegram Bot)
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the Software), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
 import html
 import io
 import random
@@ -29,16 +6,15 @@ import traceback
 
 import pretty_errors
 import requests
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackContext, CommandHandler
-
-from NekoRobot import DEV_USERS, OWNER_ID, dispatcher
+from NekoRobot import dispatcher, DEV_USERS, ERROR_LOGS
 
 pretty_errors.mono()
 
 
 class ErrorsDict(dict):
-    "A custom dict to store errors and their count"
+    """A custom dict to store errors and their count"""
 
     def __init__(self, *args, **kwargs):
         self.raw = []
@@ -70,9 +46,7 @@ def error_callback(update: Update, context: CallbackContext):
         stringio = io.StringIO()
         pretty_errors.output_stderr = stringio
         output = pretty_errors.excepthook(
-            type(context.error),
-            context.error,
-            context.error.__traceback__,
+            type(context.error), context.error, context.error.__traceback__,
         )
         pretty_errors.output_stderr = sys.stderr
         pretty_error = stringio.getvalue()
@@ -80,9 +54,7 @@ def error_callback(update: Update, context: CallbackContext):
     except:
         pretty_error = "Failed to create pretty error."
     tb_list = traceback.format_exception(
-        None,
-        context.error,
-        context.error.__traceback__,
+        None, context.error, context.error.__traceback__,
     )
     tb = "".join(tb_list)
     pretty_message = (
@@ -95,7 +67,7 @@ def error_callback(update: Update, context: CallbackContext):
         "Message: {}\n\n"
         "Full Traceback: {}"
     ).format(
-        pretty_error,
+            pretty_error,
         update.effective_user.id,
         update.effective_chat.title if update.effective_chat else "",
         update.effective_chat.id if update.effective_chat else "",
@@ -104,28 +76,28 @@ def error_callback(update: Update, context: CallbackContext):
         tb,
     )
     key = requests.post(
-        "https://nekobin.com/api/documents",
-        json={"content": pretty_message},
+        "https://www.toptal.com/developers/hastebin/documents",
+        data=pretty_message.encode("UTF-8"),
     ).json()
     e = html.escape(f"{context.error}")
-    if not key.get("result", {}).get("key"):
+    if not key.get('key'):
         with open("error.txt", "w+") as f:
             f.write(pretty_message)
         context.bot.send_document(
-            OWNER_ID,
-            open("error.txt", "rb"),
-            caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-            parse_mode="html",
+            ERROR_LOGS,
+                open("error.txt", "rb"),
+                caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+                parse_mode="html",
         )
         return
-    key = key.get("result").get("key")
-    url = f"https://nekobin.com/{key}.py"
+    key = key.get("key")
+    url = f"https://www.toptal.com/developers/hastebin/{key}"
     context.bot.send_message(
-        OWNER_ID,
-        text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-        reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Nekobin", url=url)]],
-        ),
+        ERROR_LOGS,
+            text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("HasteBin", url=url)]],
+            ),
         parse_mode="html",
     )
 
@@ -133,12 +105,10 @@ def error_callback(update: Update, context: CallbackContext):
 def list_errors(update: Update, context: CallbackContext):
     if update.effective_user.id not in DEV_USERS:
         return
-    e = {
-        k: v for k, v in sorted(errors.items(), key=lambda item: item[1], reverse=True)
-    }
+    e = dict(sorted(errors.items(), key=lambda item: item[1], reverse=True))
     msg = "<b>Errors List:</b>\n"
-    for x in e:
-        msg += f"• <code>{x}:</code> <b>{e[x]}</b> #{x.identifier}\n"
+    for x, value in e.items():
+        msg += f'• <code>{x}:</code> <b>{value}</b> #{x.identifier}\n'
     msg += f"{len(errors)} have occurred since startup."
     if len(msg) > 4096:
         with open("errors_msg.txt", "w+") as f:
@@ -146,7 +116,7 @@ def list_errors(update: Update, context: CallbackContext):
         context.bot.send_document(
             update.effective_chat.id,
             open("errors_msg.txt", "rb"),
-            caption=f"Too many errors have occured..",
+            caption="Too many errors have occured..",
             parse_mode="html",
         )
         return
