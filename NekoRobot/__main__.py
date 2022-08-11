@@ -135,9 +135,6 @@ HELP_STRINGS = """
    ❍ in PM: will send you your settings for all supported modules.
    ❍ in a group: will redirect you to pm, with all that chat's settings.
 """
-    if not ALLOW_EXCL
-    else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n",
-)
 
 GROUP_START_IMG = (
     "https://telegra.ph/file/6f6e36088ce15a189c400.mp4",
