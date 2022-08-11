@@ -96,7 +96,9 @@ if ENV:
     ARQ_API_KEY = os.environ.get("ARQ_API_KEY", None)
     BOT_USERNAME = os.environ.get("BOT_USERNAME", "")  # Bot Username
     BOT_NAME = os.environ.get("BOT_NAME", "")  # Bot Name
-    ERROR_LOGS = os.environ.get("ERROR_LOGS", None) # Error Logs (Channel Or Group Choice Is Yours)
+    ERROR_LOGS = os.environ.get(
+        "ERROR_LOGS", None
+    )  # Error Logs (Channel Or Group Choice Is Yours)
     URL = os.environ.get("URL", "")  # Does not contain token
     PORT = int(os.environ.get("PORT", 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
