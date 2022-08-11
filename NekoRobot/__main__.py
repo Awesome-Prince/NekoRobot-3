@@ -127,18 +127,14 @@ buttons = [
 
 
 HELP_STRINGS = """
-*{} is here! 
-I Use My Powers To Help Admins To Manage Their Groups! 
-*Main* commands available :
- ❥ /help: PM's you this message.
- ❥ /help <module name>: PM's you info about that module.
- ❥ /settings:
-   ✐ in PM: will send you your settings for all supported modules.
-   ✐ in a group: will redirect you to pm, with all that chat's settings.
-For all command use /* [or](https://telegra.ph/file/ab36976c685575c4e1a5f.jpg) *!*
-""".format(
-    dispatcher.bot.first_name,
-    ""
+*Main* commands available:
+ ➛ /help: PM's you this message.
+ ➛ /help <module name>: PM's you info about that module.
+ ➛ /donate: information on how to donate!
+ ➛ /settings:
+   ❍ in PM: will send you your settings for all supported modules.
+   ❍ in a group: will redirect you to pm, with all that chat's settings.
+"""
     if not ALLOW_EXCL
     else "\nAll commands can either be used with / or !.\nKindly use ! for commands if / is not working\n",
 )
