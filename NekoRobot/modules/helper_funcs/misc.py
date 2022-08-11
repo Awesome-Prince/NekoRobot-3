@@ -40,7 +40,7 @@ from Crypto import Hash, Protocol, Random
 from Crypto.Cipher import AES
 from telegram import Bot, InlineKeyboardButton, ParseMode
 from telegram.error import TelegramError
-from telegram.utils.helper import MessageLimit
+from telegram.utils.helpers import MessageLimit
 
 from NekoRobot import NO_LOAD
 
