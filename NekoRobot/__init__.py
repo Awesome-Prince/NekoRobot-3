@@ -229,13 +229,18 @@ print(
     "[NEKOROBOT] Project Maintained By: github.com/Awesome-Prince (https://github.com/Awesome-Prince/NekoRobot-3)"
 )
 
-# install aiohttp session
-print("[NEKOROBOT]: Initializing AIOHTTP Session")
+#------------------------------------------------------------------
+print("[INFO]: INITIALZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
 
-# install arq
-print("[NEKOROBOT]: Initializing ARQ Client")
-arq = (ARQ_API_URL, ARQ_API_KEY, aiohttpsession)
+# ARQ Client
+print("[INFO]: INITIALIZING ARQ CLIENT")
+arq = ARQ("https://arq.hamker.in", "ERUOGT-KHSTDT-RUYZKQ-FZNSHO-ARQ",
+          aiohttpsession)
+print(
+    "[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database"
+)
+
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 pbot = Client("NekoRobotpbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
