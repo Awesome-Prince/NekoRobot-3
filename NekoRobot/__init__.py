@@ -229,14 +229,13 @@ print(
     "[NEKOROBOT] Project Maintained By: github.com/Awesome-Prince (https://github.com/Awesome-Prince/NekoRobot-3)"
 )
 
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 print("[INFO]: INITIALZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
 
 # ARQ Client
 print("[INFO]: INITIALIZING ARQ CLIENT")
-arq = ARQ("https://arq.hamker.in", "ERUOGT-KHSTDT-RUYZKQ-FZNSHO-ARQ",
-          aiohttpsession)
+arq = ARQ("https://arq.hamker.in", "ERUOGT-KHSTDT-RUYZKQ-FZNSHO-ARQ", aiohttpsession)
 print(
     "[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database"
 )
