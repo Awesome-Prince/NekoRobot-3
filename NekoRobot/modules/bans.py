@@ -1,6 +1,6 @@
 import html
 
-from Nek0oRobot.modules.log_channel import gloggable, loggable
+from NekoRobot.modules.log_channel import gloggable, loggable
 from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
