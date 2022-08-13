@@ -24,9 +24,9 @@ __help__ = """
 
 ## Advanced: Pyrogram
 ```python3
-from NekoRobot import pgram
+from NekoRobot import pbot
 
-@pgram.on_message(filters.command("hi") & ~filters.edited & ~filters.bot)
+@pbot.on_message(filters.command("hi") & ~filters.edited & ~filters.bot)
 async def hmm(client, message):
     j = "Hello there"
     await message.reply(j)
