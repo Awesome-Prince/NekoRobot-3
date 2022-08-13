@@ -37,7 +37,7 @@ async def awake(event):
 「@NekoXRobot」
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 Here is the Repo Deploy your Own NekoRobot.
-⚜️Repo ➛ https://github.com/Awesome-Prince/NekoRobot-3.git
+⚜️Repo ➤ https://github.com/Awesome-Prince/NekoRobot-3.git
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 🔰 Thanks for your support 
 It's Fully stable Repo so you can deploy and make own Bot.
