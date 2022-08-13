@@ -241,8 +241,8 @@ def info(update: Update, context: CallbackContext):
     chat = update.effective_chat
     buttons = [
         [
-            InlineKeyboardButton(text="Health", url="https://t.me/"),
-            InlineKeyboardButton(text="Disasters", url="https://t.me/"),
+            InlineKeyboardButton(text="Health", url="https://t.me/BlackLover_Updates/10"),
+            InlineKeyboardButton(text="Disasters", url="https://t.me/BlackLover_Updates/11"),
         ],
     ]
     user_id = extract_user(update.effective_message, args)
@@ -324,7 +324,7 @@ def info(update: Update, context: CallbackContext):
         text += "\n\nThe Disaster level of this person is 'Tiger'."
     elif user.id in WOLVES:
         text += "\n\nThe Disaster level of this person is 'Wolf'."
-    elif user.id == 5291415314:
+    elif user.id == 5561111332:
         text += "\n\nCo-Owner Of A Bot."
 
     try:
@@ -459,13 +459,13 @@ def stats(update, context):
             + "\n*Bot statistics*:\n"
             + "\n".join([mod.__stats__() for mod in STATS])
             + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/BlackLover_Updates)\n\n"
-            + "\n╘══「 by [Koyūki Network](https://t.me/BlackLover_Network) 」\n",
+            + "\n╘══「 by [BlackLover • Network](https://t.me/BlackLover_Network) 」\n",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="Repo", url="github.com/Awesome-Prince/NekoRobot-2"
+                            text="Repo", url="github.com/Awesome-Prince/NekoRobot-3"
                         )
                     ]
                 ]
@@ -481,14 +481,14 @@ def stats(update, context):
                     )
                     + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/BlackLover_Updates)\n\n"
                 )
-                + "╘══「 by [Koyūki Network](https://t.me/BlackLover_Network) 」\n"
+                + "╘══「 by [BlackLover • Network](https://t.me/BlackLover_Network) 」\n"
             ),
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="Repo", url="github.com/Awesome-Prince/NekoRobot-2"
+                            text="Repo", url="github.com/Awesome-Prince/NekoRobot-3"
                         )
                     ]
                 ]
