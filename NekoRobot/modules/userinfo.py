@@ -342,12 +342,11 @@ def info(update: Update, context: CallbackContext):
 
     for mod in USER_INFO:
         try:
-            mod_info = mod.user_info(user.id)
+            mod_info = mod.__user_info__(user.id)
         except TypeError:
-            mod_info = mod.user_info(user.id, chat.id)
+            mod_info = mod.__user_info__(user.id, chat.id)
         if mod_info:
-            text += "\n" + mod_info
-    return text
+            text += "\n\n" + mod_info
 
     if INFOPIC:
         try:
