@@ -24,21 +24,21 @@ This repo was just reamped to suit an Anime-centric community. All original cred
 
 ### ╔═━「 Creator Info/Credits 」
 
-+ ➢ [Lovely-Prince](https://github.com/Awesome-Prince) : OWNER | DEV
-+ ➢ [RajuKumar](https://github.com/Awesome-RJ) : DEV
-+ ➢ [STB](https://github.com/STBxD) : DEV
-+ ➢ [H0DAKA](https://github.com/H0daka) : DEV
-+ ➢ [AASF-CYBERKING](https://github.com/AASFCYBERKING) : NEKO FUN MODULE, LIVEGRAM MODULE
-+ ➢ [CTZFAMILY](https://github.com/CTZFAMILY) : FUN MODULE, SOME MODULES
-+ ➢ [AkshayRajput](https://github.com/TheHamkerCat) : ARQ MODULES
-+ ➢ [TheRealPhoenix](https://github.com/rsktg) : BASE
-+ ➢ [DragSama](https://github.com/DragSama) : ANIME
-+ ➢ [TsunayoshiSawada](https://github.com/TsunayoshiSawada) : BASE
-+ ➢ [Pokurt](https://github.com/pokurt) : WHATANIME MODULE API
-+ ➢ [Dank-del](https://github.com/Dank-del) : LEWD MODULE
-+ ➢ [InukaAsith](https://github.com/InukaAsith) : MEMES, INLINE ETC MODULES 
-+ ➢ [AyraHikari](https://github.com/AyraHikari): FED MODULE
-+ ➢ [Peaktogoo](https://github.com/peaktogoo) : FED MODULE
++ [Lovely-Prince](https://github.com/Awesome-Prince) : OWNER | DEV
++ [RajuKumar](https://github.com/Awesome-RJ) : DEV
++ [STB](https://github.com/STBxD) : DEV
++ [H0DAKA](https://github.com/H0daka) : DEV
++ [AASF-CYBERKING](https://github.com/AASFCYBERKING) : NEKO FUN MODULE, LIVEGRAM MODULE
++ [CTZFAMILY](https://github.com/CTZFAMILY) : FUN MODULE, SOME MODULES
++ [AkshayRajput](https://github.com/TheHamkerCat) : ARQ MODULES
++ [TheRealPhoenix](https://github.com/rsktg) : BASE
++ [DragSama](https://github.com/DragSama) : ANIME
++ [TsunayoshiSawada](https://github.com/TsunayoshiSawada) : BASE
++ [Pokurt](https://github.com/pokurt) : WHATANIME MODULE API
++ [Dank-del](https://github.com/Dank-del) : LEWD MODULE
++ [InukaAsith](https://github.com/InukaAsith) : MEMES, INLINE ETC MODULES 
++ [AyraHikari](https://github.com/AyraHikari): FED MODULE
++ [Peaktogoo](https://github.com/peaktogoo) : FED MODULE
 
 ╘═━「 Any other authorship/credits can be seen through the commits. 」
 
