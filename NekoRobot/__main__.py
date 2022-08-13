@@ -269,25 +269,21 @@ def start(update: Update, context: CallbackContext):
                 timeout=60,
             )
     else:
-        first_name = update.effective_user.first_name
         update.effective_message.reply_animation(
-            random.choice(GROUP_START_IMG),
-            caption="<b>Yes,Darling I'm alive! Haven't sleep since</b>: <code>{}</code>".format(
-                uptime
-            ),
+            GROUP_START_IMG,
+            caption=
+            f"<b>Yes, Darling I'm alive!\nHaven't sleep since</b>: <code>{uptime}</code>",
             parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="Support🚑", url=f"https://t.me/BlackLover_Support"
-                        ),
-                        InlineKeyboardButton(
-                            text="Updates🛰️", url="https://t.me/BlackLover_Updates"
-                        ),
-                    ]
-                ]
-            ),
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton(
+                    text="🚑 Support",
+                    url=f"https://telegram.dog/{SUPPORT_CHAT}",
+                ),
+                InlineKeyboardButton(
+                    text="📢 Updates",
+                    url="https://telegram.dog/BlackLover_Updates",
+                ),
+            ]]),
         )
 
 
