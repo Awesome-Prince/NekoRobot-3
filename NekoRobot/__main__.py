@@ -24,6 +24,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 import importlib
+import random
 import re
 import time
 from sys import argv
@@ -269,23 +270,20 @@ def start(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_animation(
-            GROUP_START_IMG,
-            caption=f"<b>Yes, Darling I'm alive!\nHaven't sleep since</b>: <code>{uptime}</code>",
+            random.choice(GROUP_START_IMG),
+            caption=
+            f"<b>Yes, Darling I'm alive!\nHaven't sleep since</b>: <code>{uptime}</code>",
             parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="🚑 Support",
-                            url=f"https://telegram.dog/{SUPPORT_CHAT}",
-                        ),
-                        InlineKeyboardButton(
-                            text="📢 Updates",
-                            url="https://telegram.dog/BlackLover_Updates",
-                        ),
-                    ]
-                ]
-            ),
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton(
+                    text="🚑 Support",
+                    url=f"https://telegram.dog/{SUPPORT_CHAT}",
+                ),
+                InlineKeyboardButton(
+                    text="📢 Updates",
+                    url="https://telegram.dog/BlackLover_Updates",
+                ),
+            ]]),
         )
 
 
