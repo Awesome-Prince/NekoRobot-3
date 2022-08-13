@@ -414,7 +414,7 @@ def neko_about_callback(update, context):
                 ]
             ),
         )
-    elif query.data == "nekox_back":
+    elif query.data == "neko_back":
         first_name = update.effective_user.first_name
         uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_text(
