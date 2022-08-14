@@ -329,7 +329,7 @@ def info(update: Update, context: CallbackContext):
     elif user.id in WOLVES:
         text += "\n\nThe Disaster level of this person is 'Wolf'."
     elif user.id == 5561111332:
-        text += "\n\nCo-Owner Of A Bot."
+        text += "\n\nSenorita Is Girlfriend Of @BlackLover_Prince."
 
     try:
         user_member = chat.get_member(user.id)
