@@ -28,6 +28,6 @@ async def vplay(_, message):
 
 
 @pbot.on_message(filters.command("leavevc"))
-def leavevc(_, message):
-    await group_call.stop()
-    await group_call.leave_current_group_call()
+async def leavevc(_, message):
+    await calls.stop()
+    await calls.leave_current_group_call()
