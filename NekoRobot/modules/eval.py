@@ -1,14 +1,12 @@
-import html
+import traceback
+import sys
 import os
 import re
+import html
 import subprocess
-import sys
-import traceback
-from io import StringIO
-
+from io import StringIO, BytesIO
+from NekoRobot import pgram, DEV_USERS
 from pyrogram import filters
-
-from NekoRobot import DEV_USERS, pgram
 
 
 async def aexec(code, client, message):
@@ -105,7 +103,7 @@ async def terminal(client, message):
             process = subprocess.Popen(
                 shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE
             )
-        except Exception:
+        except Exception as err:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             errors = traceback.format_exception(
                 etype=exc_type, value=exc_obj, tb=exc_tb
@@ -117,15 +115,15 @@ async def terminal(client, message):
         output = None
     if output:
         if len(output) > 4096:
-            with open("MikuXProBot/output.txt", "w+") as file:
+            with open("NekoRobot/output.txt", "w+") as file:
                 file.write(output)
             await client.send_document(
                 message.chat.id,
-                "MikuXProBot/output.txt",
+                "NekoRobot/output.txt",
                 reply_to_message_id=message.message_id,
                 caption="`Output file`",
             )
-            os.remove("MikuXProBot/output.txt")
+            os.remove("NekoRobot/output.txt")
             return
         await message.reply(f"**Output:**\n`{output}`", parse_mode="markdown")
     else:
