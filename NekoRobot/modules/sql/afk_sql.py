@@ -25,10 +25,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import threading
 
-from sqlalchemy import Column, UnicodeText, Boolean, BigInteger
+from sqlalchemy import BigInteger, Boolean, Column, UnicodeText
 
 from NekoRobot.modules.sql import BASE, SESSION
-import uptime
+
 
 class AFK(BASE):
     __tablename__ = "afk_users"
