@@ -1,160 +1,130 @@
-"""
-MIT License
-Copyright (C) 2017-2019, Paul Larsen
-Copyright (C) 2022 Awesome-Prince
-Copyright (c) 2022, Koyūki • Network, <https://github.com/Awesome-Prince/NekoRobot>
-This file is part of @NekoXRobot (Telegram Bot)
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
-import ast
-import io
-import os
-
-# Common imports for eval
-import textwrap
 import traceback
-from contextlib import redirect_stdout
-
-from telegram import ParseMode, Update
-from telegram.ext import CallbackContext, CommandHandler
-
-from NekoRobot import LOGGER, dispatcher
-from NekoRobot.modules.helper_funcs.chat_status import dev_plus
-
-namespaces = {}
-
-
-def namespace_of(chat, update, bot):
-    if chat not in namespaces:
-        namespaces[chat] = {
-            "__builtins__": globals()["__builtins__"],
-            "bot": bot,
-            "effective_message": update.effective_message,
-            "effective_user": update.effective_user,
-            "effective_chat": update.effective_chat,
-            "update": update,
-        }
-    return namespaces[chat]
+import sys
+import os
+import re
+import html
+import subprocess
+from io import StringIO, BytesIO
+from NekoRobot import pgram, DEV_USERS
+from pyrogram import filters
 
 
-def log_input(update):
-    user = update.effective_user.id
-    chat = update.effective_chat.id
-    LOGGER.info(f"IN: {update.effective_message.text} (user={user}, chat={chat})")
+async def aexec(code, client, message):
+    exec(
+        "async def __aexec(client, message): "
+        + "".join(f"\n {l}" for l in code.split("\n"))
+    )
+    return await locals()["__aexec"](client, message)
 
 
-def send(msg, bot, update):
-    if len(str(msg)) > 2000:
-        with io.BytesIO(str.encode(msg)) as out_file:
-            out_file.name = "output.txt"
-            bot.send_document(chat_id=update.effective_chat.id, document=out_file)
-    else:
-        LOGGER.info(f"OUT: '{msg}'")
-        bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=f"<b>Result</b>:\n<code>{msg}</code>",
-            parse_mode=ParseMode.HTML,
-        )
-
-
-@dev_plus
-def evaluate(update: Update, context: CallbackContext):
-    bot = context.bot
-    send(do(eval, bot, update), bot, update)
-
-
-@dev_plus
-def execute(update: Update, context: CallbackContext):
-    bot = context.bot
-    send(do(exec, bot, update), bot, update)
-
-
-def cleanup_code(code):
-    if code.startswith("```") and code.endswith("```"):
-        return "\n".join(code.split("\n")[1:-1])
-    return code.strip("` \n")
-
-
-def do(func, bot, update):
-    log_input(update)
-    content = update.message.text.split(" ", 1)[-1]
-    body = cleanup_code(content)
-    env = namespace_of(update.message.chat_id, update, bot)
-    os.chdir(os.getcwd())
-    with open(
-        os.path.join(os.getcwd(), "NekoRobot/modules/helper_funcs/temp.txt"),
-        "w",
-    ) as temp:
-        temp.write(body)
-    stdout = io.StringIO()
-    to_compile = f'def func():\n{textwrap.indent(body, "  ")}'
+@pgram.on_message(filters.user(DEV_USERS) & filters.command("eval"))
+async def evaluate(client, message):
+    status_message = await message.reply_text("`Running ...`")
     try:
-        exec(to_compile, env)
-    except Exception as e:
-        return f"{e.__class__.__name__}: {e}"
-    func = env["func"]
+        cmd = message.text.split(" ", maxsplit=1)[1]
+    except IndexError:
+        await status_message.delete()
+        return
+    reply_to_id = message.message_id
+    if message.reply_to_message:
+        reply_to_id = message.reply_to_message.message_id
+    old_stderr = sys.stderr
+    old_stdout = sys.stdout
+    redirected_output = sys.stdout = StringIO()
+    redirected_error = sys.stderr = StringIO()
+    stdout, stderr, exc = None, None, None
     try:
-        with redirect_stdout(stdout):
-            func_return = func()
+        await aexec(cmd, client, message)
     except Exception:
-        value = stdout.getvalue()
-        return f"{value}{traceback.format_exc()}"
+        exc = traceback.format_exc()
+    stdout = redirected_output.getvalue()
+    stderr = redirected_error.getvalue()
+    sys.stdout = old_stdout
+    sys.stderr = old_stderr
+    evaluation = ""
+    if exc:
+        evaluation = f"<b>Exception:</b>\n<code>{html.escape(exc)}</code>\n"
+    if stderr:
+        evaluation += f"<b>STDERR:</b>\n<code>{html.escape(stderr)}</code>\n"
+    if stdout:
+        evaluation += f"<b>STDOUT:</b>\n<code>{html.escape(stdout)}</code>\n"
+    if not evaluation:
+        evaluation = "Success but no output!"
+    if len(evaluation) > 4096:
+        filename = "output.txt"
+        with open(filename, "w+", encoding="utf8") as out_file:
+            out_file.write(str(evaluation))
+        await message.reply_document(
+            document=filename,
+            caption=cmd,
+            disable_notification=True,
+            reply_to_message_id=reply_to_id,
+        )
+        os.remove(filename)
+        await status_message.delete()
     else:
-        value = stdout.getvalue()
-        result = None
-        if func_return is None:
-            if value:
-                result = f"{value}"
-            else:
-                try:
-                    result = f"{repr(ast.literal_eval(body, env))}"
-                except:
-                    pass
-        else:
-            result = f"{value}{func_return}"
-        if result:
-            return result
+        await status_message.edit(evaluation)
 
 
-@dev_plus
-def clear(update: Update, context: CallbackContext):
-    bot = context.bot
-    log_input(update)
-    global namespaces
-    if update.message.chat_id in namespaces:
-        del namespaces[update.message.chat_id]
-    send("Cleared locals.", bot, update)
-
-
-EVAL_HANDLER = CommandHandler(
-    ("e", "ev", "eva", "eval"),
-    evaluate,
-    run_async=True,
-)
-EXEC_HANDLER = CommandHandler(
-    ("x", "ex", "exe", "exec", "py"),
-    execute,
-    run_async=True,
-)
-CLEAR_HANDLER = CommandHandler("clearlocals", clear, run_async=True)
-
-dispatcher.add_handler(EVAL_HANDLER)
-dispatcher.add_handler(EXEC_HANDLER)
-dispatcher.add_handler(CLEAR_HANDLER)
-
-__mod_name__ = "Eval"
+@pgram.on_message(filters.user(DEV_USERS) & filters.command("term"))
+async def terminal(client, message):
+    if len(message.text.split()) == 1:
+        await message.reply("Usage: `/term echo owo`")
+        return
+    args = message.text.split(None, 1)
+    teks = args[1]
+    if "\n" in teks:
+        code = teks.split("\n")
+        output = ""
+        for x in code:
+            shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", x)
+            try:
+                process = subprocess.Popen(
+                    shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+                )
+            except Exception as err:
+                print(err)
+                await message.reply(
+                    """
+**Error:**
+```{}```
+""".format(
+                        err
+                    )
+                )
+            output += "**{}**\n".format(code)
+            output += process.stdout.read()[:-1].decode("utf-8")
+            output += "\n"
+    else:
+        shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", teks)
+        for a in range(len(shell)):
+            shell[a] = shell[a].replace('"', "")
+        try:
+            process = subprocess.Popen(
+                shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            )
+        except Exception as err:
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            errors = traceback.format_exception(
+                etype=exc_type, value=exc_obj, tb=exc_tb
+            )
+            await message.reply("""**Error:**\n```{}```""".format("".join(errors)))
+            return
+        output = process.stdout.read()[:-1].decode("utf-8")
+    if str(output) == "\n":
+        output = None
+    if output:
+        if len(output) > 4096:
+            with open("MikuXProBot/output.txt", "w+") as file:
+                file.write(output)
+            await client.send_document(
+                message.chat.id,
+                "MikuXProBot/output.txt",
+                reply_to_message_id=message.message_id,
+                caption="`Output file`",
+            )
+            os.remove("MikuXProBot/output.txt")
+            return
+        await message.reply(f"**Output:**\n`{output}`", parse_mode="markdown")
+    else:
+        await message.reply("**Output:**\n`No Output`")
