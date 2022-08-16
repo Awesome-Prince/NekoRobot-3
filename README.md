@@ -47,20 +47,10 @@ This repo was just reamped to suit an Anime-centric community. All original cred
 The Support group can be reached out to at [BlackLover • Support](https://telegram.dog/Blacklover_Support), where you can ask for help about [NekoRobot](https://telegram.dog/NekoX_bot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
 
 <details>
-	<summary>Heroku Deploy</summary>
-	<br>
-	<b>
-The Easiest Way to Deploy This Bot is Via Heroku.
-		In Order To deploy, You Just Have Fill The Necessary Environment Variables and Done!</b>
-	
-  <h1>
-    <p align="center">
-        <a href="https://heroku.com/deploy?template=https://github.com/Awesome-Prince/NekoRobot-3.git">
-            <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy">
-        </a>
-    </p>
-</h1>
-
+	<summary>Deploy Options</summary>
+<a href="https://cloud.okteto.com/#/deploy?repository=https://github.com/Awesome-Prince/NekoRobot-3"><img src="https://user-images.githubusercontent.com/36935426/167272305-91fd67c9-c3fc-4b4b-8a73-c35e57c8fcc5.png" height="40"></a>
+<a href="https://heroku.com/deploy?template=https://github.com/Awesome-Prince/NekoRobot-3"><img src="https://www.herokucdn.com/deploy/button.svg" height="40"></a>
+<a href="https://railway.app"><img src="https://railway.app/button.svg" height="40"></a>
 </details> 
 
 <details>
