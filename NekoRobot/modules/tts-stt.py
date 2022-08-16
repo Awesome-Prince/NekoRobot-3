@@ -1,5 +1,3 @@
-
-
 import os
 from datetime import datetime
 
@@ -7,8 +5,8 @@ import requests
 from gtts import gTTS, gTTSError
 from telethon.tl import functions, types
 
-from NekoRobot.events import register
 from NekoRobot import telethn as tbot
+from NekoRobot.events import register
 
 IBM_WATSON_CRED_PASSWORD = ""
 IBM_WATSON_CRED_URL = ""
