@@ -81,6 +81,7 @@ if ENV:
     CERT_PATH = os.environ.get("CERT_PATH")
     API_ID = os.environ.get("API_ID", None)
     API_HASH = os.environ.get("API_HASH", None)
+    STRING_SESSION = os.environ.get("STRING_SESSION", None)
     DB_URI = os.environ.get("DATABASE_URL")
     SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     DONATION_LINK = os.environ.get("DONATION_LINK")
@@ -168,7 +169,7 @@ else:
     CERT_PATH = Config.CERT_PATH
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
-
+    STRING_SESSION = Config.STRING_SESSION
     DB_URI = Config.SQLALCHEMY_DATABASE_URI
     REDIS_URL = Config.REDIS_URL
     DONATION_LINK = Config.DONATION_LINK
@@ -243,6 +244,11 @@ print(
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 pbot = Client("NekoRobotpbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
+musicbot = Client(
+    STRING_SESSION,
+    api_id=os.environ.get('API_ID'),
+    api_hash=os.environ['API_HASH'],
+)
 
 dispatcher = updater.dispatcher
 
