@@ -33,7 +33,12 @@
          "description": "Get API_HASH from my.telegram.org, used for telethon based modules.",
          "required": true,
          "value": ""
-      },    
+      }, 
+       "STRING_SESSION": {
+         "description": "Your Pyrogram Session For Music Bot.",
+         "required": true,
+         "value": ""
+      },
       "SQLALCHEMY_DATABASE_URI": {
          "description": "Your postgres sql db, empty this field if you dont have one.",
          "required": false,
