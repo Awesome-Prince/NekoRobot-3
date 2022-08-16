@@ -25,9 +25,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import threading
 
-from sqlalchemy import Column, UnicodeText, Boolean, BigInteger
-
 from MikuXProBot.modules.sql import BASE, SESSION
+from sqlalchemy import BigInteger, Boolean, Column, UnicodeText
 
 
 class AFK(BASE):
