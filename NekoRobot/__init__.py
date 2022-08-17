@@ -244,11 +244,6 @@ print(
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 pbot = Client("NekoRobotpbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
-musicbot = Client(
-    STRING_SESSION,
-    api_id=os.environ.get("API_ID"),
-    api_hash=os.environ["API_HASH"],
-)
 
 dispatcher = updater.dispatcher
 
