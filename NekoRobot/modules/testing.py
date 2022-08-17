@@ -1,6 +1,7 @@
 # Under Development
 
 from pyrogram.types import *
+from pyrogram import filters
 
 from NekoRobot import pbot
 
