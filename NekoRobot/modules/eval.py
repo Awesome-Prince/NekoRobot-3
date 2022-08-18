@@ -1,15 +1,12 @@
 import os
-import re
-import subprocess
 import sys
-from os import getenv
 import traceback
-from dotenv import load_dotenv
 from inspect import getfullargspec
 from io import StringIO
 from time import time
-from pyrogram import filters, Client
-from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup, Message)
+
+from pyrogram import filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
 async def aexec(code, client, message):
@@ -26,11 +23,7 @@ async def edit_or_reply(msg: Message, **kwargs):
     await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
-@app.on_message(
-    filters.command("eval")
-    & ~filters.forwarded
-    & ~filters.via_bot
-)
+@app.on_message(filters.command("eval") & ~filters.forwarded & ~filters.via_bot)
 async def executor(client, message):
     if len(message.command) < 2:
         return await edit_or_reply(
@@ -103,9 +96,7 @@ async def executor(client, message):
                 ]
             ]
         )
-        await edit_or_reply(
-            message, text=final_output, reply_markup=keyboard
-        )
+        await edit_or_reply(message, text=final_output, reply_markup=keyboard)
 
 
 @app.on_callback_query(filters.regex(r"runtime"))
