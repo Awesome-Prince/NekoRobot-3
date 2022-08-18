@@ -1,35 +1,46 @@
-import html
 import os
 import re
 import subprocess
 import sys
+from os import getenv
 import traceback
+from dotenv import load_dotenv
+from inspect import getfullargspec
 from io import StringIO
-
-from pyrogram import filters
-
-from NekoRobot import DEV_USERS, pgram
+from time import time
+from pyrogram import filters, Client
+from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup, Message)
 
 
 async def aexec(code, client, message):
     exec(
         "async def __aexec(client, message): "
-        + "".join(f"\n {l}" for l in code.split("\n"))
+        + "".join(f"\n {a}" for a in code.split("\n"))
     )
     return await locals()["__aexec"](client, message)
 
 
-@pgram.on_message(filters.user(DEV_USERS) & filters.command("eval"))
-async def evaluate(client, message):
-    status_message = await message.reply_text("`Running ...`")
+async def edit_or_reply(msg: Message, **kwargs):
+    func = msg.edit_text if msg.from_user.is_self else msg.reply
+    spec = getfullargspec(func.wrapped).args
+    await func(**{k: v for k, v in kwargs.items() if k in spec})
+
+
+@app.on_message(
+    filters.command("eval")
+    & ~filters.forwarded
+    & ~filters.via_bot
+)
+async def executor(client, message):
+    if len(message.command) < 2:
+        return await edit_or_reply(
+            message, text="Meow Meow!/n/nGive me some command to execute."
+        )
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
-        await status_message.delete()
-        return
-    reply_to_id = message.message_id
-    if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
+        return await message.delete()
+    t1 = time()
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = StringIO()
@@ -45,88 +56,80 @@ async def evaluate(client, message):
     sys.stderr = old_stderr
     evaluation = ""
     if exc:
-        evaluation = f"<b>Exception:</b>\n<code>{html.escape(exc)}</code>\n"
-    if stderr:
-        evaluation += f"<b>STDERR:</b>\n<code>{html.escape(stderr)}</code>\n"
-    if stdout:
-        evaluation += f"<b>STDOUT:</b>\n<code>{html.escape(stdout)}</code>\n"
-    if not evaluation:
-        evaluation = "Success but no output!"
-    if len(evaluation) > 4096:
+        evaluation = exc
+    elif stderr:
+        evaluation = stderr
+    elif stdout:
+        evaluation = stdout
+    else:
+        evaluation = "Success"
+    final_output = f"OUTPUT:\n
+{evaluation.strip()}
+"
+    if len(final_output) > 4096:
         filename = "output.txt"
         with open(filename, "w+", encoding="utf8") as out_file:
-            out_file.write(str(evaluation))
+            out_file.write(str(evaluation.strip()))
+        t2 = time()
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="⏳",
+                        callback_data=f"runtime {t2-t1} Seconds",
+                    )
+                ]
+            ]
+        )
         await message.reply_document(
             document=filename,
-            caption=cmd,
-            disable_notification=True,
-            reply_to_message_id=reply_to_id,
+            caption=f"INPUT:\n{cmd[0:980]}\n\nOUTPUT:\nAttached Document",
+            quote=False,
+            reply_markup=keyboard,
         )
+        await message.delete()
         os.remove(filename)
-        await status_message.delete()
     else:
-        await status_message.edit(evaluation)
+        t2 = time()
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="⏳",
+                        callback_data=f"runtime {round(t2-t1, 3)} Seconds",
+                    ),
+                    InlineKeyboardButton(
+                        text="🗑",
+                        callback_data=f"forceclose abc|{message.from_user.id}",
+                    ),
+                ]
+            ]
+        )
+        await edit_or_reply(
+            message, text=final_output, reply_markup=keyboard
+        )
 
 
-@pgram.on_message(filters.user(DEV_USERS) & filters.command("term"))
-async def terminal(client, message):
-    if len(message.text.split()) == 1:
-        await message.reply("Usage: `/term echo owo`")
-        return
-    args = message.text.split(None, 1)
-    teks = args[1]
-    if "\n" in teks:
-        code = teks.split("\n")
-        output = ""
-        for x in code:
-            shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", x)
-            try:
-                process = subprocess.Popen(
-                    shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-                )
-            except Exception as err:
-                print(err)
-                await message.reply(
-                    """
-**Error:**
-```{}```
-""".format(
-                        err
-                    )
-                )
-            output += "**{}**\n".format(code)
-            output += process.stdout.read()[:-1].decode("utf-8")
-            output += "\n"
-    else:
-        shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", teks)
-        for a in range(len(shell)):
-            shell[a] = shell[a].replace('"', "")
+@app.on_callback_query(filters.regex(r"runtime"))
+async def runtime_func_cq(_, cq):
+    runtime = cq.data.split(None, 1)[1]
+    await cq.answer(runtime, show_alert=True)
+
+
+@app.on_callback_query(filters.regex("forceclose"))
+async def forceclose_command(_, CallbackQuery):
+    callback_data = CallbackQuery.data.strip()
+    callback_request = callback_data.split(None, 1)[1]
+    query, user_id = callback_request.split("|")
+    if CallbackQuery.from_user.id != int(user_id):
         try:
-            process = subprocess.Popen(
-                shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            return await CallbackQuery.answer(
+                "You're not allowed to close this.", show_alert=True
             )
-        except Exception:
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            errors = traceback.format_exception(
-                etype=exc_type, value=exc_obj, tb=exc_tb
-            )
-            await message.reply("""**Error:**\n```{}```""".format("".join(errors)))
+        except:
             return
-        output = process.stdout.read()[:-1].decode("utf-8")
-    if str(output) == "\n":
-        output = None
-    if output:
-        if len(output) > 4096:
-            with open("NekoRobot/output.txt", "w+") as file:
-                file.write(output)
-            await client.send_document(
-                message.chat.id,
-                "NekoRobot/output.txt",
-                reply_to_message_id=message.message_id,
-                caption="`Output file`",
-            )
-            os.remove("NekoRobot/output.txt")
-            return
-        await message.reply(f"**Output:**\n`{output}`", parse_mode="markdown")
-    else:
-        await message.reply("**Output:**\n`No Output`")
+    await CallbackQuery.message.delete()
+    try:
+        await CallbackQuery.answer()
+    except:
+        return
