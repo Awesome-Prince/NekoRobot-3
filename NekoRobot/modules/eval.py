@@ -40,7 +40,7 @@ from inspect import getfullargspec
 from io import StringIO
 from time import time
 
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
