@@ -38,7 +38,7 @@ from pykeyboard import InlineKeyboard
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton
 
-from NekoRobot import pgram, aiohttpsession
+from NekoRobot import aiohttpsession, pgram
 from NekoRobot.utils.errors import capture_err
 from NekoRobot.utils.pastebin import paste
 
@@ -87,9 +87,7 @@ async def paste_func(_, message):
 
     if await isPreviewUp(preview):
         try:
-            await message.reply_photo(photo=preview,
-                                      quote=False,
-                                      reply_markup=button)
+            await message.reply_photo(photo=preview, quote=False, reply_markup=button)
             return await m.delete()
         except Exception:
             pass
