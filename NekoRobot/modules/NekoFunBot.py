@@ -137,6 +137,7 @@ def sleep(update, context):
 
 
 KISS_HANDLER = MessageHandler(Filters.regex("(?i)Neko kiss"), kiss, run_async=True)
+BLUSH_HANDLER = MessageHandler(Filters.regex("(?i)Neko blush"), blush, run_async=True)
 PAT_HANDLER = MessageHandler(Filters.regex("(?i)Neko pat"), pat, run_async=True)
 HUG_HANDLER = MessageHandler(Filters.regex("(?i)Neko hug"), hug, run_async=True)
 SLAP_HANDLER = MessageHandler(Filters.regex("(?i)Neko slap"), slap, run_async=True)
