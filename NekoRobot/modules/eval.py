@@ -7,7 +7,7 @@ from time import time
 
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-
+from NekoRobot import pbot as app
 
 async def aexec(code, client, message):
     exec(
