@@ -26,7 +26,9 @@ __help__ = """
 ```python3
 from NekoRobot import pbot
 
-@pbot.on_message(filters.command("hi") & ~filters.edited & ~filters.bot)
+Neko_PYRO_Hello = 
+
+@pgram.on_message(Neko_PYRO_Paste) & ~filters.edited & ~filters.bot)
 async def hmm(client, message):
     j = "Hello there"
     await message.reply(j)
