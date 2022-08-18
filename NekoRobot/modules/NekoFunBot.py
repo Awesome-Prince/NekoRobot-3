@@ -134,7 +134,9 @@ def sleep(update, context):
         e = r.json()
         sleepme = e["results"][0]["url"]
         msg.reply_video(sleepme)
-
+        
+except Exception as e:
+          print(e)
 
 KISS_HANDLER = MessageHandler(Filters.regex("Neko kiss"), kiss, run_async=True)
 BLUSH_HANDLER = MessageHandler(Filters.regex("Neko blush"), blush, run_async=True)
