@@ -157,7 +157,7 @@ async def do(func, bot, update):
     Neko_PYRO_Eval & filters.user(DEV_USERS) & (~filters.forwarded) & (~filters.via_bot)
 )
 @pgram.on_message(filters.edited)(Neko_PYRO_Eval)
-async def executor(client, message):
+async def executor(client, message, message.cmd.value):
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
