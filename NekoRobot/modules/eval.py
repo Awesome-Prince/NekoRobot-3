@@ -47,7 +47,7 @@ from telegram.constants import ParseMode
 from telegram.ext import CallbackContext, CommandHandler
 
 from NekoRobot import DEV_USERS, LOGGER, dis
-from NekoRobot import pgram
+from NekoRobot import pgram, dispatcher
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 Neko_PYRO_Eval = filters.command(["eval", "e"])
@@ -234,7 +234,7 @@ async def clear(update: Update, context: CallbackContext) -> None:
     await send("Cleared locals.", bot, update)
 
 
-dis.add_handler(CommandHandler(("x", "ex", "exe", "py"), execute)
-dis.add_handler(CommandHandler("clearlocals", clear)
+dispatcher.add_handler(CommandHandler(("x", "ex", "exe", "py"), execute)
+dispatcher.add_handler(CommandHandler("clearlocals", clear)
 
 __mod_name__ = "Eval"
