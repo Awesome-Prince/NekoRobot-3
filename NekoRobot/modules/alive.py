@@ -37,11 +37,11 @@ from NekoRobot.events import register
 
 edit_time = 5
 """ =======================Neko====================== """
-file1 = ""
-file2 = ""
-file3 = ""
-file4 = ""
-file5 = ""
+file1 = "https://telegra.ph/file/cd7aad1ea310312886358.png"
+file2 = "https://telegra.ph/file/48a97320463caa61dba3d.png"
+file3 = "https://telegra.ph/file/2295a7207495eccbbe298.png"
+file4 = "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
+file5 = "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
 """ =======================Neko====================== """
 
 BUTTON = [
