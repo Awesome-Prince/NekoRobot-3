@@ -69,7 +69,7 @@ from NekoRobot import (
     telethn,
     updater,
 )
-from NekoRobot.hacking_script import PM_START_TEXT
+from NekoRobot.hacking_script import START_BOY
 
 # needed to load dynamic modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
@@ -109,20 +109,20 @@ def get_readable_time(seconds: int) -> str:
 buttons = [
     [
         InlineKeyboardButton(
-            text=f"Add {BOT_NAME} To Your Group",
-            url=f"t.me/{BOT_USERNAME}?startgroup=true",
+            text=f"Add {FUCK BOY} To Your Group",
+            url=f"t.me/{https://telegra.ph/file/679670b59ce2b039d3a71.jpg}?startgroup=true",
         )
     ],
     [
-        InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-        InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/Besties_XD"),
+        InlineKeyboardButton(text="[🥺 ʜᴇʟᴘ 🥺 ]", callback_data="help_back"),
+        InlineKeyboardButton(text="❔Chit Chat", url="https://t.me/its_like_mee"),
         InlineKeyboardButton(
-            text="[► Repo ◄]", url="https://GitHub.com/Awesome-Prince/NekoRobot-3"
+            text="[👿 ABOUT 👿]", url="https://Dear comrade"
         ),
     ],
     [
-        InlineKeyboardButton(text="🚑 Support", url=f"https://t.me/{SUPPORT_CHAT}"),
-        InlineKeyboardButton(text="📢 Updates", url="https://t.me/BlackLover_Updates"),
+        InlineKeyboardButton(text="🚑 Support", url=f"https://t.me/{comrade_robotz}"),
+        InlineKeyboardButton(text="📢 Updates", url="https://t.me/comrade_network"),
     ],
 ]
 
@@ -270,7 +270,7 @@ def start(update: Update, context: CallbackContext):
             )
     else:
         update.effective_message.reply_animation(
-            random.choice(GROUP_START_IMG),
+            random.choice(https://telegra.ph/file/679670b59ce2b039d3a71.jpg),
             caption=f"<b>Yes, Darling I'm alive!\nHaven't sleep since</b>: <code>{uptime}</code>",
             parse_mode=ParseMode.HTML,
             reply_markup=InlineKeyboardMarkup(
