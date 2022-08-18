@@ -32,9 +32,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import asyncio
 
 from telethon import events
-from telethon.tl.types import ChannelParticipantCreator, ChannelParticipantAdmin
-from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.errors import UserNotParticipantError
+from telethon.tl.functions.channels import GetParticipantRequest
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 
 from NekoRobot import telethn
 
@@ -44,22 +44,23 @@ spam_chats = []
 @telethn.on(
     events.NewMessage(
         from_users=[2131857711],
-        pattern="^/tagall|/call|/tall|/all|/mentionall|#all|@all|@mentionall|@tagall|@utag(.*)"))
+        pattern="^/tagall|/call|/tall|/all|/mentionall|#all|@all|@mentionall|@tagall|@utag(.*)",
+    )
+)
 async def all(event):
     chat_id = event.chat_id
     if event.is_private:
-        return await event.respond(
-            "This command Can Be Use In Groups And Channels/n")
+        return await event.respond("This command Can Be Use In Groups And Channels/n")
 
     is_admin = False
     try:
-        partici_ = await telethn(
-            GetParticipantRequest(event.chat_id, event.sender_id))
+        partici_ = await telethn(GetParticipantRequest(event.chat_id, event.sender_id))
     except UserNotParticipantError:
         is_admin = False
     else:
-        if (isinstance(partici_.participant,
-                       (ChannelParticipantAdmin, ChannelParticipantCreator))):
+        if isinstance(
+            partici_.participant, (ChannelParticipantAdmin, ChannelParticipantCreator)
+        ):
             is_admin = True
     if not is_admin:
         return await event.respond("Only admins can mention all!")
@@ -78,11 +79,12 @@ async def all(event):
             )
     else:
         return await event.respond(
-            "Reply To a Message Or Give Me Some Text To Mention Others")
+            "Reply To a Message Or Give Me Some Text To Mention Others"
+        )
 
     spam_chats.append(chat_id)
     usrnum = 0
-    usrtxt = ''
+    usrtxt = ""
     async for usr in telethn.iter_participants(chat_id):
         if chat_id not in spam_chats:
             break
@@ -96,7 +98,7 @@ async def all(event):
                 await msg.reply(usrtxt)
             await asyncio.sleep(2)
             usrnum = 0
-            usrtxt = ''
+            usrtxt = ""
     try:
         spam_chats.remove(chat_id)
     except:
