@@ -8,7 +8,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton
 
 from NekoRobot import aiohttpsession as session
-from NekoRobot import pbot as app
+from NekoRobot import pbot
 from NekoRobot.utils.errors import capture_err
 from NekoRobot.utils.pastebin import paste
 
@@ -32,7 +32,7 @@ async def isPreviewUp(preview: str) -> bool:
     return False
 
 
-@app.on_message(filters.command("paste") & ~filters.edited)
+@pbot.on_message(filters.command)("paste") & ~filters.edited)
 @capture_err
 async def paste_func(_, message):
     if not message.reply_to_message:
