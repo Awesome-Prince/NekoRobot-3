@@ -46,8 +46,8 @@ from telegram import Update
 from telegram.constants import ParseMode
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import DEV_USERS, LOGGER, dis
-from NekoRobot import pgram, dispatcher
+from NekoRobot import DEV_USERS, LOGGER, dispatcher
+from NekoRobot import pgram
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 Neko_PYRO_Eval = filters.command(["eval", "e"])
