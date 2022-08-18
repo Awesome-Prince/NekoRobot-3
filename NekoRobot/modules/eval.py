@@ -44,10 +44,9 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram import Update
 from telegram.constants import ParseMode
-from telegram.ext import CallbackContext, CommandHandler
+from telegram.ext import CallbackContext
 
-from NekoRobot import DEV_USERS, LOGGER, dispatcher
-from NekoRobot import pgram
+from NekoRobot import DEV_USERS, LOGGER, pgram
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 Neko_PYRO_Eval = filters.command(["eval", "e"])
@@ -70,16 +69,14 @@ def namespace_of(chat, update, bot):
 def log_input(update):
     user = update.effective_user.id
     chat = update.effective_chat.id
-    LOGGER.info(
-        f"IN: {update.effective_message.text} (user={user}, chat={chat})")
+    LOGGER.info(f"IN: {update.effective_message.text} (user={user}, chat={chat})")
 
 
 async def send(msg, bot, update):
     if len(str(msg)) > 2000:
         with io.BytesIO(str.encode(msg)) as out_file:
             out_file.name = "output.txt"
-            await bot.send_document(chat_id=update.effective_chat.id,
-                                    document=out_file)
+            await bot.send_document(chat_id=update.effective_chat.id, document=out_file)
     else:
         LOGGER.info(f"OUT: '{msg}'")
         await bot.send_message(
@@ -90,8 +87,10 @@ async def send(msg, bot, update):
 
 
 async def aexec(code, client, message):
-    exec("async def __aexec(client, message): " +
-         "".join(f"\n {a}" for a in code.split("\n")))
+    exec(
+        "async def __aexec(client, message): "
+        + "".join(f"\n {a}" for a in code.split("\n"))
+    )
     return await locals()["__aexec"](client, message)
 
 
@@ -120,9 +119,8 @@ async def do(func, bot, update):
     env = namespace_of(update.message.chat_id, update, bot)
     os.chdir(os.getcwd())
     with open(
-            os.path.join(os.getcwd(),
-                         "NekoRobot/modules/helper_funcs/temp.txt"),
-            "w",
+        os.path.join(os.getcwd(), "NekoRobot/modules/helper_funcs/temp.txt"),
+        "w",
     ) as temp:
         temp.write(body)
     stdout = io.StringIO()
@@ -155,8 +153,9 @@ async def do(func, bot, update):
             return result
 
 
-@pgram.on_message(Neko_PYRO_Eval & filters.user(DEV_USERS) &
-                  (~filters.forwarded) & (~filters.via_bot))
+@pgram.on_message(
+    Neko_PYRO_Eval & filters.user(DEV_USERS) & (~filters.forwarded) & (~filters.via_bot)
+)
 @pgram.on_edited_message(Neko_PYRO_Eval)
 async def executor(client, message):
     try:
@@ -192,16 +191,19 @@ async def executor(client, message):
         with open(filename, "w+", encoding="utf8") as out_file:
             out_file.write(str(evaluation.strip()))
         t2 = time()
-        keyboard = InlineKeyboardMarkup([[
-            InlineKeyboardButton(
-                text="⏳",
-                callback_data=f"runtime {t2-t1} Seconds",
-            )
-        ]])
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="⏳",
+                        callback_data=f"runtime {t2-t1} Seconds",
+                    )
+                ]
+            ]
+        )
         await message.reply_document(
             document=filename,
-            caption=
-            f"**INPUT:**\n`{cmd[:980]}`\n\n**OUTPUT:**\n`Attached Document`",
+            caption=f"**INPUT:**\n`{cmd[:980]}`\n\n**OUTPUT:**\n`Attached Document`",
             quote=False,
             reply_markup=keyboard,
         )
@@ -210,12 +212,16 @@ async def executor(client, message):
         os.remove(filename)
     else:
         t2 = time()
-        keyboard = InlineKeyboardMarkup([[
-            InlineKeyboardButton(
-                text="⏳",
-                callback_data=f"runtime {round(t2-t1, 3)} Seconds",
-            )
-        ]])
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="⏳",
+                        callback_data=f"runtime {round(t2-t1, 3)} Seconds",
+                    )
+                ]
+            ]
+        )
         await edit_or_reply(message, text=final_output, reply_markup=keyboard)
 
 
