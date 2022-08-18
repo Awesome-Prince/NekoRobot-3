@@ -223,16 +223,3 @@ async def executor(client, message):
 async def runtime_func_cq(_, cq):
     runtime = cq.data.split(None, 1)[1]
     await cq.answer(runtime, show_alert=True)
-
-
-@dev_plus
-async def clear(update: Update, context: CallbackContext) -> None:
-    bot = context.bot
-    log_input(update)
-    if update.message.chat_id in namespaces:
-        del namespaces[update.message.chat_id]
-    await send("Cleared locals.", bot, update)
-
-
-dispatcher.add_handler(CommandHandler("x", "ex", "exe", "py", execute)
-dispatcher.add_handler(CommandHandler("clearlocals", clear)
