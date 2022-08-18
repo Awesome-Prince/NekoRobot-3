@@ -84,6 +84,7 @@ def slap(update, context):
         msg = update.effective_message
         msg.reply_video(slapme, caption="Here... Take this from me.")
 
+
 def blush(update, context):
     msg = update.effective_message
     if msg.reply_to_message:
@@ -94,14 +95,17 @@ def blush(update, context):
         msg = update.effective_message
         name1 = msg.from_user.first_name
         name2 = msg.reply_to_message.from_user.first_name
-        msg.reply_video(blushme, caption="*{} blushes by seeing {}*~".format(name1, name2))
+        msg.reply_video(
+            blushme, caption="*{} blushes by seeing {}*~".format(name1, name2)
+        )
     else:
-      url = "https://nekos.best/api/v2/blush"
-      r = requests.get(url)
-      e = r.json()
-      blushme = e["results"][0]["url"]
-      name1 = message.from_user.first_name
-      msg.reply_video(blushme, caption="*Oh {}~kun I Luv You*~".format(name1))
+        url = "https://nekos.best/api/v2/blush"
+        r = requests.get(url)
+        e = r.json()
+        blushme = e["results"][0]["url"]
+        name1 = message.from_user.first_name
+        msg.reply_video(blushme, caption="*Oh {}~kun I Luv You*~".format(name1))
+
 
 def cute(update, context):
     msg = update.effective_message
