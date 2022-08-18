@@ -42,9 +42,7 @@ spam_chats = []
 
 
 @telethn.on(
-    events.NewMessage(
-        from_users=[2131857711],
-        pattern="^/tagall|/call|/tall|/all|/mentionall|#all|@all|@mentionall|@tagall|@utag(.*)",
+    events.NewMessage(pattern="^/tagall|/call|/tall|/all|/mentionall|#all|@all|@mentionall|@tagall|@utag(.*)",
     )
 )
 async def all(event):
