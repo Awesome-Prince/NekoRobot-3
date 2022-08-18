@@ -26,12 +26,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import asyncio
 import datetime
 from datetime import datetime
-from telethon import Button, __version__ as tlhver
-from NekoRobot.events import register
-from NekoRobot import telethn
-from NekoRobot import BOT_USERNAME, BOT_NAME, SUPPORT_CHAT
 from platform import python_version
+
 from pyrogram import __version__ as pyrover
+from telethon import Button
+from telethon import __version__ as tlhver
+
+from NekoRobot import BOT_NAME, BOT_USERNAME, SUPPORT_CHAT, telethn
+from NekoRobot.events import register
 
 edit_time = 5
 """ =======================Neko====================== """
@@ -42,10 +44,12 @@ file4 = ""
 file5 = ""
 """ =======================Neko====================== """
 
-BUTTON = [[
-    Button.url("【► HELP ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
-    Button.url("【► SUPPORT ◄】", f"https://t.me/{SUPPORT_CHAT}"),
-]]
+BUTTON = [
+    [
+        Button.url("【► HELP ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
+        Button.url("【► SUPPORT ◄】", f"https://t.me/{SUPPORT_CHAT}"),
+    ]
+]
 
 START_TIME = datetime.utcnow()
 START_TIME_ISO = START_TIME.replace(microsecond=0).isoformat()
@@ -80,67 +84,39 @@ async def hmm(yes):
     pm_caption += f"**♡ Telethon Version :** `{tlhver}`\n\n"
     pm_caption += f"**♡ Pyrogram Version :** `{pyrover}`\n\n"
     pm_caption += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
-    BUTTON = [[
-        Button.url("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
-        Button.url("【► Support ◄】",
-                   f"https://t.me/{SUPPORT_CHAT}"),
-    ]]
-    on = await telethn.send_file(yes.chat_id,
-                                 file=file1,
-                                 caption=pm_caption,
-                                 buttons=BUTTON,
-                                 reply_to=yes)
+    BUTTON = [
+        [
+            Button.url("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
+            Button.url("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
+        ]
+    ]
+    on = await telethn.send_file(
+        yes.chat_id, file=file1, caption=pm_caption, buttons=BUTTON, reply_to=yes
+    )
 
     await asyncio.sleep(edit_time)
-    ok = await telethn.edit_message(yes.chat_id,
-                                    on,
-                                    file=file2,
-                                    buttons=BUTTON)
+    ok = await telethn.edit_message(yes.chat_id, on, file=file2, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok2 = await telethn.edit_message(yes.chat_id,
-                                     ok,
-                                     file=file3,
-                                     buttons=BUTTON)
+    ok2 = await telethn.edit_message(yes.chat_id, ok, file=file3, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok3 = await telethn.edit_message(yes.chat_id,
-                                     ok2,
-                                     file=file4,
-                                     buttons=BUTTON)
+    ok3 = await telethn.edit_message(yes.chat_id, ok2, file=file4, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok4 = await telethn.edit_message(yes.chat_id,
-                                     ok3,
-                                     file=file5,
-                                     buttons=BUTTON)
+    ok4 = await telethn.edit_message(yes.chat_id, ok3, file=file5, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok5 = await telethn.edit_message(yes.chat_id,
-                                     ok4,
-                                     file=file1,
-                                     buttons=BUTTON)
+    ok5 = await telethn.edit_message(yes.chat_id, ok4, file=file1, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok6 = await telethn.edit_message(yes.chat_id,
-                                     ok5,
-                                     file=file2,
-                                     buttons=BUTTON)
+    ok6 = await telethn.edit_message(yes.chat_id, ok5, file=file2, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok7 = await telethn.edit_message(yes.chat_id,
-                                     ok6,
-                                     file=file3,
-                                     buttons=BUTTON)
+    ok7 = await telethn.edit_message(yes.chat_id, ok6, file=file3, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok8 = await telethn.edit_message(yes.chat_id,
-                                     ok7,
-                                     file=file4,
-                                     buttons=BUTTON)
+    ok8 = await telethn.edit_message(yes.chat_id, ok7, file=file4, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok9 = await telethn.edit_message(yes.chat_id,
-                                     ok8,
-                                     file=file5,
-                                     buttons=BUTTON)
+    ok9 = await telethn.edit_message(yes.chat_id, ok8, file=file5, buttons=BUTTON)
