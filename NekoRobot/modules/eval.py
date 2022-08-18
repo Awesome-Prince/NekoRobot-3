@@ -156,7 +156,7 @@ async def do(func, bot, update):
 @pgram.on_message(
     Neko_PYRO_Eval & filters.user(DEV_USERS) & (~filters.forwarded) & (~filters.via_bot)
 )
-@pgram.on_message_filters.edited(Neko_PYRO_Eval)
+@pgram.on_message(filters.edited)(Neko_PYRO_Eval)
 async def executor(client, message):
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
