@@ -45,7 +45,8 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import DEV_USERS, LOGGER, pgram
+from NekoRobot import DEV_USERS, LOGGER
+from NekoRobot import pbot as pgram
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 Neko_PYRO_Eval = filters.command(["eval", "e"])
@@ -155,7 +156,7 @@ async def do(func, bot, update):
 @pgram.on_message(
     Neko_PYRO_Eval & filters.user(DEV_USERS) & (~filters.forwarded) & (~filters.via_bot)
 )
-@pgram.on_edited_message(Neko_PYRO_Eval)
+@pgram.on_message_filters.edited(Neko_PYRO_Eval)
 async def executor(client, message):
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
