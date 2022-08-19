@@ -252,19 +252,13 @@ async def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    text="[► Back ◄]", callback_data="help_back"
-                                )
-                            ]
-                        ]
+                        [[InlineKeyboardButton(text="[► Back ◄]", callback_data="help_back")]]
                     ),
                 )
 
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
-                chat = dispatcher.bot.getChat(match.group(1))
+                chat = NEKO-PTB.bot.getChat(match.group(1))
 
                 if is_user_admin(chat, update.effective_user.id):
                     send_settings(match.group(1), update.effective_user.id, False)
@@ -328,7 +322,9 @@ async def error_handler(update: Update, context: CallbackContext):
     if len(message) >= 4096:
         message = message[:4096]
     # Finally, send the message
-    NEKO_PTB.bot.send_message(chat_id=OWNER_ID, text=message, parse_mode=ParseMode.HTML)
+    NEKO_PTB.bot.send_message(
+        chat_id=OWNER_ID, text=message, parse_mode=ParseMode.HTML
+    )
 
 
 # for test purposes
