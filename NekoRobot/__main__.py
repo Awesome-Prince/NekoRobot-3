@@ -700,27 +700,18 @@ async def migrate_chats(update: Update):
 
 
 def main():
-    NEKO_PTB.add_error_handler(error_callback)
-    NEKO_PTB.add_handler(CommandHandler("test", test, run_async=True))
-    NEKO_PTB.add_handler(CommandHandler("start", start, run_async=True))
+    test_handler = DisableAbleCommandHandler("test", test, run_async=True)
+    start_handler = DisableAbleCommandHandler("start", start, run_async=True)
 
-    NEKO_PTB.add_handler(CommandHandler("help", get_help, run_async=True))
-    NEKO_PTB.add_handler(
-        CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
-    )
+    help_handler = DisableAbleCommandHandler("help", get_help, run_async=True)
+    help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
 
-    NEKO_PTB.add_handler(CommandHandler("settings", get_settings, run_async=True))
-    NEKO_PTB.add_handler(
-        CallbackQueryHandler(settings_button, pattern=r"stngs_", run_async=True)
-    )
+    settings_handler = DisableAbleCommandHandler("settings", get_settings)
+    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_", run_async=True)
 
-    NEKO_PTB.add_handler(
-        CallbackQueryHandler(neko_callback_data, pattern=r"neko_", run_async=True)
-    )
-    NEKO_PTB.add_handler(CommandHandler("donate", donate))
-    NEKO_PTB.add_handler(
-        MessageHandler(Filters.status_update.migrate, migrate_chats, run_async=True)
-    )
+    data_callback_handler = CallbackQueryHandler(neko_callback_data, pattern=r"neko_", run_async=True)
+    donate_handler = DisableAbleCommandHandler("donate", donate, run_async=True)
+    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats, run_async=True)
 
     NEKO_PTB.add_handler(start_handler)
     NEKO_PTB.add_handler(help_handler)
