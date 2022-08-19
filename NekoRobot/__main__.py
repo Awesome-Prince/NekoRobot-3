@@ -47,7 +47,13 @@ from telegram.error import (
     TelegramError,
     TimedOut,
 )
-from telegram.ext import CallbackContext, CallbackQueryHandler, MessageHandler, filters, CommandHandler
+from telegram.ext import (
+    CallbackContext,
+    CallbackQueryHandler,
+    CommandHandler,
+    MessageHandler,
+    filters,
+)
 from telegram.utils.helpers import escape_markdown
 
 import NekoRobot.modules.sql.users_sql as sql
@@ -703,9 +709,7 @@ def main():
         CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
     )
 
-    NEKO_PTB.add_handler(
-        CommandHandler("settings", get_settings, run_async=True)
-    )
+    NEKO_PTB.add_handler(CommandHandler("settings", get_settings, run_async=True))
     NEKO_PTB.add_handler(
         CallbackQueryHandler(settings_button, pattern=r"stngs_", run_async=True)
     )
