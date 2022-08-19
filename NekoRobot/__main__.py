@@ -252,24 +252,18 @@ async def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton(
-                                    text="[► Back ◄]", callback_data="help_back"
-                                )
-                            ]
-                        ]
+                        [[InlineKeyboardButton(text="[► Back ◄]", callback_data="help_back")]]
                     ),
                 )
 
-       elif args[0].lower().startswith("stngs_"):
+            elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
-                await NEKO_PTB.bot.getChat(match[1])
+                chat = dispatcher.bot.getChat(match.group(1))
 
-                if await is_user_admin(update, update.effective_user.id):
-                    send_settings(match[1], update.effective_user.id, False)
+                if is_user_admin(chat, update.effective_user.id):
+                    send_settings(match.group(1), update.effective_user.id, False)
                 else:
-                    send_settings(match[1], update.effective_user.id, True)
+                    send_settings(match.group(1), update.effective_user.id, True)
 
             elif args[0][1:].isdigit() and "rules" in IMPORTED:
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
