@@ -245,7 +245,14 @@ updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 pbot = Client("NekoRobotpbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
-dispatcher = updater.dispatcher
+NEKO_PTB = (
+    tg.Application.builder()
+    .token(TOKEN)
+    .build()
+)
+
+# asyncio.get_event_loop().run_until_complete(NEKO_PTB.bot.initialize())
+#------------------------------------------------------------------
 
 
 async def get_entity(client, entity):
