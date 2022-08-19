@@ -741,6 +741,5 @@ def main():
 if __name__ == "__main__":
     LOGGER.info(f"Successfully loaded modules: {str(ALL_MODULES)}")
     telethn.start(bot_token=TOKEN)
-    pgram.start()
     main()
     idle()
