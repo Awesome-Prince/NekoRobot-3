@@ -752,7 +752,7 @@ def main():
             allowed_updates=Update.ALL_TYPES,
         )
 
-    if len(argv) not in (1, 3, 4):
+    if len not in (1, 3, 4):
         telethn.disconnect()
     else:
         telethn.run_until_disconnected()
