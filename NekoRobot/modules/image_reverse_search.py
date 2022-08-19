@@ -108,7 +108,7 @@ def reverse(update: Update, context: CallbackContext):
             return
     else:
         msg.reply_markdown(
-            "Please reply to a sticker, or an image to search it!\nDo you know that you can search an image with a link too? `/reverse [picturelink] <amount>`."
+            "aa gya meowderchod🌚\npadh bhi le laude reverse karne se ghar nhi chalta btw agar ladki ne kia h to i love u darling."
         )
         return
 
