@@ -52,7 +52,6 @@ from telegram.ext import (
     CallbackQueryHandler,
     CommandHandler,
     MessageHandler,
-    filters,
 )
 from telegram.utils.helpers import escape_markdown
 
