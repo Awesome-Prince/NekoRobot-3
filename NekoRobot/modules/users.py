@@ -6,7 +6,7 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
 
 import NekoRobot.modules.sql.users_sql as sql
-from NekoRobot import DEV_USERS, LOGGER, OWNER_ID, dispatcher
+from NekoRobot import DEV_USERS, LOGGER, OWNER_ID, NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
 from NekoRobot.modules.sql.users_sql import get_all_users
 
@@ -32,7 +32,7 @@ def get_user_id(username):
         return users[0].user_id
     for user_obj in users:
         try:
-            userdat = dispatcher.bot.get_chat(user_obj.user_id)
+            userdat = NEKO_PTB.bot.get_chat(user_obj.user_id)
             if userdat.username == username:
                 return userdat.id
 
@@ -148,7 +148,7 @@ def chat_checker(update: Update, context: CallbackContext):
 def __user_info__(user_id):
     if user_id in [777000, 1087968824]:
         return """╘══「 Groups count: <code>???</code> 」"""
-    if user_id == dispatcher.bot.id:
+    if user_id == NEKO_PTB.bot.id:
         return """╘══「 Groups count: <code>???</code> 」"""
     num_chats = sql.get_user_num_chats(user_id)
     return f"""╘══「 Groups count: <code>{num_chats}</code> 」"""
@@ -175,10 +175,10 @@ CHAT_CHECKER_HANDLER = MessageHandler(
 )
 CHATLIST_HANDLER = CommandHandler("groups", chats, run_async=True)
 
-dispatcher.add_handler(USER_HANDLER, USERS_GROUP)
-dispatcher.add_handler(BROADCAST_HANDLER)
-dispatcher.add_handler(CHATLIST_HANDLER)
-dispatcher.add_handler(CHAT_CHECKER_HANDLER, CHAT_GROUP)
+NEKO_PTB.add_handler(USER_HANDLER, USERS_GROUP)
+NEKO_PTB.add_handler(BROADCAST_HANDLER)
+NEKO_PTB.add_handler(CHATLIST_HANDLER)
+NEKO_PTB.add_handler(CHAT_CHECKER_HANDLER, CHAT_GROUP)
 
 __mod_name__ = "Users"
 

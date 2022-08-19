@@ -43,13 +43,13 @@ from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
     CommandHandler,
-    DispatcherHandlerStop,
+    NEKO_PTBHandlerStop,
     Filters,
     MessageHandler,
 )
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import TIGERS, WOLVES, dispatcher
+from NekoRobot import TIGERS, WOLVES, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
@@ -331,7 +331,7 @@ def warns(update: Update, context: CallbackContext):
         update.effective_message.reply_text("This user doesn't have any warns!")
 
 
-# Dispatcher handler stop - do not async
+# NEKO_PTB handler stop - do not async
 @user_admin
 def add_warn_filter(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
@@ -355,14 +355,14 @@ def add_warn_filter(update: Update, context: CallbackContext):
         return
 
     # Note: perhaps handlers can be removed somehow using sql.get_chat_filters
-    for handler in dispatcher.handlers.get(WARN_HANDLER_GROUP, []):
+    for handler in NEKO_PTB.handlers.get(WARN_HANDLER_GROUP, []):
         if handler.filters == (keyword, chat.id):
-            dispatcher.remove_handler(handler, WARN_HANDLER_GROUP)
+            NEKO_PTB.remove_handler(handler, WARN_HANDLER_GROUP)
 
     sql.add_warn_filter(chat.id, keyword, content)
 
     update.effective_message.reply_text(f"Warn handler added for '{keyword}'!")
-    raise DispatcherHandlerStop
+    raise NEKO_PTBHandlerStop
 
 
 @user_admin
@@ -394,7 +394,7 @@ def remove_warn_filter(update: Update, context: CallbackContext):
         if filt == to_remove:
             sql.remove_warn_filter(chat.id, to_remove)
             msg.reply_text("Okay, I'll stop warning people for that.")
-            raise DispatcherHandlerStop
+            raise NEKO_PTBHandlerStop
 
     msg.reply_text(
         "That's not a current warning filter - run /warnlist for all active warning filters."
@@ -610,14 +610,14 @@ WARN_STRENGTH_HANDLER = CommandHandler(
     "strongwarn", set_warn_strength, filters=Filters.chat_type.groups, run_async=True
 )
 
-dispatcher.add_handler(WARN_HANDLER)
-dispatcher.add_handler(CALLBACK_QUERY_HANDLER)
-dispatcher.add_handler(RESET_WARN_HANDLER)
-dispatcher.add_handler(REMOVE_WARN_HANDLER)
-dispatcher.add_handler(MYWARNS_HANDLER)
-dispatcher.add_handler(ADD_WARN_HANDLER)
-dispatcher.add_handler(RM_WARN_HANDLER)
-dispatcher.add_handler(LIST_WARN_HANDLER)
-dispatcher.add_handler(WARN_LIMIT_HANDLER)
-dispatcher.add_handler(WARN_STRENGTH_HANDLER)
-dispatcher.add_handler(WARN_FILTER_HANDLER, WARN_HANDLER_GROUP)
+NEKO_PTB.add_handler(WARN_HANDLER)
+NEKO_PTB.add_handler(CALLBACK_QUERY_HANDLER)
+NEKO_PTB.add_handler(RESET_WARN_HANDLER)
+NEKO_PTB.add_handler(REMOVE_WARN_HANDLER)
+NEKO_PTB.add_handler(MYWARNS_HANDLER)
+NEKO_PTB.add_handler(ADD_WARN_HANDLER)
+NEKO_PTB.add_handler(RM_WARN_HANDLER)
+NEKO_PTB.add_handler(LIST_WARN_HANDLER)
+NEKO_PTB.add_handler(WARN_LIMIT_HANDLER)
+NEKO_PTB.add_handler(WARN_STRENGTH_HANDLER)
+NEKO_PTB.add_handler(WARN_FILTER_HANDLER, WARN_HANDLER_GROUP)

@@ -61,7 +61,7 @@ __help__ = """
 ## Advanced: PTB
 ```python3
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 
@@ -70,7 +70,7 @@ def hi(update: Update, context: CallbackContext):
     update.effective_message.reply_text(j)
 
 HANDLER = CommandHandler("hi", hi, run_async=True)
-dispatcher.add_handler(HANDLER)
+NEKO_PTB.add_handler(HANDLER)
 
 __handlers__ = [ HANDLER, ]
     

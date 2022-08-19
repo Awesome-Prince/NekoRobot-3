@@ -27,7 +27,7 @@ from telegram import ChatPermissions, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
     is_bot_admin,
@@ -553,8 +553,8 @@ RUNMUTE_HANDLER = CommandHandler(
     "runmute", runmute, filters=CustomFilters.sudo_filter, run_async=True
 )
 
-dispatcher.add_handler(RBAN_HANDLER)
-dispatcher.add_handler(RUNBAN_HANDLER)
-dispatcher.add_handler(RKICK_HANDLER)
-dispatcher.add_handler(RMUTE_HANDLER)
-dispatcher.add_handler(RUNMUTE_HANDLER)
+NEKO_PTB.add_handler(RBAN_HANDLER)
+NEKO_PTB.add_handler(RUNBAN_HANDLER)
+NEKO_PTB.add_handler(RKICK_HANDLER)
+NEKO_PTB.add_handler(RMUTE_HANDLER)
+NEKO_PTB.add_handler(RUNMUTE_HANDLER)

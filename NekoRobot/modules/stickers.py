@@ -17,7 +17,7 @@ from telegram import (
 from telegram.ext import CallbackContext
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot import telethn as bot
 from NekoRobot.events import register as Cutiepii
 from NekoRobot.modules.disable import DisableAbleCommandHandler
@@ -729,8 +729,8 @@ DELKANG_HANDLER = DisableAbleCommandHandler(
 )
 STICKERS_HANDLER = DisableAbleCommandHandler("stickers", cb_sticker, run_async=True)
 
-dispatcher.add_handler(STICKERS_HANDLER)
-dispatcher.add_handler(STICKERID_HANDLER)
-dispatcher.add_handler(GETSTICKER_HANDLER)
-dispatcher.add_handler(KANG_HANDLER)
-dispatcher.add_handler(DELKANG_HANDLER)
+NEKO_PTB.add_handler(STICKERS_HANDLER)
+NEKO_PTB.add_handler(STICKERID_HANDLER)
+NEKO_PTB.add_handler(GETSTICKER_HANDLER)
+NEKO_PTB.add_handler(KANG_HANDLER)
+NEKO_PTB.add_handler(DELKANG_HANDLER)

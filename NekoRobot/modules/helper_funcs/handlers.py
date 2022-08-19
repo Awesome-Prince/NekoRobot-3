@@ -99,14 +99,14 @@ class CustomCommandHandler(CommandHandler):
                     return args, filter_result
                 return False
 
-    def handle_update(self, update, dispatcher, check_result, context=None):
+    def handle_update(self, update, NEKO_PTB, check_result, context=None):
         if context:
-            self.collect_additional_context(context, update, dispatcher, check_result)
+            self.collect_additional_context(context, update, NEKO_PTB, check_result)
             return self.callback(update, context)
-        optional_args = self.collect_optional_args(dispatcher, update, check_result)
-        return self.callback(dispatcher.bot, update, **optional_args)
+        optional_args = self.collect_optional_args(NEKO_PTB, update, check_result)
+        return self.callback(NEKO_PTB.bot, update, **optional_args)
 
-    def collect_additional_context(self, context, update, dispatcher, check_result):
+    def collect_additional_context(self, context, update, NEKO_PTB, check_result):
         if isinstance(check_result, bool):
             context.args = update.effective_message.text.split()[1:]
         else:

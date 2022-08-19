@@ -30,7 +30,7 @@ from telegram import Update
 from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.ext import CallbackContext, CommandHandler, Filters
 
-from NekoRobot import OWNER_ID, dispatcher
+from NekoRobot import OWNER_ID, NEKO_PTB
 from NekoRobot.modules.helper_funcs.extraction import extract_user
 from NekoRobot.modules.sql.users_sql import get_user_com_chats
 
@@ -74,4 +74,4 @@ COMMON_CHATS_HANDLER = CommandHandler(
     "getchats", get_user_common_chats, filters=Filters.user(OWNER_ID), run_async=True
 )
 
-dispatcher.add_handler(COMMON_CHATS_HANDLER)
+NEKO_PTB.add_handler(COMMON_CHATS_HANDLER)

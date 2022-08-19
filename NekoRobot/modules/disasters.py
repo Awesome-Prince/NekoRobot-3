@@ -40,7 +40,7 @@ from NekoRobot import (
     SUPPORT_CHAT,
     TIGERS,
     WOLVES,
-    dispatcher,
+    NEKO_PTB,
 )
 from NekoRobot.modules.helper_funcs.chat_status import (
     dev_plus,
@@ -668,20 +668,20 @@ SUPPORTLIST_HANDLER = CommandHandler(
 SUDOLIST_HANDLER = CommandHandler(["sudolist", "aranks"], sudolist, run_async=True)
 DEVLIST_HANDLER = CommandHandler(["devlist", "sranks"], devlist, run_async=True)
 
-dispatcher.add_handler(SUDO_HANDLER)
-dispatcher.add_handler(SUPPORT_HANDLER)
-dispatcher.add_handler(TIGER_HANDLER)
-dispatcher.add_handler(WHITELIST_HANDLER)
-dispatcher.add_handler(UNSUDO_HANDLER)
-dispatcher.add_handler(UNSUPPORT_HANDLER)
-dispatcher.add_handler(UNTIGER_HANDLER)
-dispatcher.add_handler(UNWHITELIST_HANDLER)
+NEKO_PTB.add_handler(SUDO_HANDLER)
+NEKO_PTB.add_handler(SUPPORT_HANDLER)
+NEKO_PTB.add_handler(TIGER_HANDLER)
+NEKO_PTB.add_handler(WHITELIST_HANDLER)
+NEKO_PTB.add_handler(UNSUDO_HANDLER)
+NEKO_PTB.add_handler(UNSUPPORT_HANDLER)
+NEKO_PTB.add_handler(UNTIGER_HANDLER)
+NEKO_PTB.add_handler(UNWHITELIST_HANDLER)
 
-dispatcher.add_handler(WHITELISTLIST_HANDLER)
-dispatcher.add_handler(TIGERLIST_HANDLER)
-dispatcher.add_handler(SUPPORTLIST_HANDLER)
-dispatcher.add_handler(SUDOLIST_HANDLER)
-dispatcher.add_handler(DEVLIST_HANDLER)
+NEKO_PTB.add_handler(WHITELISTLIST_HANDLER)
+NEKO_PTB.add_handler(TIGERLIST_HANDLER)
+NEKO_PTB.add_handler(SUPPORTLIST_HANDLER)
+NEKO_PTB.add_handler(SUDOLIST_HANDLER)
+NEKO_PTB.add_handler(DEVLIST_HANDLER)
 
 __mod_name__ = "Ranks"
 __handlers__ = [

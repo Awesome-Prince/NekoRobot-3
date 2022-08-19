@@ -39,7 +39,7 @@ from telethon.errors import *
 from telethon.tl import *
 from telethon.tl import functions, types
 
-from NekoRobot import DRAGONS, dispatcher
+from NekoRobot import DRAGONS, NEKO_PTB
 from NekoRobot import telethn as bot
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message
@@ -1162,23 +1162,23 @@ ADMIN_REFRESH_HANDLER = CommandHandler(
     "admincache", refresh_admin, filters=Filters.chat_type.groups, run_async=True
 )
 
-dispatcher.add_handler(SET_DESC_HANDLER)
-dispatcher.add_handler(SET_STICKER_HANDLER)
-dispatcher.add_handler(SETCHATPIC_HANDLER)
-dispatcher.add_handler(RMCHATPIC_HANDLER)
-dispatcher.add_handler(SETCHAT_TITLE_HANDLER)
-dispatcher.add_handler(ADMINLIST_HANDLER)
-dispatcher.add_handler(PIN_HANDLER)
-dispatcher.add_handler(UNPIN_HANDLER)
-dispatcher.add_handler(PINNED_HANDLER)
-dispatcher.add_handler(INVITE_HANDLER)
-dispatcher.add_handler(PROMOTE_HANDLER)
-dispatcher.add_handler(FULLPROMOTE_HANDLER)
-dispatcher.add_handler(LOW_PROMOTE_HANDLER)
-dispatcher.add_handler(MID_PROMOTE_HANDLER)
-dispatcher.add_handler(DEMOTE_HANDLER)
-dispatcher.add_handler(SET_TITLE_HANDLER)
-dispatcher.add_handler(ADMIN_REFRESH_HANDLER)
+NEKO_PTB.add_handler(SET_DESC_HANDLER)
+NEKO_PTB.add_handler(SET_STICKER_HANDLER)
+NEKO_PTB.add_handler(SETCHATPIC_HANDLER)
+NEKO_PTB.add_handler(RMCHATPIC_HANDLER)
+NEKO_PTB.add_handler(SETCHAT_TITLE_HANDLER)
+NEKO_PTB.add_handler(ADMINLIST_HANDLER)
+NEKO_PTB.add_handler(PIN_HANDLER)
+NEKO_PTB.add_handler(UNPIN_HANDLER)
+NEKO_PTB.add_handler(PINNED_HANDLER)
+NEKO_PTB.add_handler(INVITE_HANDLER)
+NEKO_PTB.add_handler(PROMOTE_HANDLER)
+NEKO_PTB.add_handler(FULLPROMOTE_HANDLER)
+NEKO_PTB.add_handler(LOW_PROMOTE_HANDLER)
+NEKO_PTB.add_handler(MID_PROMOTE_HANDLER)
+NEKO_PTB.add_handler(DEMOTE_HANDLER)
+NEKO_PTB.add_handler(SET_TITLE_HANDLER)
+NEKO_PTB.add_handler(ADMIN_REFRESH_HANDLER)
 
 __mod_name__ = "Admins"
 __command_list__ = [

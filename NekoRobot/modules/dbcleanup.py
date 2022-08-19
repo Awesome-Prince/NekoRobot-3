@@ -6,7 +6,7 @@ from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 
 import NekoRobot.modules.sql.global_bans_sql as gban_sql
 import NekoRobot.modules.sql.users_sql as user_sql
-from NekoRobot import DEV_USERS, OWNER_ID, dispatcher
+from NekoRobot import DEV_USERS, OWNER_ID, NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
@@ -137,8 +137,8 @@ def callback_button(update: Update, context: CallbackContext):
 DB_CLEANUP_HANDLER = CommandHandler("dbcleanup", dbcleanup, run_async=True)
 BUTTON_HANDLER = CallbackQueryHandler(callback_button, pattern="db_.*", run_async=True)
 
-dispatcher.add_handler(DB_CLEANUP_HANDLER)
-dispatcher.add_handler(BUTTON_HANDLER)
+NEKO_PTB.add_handler(DB_CLEANUP_HANDLER)
+NEKO_PTB.add_handler(BUTTON_HANDLER)
 
 __mod_name__ = "DB Cleanup"
 __handlers__ = [DB_CLEANUP_HANDLER, BUTTON_HANDLER]

@@ -7,13 +7,13 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Message, ParseM
 from telegram.error import BadRequest
 from telegram.ext import (
     CallbackQueryHandler,
-    DispatcherHandlerStop,
+    NEKO_PTBHandlerStop,
     Filters,
     MessageHandler,
 )
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from NekoRobot import DRAGONS, LOGGER, dispatcher
+from NekoRobot import DRAGONS, LOGGER, NEKO_PTB
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
@@ -34,15 +34,15 @@ from NekoRobot.modules.sql import cust_filters_sql as sql
 HANDLER_GROUP = 10
 
 ENUM_FUNC_MAP = {
-    sql.Types.TEXT.value: dispatcher.bot.send_message,
-    sql.Types.BUTTON_TEXT.value: dispatcher.bot.send_message,
-    sql.Types.STICKER.value: dispatcher.bot.send_sticker,
-    sql.Types.DOCUMENT.value: dispatcher.bot.send_document,
-    sql.Types.PHOTO.value: dispatcher.bot.send_photo,
-    sql.Types.AUDIO.value: dispatcher.bot.send_audio,
-    sql.Types.VOICE.value: dispatcher.bot.send_voice,
-    sql.Types.VIDEO.value: dispatcher.bot.send_video,
-    # sql.Types.VIDEO_NOTE.value: dispatcher.bot.send_video_note
+    sql.Types.TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.BUTTON_TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.STICKER.value: NEKO_PTB.bot.send_sticker,
+    sql.Types.DOCUMENT.value: NEKO_PTB.bot.send_document,
+    sql.Types.PHOTO.value: NEKO_PTB.bot.send_photo,
+    sql.Types.AUDIO.value: NEKO_PTB.bot.send_audio,
+    sql.Types.VOICE.value: NEKO_PTB.bot.send_voice,
+    sql.Types.VIDEO.value: NEKO_PTB.bot.send_video,
+    # sql.Types.VIDEO_NOTE.value: NEKO_PTB.bot.send_video_note
 }
 
 
@@ -54,7 +54,7 @@ def list_handlers(update, context):
     conn = connected(context.bot, update, chat, user.id, need_admin=False)
     if conn is not False:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
         filter_list = "*Filter in {}:*\n"
     else:
         chat_id = update.effective_chat.id
@@ -92,7 +92,7 @@ def list_handlers(update, context):
     )
 
 
-# NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
+# NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @user_admin
 @typing_action
 def filters(update, context):
@@ -106,7 +106,7 @@ def filters(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if conn is not False:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
@@ -138,9 +138,9 @@ def filters(update, context):
 
     # Add the filter
     # Note: perhaps handlers can be removed somehow using sql.get_chat_filters
-    for handler in dispatcher.handlers.get(HANDLER_GROUP, []):
+    for handler in NEKO_PTB.handlers.get(HANDLER_GROUP, []):
         if handler.filters == (keyword, chat_id):
-            dispatcher.remove_handler(handler, HANDLER_GROUP)
+            NEKO_PTB.remove_handler(handler, HANDLER_GROUP)
 
     text, file_type, file_id = get_filter_type(msg)
     if not msg.reply_to_message and len(extracted) >= 2:
@@ -215,10 +215,10 @@ def filters(update, context):
             "Saved filter '{}' in *{}*!".format(keyword, chat_name),
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
-    raise DispatcherHandlerStop
+    raise NEKO_PTBHandlerStop
 
 
-# NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
+# NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @user_admin
 @typing_action
 def stop_filter(update, context):
@@ -229,7 +229,7 @@ def stop_filter(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if conn is not False:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
@@ -255,7 +255,7 @@ def stop_filter(update, context):
                 "Okay, I'll stop replying to that filter in *{}*.".format(chat_name),
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
-            raise DispatcherHandlerStop
+            raise NEKO_PTBHandlerStop
 
     send_message(
         update.effective_message,
@@ -626,12 +626,12 @@ CUST_FILTER_HANDLER = MessageHandler(
     run_async=True,
 )
 
-dispatcher.add_handler(FILTER_HANDLER)
-dispatcher.add_handler(STOP_HANDLER)
-dispatcher.add_handler(LIST_HANDLER)
-dispatcher.add_handler(CUST_FILTER_HANDLER, HANDLER_GROUP)
-dispatcher.add_handler(RMALLFILTER_HANDLER)
-dispatcher.add_handler(RMALLFILTER_CALLBACK)
+NEKO_PTB.add_handler(FILTER_HANDLER)
+NEKO_PTB.add_handler(STOP_HANDLER)
+NEKO_PTB.add_handler(LIST_HANDLER)
+NEKO_PTB.add_handler(CUST_FILTER_HANDLER, HANDLER_GROUP)
+NEKO_PTB.add_handler(RMALLFILTER_HANDLER)
+NEKO_PTB.add_handler(RMALLFILTER_CALLBACK)
 
 __handlers__ = [
     FILTER_HANDLER,

@@ -30,7 +30,7 @@ import telegram
 from telegram import Update
 from telegram.ext import CallbackContext, Filters
 
-from NekoRobot import LOGGER, dispatcher
+from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleMessageHandler
 from NekoRobot.modules.helper_funcs.regex_helper import infinite_loop_check
 
@@ -169,4 +169,4 @@ SED_HANDLER = DisableAbleMessageHandler(
     run_async=True,
 )
 
-dispatcher.add_handler(SED_HANDLER)
+NEKO_PTB.add_handler(SED_HANDLER)

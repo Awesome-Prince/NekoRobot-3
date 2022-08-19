@@ -30,7 +30,7 @@ import requests
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import StartTime, dispatcher
+from NekoRobot import StartTime, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import sudo_plus
 
@@ -130,8 +130,8 @@ def pingall(update: Update, context: CallbackContext):
 PING_HANDLER = DisableAbleCommandHandler("ping", ping, run_async=True)
 PINGALL_HANDLER = DisableAbleCommandHandler("pingall", pingall, run_async=True)
 
-dispatcher.add_handler(PING_HANDLER)
-dispatcher.add_handler(PINGALL_HANDLER)
+NEKO_PTB.add_handler(PING_HANDLER)
+NEKO_PTB.add_handler(PINGALL_HANDLER)
 
 __command_list__ = ["ping", "pingall"]
 __handlers__ = [PING_HANDLER, PINGALL_HANDLER]

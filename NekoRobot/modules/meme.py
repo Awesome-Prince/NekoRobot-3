@@ -9,7 +9,7 @@ from telegram.ext import CallbackContext, Filters
 
 import NekoRobot.modules.helper_funcs.string_store as fun
 import NekoRobot.modules.NekoFunBot_Strings as fun_strings
-from NekoRobot import SUPPORT_CHAT, dispatcher
+from NekoRobot import SUPPORT_CHAT, NEKO_PTB
 from NekoRobot.events import register
 from NekoRobot.modules.disable import (
     DisableAbleCommandHandler,
@@ -445,22 +445,22 @@ GDNIGHT_HANDLER = DisableAbleMessageHandler(
     run_async=True,
 )
 
-dispatcher.add_handler(WEEBIFY_HANDLER)
-dispatcher.add_handler(SHOUT_HANDLER)
-dispatcher.add_handler(SANITIZE_HANDLER)
-dispatcher.add_handler(RUNS_HANDLER)
-dispatcher.add_handler(SLAP_HANDLER)
-dispatcher.add_handler(PAT_HANDLER)
-dispatcher.add_handler(ROLL_HANDLER)
-dispatcher.add_handler(TOSS_HANDLER)
-dispatcher.add_handler(SHRUG_HANDLER)
-dispatcher.add_handler(BLUETEXT_HANDLER)
-dispatcher.add_handler(RLG_HANDLER)
-dispatcher.add_handler(DECIDE_HANDLER)
-dispatcher.add_handler(EIGHTBALL_HANDLER)
-dispatcher.add_handler(TABLE_HANDLER)
-dispatcher.add_handler(GDMORNING_HANDLER)
-dispatcher.add_handler(GDNIGHT_HANDLER)
+NEKO_PTB.add_handler(WEEBIFY_HANDLER)
+NEKO_PTB.add_handler(SHOUT_HANDLER)
+NEKO_PTB.add_handler(SANITIZE_HANDLER)
+NEKO_PTB.add_handler(RUNS_HANDLER)
+NEKO_PTB.add_handler(SLAP_HANDLER)
+NEKO_PTB.add_handler(PAT_HANDLER)
+NEKO_PTB.add_handler(ROLL_HANDLER)
+NEKO_PTB.add_handler(TOSS_HANDLER)
+NEKO_PTB.add_handler(SHRUG_HANDLER)
+NEKO_PTB.add_handler(BLUETEXT_HANDLER)
+NEKO_PTB.add_handler(RLG_HANDLER)
+NEKO_PTB.add_handler(DECIDE_HANDLER)
+NEKO_PTB.add_handler(EIGHTBALL_HANDLER)
+NEKO_PTB.add_handler(TABLE_HANDLER)
+NEKO_PTB.add_handler(GDMORNING_HANDLER)
+NEKO_PTB.add_handler(GDNIGHT_HANDLER)
 
 __mod_name__ = "Fun"
 __command_list__ = [

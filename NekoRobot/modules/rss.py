@@ -30,7 +30,7 @@ from feedparser import parse
 from telegram import ParseMode, Update, constants
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import dispatcher, updater
+from NekoRobot import NEKO_PTB, updater
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.sql import rss_sql as sql
 
@@ -324,7 +324,7 @@ ADD_URL_HANDLER = CommandHandler("addrss", add_url, run_async=True)
 REMOVE_URL_HANDLER = CommandHandler("removerss", remove_url, run_async=True)
 LIST_URLS_HANDLER = CommandHandler("listrss", list_urls, run_async=True)
 
-dispatcher.add_handler(SHOW_URL_HANDLER)
-dispatcher.add_handler(ADD_URL_HANDLER)
-dispatcher.add_handler(REMOVE_URL_HANDLER)
-dispatcher.add_handler(LIST_URLS_HANDLER)
+NEKO_PTB.add_handler(SHOW_URL_HANDLER)
+NEKO_PTB.add_handler(ADD_URL_HANDLER)
+NEKO_PTB.add_handler(REMOVE_URL_HANDLER)
+NEKO_PTB.add_handler(LIST_URLS_HANDLER)

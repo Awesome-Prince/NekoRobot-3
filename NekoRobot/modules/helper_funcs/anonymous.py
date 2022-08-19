@@ -31,7 +31,7 @@ from telegram.ext import CallbackContext
 from telegram.inline.inlinekeyboardbutton import InlineKeyboardButton
 from telegram.inline.inlinekeyboardmarkup import InlineKeyboardMarkup
 
-from NekoRobot import DEV_USERS, DRAGONS, dispatcher
+from NekoRobot import DEV_USERS, DRAGONS, NEKO_PTB
 from NekoRobot.modules.helper_funcs.decorators import nekocallback
 
 
@@ -120,10 +120,10 @@ def anon_callback_handler1(upd: Update, _: CallbackContext):
         return
     if mem.status not in [ChatStatus.ADMIN.value, ChatStatus.CREATOR.value]:
         callback.answer("You're aren't admin.")
-        dispatcher.bot.delete_message(
+        NEKO_PTB.bot.delete_message(
             chat_id, anon_callback_messages.pop((chat_id, message_id), None)
         )
-        dispatcher.bot.send_message(
+        NEKO_PTB.bot.send_message(
             chat_id, "You lack the permissions required for this command"
         )
     elif (
@@ -135,7 +135,7 @@ def anon_callback_handler1(upd: Update, _: CallbackContext):
         if cb:
             message_id = anon_callback_messages.pop((chat_id, message_id), None)
             if message_id is not None:
-                dispatcher.bot.delete_message(chat_id, message_id)
+                NEKO_PTB.bot.delete_message(chat_id, message_id)
             return cb[1](cb[0][0], cb[0][1])
     else:
         callback.answer("This isn't for ya")

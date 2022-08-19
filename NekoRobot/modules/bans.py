@@ -19,7 +19,7 @@ from NekoRobot import (
     OWNER_ID,
     TIGERS,
     WOLVES,
-    dispatcher,
+    NEKO_PTB,
 )
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -578,15 +578,15 @@ SNIPE_HANDLER = CommandHandler(
 )
 BANME_HANDLER = CommandHandler("banme", banme, run_async=True)
 
-dispatcher.add_handler(BAN_HANDLER)
-dispatcher.add_handler(TEMPBAN_HANDLER)
-dispatcher.add_handler(KICK_HANDLER)
-dispatcher.add_handler(UNBAN_HANDLER)
-dispatcher.add_handler(ROAR_HANDLER)
-dispatcher.add_handler(KICKME_HANDLER)
-dispatcher.add_handler(UNBAN_BUTTON_HANDLER)
-dispatcher.add_handler(SNIPE_HANDLER)
-dispatcher.add_handler(BANME_HANDLER)
+NEKO_PTB.add_handler(BAN_HANDLER)
+NEKO_PTB.add_handler(TEMPBAN_HANDLER)
+NEKO_PTB.add_handler(KICK_HANDLER)
+NEKO_PTB.add_handler(UNBAN_HANDLER)
+NEKO_PTB.add_handler(ROAR_HANDLER)
+NEKO_PTB.add_handler(KICKME_HANDLER)
+NEKO_PTB.add_handler(UNBAN_BUTTON_HANDLER)
+NEKO_PTB.add_handler(SNIPE_HANDLER)
+NEKO_PTB.add_handler(BANME_HANDLER)
 
 __handlers__ = [
     BAN_HANDLER,

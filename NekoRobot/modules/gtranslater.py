@@ -27,7 +27,7 @@ from gpytranslate import SyncTranslator
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 trans = SyncTranslator()
@@ -91,8 +91,8 @@ TRANSLATE_LANG_HANDLER = DisableAbleCommandHandler(
     ["lang", "languages"], languages, run_async=True
 )
 
-dispatcher.add_handler(TRANSLATE_HANDLER)
-dispatcher.add_handler(TRANSLATE_LANG_HANDLER)
+NEKO_PTB.add_handler(TRANSLATE_HANDLER)
+NEKO_PTB.add_handler(TRANSLATE_LANG_HANDLER)
 
 __mod_name__ = "Translator"
 __command_list__ = ["tr", "tl", "lang", "languages"]

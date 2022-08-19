@@ -26,7 +26,7 @@ import subprocess
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import LOGGER, dispatcher
+from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
@@ -66,7 +66,7 @@ def shell(update: Update, context: CallbackContext):
 
 
 SHELL_HANDLER = CommandHandler(["sh"], shell, run_async=True)
-dispatcher.add_handler(SHELL_HANDLER)
+NEKO_PTB.add_handler(SHELL_HANDLER)
 __mod_name__ = "Shell"
 __command_list__ = ["sh"]
 __handlers__ = [SHELL_HANDLER]

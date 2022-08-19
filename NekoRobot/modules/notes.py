@@ -48,7 +48,7 @@ from telegram.ext import (
 from telegram.utils.helpers import escape_markdown, mention_markdown
 
 import NekoRobot.modules.sql.notes_sql as sql
-from NekoRobot import DRAGONS, JOIN_LOGGER, LOGGER, SUPPORT_CHAT, dispatcher
+from NekoRobot import DRAGONS, JOIN_LOGGER, LOGGER, SUPPORT_CHAT, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import connection_status, user_admin
 from NekoRobot.modules.helper_funcs.handlers import MessageHandlerChecker
@@ -67,14 +67,14 @@ MYVIDEO_MATCHER = re.compile(r"^###video(!photo)?###:")
 MYVIDEONOTE_MATCHER = re.compile(r"^###video_note(!photo)?###:")
 
 ENUM_FUNC_MAP = {
-    sql.Types.TEXT.value: dispatcher.bot.send_message,
-    sql.Types.BUTTON_TEXT.value: dispatcher.bot.send_message,
-    sql.Types.STICKER.value: dispatcher.bot.send_sticker,
-    sql.Types.DOCUMENT.value: dispatcher.bot.send_document,
-    sql.Types.PHOTO.value: dispatcher.bot.send_photo,
-    sql.Types.AUDIO.value: dispatcher.bot.send_audio,
-    sql.Types.VOICE.value: dispatcher.bot.send_voice,
-    sql.Types.VIDEO.value: dispatcher.bot.send_video,
+    sql.Types.TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.BUTTON_TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.STICKER.value: NEKO_PTB.bot.send_sticker,
+    sql.Types.DOCUMENT.value: NEKO_PTB.bot.send_document,
+    sql.Types.PHOTO.value: NEKO_PTB.bot.send_photo,
+    sql.Types.AUDIO.value: NEKO_PTB.bot.send_audio,
+    sql.Types.VOICE.value: NEKO_PTB.bot.send_voice,
+    sql.Types.VIDEO.value: NEKO_PTB.bot.send_video,
 }
 
 
@@ -508,7 +508,7 @@ def __import_data__(chat_id, data):
     if failures:
         with BytesIO(str.encode("\n".join(failures))) as output:
             output.name = "failed_imports.txt"
-            dispatcher.bot.send_document(
+            NEKO_PTB.bot.send_document(
                 chat_id,
                 document=output,
                 filename="failed_imports.txt",
@@ -571,11 +571,11 @@ LIST_HANDLER = DisableAbleCommandHandler(["notes", "saved"], list_notes, run_asy
 CLEARALL = DisableAbleCommandHandler("removeallnotes", clearall, run_async=True)
 CLEARALL_BTN = CallbackQueryHandler(clearall_btn, pattern=r"notes_.*", run_async=True)
 
-dispatcher.add_handler(GET_HANDLER)
-dispatcher.add_handler(SAVE_HANDLER)
-dispatcher.add_handler(LIST_HANDLER)
-dispatcher.add_handler(DELETE_HANDLER)
-dispatcher.add_handler(HASH_GET_HANDLER)
-dispatcher.add_handler(SLASH_GET_HANDLER)
-dispatcher.add_handler(CLEARALL)
-dispatcher.add_handler(CLEARALL_BTN)
+NEKO_PTB.add_handler(GET_HANDLER)
+NEKO_PTB.add_handler(SAVE_HANDLER)
+NEKO_PTB.add_handler(LIST_HANDLER)
+NEKO_PTB.add_handler(DELETE_HANDLER)
+NEKO_PTB.add_handler(HASH_GET_HANDLER)
+NEKO_PTB.add_handler(SLASH_GET_HANDLER)
+NEKO_PTB.add_handler(CLEARALL)
+NEKO_PTB.add_handler(CLEARALL_BTN)

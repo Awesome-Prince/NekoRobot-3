@@ -3,7 +3,7 @@ import threading
 from sqlalchemy import Column, ForeignKey, String, UnicodeText, UniqueConstraint, func
 from sqlalchemy.sql.sqltypes import BigInteger
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.sql import BASE, SESSION
 
 
@@ -71,7 +71,7 @@ INSERTION_LOCK = threading.RLock()
 
 def ensure_bot_in_db():
     with INSERTION_LOCK:
-        bot = Users(dispatcher.bot.id, dispatcher.bot.username)
+        bot = Users(NEKO_PTB.bot.id, NEKO_PTB.bot.username)
         SESSION.merge(bot)
         SESSION.commit()
 

@@ -2,7 +2,7 @@ import requests
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 
@@ -21,7 +21,7 @@ def ud(update: Update, context: CallbackContext):
 
 UD_HANDLER = DisableAbleCommandHandler(["ud"], ud, run_async=True)
 
-dispatcher.add_handler(UD_HANDLER)
+NEKO_PTB.add_handler(UD_HANDLER)
 
 __command_list__ = ["ud"]
 __handlers__ = [UD_HANDLER]

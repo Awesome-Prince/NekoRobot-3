@@ -5,7 +5,7 @@ from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 from telethon import events
 
-from NekoRobot import dispatcher, telethn
+from NekoRobot import NEKO_PTB, telethn
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 DEBUG_MODE = False
@@ -65,10 +65,10 @@ def logs(update: Update, context: CallbackContext):
 
 
 LOG_HANDLER = CommandHandler("logs", logs, run_async=True)
-dispatcher.add_handler(LOG_HANDLER)
+NEKO_PTB.add_handler(LOG_HANDLER)
 
 DEBUG_HANDLER = CommandHandler("debug", debug, run_async=True)
-dispatcher.add_handler(DEBUG_HANDLER)
+NEKO_PTB.add_handler(DEBUG_HANDLER)
 
 __mod_name__ = "Debug"
 __command_list__ = ["debug"]

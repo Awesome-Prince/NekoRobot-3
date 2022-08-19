@@ -34,7 +34,7 @@ from telegram.ext import (
 from telegram.ext.filters import BaseFilter
 
 from NekoRobot import LOGGER
-from NekoRobot import dispatcher as d
+from NekoRobot import NEKO_PTB as d
 from NekoRobot.modules.disable import (
     DisableAbleCommandHandler,
     DisableAbleMessageHandler,
@@ -43,7 +43,7 @@ from NekoRobot.modules.disable import (
 
 class NekoTelegramHandler:
     def __init__(self, d):
-        self._dispatcher = d
+        self._NEKO_PTB = d
 
     def command(
         self,
@@ -59,7 +59,7 @@ class NekoTelegramHandler:
         def _command(func):
             try:
                 if can_disable:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         DisableAbleCommandHandler(
                             command,
                             func,
@@ -71,7 +71,7 @@ class NekoTelegramHandler:
                         group,
                     )
                 else:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         CommandHandler(
                             command,
                             func,
@@ -86,7 +86,7 @@ class NekoTelegramHandler:
                 )
             except TypeError:
                 if can_disable:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         DisableAbleCommandHandler(
                             command,
                             func,
@@ -98,7 +98,7 @@ class NekoTelegramHandler:
                         )
                     )
                 else:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         CommandHandler(
                             command,
                             func,
@@ -127,14 +127,14 @@ class NekoTelegramHandler:
         def _message(func):
             try:
                 if can_disable:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         DisableAbleMessageHandler(
                             pattern, func, friendly=friendly, run_async=run_async
                         ),
                         group,
                     )
                 else:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         MessageHandler(pattern, func, run_async=run_async), group
                     )
                 LOGGER.debug(
@@ -142,13 +142,13 @@ class NekoTelegramHandler:
                 )
             except TypeError:
                 if can_disable:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         DisableAbleMessageHandler(
                             pattern, func, friendly=friendly, run_async=run_async
                         )
                     )
                 else:
-                    self._dispatcher.add_handler(
+                    self._NEKO_PTB.add_handler(
                         MessageHandler(pattern, func, run_async=run_async)
                     )
                 LOGGER.debug(
@@ -161,7 +161,7 @@ class NekoTelegramHandler:
 
     def callbackquery(self, pattern: str = None, run_async: bool = True):
         def _callbackquery(func):
-            self._dispatcher.add_handler(
+            self._NEKO_PTB.add_handler(
                 CallbackQueryHandler(
                     pattern=pattern, callback=func, run_async=run_async
                 )
@@ -182,7 +182,7 @@ class NekoTelegramHandler:
         chat_types: List[str] = None,
     ):
         def _inlinequery(func):
-            self._dispatcher.add_handler(
+            self._NEKO_PTB.add_handler(
                 InlineQueryHandler(
                     pattern=pattern,
                     callback=func,

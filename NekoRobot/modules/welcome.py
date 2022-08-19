@@ -30,7 +30,7 @@ from NekoRobot import (
     OWNER_ID,
     TIGERS,
     WOLVES,
-    dispatcher,
+    NEKO_PTB,
     sw,
 )
 from NekoRobot.modules.helper_funcs.chat_status import is_user_ban_protected, user_admin
@@ -55,14 +55,14 @@ VALID_WELCOME_FORMATTERS = [
 ]
 
 ENUM_FUNC_MAP = {
-    sql.Types.TEXT.value: dispatcher.bot.send_message,
-    sql.Types.BUTTON_TEXT.value: dispatcher.bot.send_message,
-    sql.Types.STICKER.value: dispatcher.bot.send_sticker,
-    sql.Types.DOCUMENT.value: dispatcher.bot.send_document,
-    sql.Types.PHOTO.value: dispatcher.bot.send_photo,
-    sql.Types.AUDIO.value: dispatcher.bot.send_audio,
-    sql.Types.VOICE.value: dispatcher.bot.send_voice,
-    sql.Types.VIDEO.value: dispatcher.bot.send_video,
+    sql.Types.TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.BUTTON_TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.STICKER.value: NEKO_PTB.bot.send_sticker,
+    sql.Types.DOCUMENT.value: NEKO_PTB.bot.send_document,
+    sql.Types.PHOTO.value: NEKO_PTB.bot.send_photo,
+    sql.Types.AUDIO.value: NEKO_PTB.bot.send_audio,
+    sql.Types.VOICE.value: NEKO_PTB.bot.send_voice,
+    sql.Types.VIDEO.value: NEKO_PTB.bot.send_video,
 }
 
 VERIFIED_USER_WAITLIST = {}
@@ -81,7 +81,7 @@ def send(update, message, keyboard, backup_message):
     # Clean service welcome
     if cleanserv:
         try:
-            dispatcher.bot.delete_message(chat.id, update.message.message_id)
+            NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
         except BadRequest:
             pass
         reply = False
@@ -180,7 +180,7 @@ def new_member(update: Update, context: CallbackContext):
             # Clean service welcome
             if cleanserv:
                 try:
-                    dispatcher.bot.delete_message(chat.id, update.message.message_id)
+                    NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
                 except BadRequest:
                     pass
                 reply = False
@@ -495,7 +495,7 @@ def left_member(update: Update, context: CallbackContext):
         # Clean service welcome
         if cleanserv:
             try:
-                dispatcher.bot.delete_message(chat.id, update.message.message_id)
+                NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
             except BadRequest:
                 pass
             reply = False
@@ -999,7 +999,7 @@ WELC_HELP_TXT = (
     "Welcome messages also support markdown, so you can make any elements bold/italic/code/links. "
     "Buttons are also supported, so you can make your welcomes look awesome with some nice intro "
     "buttons.\n"
-    f"To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{dispatcher.bot.username}?start=group_id)`. "
+    f"To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{NEKO_PTB.bot.username}?start=group_id)`. "
     "Simply replace `group_id` with your group's id, which can be obtained via /id, and you're good to "
     "go. Note that group ids are usually preceded by a `-` sign; this is required, so please don't "
     "remove it.\n"
@@ -1113,20 +1113,20 @@ BUTTON_VERIFY_HANDLER = CallbackQueryHandler(
     user_button, pattern=r"user_join_", run_async=True
 )
 
-dispatcher.add_handler(NEW_MEM_HANDLER)
-dispatcher.add_handler(LEFT_MEM_HANDLER)
-dispatcher.add_handler(WELC_PREF_HANDLER)
-dispatcher.add_handler(GOODBYE_PREF_HANDLER)
-dispatcher.add_handler(SET_WELCOME)
-dispatcher.add_handler(SET_GOODBYE)
-dispatcher.add_handler(RESET_WELCOME)
-dispatcher.add_handler(RESET_GOODBYE)
-dispatcher.add_handler(CLEAN_WELCOME)
-dispatcher.add_handler(WELCOME_HELP)
-dispatcher.add_handler(WELCOMEMUTE_HANDLER)
-dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
-dispatcher.add_handler(BUTTON_VERIFY_HANDLER)
-dispatcher.add_handler(WELCOME_MUTE_HELP)
+NEKO_PTB.add_handler(NEW_MEM_HANDLER)
+NEKO_PTB.add_handler(LEFT_MEM_HANDLER)
+NEKO_PTB.add_handler(WELC_PREF_HANDLER)
+NEKO_PTB.add_handler(GOODBYE_PREF_HANDLER)
+NEKO_PTB.add_handler(SET_WELCOME)
+NEKO_PTB.add_handler(SET_GOODBYE)
+NEKO_PTB.add_handler(RESET_WELCOME)
+NEKO_PTB.add_handler(RESET_GOODBYE)
+NEKO_PTB.add_handler(CLEAN_WELCOME)
+NEKO_PTB.add_handler(WELCOME_HELP)
+NEKO_PTB.add_handler(WELCOMEMUTE_HANDLER)
+NEKO_PTB.add_handler(CLEAN_SERVICE_HANDLER)
+NEKO_PTB.add_handler(BUTTON_VERIFY_HANDLER)
+NEKO_PTB.add_handler(WELCOME_MUTE_HELP)
 
 __mod_name__ = "Greetings"
 __command_list__ = []

@@ -38,7 +38,7 @@ from telegram.ext import CallbackContext, CommandHandler, Filters
 from telegram.utils.helpers import escape_markdown
 
 import NekoRobot.modules.sql.rules_sql as sql
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.helper_funcs.string_handling import markdown_parser
 
@@ -50,7 +50,7 @@ def get_rules(update: Update, context: CallbackContext):
 
 # Do not async - not from a handler
 def send_rules(update, chat_id, from_pm=False):
-    bot = dispatcher.bot
+    bot = NEKO_PTB.bot
     user = update.effective_user  # type: Optional[User]
     try:
         chat = bot.get_chat(chat_id)
@@ -160,6 +160,6 @@ RESET_RULES_HANDLER = CommandHandler(
     "clearrules", clear_rules, filters=Filters.chat_type.groups, run_async=True
 )
 
-dispatcher.add_handler(GET_RULES_HANDLER)
-dispatcher.add_handler(SET_RULES_HANDLER)
-dispatcher.add_handler(RESET_RULES_HANDLER)
+NEKO_PTB.add_handler(GET_RULES_HANDLER)
+NEKO_PTB.add_handler(SET_RULES_HANDLER)
+NEKO_PTB.add_handler(RESET_RULES_HANDLER)

@@ -45,7 +45,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import DEV_USERS, LOGGER
+from NekoRobot import DEV_USERS, LOGGER, NEKO_PTB
 from NekoRobot import pbot as pgram
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
@@ -208,6 +208,11 @@ async def executor(client, message):
             reply_markup=keyboard,
         )
 
+<<<<<<< HEAD
+NEKO_PTB.add_handler(EVAL_HANDLER)
+NEKO_PTB.add_handler(EXEC_HANDLER)
+NEKO_PTB.add_handler(CLEAR_HANDLER)
+=======
         await message.delete()
         os.remove(filename)
     else:
@@ -223,6 +228,7 @@ async def executor(client, message):
             ]
         )
         await edit_or_reply(message, text=final_output, reply_markup=keyboard)
+>>>>>>> f835d4a78223e2ab60b03cb2e43f3b55c596f0b6
 
 
 @pgram.on_callback_query(filters.regex(r"runtime"))

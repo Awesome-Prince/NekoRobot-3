@@ -36,7 +36,7 @@ from bs4 import BeautifulSoup
 from telegram import InputMediaPhoto, TelegramError, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 opener = urllib.request.build_opener()
@@ -513,9 +513,9 @@ GG_HANDLER = DisableAbleCommandHandler(
     "gg", gg, pass_args=True, admin_ok=True, run_async=True
 )
 
-dispatcher.add_handler(REVERSE_HANDLER)
-dispatcher.add_handler(GRS_HANDLER)
-dispatcher.add_handler(GG_HANDLER)
+NEKO_PTB.add_handler(REVERSE_HANDLER)
+NEKO_PTB.add_handler(GRS_HANDLER)
+NEKO_PTB.add_handler(GG_HANDLER)
 
 __mod_name__ = "Reverse"
 __help__ = """

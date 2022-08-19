@@ -64,7 +64,7 @@ from NekoRobot import (
     URL,
     WEBHOOK,
     StartTime,
-    dispatcher,
+    NEKO_PTB,
     pbot,
     telethn,
     updater,
@@ -201,7 +201,7 @@ for module_name in ALL_MODULES:
 def send_help(chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    dispatcher.bot.send_message(
+    NEKO_PTB.bot.send_message(
         chat_id=chat_id,
         text=text,
         parse_mode=ParseMode.MARKDOWN,
@@ -244,7 +244,7 @@ def start(update: Update, context: CallbackContext):
 
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
-                chat = dispatcher.bot.getChat(match.group(1))
+                chat = NEKO_PTB.bot.getChat(match.group(1))
 
                 if is_user_admin(chat, update.effective_user.id):
                     send_settings(match.group(1), update.effective_user.id, False)
@@ -528,14 +528,14 @@ def send_settings(chat_id, user_id, user=False):
                 "*{}*:\n{}".format(mod.__mod_name__, mod.__user_settings__(user_id))
                 for mod in USER_SETTINGS.values()
             )
-            dispatcher.bot.send_message(
+            NEKO_PTB.bot.send_message(
                 user_id,
                 "These are your current settings:" + "\n\n" + settings,
                 parse_mode=ParseMode.MARKDOWN,
             )
 
         else:
-            dispatcher.bot.send_message(
+            NEKO_PTB.bot.send_message(
                 user_id,
                 "Seems like there aren't any user specific settings available :'(",
                 parse_mode=ParseMode.MARKDOWN,
@@ -543,8 +543,8 @@ def send_settings(chat_id, user_id, user=False):
 
     else:
         if CHAT_SETTINGS:
-            chat_name = dispatcher.bot.getChat(chat_id).title
-            dispatcher.bot.send_message(
+            chat_name = NEKO_PTB.bot.getChat(chat_id).title
+            NEKO_PTB.bot.send_message(
                 user_id,
                 text="Which module would you like to check {}'s settings for?".format(
                     chat_name
@@ -554,7 +554,7 @@ def send_settings(chat_id, user_id, user=False):
                 ),
             )
         else:
-            dispatcher.bot.send_message(
+            NEKO_PTB.bot.send_message(
                 user_id,
                 "Seems like there aren't any chat settings available :'(\nSend this "
                 "in a group chat you're admin in to find its current settings!",
@@ -727,14 +727,14 @@ def migrate_chats(update: Update, context: CallbackContext):
         mod.__migrate__(old_chat, new_chat)
 
     LOGGER.info("Successfully migrated!")
-    raise DispatcherHandlerStop
+    raise NEKO_PTBHandlerStop
 
 
 def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage(
+            NEKO_PTB.bot.sendMessage(
                 f"@{SUPPORT_CHAT}",
                 "[Iam Alive!](https://telegra.ph/file/4533d130b73a7dd20b83d.jpg)",
                 parse_mode=ParseMode.MARKDOWN,
@@ -776,16 +776,16 @@ def main():
         Filters.status_update.migrate, migrate_chats, run_async=True
     )
 
-    # dispatcher.add_handler(test_handler)
-    dispatcher.add_handler(start_handler)
-    dispatcher.add_handler(help_handler)
-    dispatcher.add_handler(about_callback_handler)
-    dispatcher.add_handler(help_callback_handler)
-    dispatcher.add_handler(settings_callback_handler)
-    dispatcher.add_handler(migrate_handler)
-    dispatcher.add_handler(donate_handler)
-    dispatcher.add_handler(about_callback_handler)
-    dispatcher.add_error_handler(error_callback)
+    # NEKO_PTB.add_handler(test_handler)
+    NEKO_PTB.add_handler(start_handler)
+    NEKO_PTB.add_handler(help_handler)
+    NEKO_PTB.add_handler(about_callback_handler)
+    NEKO_PTB.add_handler(help_callback_handler)
+    NEKO_PTB.add_handler(settings_callback_handler)
+    NEKO_PTB.add_handler(migrate_handler)
+    NEKO_PTB.add_handler(donate_handler)
+    NEKO_PTB.add_handler(about_callback_handler)
+    NEKO_PTB.add_error_handler(error_callback)
 
     if WEBHOOK:
         LOGGER.info("Using webhooks.")
@@ -798,7 +798,7 @@ def main():
 
     else:
         LOGGER.info(
-            f"Neko started, Using long polling. | BOT: [@{dispatcher.bot.username}]"
+            f"Neko started, Using long polling. | BOT: [@{NEKO_PTB.bot.username}]"
         )
         updater.start_polling(
             timeout=15,

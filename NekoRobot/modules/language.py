@@ -31,7 +31,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackQueryHandler, CommandHandler
 
 import NekoRobot.modules.sql.language_sql as sql
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.langs import get_language, get_languages, get_string
 from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
 
@@ -100,5 +100,5 @@ SETLANG_BUTTON_HANDLER = CallbackQueryHandler(
     lang_button, pattern=r"setLang_", run_async=True
 )
 
-dispatcher.add_handler(SETLANG_HANDLER)
-dispatcher.add_handler(SETLANG_BUTTON_HANDLER)
+NEKO_PTB.add_handler(SETLANG_HANDLER)
+NEKO_PTB.add_handler(SETLANG_BUTTON_HANDLER)

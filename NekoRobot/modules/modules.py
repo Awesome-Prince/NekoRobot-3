@@ -29,7 +29,7 @@ import importlib
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import dispatcher, telethn
+from NekoRobot import NEKO_PTB, telethn
 from NekoRobot.__main__ import (
     CHAT_SETTINGS,
     DATA_EXPORT,
@@ -70,14 +70,14 @@ def load(update: Update, context: CallbackContext):
         handlers = imported_module.__handlers__
         for handler in handlers:
             if not isinstance(handler, tuple):
-                dispatcher.add_handler(handler)
+                NEKO_PTB.add_handler(handler)
             else:
                 if isinstance(handler[0], collections.Callable):
                     callback, telethon_event = handler
                     telethn.add_event_handler(callback, telethon_event)
                 else:
                     handler_name, priority = handler
-                    dispatcher.add_handler(handler_name, priority)
+                    NEKO_PTB.add_handler(handler_name, priority)
     else:
         IMPORTED.pop(imported_module.__mod_name__.lower())
         load_messasge.edit_text("The module cannot be loaded.")
@@ -141,14 +141,14 @@ def unload(update: Update, context: CallbackContext):
                 unload_messasge.edit_text("This module can't be unloaded!")
                 return
             elif not isinstance(handler, tuple):
-                dispatcher.remove_handler(handler)
+                NEKO_PTB.remove_handler(handler)
             else:
                 if isinstance(handler[0], collections.Callable):
                     callback, telethon_event = handler
                     telethn.remove_event_handler(callback, telethon_event)
                 else:
                     handler_name, priority = handler
-                    dispatcher.remove_handler(handler_name, priority)
+                    NEKO_PTB.remove_handler(handler_name, priority)
     else:
         unload_messasge.edit_text("The module cannot be unloaded.")
         return
@@ -202,8 +202,8 @@ LOAD_HANDLER = CommandHandler("load", load, run_async=True)
 UNLOAD_HANDLER = CommandHandler("unload", unload, run_async=True)
 LISTMODULES_HANDLER = CommandHandler("listmodules", listmodules, run_async=True)
 
-dispatcher.add_handler(LOAD_HANDLER)
-dispatcher.add_handler(UNLOAD_HANDLER)
-dispatcher.add_handler(LISTMODULES_HANDLER)
+NEKO_PTB.add_handler(LOAD_HANDLER)
+NEKO_PTB.add_handler(UNLOAD_HANDLER)
+NEKO_PTB.add_handler(LISTMODULES_HANDLER)
 
 __mod_name__ = "Modules"

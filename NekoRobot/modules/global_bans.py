@@ -20,7 +20,7 @@ from NekoRobot import (
     SUPPORT_CHAT,
     TIGERS,
     WOLVES,
-    dispatcher,
+    NEKO_PTB,
     sw,
 )
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -503,7 +503,7 @@ def __user_info__(user_id):
     text = "Malicious: <b>{}</b>"
     if user_id in [777000, 1087968824]:
         return ""
-    if user_id == dispatcher.bot.id:
+    if user_id == NEKO_PTB.bot.id:
         return ""
     if int(user_id) in DRAGONS + TIGERS + WOLVES:
         return ""
@@ -553,14 +553,14 @@ GBAN_ENFORCER = MessageHandler(
     Filters.all & Filters.chat_type.groups, enforce_gban, run_async=True
 )
 
-dispatcher.add_handler(GBAN_HANDLER)
-dispatcher.add_handler(UNGBAN_HANDLER)
-dispatcher.add_handler(GBAN_LIST)
-dispatcher.add_handler(GBAN_STATUS)
+NEKO_PTB.add_handler(GBAN_HANDLER)
+NEKO_PTB.add_handler(UNGBAN_HANDLER)
+NEKO_PTB.add_handler(GBAN_LIST)
+NEKO_PTB.add_handler(GBAN_STATUS)
 
 __mod_name__ = "Anti-Spam"
 __handlers__ = [GBAN_HANDLER, UNGBAN_HANDLER, GBAN_LIST, GBAN_STATUS]
 
 if STRICT_GBAN:  # enforce GBANS if this is set
-    dispatcher.add_handler(GBAN_ENFORCER, GBAN_ENFORCE_GROUP)
+    NEKO_PTB.add_handler(GBAN_ENFORCER, GBAN_ENFORCE_GROUP)
     __handlers__.append((GBAN_ENFORCER, GBAN_ENFORCE_GROUP))

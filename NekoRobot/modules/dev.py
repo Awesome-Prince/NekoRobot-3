@@ -31,7 +31,7 @@ from time import sleep
 from telegram import TelegramError, Update
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
@@ -85,9 +85,9 @@ LEAVE_HANDLER = CommandHandler("leave", leave, run_async=True)
 GITPULL_HANDLER = CommandHandler("gitpull", gitpull, run_async=True)
 RESTART_HANDLER = CommandHandler("reboot", restart, run_async=True)
 
-dispatcher.add_handler(LEAVE_HANDLER)
-dispatcher.add_handler(GITPULL_HANDLER)
-dispatcher.add_handler(RESTART_HANDLER)
+NEKO_PTB.add_handler(LEAVE_HANDLER)
+NEKO_PTB.add_handler(GITPULL_HANDLER)
+NEKO_PTB.add_handler(RESTART_HANDLER)
 
 __mod_name__ = "Dev"
 __handlers__ = [LEAVE_HANDLER, GITPULL_HANDLER, RESTART_HANDLER]

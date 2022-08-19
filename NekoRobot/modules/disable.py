@@ -5,7 +5,7 @@ from telegram import Chat, ParseMode, Update
 from telegram.ext import CommandHandler, MessageHandler
 from telegram.utils.helpers import escape_markdown
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.handlers import CMD_STARTERS
@@ -105,8 +105,8 @@ if is_module_loaded(FILENAME):
 
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
         if conn:
-            chat = dispatcher.bot.getChat(conn)
-            chat_name = dispatcher.bot.getChat(conn).title
+            chat = NEKO_PTB.bot.getChat(conn)
+            chat_name = NEKO_PTB.bot.getChat(conn).title
         else:
             if update.effective_message.chat.type == "private":
                 send_message(
@@ -150,8 +150,8 @@ if is_module_loaded(FILENAME):
 
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
         if conn:
-            chat = dispatcher.bot.getChat(conn)
-            chat_name = dispatcher.bot.getChat(conn).title
+            chat = NEKO_PTB.bot.getChat(conn)
+            chat_name = NEKO_PTB.bot.getChat(conn).title
         else:
             if update.effective_message.chat.type == "private":
                 send_message(
@@ -217,7 +217,7 @@ if is_module_loaded(FILENAME):
         user = update.effective_user
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
         if conn:
-            chat = dispatcher.bot.getChat(conn)
+            chat = NEKO_PTB.bot.getChat(conn)
         else:
             if update.effective_message.chat.type == "private":
                 send_message(
@@ -277,10 +277,10 @@ It'll also allow you to autodelete them, stopping people from bluetexting.
         "listcmds", list_cmds, run_async=True
     )  # , filters=Filters.chat_type.groups)
 
-    dispatcher.add_handler(DISABLE_HANDLER)
-    dispatcher.add_handler(ENABLE_HANDLER)
-    dispatcher.add_handler(COMMANDS_HANDLER)
-    dispatcher.add_handler(TOGGLE_HANDLER)
+    NEKO_PTB.add_handler(DISABLE_HANDLER)
+    NEKO_PTB.add_handler(ENABLE_HANDLER)
+    NEKO_PTB.add_handler(COMMANDS_HANDLER)
+    NEKO_PTB.add_handler(TOGGLE_HANDLER)
 
 else:
     DisableAbleCommandHandler = CommandHandler

@@ -7,7 +7,7 @@ from telegram.ext import Filters
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.blacklist_sql as sql
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
@@ -35,7 +35,7 @@ def blacklist(update, context):
     conn = connected(context.bot, update, chat, user.id, need_admin=False)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if chat.type == "private":
             return
@@ -81,7 +81,7 @@ def add_blacklist(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
@@ -136,7 +136,7 @@ def unblacklist(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
@@ -217,9 +217,9 @@ def blacklist_mode(update, context):  # sourcery no-metrics
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:
-        chat = dispatcher.bot.getChat(conn)
+        chat = NEKO_PTB.bot.getChat(conn)
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
             send_message(

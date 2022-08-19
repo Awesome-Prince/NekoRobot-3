@@ -36,7 +36,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import DRAGONS, LOGGER, TIGERS, WOLVES, dispatcher
+from NekoRobot import DRAGONS, LOGGER, TIGERS, WOLVES, NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_not_admin
 from NekoRobot.modules.log_channel import loggable
 from NekoRobot.modules.sql import reporting_sql as sql
@@ -308,11 +308,11 @@ ADMIN_REPORT_HANDLER = MessageHandler(
 REPORT_BUTTON_USER_HANDLER = CallbackQueryHandler(
     buttons, pattern=r"report_", run_async=True
 )
-dispatcher.add_handler(REPORT_BUTTON_USER_HANDLER)
+NEKO_PTB.add_handler(REPORT_BUTTON_USER_HANDLER)
 
-dispatcher.add_handler(SETTING_HANDLER)
-dispatcher.add_handler(REPORT_HANDLER, REPORT_GROUP)
-dispatcher.add_handler(ADMIN_REPORT_HANDLER, REPORT_GROUP)
+NEKO_PTB.add_handler(SETTING_HANDLER)
+NEKO_PTB.add_handler(REPORT_HANDLER, REPORT_GROUP)
+NEKO_PTB.add_handler(ADMIN_REPORT_HANDLER, REPORT_GROUP)
 
 __mod_name__ = "Reporting"
 __handlers__ = [

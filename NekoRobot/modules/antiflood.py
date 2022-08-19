@@ -37,7 +37,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import TIGERS, WOLVES, dispatcher
+from NekoRobot import TIGERS, WOLVES, NEKO_PTB
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -171,7 +171,7 @@ def set_flood(update, context) -> str:
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
             send_message(
@@ -263,7 +263,7 @@ def flood(update, context):
     conn = connected(context.bot, update, chat, user.id, need_admin=False)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
             send_message(
@@ -306,9 +306,9 @@ def set_flood_mode(update, context):
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:
-        chat = dispatcher.bot.getChat(conn)
+        chat = NEKO_PTB.bot.getChat(conn)
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
             send_message(
@@ -457,11 +457,11 @@ FLOOD_HANDLER = CommandHandler(
     "flood", flood, filters=Filters.chat_type.groups, run_async=True
 )
 
-dispatcher.add_handler(FLOOD_BAN_HANDLER, FLOOD_GROUP)
-dispatcher.add_handler(FLOOD_QUERY_HANDLER)
-dispatcher.add_handler(SET_FLOOD_HANDLER)
-dispatcher.add_handler(SET_FLOOD_MODE_HANDLER)
-dispatcher.add_handler(FLOOD_HANDLER)
+NEKO_PTB.add_handler(FLOOD_BAN_HANDLER, FLOOD_GROUP)
+NEKO_PTB.add_handler(FLOOD_QUERY_HANDLER)
+NEKO_PTB.add_handler(SET_FLOOD_HANDLER)
+NEKO_PTB.add_handler(SET_FLOOD_MODE_HANDLER)
+NEKO_PTB.add_handler(FLOOD_HANDLER)
 
 __handlers__ = [
     (FLOOD_BAN_HANDLER, FLOOD_GROUP),

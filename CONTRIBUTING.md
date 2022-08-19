@@ -22,6 +22,6 @@ Removing the module file should result in a bot which is still in perfect workin
 load time, in `__main__`, by looking at attributes. This is how migration, /help, /stats, /info, and many other things
 are based off of. It allows the bot to work fine with the LOAD and NO_LOAD configurations.
 - Keep in mind that some things might clash; eg a regex handler could clash with a command handler - in this case, you 
-should put them in different dispatcher groups.
+should put them in different NEKO_PTB groups.
 
 

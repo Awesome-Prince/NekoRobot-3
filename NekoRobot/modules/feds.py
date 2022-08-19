@@ -43,7 +43,7 @@ from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 from telegram.utils.helpers import mention_html, mention_markdown
 
 import NekoRobot.modules.sql.feds_sql as sql
-from NekoRobot import DRAGONS, EVENT_LOGS, LOGGER, OWNER_ID, TIGERS, WOLVES, dispatcher
+from NekoRobot import DRAGONS, EVENT_LOGS, LOGGER, OWNER_ID, TIGERS, WOLVES, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
@@ -747,7 +747,7 @@ def fed_ban(update: Update, context: CallbackContext):
             except BadRequest as excp:
                 if excp.message in FBAN_ERRORS:
                     try:
-                        dispatcher.bot.getChat(fedschat)
+                        NEKO_PTB.bot.getChat(fedschat)
                     except Unauthorized:
                         sql.chat_leave_fed(fedschat)
                         LOGGER.info(
@@ -787,7 +787,7 @@ def fed_ban(update: Update, context: CallbackContext):
                     except BadRequest as excp:
                         if excp.message in FBAN_ERRORS:
                             try:
-                                dispatcher.bot.getChat(fedschat)
+                                NEKO_PTB.bot.getChat(fedschat)
                             except Unauthorized:
                                 targetfed_id = sql.get_fed_id(fedschat)
                                 sql.unsubs_fed(fed_id, targetfed_id)
@@ -939,7 +939,7 @@ def fed_ban(update: Update, context: CallbackContext):
                     except BadRequest as excp:
                         if excp.message in FBAN_ERRORS:
                             try:
-                                dispatcher.bot.getChat(fedschat)
+                                NEKO_PTB.bot.getChat(fedschat)
                             except Unauthorized:
                                 targetfed_id = sql.get_fed_id(fedschat)
                                 sql.unsubs_fed(fed_id, targetfed_id)
@@ -1134,7 +1134,7 @@ def unfban(update: Update, context: CallbackContext):
                 except BadRequest as excp:
                     if excp.message in FBAN_ERRORS:
                         try:
-                            dispatcher.bot.getChat(fedschat)
+                            NEKO_PTB.bot.getChat(fedschat)
                         except Unauthorized:
                             targetfed_id = sql.get_fed_id(fedschat)
                             sql.unsubs_fed(fed_id, targetfed_id)
@@ -1301,7 +1301,7 @@ def fed_broadcast(update: Update, context: CallbackContext):
                 bot.sendMessage(chat, title + text, parse_mode="markdown")
             except TelegramError:
                 try:
-                    dispatcher.bot.getChat(chat)
+                    NEKO_PTB.bot.getChat(chat)
                 except Unauthorized:
                     failed += 1
                     sql.chat_leave_fed(chat)
@@ -1572,7 +1572,7 @@ def fed_chats(update: Update, context: CallbackContext):
     text = "<b>New chat joined the federation {}:</b>\n".format(info["fname"])
     for chats in getlist:
         try:
-            chat_name = dispatcher.bot.getChat(chats).title
+            chat_name = NEKO_PTB.bot.getChat(chats).title
         except Unauthorized:
             sql.chat_leave_fed(chats)
             LOGGER.info(
@@ -2416,33 +2416,33 @@ FED_OWNER_HELP_HANDLER = CommandHandler("fedownerhelp", fed_owner_help, run_asyn
 FED_ADMIN_HELP_HANDLER = CommandHandler("fedadminhelp", fed_admin_help, run_async=True)
 FED_USER_HELP_HANDLER = CommandHandler("feduserhelp", fed_user_help, run_async=True)
 
-dispatcher.add_handler(NEW_FED_HANDLER)
-dispatcher.add_handler(DEL_FED_HANDLER)
-dispatcher.add_handler(RENAME_FED)
-dispatcher.add_handler(JOIN_FED_HANDLER)
-dispatcher.add_handler(LEAVE_FED_HANDLER)
-dispatcher.add_handler(PROMOTE_FED_HANDLER)
-dispatcher.add_handler(DEMOTE_FED_HANDLER)
-dispatcher.add_handler(INFO_FED_HANDLER)
-dispatcher.add_handler(BAN_FED_HANDLER)
-dispatcher.add_handler(UN_BAN_FED_HANDLER)
-dispatcher.add_handler(FED_BROADCAST_HANDLER)
-dispatcher.add_handler(FED_SET_RULES_HANDLER)
-dispatcher.add_handler(FED_GET_RULES_HANDLER)
-dispatcher.add_handler(FED_CHAT_HANDLER)
-dispatcher.add_handler(FED_ADMIN_HANDLER)
-dispatcher.add_handler(FED_USERBAN_HANDLER)
-dispatcher.add_handler(FED_NOTIF_HANDLER)
-dispatcher.add_handler(FED_CHATLIST_HANDLER)
-# dispatcher.add_handler(FED_IMPORTBAN_HANDLER)
-dispatcher.add_handler(FEDSTAT_USER)
-dispatcher.add_handler(SET_FED_LOG)
-dispatcher.add_handler(UNSET_FED_LOG)
-dispatcher.add_handler(SUBS_FED)
-dispatcher.add_handler(UNSUBS_FED)
-dispatcher.add_handler(MY_SUB_FED)
-dispatcher.add_handler(MY_FEDS_LIST)
-dispatcher.add_handler(DELETEBTN_FED_HANDLER)
-dispatcher.add_handler(FED_OWNER_HELP_HANDLER)
-dispatcher.add_handler(FED_ADMIN_HELP_HANDLER)
-dispatcher.add_handler(FED_USER_HELP_HANDLER)
+NEKO_PTB.add_handler(NEW_FED_HANDLER)
+NEKO_PTB.add_handler(DEL_FED_HANDLER)
+NEKO_PTB.add_handler(RENAME_FED)
+NEKO_PTB.add_handler(JOIN_FED_HANDLER)
+NEKO_PTB.add_handler(LEAVE_FED_HANDLER)
+NEKO_PTB.add_handler(PROMOTE_FED_HANDLER)
+NEKO_PTB.add_handler(DEMOTE_FED_HANDLER)
+NEKO_PTB.add_handler(INFO_FED_HANDLER)
+NEKO_PTB.add_handler(BAN_FED_HANDLER)
+NEKO_PTB.add_handler(UN_BAN_FED_HANDLER)
+NEKO_PTB.add_handler(FED_BROADCAST_HANDLER)
+NEKO_PTB.add_handler(FED_SET_RULES_HANDLER)
+NEKO_PTB.add_handler(FED_GET_RULES_HANDLER)
+NEKO_PTB.add_handler(FED_CHAT_HANDLER)
+NEKO_PTB.add_handler(FED_ADMIN_HANDLER)
+NEKO_PTB.add_handler(FED_USERBAN_HANDLER)
+NEKO_PTB.add_handler(FED_NOTIF_HANDLER)
+NEKO_PTB.add_handler(FED_CHATLIST_HANDLER)
+# NEKO_PTB.add_handler(FED_IMPORTBAN_HANDLER)
+NEKO_PTB.add_handler(FEDSTAT_USER)
+NEKO_PTB.add_handler(SET_FED_LOG)
+NEKO_PTB.add_handler(UNSET_FED_LOG)
+NEKO_PTB.add_handler(SUBS_FED)
+NEKO_PTB.add_handler(UNSUBS_FED)
+NEKO_PTB.add_handler(MY_SUB_FED)
+NEKO_PTB.add_handler(MY_FEDS_LIST)
+NEKO_PTB.add_handler(DELETEBTN_FED_HANDLER)
+NEKO_PTB.add_handler(FED_OWNER_HELP_HANDLER)
+NEKO_PTB.add_handler(FED_ADMIN_HELP_HANDLER)
+NEKO_PTB.add_handler(FED_USER_HELP_HANDLER)

@@ -7,7 +7,7 @@ from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandle
 from telegram.utils.helpers import mention_html, mention_markdown
 
 import NekoRobot.modules.sql.blsticker_sql as sql
-from NekoRobot import LOGGER, dispatcher
+from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message
@@ -26,7 +26,7 @@ def blackliststicker(update: Update, context: CallbackContext):
     conn = connected(bot, update, chat, user.id, need_admin=False)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if chat.type == "private":
             return
@@ -74,7 +74,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
     conn = connected(bot, update, chat, user.id)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
@@ -164,7 +164,7 @@ def unblackliststicker(update: Update, context: CallbackContext):
     conn = connected(bot, update, chat, user.id)
     if conn:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
@@ -259,9 +259,9 @@ def blacklist_mode(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     conn = connected(bot, update, chat, user.id, need_admin=True)
     if conn:
-        chat = dispatcher.bot.getChat(conn)
+        chat = NEKO_PTB.bot.getChat(conn)
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
             send_message(
@@ -524,8 +524,8 @@ BLACKLIST_STICKER_DEL_HANDLER = MessageHandler(
     Filters.sticker & Filters.chat_type.groups, del_blackliststicker, run_async=True
 )
 
-dispatcher.add_handler(BLACKLIST_STICKER_HANDLER)
-dispatcher.add_handler(ADDBLACKLIST_STICKER_HANDLER)
-dispatcher.add_handler(UNBLACKLIST_STICKER_HANDLER)
-dispatcher.add_handler(BLACKLISTMODE_HANDLER)
-dispatcher.add_handler(BLACKLIST_STICKER_DEL_HANDLER)
+NEKO_PTB.add_handler(BLACKLIST_STICKER_HANDLER)
+NEKO_PTB.add_handler(ADDBLACKLIST_STICKER_HANDLER)
+NEKO_PTB.add_handler(UNBLACKLIST_STICKER_HANDLER)
+NEKO_PTB.add_handler(BLACKLISTMODE_HANDLER)
+NEKO_PTB.add_handler(BLACKLIST_STICKER_DEL_HANDLER)

@@ -31,7 +31,7 @@ from telegram.ext import CallbackContext, CallbackQueryHandler
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.approve_sql as sql
-from NekoRobot import DRAGONS, dispatcher
+from NekoRobot import DRAGONS, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.helper_funcs.extraction import extract_user
@@ -239,12 +239,12 @@ UNAPPROVEALL_BTN = CallbackQueryHandler(
     unapproveall_btn, pattern=r"unapproveall_.*", run_async=True
 )
 
-dispatcher.add_handler(APPROVE)
-dispatcher.add_handler(DISAPPROVE)
-dispatcher.add_handler(APPROVED)
-dispatcher.add_handler(APPROVAL)
-dispatcher.add_handler(UNAPPROVEALL)
-dispatcher.add_handler(UNAPPROVEALL_BTN)
+NEKO_PTB.add_handler(APPROVE)
+NEKO_PTB.add_handler(DISAPPROVE)
+NEKO_PTB.add_handler(APPROVED)
+NEKO_PTB.add_handler(APPROVAL)
+NEKO_PTB.add_handler(UNAPPROVEALL)
+NEKO_PTB.add_handler(UNAPPROVEALL_BTN)
 
 __mod_name__ = "Approvals"
 __command_list__ = ["approve", "unapprove", "approved", "approval"]

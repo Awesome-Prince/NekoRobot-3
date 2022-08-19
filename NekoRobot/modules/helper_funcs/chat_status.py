@@ -40,7 +40,7 @@ from NekoRobot import (
     SUPPORT_CHAT,
     TIGERS,
     WOLVES,
-    dispatcher,
+    NEKO_PTB,
 )
 
 # stores admemes in memory for 10 min.
@@ -96,7 +96,7 @@ def is_user_admin(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
             # keyerror happend means cache is deleted,
             # so query bot api again and return user status
             # while saving it in cache for future useage...
-            chat_admins = dispatcher.bot.getChatAdministrators(chat.id)
+            chat_admins = NEKO_PTB.bot.getChatAdministrators(chat.id)
             admin_list = [x.user.id for x in chat_admins]
             ADMIN_CACHE[chat.id] = admin_list
 
@@ -454,7 +454,7 @@ def connection_status(func):
         )
 
         if conn:
-            chat = dispatcher.bot.getChat(conn)
+            chat = NEKO_PTB.bot.getChat(conn)
             update.__setattr__("_effective_chat", chat)
         elif update.effective_message.chat.type == "private":
             update.effective_message.reply_text(

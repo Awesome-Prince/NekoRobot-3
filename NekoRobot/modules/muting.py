@@ -31,7 +31,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import LOGGER, TIGERS, dispatcher
+from NekoRobot import LOGGER, TIGERS, NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
     can_restrict,
@@ -273,9 +273,9 @@ MUTE_HANDLER = CommandHandler("mute", mute, run_async=True)
 UNMUTE_HANDLER = CommandHandler("unmute", unmute, run_async=True)
 TEMPMUTE_HANDLER = CommandHandler(["tmute", "tempmute"], temp_mute, run_async=True)
 
-dispatcher.add_handler(MUTE_HANDLER)
-dispatcher.add_handler(UNMUTE_HANDLER)
-dispatcher.add_handler(TEMPMUTE_HANDLER)
+NEKO_PTB.add_handler(MUTE_HANDLER)
+NEKO_PTB.add_handler(UNMUTE_HANDLER)
+NEKO_PTB.add_handler(TEMPMUTE_HANDLER)
 
 __mod_name__ = "Muting"
 __handlers__ = [MUTE_HANDLER, UNMUTE_HANDLER, TEMPMUTE_HANDLER]

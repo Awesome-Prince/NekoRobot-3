@@ -7,7 +7,7 @@ from telegram.ext import CallbackContext
 from telegram.ext.chatmemberhandler import ChatMemberHandler
 
 import NekoRobot.modules.sql.logger_sql as sql
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.log_channel import loggable
 
 # Module to extract and log (optional: send to chat) status changes in chat members using ChatMemberUpdated
@@ -300,6 +300,6 @@ def chatmemberupdates(update: Update, context: CallbackContext) -> Optional[str]
                 return log_message
 
 
-dispatcher.add_handler(
+NEKO_PTB.add_handler(
     ChatMemberHandler(chatmemberupdates, ChatMemberHandler.CHAT_MEMBER, run_async=True)
 )

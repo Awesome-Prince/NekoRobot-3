@@ -7,7 +7,7 @@ from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
-from NekoRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES, dispatcher
+from NekoRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES, NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from NekoRobot.modules.helper_funcs.extraction import (
     extract_user,
@@ -133,7 +133,7 @@ def __user_info__(user_id):
     text = "Blacklisted: <b>{}</b>"
     if user_id in [777000, 1087968824]:
         return ""
-    if user_id == dispatcher.bot.id:
+    if user_id == NEKO_PTB.bot.id:
         return ""
     if int(user_id) in DRAGONS + TIGERS + WOLVES:
         return ""
@@ -152,9 +152,9 @@ BL_HANDLER = CommandHandler("ignore", bl_user, run_async=True)
 UNBL_HANDLER = CommandHandler("notice", unbl_user, run_async=True)
 BLUSERS_HANDLER = CommandHandler("ignoredlist", bl_users, run_async=True)
 
-dispatcher.add_handler(BL_HANDLER)
-dispatcher.add_handler(UNBL_HANDLER)
-dispatcher.add_handler(BLUSERS_HANDLER)
+NEKO_PTB.add_handler(BL_HANDLER)
+NEKO_PTB.add_handler(UNBL_HANDLER)
+NEKO_PTB.add_handler(BLUSERS_HANDLER)
 
 __mod_name__ = "Blacklisting Users"
 __handlers__ = [BL_HANDLER, UNBL_HANDLER, BLUSERS_HANDLER]

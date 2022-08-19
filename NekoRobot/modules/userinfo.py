@@ -33,7 +33,7 @@ from NekoRobot import (
     TIGERS,
     WOLVES,
     StartTime,
-    dispatcher,
+    NEKO_PTB,
     sw,
     telethn,
 )
@@ -106,7 +106,7 @@ def hpmanager(user):
         if not user.username:
             new_hp -= no_by_per(total_hp, 25)
         try:
-            dispatcher.bot.get_user_profile_photos(user.id).photos[0][-1]
+            NEKO_PTB.bot.get_user_profile_photos(user.id).photos[0][-1]
         except IndexError:
             # no profile photo ==> -25% of hp
             new_hp -= no_by_per(total_hp, 25)
@@ -637,14 +637,14 @@ INFO_HANDLER = DisableAbleCommandHandler("info", info, run_async=True)
 SET_ABOUT_HANDLER = DisableAbleCommandHandler("setme", set_about_me, run_async=True)
 GET_ABOUT_HANDLER = DisableAbleCommandHandler("me", about_me, run_async=True)
 
-dispatcher.add_handler(STATS_HANDLER)
-dispatcher.add_handler(ID_HANDLER)
-dispatcher.add_handler(GIFID_HANDLER)
-dispatcher.add_handler(INFO_HANDLER)
-dispatcher.add_handler(SET_BIO_HANDLER)
-dispatcher.add_handler(GET_BIO_HANDLER)
-dispatcher.add_handler(SET_ABOUT_HANDLER)
-dispatcher.add_handler(GET_ABOUT_HANDLER)
+NEKO_PTB.add_handler(STATS_HANDLER)
+NEKO_PTB.add_handler(ID_HANDLER)
+NEKO_PTB.add_handler(GIFID_HANDLER)
+NEKO_PTB.add_handler(INFO_HANDLER)
+NEKO_PTB.add_handler(SET_BIO_HANDLER)
+NEKO_PTB.add_handler(GET_BIO_HANDLER)
+NEKO_PTB.add_handler(SET_ABOUT_HANDLER)
+NEKO_PTB.add_handler(GET_ABOUT_HANDLER)
 
 __mod_name__ = "Info & AFK"
 __command_list__ = ["setbio", "bio", "setme", "me", "info"]

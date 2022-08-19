@@ -1,8 +1,8 @@
 from telegram import TelegramError, Update
 from telegram.ext import CommandHandler
-from telegram.ext.dispatcher import CallbackContext
+from telegram.ext.NEKO_PTB import CallbackContext
 
-from NekoRobot import LOGGER, dispatcher
+from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.helper_funcs.filters import CustomFilters
 
 
@@ -37,4 +37,4 @@ SNIPE_HANDLER = CommandHandler(
     "snipe", snipe, pass_args=True, filters=CustomFilters.dev_filter, run_async=True
 )
 
-dispatcher.add_handler(SNIPE_HANDLER)
+NEKO_PTB.add_handler(SNIPE_HANDLER)

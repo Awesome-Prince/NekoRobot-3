@@ -3,7 +3,7 @@ import random
 import requests
 from telegram.ext import Filters
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import MessageHandler
 
 OWO = (
@@ -146,9 +146,9 @@ SLEEP_HANDLER = MessageHandler(
     Filters.regex("(Neko sleep|sleep)"), sleep, run_async=True
 )
 
-dispatcher.add_handler(KISS_HANDLER)
-dispatcher.add_handler(PAT_HANDLER)
-dispatcher.add_handler(HUG_HANDLER)
-dispatcher.add_handler(SLAP_HANDLER)
-dispatcher.add_handler(CUTE_HANDLER)
-dispatcher.add_handler(SLEEP_HANDLER)
+NEKO_PTB.add_handler(KISS_HANDLER)
+NEKO_PTB.add_handler(PAT_HANDLER)
+NEKO_PTB.add_handler(HUG_HANDLER)
+NEKO_PTB.add_handler(SLAP_HANDLER)
+NEKO_PTB.add_handler(CUTE_HANDLER)
+NEKO_PTB.add_handler(SLEEP_HANDLER)

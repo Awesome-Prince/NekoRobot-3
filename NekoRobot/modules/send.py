@@ -24,7 +24,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
@@ -38,6 +38,6 @@ def send(update, context):
 
 
 ADD_CCHAT_HANDLER = DisableAbleCommandHandler("snd", send, run_async=True)
-dispatcher.add_handler(ADD_CCHAT_HANDLER)
+NEKO_PTB.add_handler(ADD_CCHAT_HANDLER)
 __command_list__ = ["snd"]
 __handlers__ = [ADD_CCHAT_HANDLER]
