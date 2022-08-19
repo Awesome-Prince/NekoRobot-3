@@ -208,11 +208,10 @@ async def executor(client, message):
             reply_markup=keyboard,
         )
 
-<<<<<<< HEAD
 NEKO_PTB.add_handler(EVAL_HANDLER)
 NEKO_PTB.add_handler(EXEC_HANDLER)
 NEKO_PTB.add_handler(CLEAR_HANDLER)
-=======
+
         await message.delete()
         os.remove(filename)
     else:
@@ -228,8 +227,6 @@ NEKO_PTB.add_handler(CLEAR_HANDLER)
             ]
         )
         await edit_or_reply(message, text=final_output, reply_markup=keyboard)
->>>>>>> f835d4a78223e2ab60b03cb2e43f3b55c596f0b6
-
 
 @pgram.on_callback_query(filters.regex(r"runtime"))
 async def runtime_func_cq(_, cq):
