@@ -670,7 +670,7 @@ async def donate(update: Update, context: CallbackContext) -> None:
                     ]
                 ),
             )
-        except Forbidden:
+        except Unauthorized:
             await update.effective_message.reply_text(
                 "Contact me in PM first to get donation information."
             )
