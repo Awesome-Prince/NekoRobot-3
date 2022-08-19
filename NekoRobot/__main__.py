@@ -69,6 +69,7 @@ from NekoRobot import (
     TOKEN,
     WEBHOOK,
     StartTime,
+    dispatcher,
     pgram,
 )
 
