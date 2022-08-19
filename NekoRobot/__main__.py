@@ -742,7 +742,5 @@ def main():
 if __name__ == "__main__":
     LOGGER.info(f"Successfully loaded modules: {str(ALL_MODULES)}")
     telethn.start(bot_token=TOKEN)
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(pgram.start())
     main()
     idle()
