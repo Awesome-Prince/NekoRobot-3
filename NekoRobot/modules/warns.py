@@ -45,7 +45,7 @@ from telegram.ext import (
     CommandHandler,
     Filters,
     MessageHandler,
-    NEKO_PTBHandlerStop,
+    DispatcherHandlerStop,
 )
 from telegram.utils.helpers import mention_html
 
