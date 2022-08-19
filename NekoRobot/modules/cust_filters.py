@@ -5,12 +5,7 @@ from html import escape
 import telegram
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Message, ParseMode
 from telegram.error import BadRequest
-from telegram.ext import (
-    CallbackQueryHandler,
-    Filters,
-    MessageHandler,
-    DispatcherHandlerStop,
-)
+from telegram.ext import CallbackQueryHandler, Filters, MessageHandler
 from telegram.utils.helpers import escape_markdown, mention_html
 
 from NekoRobot import DRAGONS, LOGGER, NEKO_PTB
