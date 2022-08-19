@@ -47,7 +47,13 @@ from telegram.error import (
     TelegramError,
     TimedOut,
 )
-from telegram.ext import CallbackContext, CommandHandler, CallbackQueryHandler, Filters, MessageHandler
+from telegram.ext import (
+    CallbackContext,
+    CallbackQueryHandler,
+    CommandHandler,
+    Filters,
+    MessageHandler,
+)
 from telegram.utils.helpers import escape_markdown
 
 import NekoRobot.modules.sql.users_sql as sql
