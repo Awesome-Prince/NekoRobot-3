@@ -47,13 +47,7 @@ from telegram.error import (
     TelegramError,
     TimedOut,
 )
-from telegram.ext import (
-    CallbackContext,
-    CallbackQueryHandler,
-    CommandHandler,
-    Filters,
-    MessageHandler,
-)
+from telegram.ext import CallbackContext, CallbackQueryHandler, Filters, MessageHandler
 from telegram.utils.helpers import escape_markdown
 
 import NekoRobot.modules.sql.users_sql as sql
@@ -69,8 +63,8 @@ from NekoRobot import (
     TOKEN,
     WEBHOOK,
     StartTime,
-    telethn,
     pgram,
+    telethn,
     updater,
 )
 
@@ -704,14 +698,22 @@ def main():
     start_handler = DisableAbleCommandHandler("start", start, run_async=True)
 
     help_handler = DisableAbleCommandHandler("help", get_help, run_async=True)
-    help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
+    help_callback_handler = CallbackQueryHandler(
+        help_button, pattern=r"help_.*", run_async=True
+    )
 
     settings_handler = DisableAbleCommandHandler("settings", get_settings)
-    settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_", run_async=True)
+    settings_callback_handler = CallbackQueryHandler(
+        settings_button, pattern=r"stngs_", run_async=True
+    )
 
-    data_callback_handler = CallbackQueryHandler(neko_callback_data, pattern=r"neko_", run_async=True)
+    data_callback_handler = CallbackQueryHandler(
+        neko_callback_data, pattern=r"neko_", run_async=True
+    )
     donate_handler = DisableAbleCommandHandler("donate", donate, run_async=True)
-    migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats, run_async=True)
+    migrate_handler = MessageHandler(
+        Filters.status_update.migrate, migrate_chats, run_async=True
+    )
 
     NEKO_PTB.add_handler(start_handler)
     NEKO_PTB.add_handler(help_handler)
@@ -723,7 +725,7 @@ def main():
     NEKO_PTB.add_handler(donate_handler)
 
     NEKO_PTB.add_error_handler(error_callback)
-   
+
     if WEBHOOK:
         LOGGER.info("Using webhooks.")
         updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
@@ -734,8 +736,15 @@ def main():
             updater.bot.set_webhook(url=URL + TOKEN)
 
     else:
-        LOGGER.info(f"Neko started, Using long polling. | BOT: [@{NEKO_PTB.bot.username}]")
-        updater.start_polling(timeout=15, read_latency=4, drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
+        LOGGER.info(
+            f"Neko started, Using long polling. | BOT: [@{NEKO_PTB.bot.username}]"
+        )
+        updater.start_polling(
+            timeout=15,
+            read_latency=4,
+            drop_pending_updates=True,
+            allowed_updates=Update.ALL_TYPES,
+        )
 
     if len(argv) not in (1, 3, 4):
         telethn.disconnect()
@@ -744,7 +753,8 @@ def main():
 
     updater.idle()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
     pgram.start()
