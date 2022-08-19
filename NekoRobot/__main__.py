@@ -227,10 +227,10 @@ async def send_help(context: CallbackContext, chat_id, text, keyboard=None):
 
 
 async def test(update: Update):
-    # pLOGGER.debug(eval(str(update)))
+    # pprint(eval(str(update)))
     # await update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
     await update.effective_message.reply_text("This person edited a message")
-    LOGGER.debug(update.effective_message)
+    print(update.effective_message)
 
 
 async def start(update: Update, context: CallbackContext):
