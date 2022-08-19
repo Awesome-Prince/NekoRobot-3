@@ -721,6 +721,17 @@ def main():
         MessageHandler(Filters.status_update.migrate, migrate_chats, run_async=True)
     )
 
+    NEKO_PTB.add_handler(start_handler)
+    NEKO_PTB.add_handler(help_handler)
+    NEKO_PTB.add_handler(data_callback_handler)
+    NEKO_PTB.add_handler(settings_handler)
+    NEKO_PTB.add_handler(help_callback_handler)
+    NEKO_PTB.add_handler(settings_callback_handler)
+    NEKO_PTB.add_handler(migrate_handler)
+    NEKO_PTB.add_handler(donate_handler)
+
+    NEKO_PTB.add_error_handler(error_callback)
+   
     if WEBHOOK:
         LOGGER.info("Using webhooks.")
         NEKO_PTB.run_webhook(listen="127.0.0.1", port=PORT, url_path=TOKEN)
