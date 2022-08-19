@@ -70,6 +70,8 @@ from NekoRobot import (
     WEBHOOK,
     StartTime,
     pgram,
+    updater,
+    telethn,
 )
 
 # needed to dynamically load modules
