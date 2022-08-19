@@ -47,7 +47,7 @@ from telegram.error import (
     TelegramError,
     TimedOut,
 )
-from telegram.ext import CallbackContext, CallbackQueryHandler, MessageHandler, filters
+from telegram.ext import CallbackContext, CallbackQueryHandler, MessageHandler, filters, CommandHandler
 from telegram.utils.helpers import escape_markdown
 
 import NekoRobot.modules.sql.users_sql as sql
@@ -69,7 +69,6 @@ from NekoRobot import (
 # needed to dynamically load modules
 # NOTE: Module order is not guaranteed, specify that in the config file!
 from NekoRobot.modules import ALL_MODULES
-from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
 from NekoRobot.modules.helper_funcs.misc import paginate_modules
 
@@ -696,16 +695,16 @@ async def migrate_chats(update: Update):
 
 def main():
     NEKO_PTB.add_error_handler(error_callback)
-    NEKO_PTB.add_handler(DisableAbleCommandHandler("test", test, run_async=True))
-    NEKO_PTB.add_handler(DisableAbleCommandHandler("start", start, run_async=True))
+    NEKO_PTB.add_handler(CommandHandler("test", test, run_async=True))
+    NEKO_PTB.add_handler(CommandHandler("start", start, run_async=True))
 
-    NEKO_PTB.add_handler(DisableAbleCommandHandler("help", get_help, run_async=True))
+    NEKO_PTB.add_handler(CommandHandler("help", get_help, run_async=True))
     NEKO_PTB.add_handler(
         CallbackQueryHandler(help_button, pattern=r"help_.*", run_async=True)
     )
 
     NEKO_PTB.add_handler(
-        DisableAbleCommandHandler("settings", get_settings, run_async=True)
+        CommandHandler("settings", get_settings, run_async=True)
     )
     NEKO_PTB.add_handler(
         CallbackQueryHandler(settings_button, pattern=r"stngs_", run_async=True)
@@ -714,7 +713,7 @@ def main():
     NEKO_PTB.add_handler(
         CallbackQueryHandler(neko_callback_data, pattern=r"neko_", run_async=True)
     )
-    NEKO_PTB.add_handler(DisableAbleCommandHandler("donate", donate))
+    NEKO_PTB.add_handler(CommandHandler("donate", donate))
     NEKO_PTB.add_handler(
         MessageHandler(filters.StatusUpdate.MIGRATE, migrate_chats, run_async=True)
     )
