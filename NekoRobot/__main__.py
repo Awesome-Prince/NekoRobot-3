@@ -727,14 +727,26 @@ def main():
         NEKO_PTB.run_webhook(listen="127.0.0.1", port=PORT, url_path=TOKEN)
 
     else:
-        NEKO_PTB.run_polling(allowed_updates=Update.ALL_TYPES, stop_signals=None)
         LOGGER.info(
-            f"Neko Robot started, Using long polling. | BOT: [@{NEKO_PTB.bot.username}]"
+            f"Neko started, Using long polling. | BOT: [@{dispatcher.bot.username}]"
         )
+        updater.start_polling(
+            timeout=15,
+            read_latency=4,
+            drop_pending_updates=True,
+            allowed_updates=Update.ALL_TYPES,
+        )
+   if len(argv) in {1, 3, 4}:
+        telethn.run_until_disconnected()
 
+    else:
+        telethn.disconnect()
+    updater.idle()
 
 if __name__ == "__main__":
     LOGGER.info(f"Successfully loaded modules: {str(ALL_MODULES)}")
     pgram.start()
+    telethn.start(bot_token=TOKEN)
+    pbot.start()
     main()
     idle()
