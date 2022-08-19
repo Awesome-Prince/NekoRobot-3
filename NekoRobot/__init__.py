@@ -12,8 +12,6 @@ from Python_ARQ import ARQ
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
 
-from NekoRobot.hacking_script import PM_START_TEXT
-
 StartTime = time.time()
 
 # enable logging
