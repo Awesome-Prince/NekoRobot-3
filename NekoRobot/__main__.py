@@ -46,7 +46,6 @@ from telegram.error import (
     NetworkError,
     TelegramError,
     TimedOut,
-    Unauthorized,
 )
 from telegram.ext import CallbackContext, CallbackQueryHandler, MessageHandler, filters
 from telegram.helpers import escape_markdown
