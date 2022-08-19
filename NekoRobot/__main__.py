@@ -263,15 +263,14 @@ async def start(update: Update, context: CallbackContext):
                 )
 
         elif args[0].lower().startswith("stngs_"):
-                match = re.match("stngs_(.*)", args[0].lower())
+             match = re.match("stngs_(.*)", args[0].lower())
                 chat = NEKO_PTB.bot.getChat(match.group(1))
 
                 if is_user_admin(chat, update.effective_user.id):
                     send_settings(match.group(1), update.effective_user.id, False)
                 else:
                     send_settings(match.group(1), update.effective_user.id, True)
-
-            elif args[0][1:].isdigit() and "rules" in IMPORTED:
+        elif args[0][1:].isdigit() and "rules" in IMPORTED:
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
