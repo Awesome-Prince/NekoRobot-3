@@ -43,10 +43,10 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Upda
 from telegram.error import (
     BadRequest,
     ChatMigrated,
-    Forbidden,
     NetworkError,
     TelegramError,
     TimedOut,
+    Unauthorized,
 )
 from telegram.ext import CallbackContext, CallbackQueryHandler, MessageHandler, filters
 from telegram.helpers import escape_markdown
