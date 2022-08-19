@@ -37,7 +37,7 @@ import re
 import time
 import traceback
 from typing import Optional
-
+import asyncio
 from pyrogram import idle
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import (
@@ -741,6 +741,7 @@ def main():
 if __name__ == "__main__":
     LOGGER.info(f"Successfully loaded modules: {str(ALL_MODULES)}")
     telethn.start(bot_token=TOKEN)
-    pgram.start()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(pgram.start())
     main()
     idle()
