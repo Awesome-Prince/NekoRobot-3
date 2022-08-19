@@ -27,10 +27,10 @@ from NekoRobot import (
     DEV_USERS,
     DRAGONS,
     LOGGER,
+    NEKO_PTB,
     OWNER_ID,
     TIGERS,
     WOLVES,
-    NEKO_PTB,
     sw,
 )
 from NekoRobot.modules.helper_funcs.chat_status import is_user_ban_protected, user_admin

@@ -9,7 +9,7 @@ from telegram.ext import CallbackContext, Filters
 
 import NekoRobot.modules.helper_funcs.string_store as fun
 import NekoRobot.modules.NekoFunBot_Strings as fun_strings
-from NekoRobot import SUPPORT_CHAT, NEKO_PTB
+from NekoRobot import NEKO_PTB, SUPPORT_CHAT
 from NekoRobot.events import register
 from NekoRobot.modules.disable import (
     DisableAbleCommandHandler,

@@ -30,7 +30,7 @@ from telegram import Update
 from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.ext import CallbackContext, CommandHandler, Filters
 
-from NekoRobot import OWNER_ID, NEKO_PTB
+from NekoRobot import NEKO_PTB, OWNER_ID
 from NekoRobot.modules.helper_funcs.extraction import extract_user
 from NekoRobot.modules.sql.users_sql import get_user_com_chats
 

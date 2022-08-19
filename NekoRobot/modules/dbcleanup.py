@@ -6,7 +6,7 @@ from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 
 import NekoRobot.modules.sql.global_bans_sql as gban_sql
 import NekoRobot.modules.sql.users_sql as user_sql
-from NekoRobot import DEV_USERS, OWNER_ID, NEKO_PTB
+from NekoRobot import DEV_USERS, NEKO_PTB, OWNER_ID
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 

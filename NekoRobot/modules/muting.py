@@ -31,7 +31,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import LOGGER, TIGERS, NEKO_PTB
+from NekoRobot import LOGGER, NEKO_PTB, TIGERS
 from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
     can_restrict,

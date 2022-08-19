@@ -48,7 +48,7 @@ from telegram.ext import (
 from telegram.utils.helpers import escape_markdown, mention_markdown
 
 import NekoRobot.modules.sql.notes_sql as sql
-from NekoRobot import DRAGONS, JOIN_LOGGER, LOGGER, SUPPORT_CHAT, NEKO_PTB
+from NekoRobot import DRAGONS, JOIN_LOGGER, LOGGER, NEKO_PTB, SUPPORT_CHAT
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import connection_status, user_admin
 from NekoRobot.modules.helper_funcs.handlers import MessageHandlerChecker

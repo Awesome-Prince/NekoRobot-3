@@ -16,10 +16,10 @@ from NekoRobot import (
     DEV_USERS,
     DRAGONS,
     LOGGER,
+    NEKO_PTB,
     OWNER_ID,
     TIGERS,
     WOLVES,
-    NEKO_PTB,
 )
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import (

@@ -36,7 +36,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import DRAGONS, LOGGER, TIGERS, WOLVES, NEKO_PTB
+from NekoRobot import DRAGONS, LOGGER, NEKO_PTB, TIGERS, WOLVES
 from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_not_admin
 from NekoRobot.modules.log_channel import loggable
 from NekoRobot.modules.sql import reporting_sql as sql

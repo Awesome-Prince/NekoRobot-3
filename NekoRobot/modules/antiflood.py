@@ -37,7 +37,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import TIGERS, WOLVES, NEKO_PTB
+from NekoRobot import NEKO_PTB, TIGERS, WOLVES
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import (

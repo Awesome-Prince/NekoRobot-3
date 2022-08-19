@@ -30,7 +30,7 @@ import requests
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import StartTime, NEKO_PTB
+from NekoRobot import NEKO_PTB, StartTime
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import sudo_plus
 

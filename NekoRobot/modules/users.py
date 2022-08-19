@@ -6,7 +6,7 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
 
 import NekoRobot.modules.sql.users_sql as sql
-from NekoRobot import DEV_USERS, LOGGER, OWNER_ID, NEKO_PTB
+from NekoRobot import DEV_USERS, LOGGER, NEKO_PTB, OWNER_ID
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
 from NekoRobot.modules.sql.users_sql import get_all_users
 

@@ -46,7 +46,6 @@ from telegram.ext import (
     Filters,
     MessageHandler,
 )
-from telegram.ext.dispatcher import DispatcherHandlerStop
 from telegram.utils.helpers import escape_markdown
 
 import NekoRobot.modules.sql.users_sql as sql
@@ -57,6 +56,7 @@ from NekoRobot import (
     DONATION_LINK,
     HELP_IMG,
     LOGGER,
+    NEKO_PTB,
     OWNER_ID,
     PORT,
     SUPPORT_CHAT,
@@ -64,7 +64,6 @@ from NekoRobot import (
     URL,
     WEBHOOK,
     StartTime,
-    NEKO_PTB,
     pbot,
     telethn,
     updater,

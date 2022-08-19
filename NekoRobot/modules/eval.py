@@ -45,7 +45,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext
 
-from NekoRobot import DEV_USERS, LOGGER, NEKO_PTB
+from NekoRobot import DEV_USERS, LOGGER
 from NekoRobot import pbot as pgram
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
@@ -222,6 +222,7 @@ async def executor(client, message):
             ]
         )
         await edit_or_reply(message, text=final_output, reply_markup=keyboard)
+
 
 @pgram.on_callback_query(filters.regex(r"runtime"))
 async def runtime_func_cq(_, cq):
