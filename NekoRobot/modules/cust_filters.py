@@ -9,7 +9,7 @@ from telegram.ext import (
     CallbackQueryHandler,
     Filters,
     MessageHandler,
-    NEKO_PTBHandlerStop,
+    DispatcherHandlerStop,
 )
 from telegram.utils.helpers import escape_markdown, mention_html
 
