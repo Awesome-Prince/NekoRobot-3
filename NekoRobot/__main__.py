@@ -233,8 +233,8 @@ def send_help(context: CallbackContext, chat_id, text, keyboard=None):
 
 def test(update: Update):
     # pprint(eval(str(update)))
-    # await update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
-    await update.effective_message.reply_text("This person edited a message")
+    # update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text("This person edited a message")
     print(update.effective_message)
 
 
@@ -277,7 +277,7 @@ def start(update: Update, context: CallbackContext):
 
         else:
             first_name = update.effective_user.first_name
-            await update.effective_message.reply_text(
+            update.effective_message.reply_text(
                 PM_START_TEXT.format(
                     escape_markdown(context.bot.first_name),
                     escape_markdown(first_name),
@@ -368,7 +368,7 @@ def help_button(update: Update, context: CallbackContext) -> None:
                 + HELPABLE[module].__help__
             )
 
-            await query.message.edit_text(
+            query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
@@ -388,7 +388,7 @@ def help_button(update: Update, context: CallbackContext) -> None:
 
         elif prev_match:
             curr_page = int(prev_match[1])
-            await query.message.edit_text(
+            query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -398,7 +398,7 @@ def help_button(update: Update, context: CallbackContext) -> None:
 
         elif next_match:
             next_page = int(next_match[1])
-            await query.message.edit_text(
+            query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -407,7 +407,7 @@ def help_button(update: Update, context: CallbackContext) -> None:
             )
 
         elif back_match:
-            await query.message.edit_text(
+            query.message.edit_text(
                 text=HELP_STRINGS,
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -416,15 +416,15 @@ def help_button(update: Update, context: CallbackContext) -> None:
             )
 
         # ensure no spinny white circle
-        await context.bot.answer_callback_query(query.id)
-        # await query.message.delete()
+        context.bot.answer_callback_query(query.id)
+        # query.message.delete()
 
 
 def neko_callback_data(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     uptime = get_readable_time((time.time() - StartTime))
     if query.data == "neko_":
-        await query.message.edit_text(
+        query.message.edit_text(
             text="""CallBackQueriesData Here""",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
@@ -434,7 +434,7 @@ def neko_callback_data(update: Update, context: CallbackContext) -> None:
         )
     elif query.data == "neko_back":
         first_name = update.effective_user.first_name
-        await query.message.edit_text(
+        query.message.edit_text(
             PM_START_TEXT.format(
                 escape_markdown(context.bot.first_name),
                 escape_markdown(first_name),
@@ -511,7 +511,7 @@ def send_settings(context: CallbackContext, chat_id, user_id, user=False):
             )
 
     elif CHAT_SETTINGS:
-        chat_name = await NEKO_PTB.bot.getChat(chat_id).title
+        chat_name = NEKO_PTB.bot.getChat(chat_id).title
         NEKO_PTB.bot.send_message(
             user_id,
             text=f"Which module would you like to check {chat_name}'s settings for?",
@@ -540,7 +540,7 @@ def settings_button(update: Update, context: CallbackContext) -> None:
         if mod_match:
             chat_id = mod_match[1]
             module = mod_match[2]
-            chat = await bot.get_chat(chat_id)
+            chat = bot.get_chat(chat_id)
             text = "*{}* has the following settings for the *{}* module:\n\n".format(
                 escape_markdown(chat.title), CHAT_SETTINGS[module].__mod_name__
             ) + CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
@@ -554,14 +554,14 @@ def settings_button(update: Update, context: CallbackContext) -> None:
                 InlineKeyboardButton(text="Back", callback_data=f"stngs_back({chat_id}")
             )
             keyboard.append(kbrd)
-            await query.message.edit_text(
+            query.message.edit_text(
                 text=text, parse_mode=ParseMode.MARKDOWN, reply_markup=keyboard
             )
         elif prev_match:
             chat_id = prev_match[1]
             curr_page = int(prev_match[2])
-            chat = await bot.get_chat(chat_id)
-            await query.message.reply_text(
+            chat = bot.get_chat(chat_id)
+            query.message.reply_text(
                 f"Hi there! There are quite a few settings for {chat.title} - go ahead and pick what you're interested in.",
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
@@ -573,8 +573,8 @@ def settings_button(update: Update, context: CallbackContext) -> None:
         elif next_match:
             chat_id = next_match[1]
             next_page = int(next_match[2])
-            chat = await bot.get_chat(chat_id)
-            await query.message.edit_text(
+            chat = bot.get_chat(chat_id)
+            query.message.edit_text(
                 f"Hi there! There are quite a few settings for {chat.title} - go ahead and pick what you're interested in.",
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(
@@ -585,8 +585,8 @@ def settings_button(update: Update, context: CallbackContext) -> None:
 
         elif back_match:
             chat_id = back_match[1]
-            chat = await bot.get_chat(chat_id)
-            await query.message.edit_text(
+            chat = bot.get_chat(chat_id)
+            query.message.edit_text(
                 text=f"Hi there! There are quite a few settings for {escape_markdown(chat.title)} - go ahead and pick what you're interested in.",
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
@@ -595,7 +595,7 @@ def settings_button(update: Update, context: CallbackContext) -> None:
             )
 
         # ensure no spinny white circle
-        await bot.answer_callback_query(query.id)
+        bot.answer_callback_query(query.id)
     except BadRequest as excp:
         if excp.message not in [
             "Message is not modified",
@@ -614,9 +614,9 @@ def get_settings(update: Update, context: CallbackContext) -> None:
     if chat.type == chat.PRIVATE:
         send_settings(chat.id, user.id, True)
 
-    elif await is_user_admin(update, user.id):
+    elif is_user_admin(update, user.id):
         text = "Click here to get this chat's settings, as well as yours."
-        await msg.reply_text(
+        msg.reply_text(
             text,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -639,26 +639,26 @@ def donate(update: Update, context: CallbackContext) -> None:
     chat = update.effective_chat  # type: Optional[Chat]
     bot = context.bot
     if chat.type == "private":
-        await update.effective_message.reply_text(
+        update.effective_message.reply_text(
             DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
         )
 
         if OWNER_ID != 5362971543 and DONATION_LINK:
-            await update.effective_message.reply_text(
+            update.effective_message.reply_text(
                 f"You can also donate to the person currently running me [here]({DONATION_LINK})",
                 parse_mode=ParseMode.MARKDOWN,
             )
 
     else:
         try:
-            await bot.send_message(
+            bot.send_message(
                 user.id,
                 DONATE_STRING,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
             )
 
-            await update.effective_message.reply_text(
+            update.effective_message.reply_text(
                 text="I'm free for everyone❤️\njust donate by subs channel, Don't forget to join the support group.",
                 reply_markup=InlineKeyboardMarkup(
                     [
@@ -676,7 +676,7 @@ def donate(update: Update, context: CallbackContext) -> None:
                 ),
             )
         except Unauthorized:
-            await update.effective_message.reply_text(
+            update.effective_message.reply_text(
                 "Contact me in PM first to get donation information."
             )
 
