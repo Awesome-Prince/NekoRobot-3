@@ -35,7 +35,7 @@ jikanpy
 speedtest-cli==2.1.3
 coffeehouse
 pymongo==3.12.0
-regex
+regex==2022.4.24
 bleach
 wikipedia
 spamwatch
