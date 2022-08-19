@@ -737,6 +737,7 @@ def main():
             allowed_updates=Update.ALL_TYPES,
         )
 
+
 if __name__ == "__main__":
     LOGGER.info(f"Successfully loaded modules: {str(ALL_MODULES)}")
     pgram.start()
