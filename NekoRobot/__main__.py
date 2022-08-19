@@ -29,7 +29,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import asyncio
 import contextlib
 import html
 import importlib
@@ -70,7 +69,6 @@ from NekoRobot import (
     TOKEN,
     WEBHOOK,
     StartTime,
-    pgram,
     telethn,
     updater,
 )
