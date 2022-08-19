@@ -70,6 +70,7 @@ from NekoRobot import (
     WEBHOOK,
     StartTime,
     pgram,
+    telethn,
     updater,
 )
 
