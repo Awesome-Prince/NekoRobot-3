@@ -207,11 +207,6 @@ async def executor(client, message):
             quote=False,
             reply_markup=keyboard,
         )
-
-NEKO_PTB.add_handler(EVAL_HANDLER)
-NEKO_PTB.add_handler(EXEC_HANDLER)
-NEKO_PTB.add_handler(CLEAR_HANDLER)
-
         await message.delete()
         os.remove(filename)
     else:
