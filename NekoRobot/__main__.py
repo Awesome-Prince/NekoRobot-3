@@ -719,7 +719,7 @@ def main():
     )
     NEKO_PTB.add_handler(CommandHandler("donate", donate))
     NEKO_PTB.add_handler(
-        MessageHandler(filters.StatusUpdate.MIGRATE, migrate_chats, run_async=True)
+        MessageHandler(Filters.status_update.migrate, migrate_chats, run_async=True)
     )
 
     if WEBHOOK:
