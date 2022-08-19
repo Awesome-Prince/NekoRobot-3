@@ -221,7 +221,7 @@ for module_name in ALL_MODULES:
 async def send_help(context: CallbackContext, chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    await context.bot.send_message(
+    dispatcher.bot.send_message(
         chat_id=chat_id,
         text=text,
         parse_mode=ParseMode.MARKDOWN,
@@ -328,7 +328,7 @@ async def error_handler(update: Update, context: CallbackContext):
     if len(message) >= 4096:
         message = message[:4096]
     # Finally, send the message
-    await context.bot.send_message(
+    dispatcher.bot.send_message(
         chat_id=OWNER_ID, text=message, parse_mode=ParseMode.HTML
     )
 
@@ -498,14 +498,14 @@ async def send_settings(context: CallbackContext, chat_id, user_id, user=False):
                 for mod in USER_SETTINGS.values()
             )
 
-            await context.bot.send_message(
+            dispatcher.bot.send_message(
                 user_id,
                 "These are your current settings:" + "\n\n" + settings,
                 parse_mode=ParseMode.MARKDOWN,
             )
 
         else:
-            await context.bot.send_message(
+            dispatcher.bot.send_message(
                 user_id,
                 "Seems like there aren't any user specific settings available :'(",
                 parse_mode=ParseMode.MARKDOWN,
@@ -513,7 +513,7 @@ async def send_settings(context: CallbackContext, chat_id, user_id, user=False):
 
     elif CHAT_SETTINGS:
         chat_name = await NEKO_PTB.bot.getChat(chat_id).title
-        await context.bot.send_message(
+        dispatcher.bot.send_message(
             user_id,
             text=f"Which module would you like to check {chat_name}'s settings for?",
             reply_markup=InlineKeyboardMarkup(
@@ -521,7 +521,7 @@ async def send_settings(context: CallbackContext, chat_id, user_id, user=False):
             ),
         )
     else:
-        await context.bot.send_message(
+        dispatcher.bot.send_message(
             user_id,
             "Seems like there aren't any chat settings available :'(\nSend this "
             "in a group chat you're admin in to find its current settings!",
