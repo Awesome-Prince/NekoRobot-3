@@ -69,7 +69,6 @@ from NekoRobot import (
     TOKEN,
     WEBHOOK,
     StartTime,
-    dispatcher,
     pgram,
 )
 
@@ -729,7 +728,7 @@ def main():
 
     else:
         LOGGER.info(
-            f"Neko started, Using long polling. | BOT: [@{dispatcher.bot.username}]"
+            f"Neko started, Using long polling. | BOT: [@{NEKO_PTB.bot.username}]"
         )
         updater.start_polling(
             timeout=15,
