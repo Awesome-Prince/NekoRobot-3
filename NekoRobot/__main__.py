@@ -107,16 +107,16 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-HELP_MSG = "Click the button below to get help manu in your pm."
-START_MSG = "I'm awake already!\n<b>Haven't slept since:</b> <code>{}</code>"
+HELP_MSG = "Click The Button Below To Get Help Menu In Your Dm."
+START_MSG = "I'm Awake Already!\n<b>Haven't Slept Since:</b> <code>{}</code>"
 
 PM_START_TEXT = """
 ────「 [{}](https://telegra.ph/file/bdc771a084e2c806ec756.jpg) 」────
 *Hola! {},*
-*I am an Anime themed advance group management bot with a lot of Sexy Features.*
+*I am an Anime Themed Advance Group Management Bot With Lot Of Sexy Features.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ❍ *Uptime:* `{}`
-❍ `{}` *users, across* `{}` *chats.*
+❍ `{}` *Users, Across* `{}` *Chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ➛ Try The Help Buttons Below To Know My Abilities ××
 """
