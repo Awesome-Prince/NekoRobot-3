@@ -71,7 +71,6 @@ from NekoRobot import (
     StartTime,
     pgram,
     updater,
-    telethn,
 )
 
 # needed to dynamically load modules
