@@ -724,7 +724,7 @@ def main():
 
     NEKO_PTB.add_error_handler(error_callback)
    
-      if WEBHOOK:
+    if WEBHOOK:
         LOGGER.info("Using webhooks.")
         updater.start_webhook(listen="0.0.0.0", port=PORT, url_path=TOKEN)
 
@@ -743,7 +743,6 @@ def main():
         telethn.run_until_disconnected()
 
     updater.idle()
-
 
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
