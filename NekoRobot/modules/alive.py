@@ -66,7 +66,7 @@ async def _human_time_duration(seconds):
     return ", ".join(parts)
 
 
-async def hmm(yes):
+async def alive(yes):
     await yes.get_chat()
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
@@ -108,6 +108,6 @@ async def hmm(yes):
     ok7 = await neko.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
 
 
-ALIVE_HANDLER = CommandHandler("alive", run_async=True)
+ALIVE_HANDLER = CommandHandler("alive", alive , run_async=True)
 
 NEKO_PTB.add_handler(ALIVE_HANDLER)
