@@ -241,6 +241,7 @@ print(
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
+tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
 pbot = Client("NekoRobotpbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
 
 NEKO_PTB = updater.dispatcher
