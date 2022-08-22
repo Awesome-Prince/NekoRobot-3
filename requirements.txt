@@ -20,7 +20,7 @@ textblob==0.17.1
 beautifulsoup4
 requests
 sqlalchemy==1.3.23
-telethon==1.23.0
+telethon==1.24.0
 python-telegram-bot==13.12
 pyrogram==2.0.40
 cloudscraper==1.2.58
