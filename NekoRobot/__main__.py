@@ -71,7 +71,7 @@ from NekoRobot import (
     WEBHOOK,
     StartTime,
     pbot,
-    telethn,
+    tbot,
     updater,
 )
 
@@ -753,16 +753,16 @@ def main():
         )
 
     if len not in (1, 3, 4):
-        telethn.disconnect()
+        tbot.disconnect()
     else:
-        telethn.run_until_disconnected()
+        tbot.run_until_disconnected()
 
     updater.idle()
 
 
 if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
-    telethn.start(bot_token=TOKEN)
+    tbot.start(bot_token=TOKEN)
     pbot.start()
     main()
     idle()
