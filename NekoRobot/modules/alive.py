@@ -108,6 +108,6 @@ async def hmm(yes):
     ok7 = await neko.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
 
 
-ALIVE_HANDLER = CommandHandler("alive", alive, run_async=True)
+ALIVE_HANDLER = CommandHandler("alive", run_async=True)
 
 NEKO_PTB.add_handler(ALIVE_HANDLER)
