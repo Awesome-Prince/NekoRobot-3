@@ -32,8 +32,7 @@ from telegram.ext import CommandHandler
 from telethon import Button
 from telethon import __version__ as tlhver
 
-from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB
-from NekoRobot import tbot
+from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB, tbot
 
 edit_time = 5
 """ =======================Neko====================== """
