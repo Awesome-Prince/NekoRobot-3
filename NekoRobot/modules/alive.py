@@ -33,7 +33,7 @@ from telethon import Button
 from telethon import __version__ as tlhver
 
 from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB
-from NekoRobot import telethn as neko
+from NekoRobot import tbot
 
 edit_time = 5
 """ =======================Neko====================== """
@@ -84,28 +84,28 @@ async def alive(yes):
             Button.url("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
         ]
     ]
-    on = await neko.send_file(yes.chat_id, file=file2, caption=NekoX, buttons=BUTTON)
+    on = await tbot.send_file(yes.chat_id, file=file2, caption=NekoX, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok = await neko.edit_message(yes.chat_id, on, file=file3, buttons=BUTTON)
+    ok = await tbot.edit_message(yes.chat_id, on, file=file3, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok2 = await neko.edit_message(yes.chat_id, ok, file=file4, buttons=BUTTON)
+    ok2 = await tbot.edit_message(yes.chat_id, ok, file=file4, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok3 = await neko.edit_message(yes.chat_id, ok2, file=file1, buttons=BUTTON)
+    ok3 = await tbot.edit_message(yes.chat_id, ok2, file=file1, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok4 = await neko.edit_message(yes.chat_id, ok3, file=file2, buttons=BUTTON)
+    ok4 = await tbot.edit_message(yes.chat_id, ok3, file=file2, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok5 = await neko.edit_message(yes.chat_id, ok4, file=file1, buttons=BUTTON)
+    ok5 = await tbot.edit_message(yes.chat_id, ok4, file=file1, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok6 = await neko.edit_message(yes.chat_id, ok5, file=file3, buttons=BUTTON)
+    ok6 = await tbot.edit_message(yes.chat_id, ok5, file=file3, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok7 = await neko.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
+    ok7 = await tbot.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
 
 
 ALIVE_HANDLER = CommandHandler("alive", alive, run_async=True)
