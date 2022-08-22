@@ -26,14 +26,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import asyncio
 import datetime
 from datetime import datetime
-
+from telegram.ext import CommandHandler
 from pyrogram import __version__ as pyrover
 from telethon import Button
 from telethon import __version__ as tlhver
 
-from NekoRobot import BOT_NAME, BOT_USERNAME
+from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB
 from NekoRobot import telethn as neko
-from NekoRobot.events import register
 
 edit_time = 5
 """ =======================Neko====================== """
@@ -66,7 +65,6 @@ async def _human_time_duration(seconds):
     return ", ".join(parts)
 
 
-@register(pattern=("/alive"))
 async def hmm(yes):
     await yes.get_chat()
     current_time = datetime.utcnow()
@@ -107,3 +105,7 @@ async def hmm(yes):
 
     await asyncio.sleep(edit_time)
     ok7 = await neko.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
+
+ALIVE_HANDLER = CommandHandler("alive", alive, run_async=True)
+
+NEKO_PTB.add_handler(ALIVE_HANDLER)
