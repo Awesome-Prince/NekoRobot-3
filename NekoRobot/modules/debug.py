@@ -5,7 +5,7 @@ from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 from telethon import events
 
-from NekoRobot import NEKO_PTB, telethn
+from NekoRobot import NEKO_PTB, tbot
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 DEBUG_MODE = False
@@ -31,7 +31,7 @@ def debug(update: Update, context: CallbackContext):
             message.reply_text("Debug mode is currently off.")
 
 
-@telethn.on(events.NewMessage(pattern="[/!?.,].*"))
+@tbot.on(events.NewMessage(pattern="[/!?.,].*"))
 async def i_do_nothing_yes(event):
     global DEBUG_MODE
     if DEBUG_MODE:

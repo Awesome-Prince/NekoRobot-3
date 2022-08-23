@@ -40,7 +40,7 @@ from telethon.tl import *
 from telethon.tl import functions, types
 
 from NekoRobot import DRAGONS, NEKO_PTB
-from NekoRobot import telethn as bot
+from NekoRobot import tbot as bot
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import (

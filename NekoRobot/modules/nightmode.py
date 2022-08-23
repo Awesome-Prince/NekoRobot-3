@@ -30,7 +30,7 @@ from telethon import functions
 from telethon.tl.types import ChatBannedRights
 
 from NekoRobot import OWNER_ID
-from NekoRobot import telethn as tbot
+from NekoRobot import tbot as tbot
 from NekoRobot.events import register
 from NekoRobot.modules.sql_extended.night_mode_sql import (
     add_nightmode,

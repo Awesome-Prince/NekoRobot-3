@@ -43,7 +43,7 @@ __help__ = """
 ## Advanced: Telethon
 ```python3
 
-from NekoRobot import telethn
+from NekoRobot import tbot
 from NekoRobot.events import register
 
 @register(pattern="^/hi$")

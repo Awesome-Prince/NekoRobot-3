@@ -5,7 +5,7 @@ import requests
 from telethon import types
 from telethon.tl import functions
 
-from NekoRobot import telethn
+from NekoRobot import tbot
 from NekoRobot.events import register
 
 langi = "en"
@@ -16,15 +16,15 @@ async def is_register_admin(chat, user):
 
         return isinstance(
             (
-                await telethn(functions.channels.GetParticipantRequest(chat, user))
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
             ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
     if isinstance(chat, types.InputPeerChat):
 
-        ui = await telethn.get_peer_id(user)
+        ui = await tbot.get_peer_id(user)
         ps = (
-            await telethn(functions.messages.GetFullChatRequest(chat.chat_id))
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
         ).full_chat.participants.participants
         return isinstance(
             next((p for p in ps if p.user_id == ui), None),

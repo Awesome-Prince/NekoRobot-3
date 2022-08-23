@@ -35,7 +35,7 @@ from NekoRobot import (
     WOLVES,
     StartTime,
     sw,
-    telethn,
+    tbot,
 )
 from NekoRobot.__main__ import STATS, TOKEN, USER_INFO
 from NekoRobot.modules.disable import DisableAbleCommandHandler
@@ -184,7 +184,7 @@ def get_id(update: Update, context: CallbackContext):
         )
 
 
-@telethn.on(
+@tbot.on(
     events.NewMessage(
         pattern="/ginfo ",
         from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or []),

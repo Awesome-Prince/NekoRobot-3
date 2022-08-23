@@ -30,7 +30,7 @@ from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
 
-from NekoRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, telethn
+from NekoRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, tbot
 
 # =================== CONSTANT ===================
 
@@ -63,7 +63,7 @@ OFFICERS = [OWNER_ID] + DEV_USERS + DRAGONS + DEMONS
 # Check if user has admin rights
 async def is_administrator(user_id: int, message):
     admin = False
-    async for user in telethn.iter_participants(
+    async for user in tbot.iter_participants(
         message.chat_id, filter=ChannelParticipantsAdmins
     ):
         if user_id == user.id or user_id in OFFICERS:
@@ -72,7 +72,7 @@ async def is_administrator(user_id: int, message):
     return admin
 
 
-@telethn.on(events.NewMessage(pattern=f"^[!/]zombies ?(.*)"))
+@tbot.on(events.NewMessage(pattern=f"^[!/]zombies ?(.*)"))
 async def zombies(event):
     """For .zombies command, list all the zombies in a chat."""
 

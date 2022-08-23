@@ -25,7 +25,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from telethon import events
 
-from NekoRobot import telethn
+from NekoRobot import tbot
 
 
 def register(**args):
@@ -40,7 +40,7 @@ def register(**args):
     args["pattern"] = pattern.replace("^/", r_pattern, 1)
 
     def decorator(func):
-        telethn.add_event_handler(func, events.NewMessage(**args))
+        tbot.add_event_handler(func, events.NewMessage(**args))
         return func
 
     return decorator
@@ -50,7 +50,7 @@ def chataction(**args):
     """Registers chat actions."""
 
     def decorator(func):
-        telethn.add_event_handler(func, events.ChatAction(**args))
+        tbot.add_event_handler(func, events.ChatAction(**args))
         return func
 
     return decorator
@@ -60,7 +60,7 @@ def userupdate(**args):
     """Registers user updates."""
 
     def decorator(func):
-        telethn.add_event_handler(func, events.UserUpdate(**args))
+        tbot.add_event_handler(func, events.UserUpdate(**args))
         return func
 
     return decorator
@@ -74,7 +74,7 @@ def inlinequery(**args):
         args["pattern"] = "(?i)" + pattern
 
     def decorator(func):
-        telethn.add_event_handler(func, events.InlineQuery(**args))
+        tbot.add_event_handler(func, events.InlineQuery(**args))
         return func
 
     return decorator
@@ -84,7 +84,7 @@ def callbackquery(**args):
     """Registers inline query."""
 
     def decorator(func):
-        telethn.add_event_handler(func, events.CallbackQuery(**args))
+        tbot.add_event_handler(func, events.CallbackQuery(**args))
         return func
 
     return decorator

@@ -18,7 +18,7 @@ from telegram.ext import CallbackContext
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import NEKO_PTB
-from NekoRobot import telethn as bot
+from NekoRobot import tbot as bot
 from NekoRobot.events import register as Cutiepii
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 

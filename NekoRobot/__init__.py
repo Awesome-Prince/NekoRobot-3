@@ -272,7 +272,7 @@ updater = tg.Updater(
     use_context=True,
 )
 print("[NEKOROBOT]: TELETHON CLIENT STARTING")
-telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
+tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
 NEKO_PTB = updater.dispatcher
 # asyncio.get_event_loop().run_until_complete(CUTIEPII_PTB.bot.initialize())
 # ------------------------------------------------------------------

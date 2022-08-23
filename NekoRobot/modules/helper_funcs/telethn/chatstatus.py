@@ -26,7 +26,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from telethon.tl.types import ChannelParticipantsAdmins
 
 from NekoRobot import DRAGONS
-from NekoRobot.modules.helper_funcs.telethn import IMMUNE_USERS, telethn
+from NekoRobot.modules.helper_funcs.tbot import IMMUNE_USERS, tbot
 
 
 async def user_is_ban_protected(user_id: int, message):
@@ -34,7 +34,7 @@ async def user_is_ban_protected(user_id: int, message):
     if message.is_private or user_id in (IMMUNE_USERS):
         return True
 
-    async for user in telethn.iter_participants(
+    async for user in tbot.iter_participants(
         message.chat_id,
         filter=ChannelParticipantsAdmins,
     ):
@@ -49,7 +49,7 @@ async def user_is_admin(user_id: int, message):
     if message.is_private:
         return True
 
-    async for user in telethn.iter_participants(
+    async for user in tbot.iter_participants(
         message.chat_id,
         filter=ChannelParticipantsAdmins,
     ):
@@ -61,7 +61,7 @@ async def user_is_admin(user_id: int, message):
 
 async def is_user_admin(user_id: int, chat_id):
     status = False
-    async for user in telethn.iter_participants(
+    async for user in tbot.iter_participants(
         chat_id,
         filter=ChannelParticipantsAdmins,
     ):
@@ -73,8 +73,8 @@ async def is_user_admin(user_id: int, chat_id):
 
 async def cutiepii_is_admin(chat_id: int):
     status = False
-    cutiepii = await telethn.get_me()
-    async for user in telethn.iter_participants(
+    cutiepii = await tbot.get_me()
+    async for user in tbot.iter_participants(
         chat_id,
         filter=ChannelParticipantsAdmins,
     ):
@@ -86,7 +86,7 @@ async def cutiepii_is_admin(chat_id: int):
 
 async def is_user_in_chat(chat_id: int, user_id: int):
     status = False
-    async for user in telethn.iter_participants(chat_id):
+    async for user in tbot.iter_participants(chat_id):
         if user_id == user.id:
             status = True
             break

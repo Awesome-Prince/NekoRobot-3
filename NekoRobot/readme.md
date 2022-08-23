@@ -5,7 +5,7 @@ from NekoRobot import pgram
 ```
 ## Importing Telethon
 ```python3
-from NekoRobot import telethn
+from NekoRobot import tbot
 ```
 ## Importing ARQ
 ```python3

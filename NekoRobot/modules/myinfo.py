@@ -5,8 +5,8 @@ from datetime import datetime
 
 from telethon import custom, events
 
-from NekoRobot import telethn as bot
-from NekoRobot import telethn as tgbot
+from NekoRobot import tbot as bot
+from NekoRobot import tbot as tgbot
 from NekoRobot.events import register
 
 edit_time = 5

@@ -36,12 +36,12 @@ from telethon.errors import UserNotParticipantError
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 
-from NekoRobot import telethn
+from NekoRobot import tbot
 
 spam_chats = []
 
 
-@telethn.on(
+@tbot.on(
     events.NewMessage(
         pattern="^/tagall|/call|/tall|/all|/mentionall|#all|@all|@mentionall|@tagall|@utag(.*)",
     )
@@ -53,7 +53,7 @@ async def all(event):
 
     is_admin = False
     try:
-        partici_ = await telethn(GetParticipantRequest(event.chat_id, event.sender_id))
+        partici_ = await tbot(GetParticipantRequest(event.chat_id, event.sender_id))
     except UserNotParticipantError:
         is_admin = False
     else:
@@ -84,7 +84,7 @@ async def all(event):
     spam_chats.append(chat_id)
     usrnum = 0
     usrtxt = ""
-    async for usr in telethn.iter_participants(chat_id):
+    async for usr in tbot.iter_participants(chat_id):
         if chat_id not in spam_chats:
             break
         usrnum += 1
@@ -92,7 +92,7 @@ async def all(event):
         if usrnum == 10:
             if mode == "text_on_cmd":
                 txt = f"{usrtxt}\n\n{msg}\n\nMeet Me Here🙈 @Besties_XD ✨🥀"
-                await telethn.send_message(chat_id, txt)
+                await tbot.send_message(chat_id, txt)
             elif mode == "text_on_reply":
                 await msg.reply(usrtxt)
             await asyncio.sleep(2)
@@ -104,7 +104,7 @@ async def all(event):
         pass
 
 
-@telethn.on(events.NewMessage(pattern="^/cancel$"))
+@tbot.on(events.NewMessage(pattern="^/cancel$"))
 async def cancel_spam(event):
     if event.chat_id not in spam_chats:
         return await event.respond("There Is No Proccess On Going")

@@ -29,7 +29,7 @@ import importlib
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import NEKO_PTB, telethn
+from NekoRobot import NEKO_PTB, tbot
 from NekoRobot.__main__ import (
     CHAT_SETTINGS,
     DATA_EXPORT,
@@ -74,7 +74,7 @@ def load(update: Update, context: CallbackContext):
             else:
                 if isinstance(handler[0], collections.Callable):
                     callback, telethon_event = handler
-                    telethn.add_event_handler(callback, telethon_event)
+                    tbot.add_event_handler(callback, telethon_event)
                 else:
                     handler_name, priority = handler
                     NEKO_PTB.add_handler(handler_name, priority)
@@ -145,7 +145,7 @@ def unload(update: Update, context: CallbackContext):
             else:
                 if isinstance(handler[0], collections.Callable):
                     callback, telethon_event = handler
-                    telethn.remove_event_handler(callback, telethon_event)
+                    tbot.remove_event_handler(callback, telethon_event)
                 else:
                     handler_name, priority = handler
                     NEKO_PTB.remove_handler(handler_name, priority)

@@ -2,7 +2,7 @@ import random
 
 from telethon import events
 
-from NekoRobot import telethn as neko
+from NekoRobot import tbot as neko
 
 
 @neko.on(events.NewMessage(pattern="/wish ?(.*)"))
