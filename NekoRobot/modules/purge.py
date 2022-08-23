@@ -28,7 +28,7 @@ import time
 from telethon import events
 
 from NekoRobot import tbot
-from NekoRobot.modules.helper_funcs.tbot.chatstatus import (
+from NekoRobot.modules.helper_funcs.telethn.chatstatus import (
     can_delete_messages,
     user_is_admin,
 )
