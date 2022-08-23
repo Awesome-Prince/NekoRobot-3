@@ -34,7 +34,7 @@ import pretty_errors
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import DEV_USERS, ERROR_LOGS, dispatcher
+from NekoRobot import DEV_USERS, ERROR_LOGS, NEKO_PTB
 
 from ..utils.pastebin import paste
 
@@ -140,5 +140,5 @@ def list_errors(update: Update, context: CallbackContext):
     update.effective_message.reply_text(msg, parse_mode="html")
 
 
-dispatcher.add_error_handler(error_callback)
-dispatcher.add_handler(CommandHandler("errors", list_errors))
+NEKO_PTB.add_error_handler(error_callback)
+NEKO_PTB.add_handler(CommandHandler("errors", list_errors))
