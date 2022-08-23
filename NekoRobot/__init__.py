@@ -234,8 +234,13 @@ print(
 print("[NEKOROBOT]: Telegraph Installing")
 telegraph = Telegraph()
 print("[NEKOROBOT]: Telegraph Account Creating")
-telegraph.create_account(short_name='Neko')
-updater = tg.Updater(token=TOKEN, workers=WORKERS, request_kwargs={"read_timeout": 10, "connect_timeout": 10}, use_context=True)           
+telegraph.create_account(short_name="Neko")
+updater = tg.Updater(
+    token=TOKEN,
+    workers=WORKERS,
+    request_kwargs={"read_timeout": 10, "connect_timeout": 10},
+    use_context=True,
+)
 print("[NEKOROBOT]: TELETHON CLIENT STARTING")
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 NEKO_PTB = updater.dispatcher
@@ -252,9 +257,12 @@ aiohttpsession = ClientSession()
 # ARQ Client
 print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsession)
-print("[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database")
+print(
+    "[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database"
+)
 timeout = httpx.Timeout(40)
 http = httpx.AsyncClient(http2=True, timeout=timeout)
+
 
 async def get_entity(client, entity):
     entity_client = client
