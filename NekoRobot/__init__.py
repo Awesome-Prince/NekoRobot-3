@@ -45,25 +45,25 @@ if ENV:
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
 
     try:
-        DRAGONS = set(int(x) for x in os.environ.get("DRAGONS", "").split())
-        DEV_USERS = set(int(x) for x in os.environ.get("DEV_USERS", "").split())
+        DRAGONS = {int(x) for x in os.environ.get("DRAGONS", "").split()}
+        DEV_USERS = {int(x) for x in os.environ.get("DEV_USERS", "").split()}
     except ValueError:
         raise Exception("Your sudo or dev users list does not contain valid integers.")
 
     try:
-        DEMONS = set(int(x) for x in os.environ.get("DEMONS", "").split())
+        DEMONS = {int(x) for x in os.environ.get("DEMONS", "").split()}
     except ValueError:
         raise Exception("Your support users list does not contain valid integers.")
 
     try:
-        WOLVES = set(int(x) for x in os.environ.get("WOLVES", "").split())
+        WOLVES = {int(x) for x in os.environ.get("WOLVES", "").split()}
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
 
     try:
-        TIGERS = set(int(x) for x in os.environ.get("TIGERS", "").split())
+        TIGERS = {int(x) for x in os.environ.get("TIGERS", "").split()}
     except ValueError:
-        raise Exception("Your tiger users list does not contain valid integers.")
+        raise Exception("Your scout users list does not contain valid integers."
 
     INFOPIC = bool(os.environ.get("INFOPIC", True))
     EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
