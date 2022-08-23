@@ -24,13 +24,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 import os
-
-from NekoRobot.events import register
-from NekoRobot import tbot
-from telethon import types
-from PIL import Image
 from datetime import datetime
-from telegraph import Telegraph, upload_file, exceptions
+
+from PIL import Image
+from telegraph import Telegraph, exceptions, upload_file
+from telethon import types
+
+from NekoRobot import tbot
+from NekoRobot.events import register
 
 TMP_DOWNLOAD_DIRECTORY = "tg-File/"
 babe = "NekoRobot"
@@ -43,37 +44,39 @@ auth_url = data["auth_url"]
 async def telegrap(event):
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
-        start = datetime.now()
+        datetime.now()
         reply_msg = await event.get_reply_message()
         input_str = event.pattern_match.group(1)
         if input_str == "gm":
             downloaded_file_name = await tbot.download_media(
-                reply_msg, TMP_DOWNLOAD_DIRECTORY)
-            end = datetime.now()
+                reply_msg, TMP_DOWNLOAD_DIRECTORY
+            )
+            datetime.now()
             if not downloaded_file_name:
-                await tbot.send_message(event.chat_id,
-                                           "Not Supported Format Media!")
+                await tbot.send_message(event.chat_id, "Not Supported Format Media!")
                 return
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
-                start = datetime.now()
+                datetime.now()
                 media_urls = upload_file(downloaded_file_name)
             except exceptions.TelegraphException as exc:
                 await event.reply(f"ERROR: {str(exc)}")
                 os.remove(downloaded_file_name)
             else:
-                end = datetime.now()
+                datetime.now()
                 os.remove(downloaded_file_name)
                 await tbot.send_message(
                     event.chat_id,
                     "Your telegraph is complete uploaded!",
-                    buttons=[[
-                        types.KeyboardButtonUrl(
-                            "➡ View Telegraph",
-                            f"https://te.legra.ph{media_urls[0]}",
-                        )
-                    ]],
+                    buttons=[
+                        [
+                            types.KeyboardButtonUrl(
+                                "➡ View Telegraph",
+                                f"https://te.legra.ph{media_urls[0]}",
+                            )
+                        ]
+                    ],
                 )
 
         elif input_str == "gt":
@@ -81,16 +84,16 @@ async def telegrap(event):
             title_of_page = user_object.first_name  # + " " + user_object.last_name
             # apparently, all Users do not have last_name field
             if optional_title:
-                title_of_page = optional_title
+                pass
             page_content = reply_msg.message
             if reply_msg.media:
                 if page_content != "":
-                    title_of_page = page_content
+                    pass
                 else:
-                    await tbot.send_message(event.chat_id,
-                                               "Not Supported Format Text!")
+                    await tbot.send_message(event.chat_id, "Not Supported Format Text!")
                 downloaded_file_name = await tbot.download_media(
-                    reply_msg, TMP_DOWNLOAD_DIRECTORY)
+                    reply_msg, TMP_DOWNLOAD_DIRECTORY
+                )
                 m_list = None
                 with open(downloaded_file_name, "rb") as fd:
                     m_list = fd.readlines()
@@ -98,21 +101,22 @@ async def telegrap(event):
                     page_content += m.decode("UTF-8") + "\n"
                 os.remove(downloaded_file_name)
             page_content = page_content.replace("\n", "<br>")
-            end = datetime.now()
+            datetime.now()
             await tbot.send_message(
                 event.chat_id,
                 "Your telegraph is complete uploaded!",
-                buttons=[[
-                    types.KeyboardButtonUrl(
-                        "➡ View Telegraph",
-                        f"https://telegra.ph{media_urls[0]}",
-                    )
-                ]],
+                buttons=[
+                    [
+                        types.KeyboardButtonUrl(
+                            "➡ View Telegraph",
+                            f"https://telegra.ph{media_urls[0]}",
+                        )
+                    ]
+                ],
             )
 
     else:
-        await event.reply(
-            "Reply to a message to get a permanent telegra.ph link.")
+        await event.reply("Reply to a message to get a permanent telegra.ph link.")
 
 
 def resize_image(image):
