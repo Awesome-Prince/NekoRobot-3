@@ -26,7 +26,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from telethon.tl.types import ChannelParticipantsAdmins
 
 from NekoRobot import DRAGONS
-from NekoRobot.modules.helper_funcs.tbot import IMMUNE_USERS, tbot
+from NekoRobot.modules.helper_funcs.telethn import IMMUNE_USERS, tbot
 
 
 async def user_is_ban_protected(user_id: int, message):
