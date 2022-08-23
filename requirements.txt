@@ -94,3 +94,4 @@ pycryptodome
 base58
 httpx
 httpx[http2]
+async-timeout==4.0.2
