@@ -32,6 +32,7 @@ import aiohttp
 import spamwatch
 import telegram.ext as tg
 from aiohttp import ClientSession
+from httpx import AsyncClient, Timeout
 from pyrogram import Client
 from pyrogram.enums import ParseMode
 from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, PeerIdInvalid
@@ -39,7 +40,6 @@ from Python_ARQ import ARQ
 from telegraph import Telegraph
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
-from httpx import AsyncClient, Timeout
 
 StartTime = time.time()
 
