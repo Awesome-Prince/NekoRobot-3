@@ -244,13 +244,20 @@ updater = tg.Updater(
 print("[NEKOROBOT]: TELETHON CLIENT STARTING")
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 NEKO_PTB = updater.dispatcher
+# asyncio.get_event_loop().run_until_complete(CUTIEPII_PTB.bot.initialize())
+#------------------------------------------------------------------
 print("[NEKOROBOT]: PYROGRAM CLIENT STARTING")
-session_name = TOKEN.split(":")[0]
+PyroGram = TOKEN.split(":")[0]
 pgram = Client(
-    session_name,
+    name=PyroGram,
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=TOKEN,
+    workers=min(32,
+                os.cpu_count() + 4),
+    parse_mode=ParseMode.HTML,            
+    sleep_threshold=60,
+    in_memory=True,
 )
 print("[INFO]: INITIALZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
