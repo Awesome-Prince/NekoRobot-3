@@ -31,7 +31,7 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackQueryHandler, CommandHandler
 
 import NekoRobot.modules.sql.connection_sql as sql
-from NekoRobot import DEV_USERS, DRAGONS, dispatcher
+from NekoRobot import DEV_USERS, DRAGONS, NEKO_PTB
 from NekoRobot.modules.helper_funcs import chat_status
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 
@@ -96,8 +96,8 @@ def connection_chat(update, context):
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
 
     if conn:
-        chat = dispatcher.bot.getChat(conn)
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat = NEKO_PTB.bot.getChat(conn)
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type != "private":
             return
@@ -152,7 +152,7 @@ def connect_chat(update, context):
                     connect_chat,
                 )
                 if connection_status:
-                    conn_chat = dispatcher.bot.getChat(
+                    conn_chat = NEKO_PTB.bot.getChat(
                         connected(context.bot, update, chat, user.id, need_admin=False),
                     )
                     chat_name = conn_chat.title
@@ -188,7 +188,7 @@ def connect_chat(update, context):
                 buttons = []
             conn = connected(context.bot, update, chat, user.id, need_admin=False)
             if conn:
-                connectedchat = dispatcher.bot.getChat(conn)
+                connectedchat = NEKO_PTB.bot.getChat(conn)
                 text = "You are currently connected to *{}* (`{}`)".format(
                     connectedchat.title,
                     conn,
@@ -256,7 +256,7 @@ def connect_chat(update, context):
                 chat.id,
             )
             if connection_status:
-                chat_name = dispatcher.bot.getChat(chat.id).title
+                chat_name = NEKO_PTB.bot.getChat(chat.id).title
                 send_message(
                     update.effective_message,
                     "Successfully connected to *{}*.".format(chat_name),
@@ -393,7 +393,7 @@ def connect_button(update, context):
             connection_status = sql.connect(query.from_user.id, target_chat)
 
             if connection_status:
-                conn_chat = dispatcher.bot.getChat(
+                conn_chat = NEKO_PTB.bot.getChat(
                     connected(context.bot, update, chat, user.id, need_admin=False),
                 )
                 chat_name = conn_chat.title
@@ -459,9 +459,9 @@ CONNECT_BTN_HANDLER = CallbackQueryHandler(
     connect_button, pattern=r"connect", run_async=True
 )
 
-dispatcher.add_handler(CONNECT_CHAT_HANDLER)
-dispatcher.add_handler(CONNECTION_CHAT_HANDLER)
-dispatcher.add_handler(DISCONNECT_CHAT_HANDLER)
-dispatcher.add_handler(ALLOW_CONNECTIONS_HANDLER)
-dispatcher.add_handler(HELP_CONNECT_CHAT_HANDLER)
-dispatcher.add_handler(CONNECT_BTN_HANDLER)
+NEKO_PTB.add_handler(CONNECT_CHAT_HANDLER)
+NEKO_PTB.add_handler(CONNECTION_CHAT_HANDLER)
+NEKO_PTB.add_handler(DISCONNECT_CHAT_HANDLER)
+NEKO_PTB.add_handler(ALLOW_CONNECTIONS_HANDLER)
+NEKO_PTB.add_handler(HELP_CONNECT_CHAT_HANDLER)
+NEKO_PTB.add_handler(CONNECT_BTN_HANDLER)
