@@ -1,3 +1,29 @@
+"""
+BSD 2-Clause License
+Copyright (C) 2017-2019, Paul Larsen
+Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince ]
+Copyright (c) 2022-2023, BlackLover • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
+
+import asyncio
 import html
 import io
 import random
@@ -5,11 +31,11 @@ import sys
 import traceback
 
 import pretty_errors
-import requests
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import DEV_USERS, ERROR_LOGS, NEKO_PTB
+from NekoRobot import dispatcher, DEV_USERS, ERROR_LOGS
+from ..utils.pastebin import paste
 
 pretty_errors.mono()
 
@@ -34,78 +60,60 @@ class ErrorsDict(dict):
     def __len__(self):
         return len(self.raw)
 
-
 errors = ErrorsDict()
-
 
 def error_callback(update: Update, context: CallbackContext):
     if not update:
         return
-    if context.error in errors:
-        return
-    try:
-        stringio = io.StringIO()
-        pretty_errors.output_stderr = stringio
-        output = pretty_errors.excepthook(
-            type(context.error),
+    if context.error not in errors:
+        try:
+            stringio = io.StringIO()
+            pretty_errors.output_stderr = stringio
+            output = pretty_errors.excepthook(
+                type(context.error),
+                context.error,
+                context.error.__traceback__,
+            )
+            pretty_errors.output_stderr = sys.stderr
+            pretty_error = stringio.getvalue()
+            stringio.close()
+        except:
+            pretty_error = "Failed to create pretty error."
+        tb_list = traceback.format_exception(
+            None,
             context.error,
             context.error.__traceback__,
         )
-        pretty_errors.output_stderr = sys.stderr
-        pretty_error = stringio.getvalue()
-        stringio.close()
-    except:
-        pretty_error = "Failed to create pretty error."
-    tb_list = traceback.format_exception(
-        None,
-        context.error,
-        context.error.__traceback__,
-    )
-    tb = "".join(tb_list)
-    pretty_message = (
-        "{}\n"
-        "-------------------------------------------------------------------------------\n"
-        "An exception was raised while handling an update\n"
-        "User: {}\n"
-        "Chat: {} {}\n"
-        "Callback data: {}\n"
-        "Message: {}\n\n"
-        "Full Traceback: {}"
-    ).format(
-        pretty_error,
-        update.effective_user.id,
-        update.effective_chat.title if update.effective_chat else "",
-        update.effective_chat.id if update.effective_chat else "",
-        update.callback_query.data if update.callback_query else "None",
-        update.effective_message.text if update.effective_message else "No message",
-        tb,
-    )
-    key = requests.post(
-        "https://www.toptal.com/developers/hastebin/documents",
-        data=pretty_message.encode("UTF-8"),
-    ).json()
-    e = html.escape(f"{context.error}")
-    if not key.get("key"):
-        with open("error.txt", "w+") as f:
-            f.write(pretty_message)
-        context.bot.send_document(
+        tb = "".join(tb_list)
+        pretty_message = (
+            "{}\n"
+            "-------------------------------------------------------------------------------\n"
+            "An exception was raised while handling an update\n"
+            "User: {}\n"
+            "Chat: {} {}\n"
+            "Callback data: {}\n"
+            "Message: {}\n\n"
+            "Full Traceback: {}"
+        ).format(
+            pretty_error,
+            update.effective_user.id,
+            update.effective_chat.title if update.effective_chat else "",
+            update.effective_chat.id if update.effective_chat else "",
+            update.callback_query.data if update.callback_query else "None",
+            update.effective_message.text if update.effective_message else "No message",
+            tb,
+        )
+        e = html.escape(f"{context.error}")
+        link = asyncio.run(paste(pretty_message))
+        context.bot.send_message(
             ERROR_LOGS,
-            open("error.txt", "rb"),
-            caption=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
+            text=f"#{context.error.identifier}\n<b>An Error has occurred:"
+            f"</b>\n<code>{e}</code>",
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("See Errors", url=link)]],
+            ),
             parse_mode="html",
         )
-        return
-    key = key.get("key")
-    url = f"https://www.toptal.com/developers/hastebin/{key}"
-    context.bot.send_message(
-        ERROR_LOGS,
-        text=f"#{context.error.identifier}\n<b>An unknown error occured:</b>\n<code>{e}</code>",
-        reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("HasteBin", url=url)]],
-        ),
-        parse_mode="html",
-    )
-
 
 def list_errors(update: Update, context: CallbackContext):
     if update.effective_user.id not in DEV_USERS:
@@ -127,6 +135,5 @@ def list_errors(update: Update, context: CallbackContext):
         return
     update.effective_message.reply_text(msg, parse_mode="html")
 
-
-NEKO_PTB.add_error_handler(error_callback)
-NEKO_PTB.add_handler(CommandHandler("errors", list_errors))
+dispatcher.add_error_handler(error_callback)
+dispatcher.add_handler(CommandHandler("errors", list_errors))
