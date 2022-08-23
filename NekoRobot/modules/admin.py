@@ -738,7 +738,7 @@ def demote(update: Update, context: CallbackContext) -> str:
 def refresh_admin(update, _):
     try:
         ADMIN_CACHE.pop(update.effective_chat.id)
-    except KeyError:
+    except (KeyError, IndexError):
         pass
 
     update.effective_message.reply_text("Admins cache refreshed!")
@@ -1031,7 +1031,7 @@ def adminlist(update, context):
             if custom_title:
                 try:
                     custom_admin_list[custom_title].append(name)
-                except KeyError:
+                except (KeyError, IndexError):
                     custom_admin_list.update({custom_title: [name]})
             else:
                 normal_admin_list.append(name)

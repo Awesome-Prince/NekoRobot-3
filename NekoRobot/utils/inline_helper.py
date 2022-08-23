@@ -188,7 +188,7 @@ async def google_search_func(answers, text):
                     ),
                 )
             )
-        except KeyError:
+        except (KeyError, IndexError):
             pass
     return answers
 

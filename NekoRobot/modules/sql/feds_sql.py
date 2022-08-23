@@ -908,7 +908,7 @@ def __load_feds_subscriber():
             FEDS_SUBSCRIBER[x.fed_id] += [x.fed_subs]
             try:
                 MYFEDS_SUBSCRIBER[x.fed_subs] += [x.fed_id]
-            except KeyError:
+            except (KeyError, IndexError):
                 getsubs = SESSION.query(FedSubs).get((x.fed_id, x.fed_subs))
                 if getsubs:
                     SESSION.delete(getsubs)

@@ -2316,7 +2316,7 @@ def get_chat(chat_id, chat_data):
     try:
         value = chat_data[chat_id]["federation"]
         return value
-    except KeyError:
+    except (KeyError, IndexError):
         return {"status": False, "value": False}
 
 

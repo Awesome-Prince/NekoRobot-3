@@ -37,7 +37,7 @@ class Language:
     def get_string(self, lang: str, string: str) -> str:
         try:
             return self.languages[lang][string]
-        except KeyError:
+        except (KeyError, IndexError):
             # a keyerror happened, the english file must have it
             en_string = self.languages["en"].get(string)
             if en_string is None:
