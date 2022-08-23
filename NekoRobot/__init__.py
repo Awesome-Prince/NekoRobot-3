@@ -329,9 +329,6 @@ async def get_entity(client, entity):
 
 apps = [pgram]
 
-pgram.start()
-
-
 DRAGONS = list(DRAGONS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)
 WOLVES = list(WOLVES)
