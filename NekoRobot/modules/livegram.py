@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from NekoRobot import OWNER_ID
-from NekoRobot import pbot as bot
+from NekoRobot import pgram as bot
 
 
 @bot.on_message(filters.private & filters.incoming)

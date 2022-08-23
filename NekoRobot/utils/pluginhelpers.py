@@ -38,7 +38,7 @@ from pyrogram import Client
 from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Chat, Message, User
 
-from NekoRobot import OWNER_ID, SUPPORT_CHAT, pbot
+from NekoRobot import OWNER_ID, SUPPORT_CHAT, pgram
 from NekoRobot.utils.errors import split_limits
 
 
@@ -530,7 +530,7 @@ def capture_err(func):
 
             for x in error_feedback:
 
-                await pbot.send_message(SUPPORT_CHAT, x)
+                await pgram.send_message(SUPPORT_CHAT, x)
 
             raise err
 
@@ -544,7 +544,7 @@ async def member_permissions(chat_id, user_id):
 
     perms = []
 
-    member = await pbot.get_chat_member(chat_id, user_id)
+    member = await pgram.get_chat_member(chat_id, user_id)
 
     if member.can_post_messages:
 
@@ -585,7 +585,7 @@ async def current_chat_permissions(chat_id):
 
     perms = []
 
-    perm = (await pbot.get_chat(chat_id)).permissions
+    perm = (await pgram.get_chat(chat_id)).permissions
 
     if perm.can_send_messages:
 

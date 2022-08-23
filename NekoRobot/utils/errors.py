@@ -29,7 +29,7 @@ from functools import wraps
 
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 
-from NekoRobot import pbot as app
+from NekoRobot import pgram as app
 
 LOG_GROUP_ID = int(-1001644963220)
 

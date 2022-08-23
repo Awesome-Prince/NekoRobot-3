@@ -24,7 +24,7 @@ __help__ = """
 
 ## Advanced: Pyrogram
 ```python3
-from NekoRobot import pbot
+from NekoRobot import pgram
 
 Neko_PYRO_Hello = filters.command("hi")
 
