@@ -64,8 +64,10 @@ if ENV:
         TIGERS = set(int(x) for x in os.environ.get("TIGERS", "").split())
     except ValueError:
         raise Exception("Your scout users list does not contain valid integers.")
-                        
-    INFOPIC = bool(os.environ.get("INFOPIC", True)) # Info Pic (use True[Value] If You Want To Show In /info.)
+
+    INFOPIC = bool(
+        os.environ.get("INFOPIC", True)
+    )  # Info Pic (use True[Value] If You Want To Show In /info.)
     EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
     ARQ_API_URL = os.environ.get("ARQ_API_URL", None)
