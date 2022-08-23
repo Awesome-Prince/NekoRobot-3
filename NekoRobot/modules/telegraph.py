@@ -23,14 +23,17 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-from NekoRobot.events import register
 from NekoRobot import telethn as tbot
+from NekoRobot.events import register
+
 TMP_DOWNLOAD_DIRECTORY = "./"
-from telethon import events, Button, custom
 import os
-from PIL import Image
 from datetime import datetime
-from telegraph import Telegraph, upload_file, exceptions
+
+from PIL import Image
+from telegraph import Telegraph, exceptions, upload_file
+from telethon import Button
+
 neko = "NEKO"
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=neko)
@@ -48,12 +51,13 @@ async def _(event):
         input_str = event.pattern_match.group(1)
         if input_str == "m":
             downloaded_file_name = await tbot.download_media(
-                r_message,
-                TMP_DOWNLOAD_DIRECTORY
+                r_message, TMP_DOWNLOAD_DIRECTORY
             )
             end = datetime.now()
             ms = (end - start).seconds
-            h = await event.reply("Downloaded {} in {} seconds.".format(downloaded_file_name, ms))
+            h = await event.reply(
+                "Downloaded {} in {} seconds.".format(downloaded_file_name, ms)
+            )
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
@@ -64,14 +68,22 @@ async def _(event):
                 os.remove(downloaded_file_name)
             else:
                 end = datetime.now()
-                BUTTON = [[Button.url("Telegraph", f"https://telegra.ph/{media_urls[0]}")]]
-                ms_two = (end - start).seconds
+                BUTTON = [
+                    [Button.url("Telegraph", f"https://telegra.ph/{media_urls[0]}")]
+                ]
+                (end - start).seconds
                 os.remove(downloaded_file_name)
                 await h.delete()
-                await event.reply("Preview For [{}](tg://user?id={})[.](https://telegra.ph{})".format(event.sender.first_name, event.sender.id, media_urls[0]), link_preview=True, buttons=BUTTON)
+                await event.reply(
+                    "Preview For [{}](tg://user?id={})[.](https://telegra.ph{})".format(
+                        event.sender.first_name, event.sender.id, media_urls[0]
+                    ),
+                    link_preview=True,
+                    buttons=BUTTON,
+                )
         elif input_str == "xt":
             user_object = await tbot.get_entity(r_message.sender_id)
-            title_of_page = user_object.first_name # + " " + user_object.last_name
+            title_of_page = user_object.first_name  # + " " + user_object.last_name
             # apparently, all Users do not have last_name field
             if optional_title:
                 title_of_page = optional_title
@@ -80,8 +92,7 @@ async def _(event):
                 if page_content != "":
                     title_of_page = page_content
                 downloaded_file_name = await tbot.download_media(
-                    r_message,
-                    TMP_DOWNLOAD_DIRECTORY
+                    r_message, TMP_DOWNLOAD_DIRECTORY
                 )
                 m_list = None
                 with open(downloaded_file_name, "rb") as fd:
@@ -90,16 +101,18 @@ async def _(event):
                     page_content += m.decode("UTF-8") + "\n"
                 os.remove(downloaded_file_name)
             page_content = page_content.replace("\n", "<br>")
-            response = telegraph.create_page(
-                title_of_page,
-                html_content=page_content
-            )
+            response = telegraph.create_page(title_of_page, html_content=page_content)
             end = datetime.now()
             ms = (end - start).seconds
             # h = await event.reply("Downloaded in {} seconds.".format(ms))
             # await h.delete()
             # BUUTON = [[Button.url("Telegraph", f"https://telegra.ph/{response["path"]}")]]
-            await event.reply("Pasted to [Telegraph](https://telegra.ph/{}) in {} seconds.".format(response["path"], ms), link_preview=True)
+            await event.reply(
+                "Pasted to [Telegraph](https://telegra.ph/{}) in {} seconds.".format(
+                    response["path"], ms
+                ),
+                link_preview=True,
+            )
     else:
         await event.reply("Reply to a message to get a permanent telegra.ph link.")
 
