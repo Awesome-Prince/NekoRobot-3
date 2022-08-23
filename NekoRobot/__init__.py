@@ -39,6 +39,7 @@ from Python_ARQ import ARQ
 from telegraph import Telegraph
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
+from httpx import AsyncClient, Timeout
 
 StartTime = time.time()
 
