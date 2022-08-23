@@ -231,27 +231,30 @@ print(
     "[NEKOROBOT] Project Maintained By: github.com/Awesome-Prince (https://github.com/Awesome-Prince/NekoRobot-3)"
 )
 
-# ------------------------------------------------------------------
+print("[NEKOROBOT]: Telegraph Installing")
+telegraph = Telegraph()
+print("[NEKOROBOT]: Telegraph Account Creating")
+telegraph.create_account(short_name='Neko')
+updater = tg.Updater(token=TOKEN, workers=WORKERS, request_kwargs={"read_timeout": 10, "connect_timeout": 10}, use_context=True)           
+print("[NEKOROBOT]: TELETHON CLIENT STARTING")
+telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
+NEKO_PTB = updater.dispatcher
+print("[NEKOROBOT]: PYROGRAM CLIENT STARTING")
+session_name = TOKEN.split(":")[0]
+pgram = Client(
+    session_name,
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=TOKEN,
+)
 print("[INFO]: INITIALZING AIOHTTP SESSION")
 aiohttpsession = ClientSession()
-
 # ARQ Client
 print("[INFO]: INITIALIZING ARQ CLIENT")
-arq = ARQ("https://arq.hamker.in", "ERUOGT-KHSTDT-RUYZKQ-FZNSHO-ARQ", aiohttpsession)
-print(
-    "[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database"
-)
-
-updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
-telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
-tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
-pbot = Client("NekoRobotpbot", api_id=API_ID, api_hash=API_HASH, bot_token=TOKEN)
-
-NEKO_PTB = updater.dispatcher
-
-# asyncio.get_event_loop().run_until_complete(NEKO_PTB.bot.initialize())
-# ------------------------------------------------------------------
-
+arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsession)
+print("[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database")
+timeout = httpx.Timeout(40)
+http = httpx.AsyncClient(http2=True, timeout=timeout)
 
 async def get_entity(client, entity):
     entity_client = client
