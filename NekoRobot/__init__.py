@@ -27,9 +27,9 @@ import logging
 import os
 import sys
 import time
-import httpx
 
 import aiohttp
+import httpx
 import spamwatch
 import telegram.ext as tg
 from aiohttp import ClientSession
