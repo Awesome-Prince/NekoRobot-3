@@ -78,7 +78,7 @@ bing_image_downloader
 parsel
 urllib3
 heroku3
-telegraph==2.1.0
+telegraph
 youtube_search
 search_engine_parser
 glitch_this
