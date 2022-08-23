@@ -11,6 +11,7 @@ from pyrogram import Client, errors
 from Python_ARQ import ARQ
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
+from telegraph import Telegraph
 
 StartTime = time.time()
 
