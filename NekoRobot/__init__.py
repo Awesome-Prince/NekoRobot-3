@@ -34,7 +34,7 @@ import telegram.ext as tg
 from aiohttp import ClientSession
 from pyrogram import Client
 from pyrogram.enums import ParseMode
-from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid, ChannelInvalid
+from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, PeerIdInvalid
 from Python_ARQ import ARQ
 from telegraph import Telegraph
 from telethon import TelegramClient
