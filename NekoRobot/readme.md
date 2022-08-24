@@ -3,10 +3,6 @@
 ```python3
 from NekoRobot import pgram
 ```
-## Importing Telethon
-```python3
-from NekoRobot import tbot
-```
 ## Importing ARQ
 ```python3
 from NekoRobot import arq
