@@ -26,10 +26,11 @@ import datetime
 from datetime import datetime
 from platform import python_version
 
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram.ext import CallbackContext
+
 from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB, SUPPORT_CHAT
 from NekoRobot.modules.disable import DisableAbleCommandHandler
-from telegram import ParseMode, Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import CallbackContext
 
 edit_time = 5
 """ =======================Neko====================== """
@@ -50,6 +51,7 @@ TIME_DURATION_UNITS = (
     ("sec", 1),
 )
 
+
 def _human_time_duration(seconds):
     if seconds == 0:
         return "inf"
@@ -60,6 +62,7 @@ def _human_time_duration(seconds):
             parts.append("{} {}{}".format(amount, unit, "" if amount == 1 else "s"))
     return ", ".join(parts)
 
+
 def awake(update: Update, context: CallbackContext):
     message = update.effective_message
 
@@ -69,40 +72,64 @@ def awake(update: Update, context: CallbackContext):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = _human_time_duration(int(uptime_sec))
-    NekoX = f"** ♡ Hey [{user.first_name}](tg://user?id={user.id}) I'm {BOT_NAME} **\n\n"
+    NekoX = (
+        f"** ♡ Hey [{user.first_name}](tg://user?id={user.id}) I'm {BOT_NAME} **\n\n"
+    )
     NekoX += f"**♡ My Uptime :** `{uptime}`\n\n"
     NekoX += f"**♡ Python Version :** `{python_version()}`\n\n"
     NekoX += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
     NekoX += f"Thanks For Adding Me In {chat_name}"
     buttons = [
         [
-           InlineKeyboardButton("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
-           InlineKeyboardButton("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
+            InlineKeyboardButton(
+                "【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"
+            ),
+            InlineKeyboardButton("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
         ]
     ]
 
-    hmm = message.reply_photo(file2, caption=NekoX, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm = message.reply_photo(
+        file2,
+        caption=NekoX,
+        reply_markup=InlineKeyboardMarkup(buttons),
+        parse_mode=ParseMode.MARKDOWN,
+    )
 
     asyncio.sleep(edit_time)
-    hmm1 = hmm.edit_photo(file3, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm1 = hmm.edit_photo(
+        file3, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
+    )
 
     asyncio.sleep(edit_time)
-    hmm2 = hmm1.edit_photo(file4, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm2 = hmm1.edit_photo(
+        file4, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
+    )
 
     asyncio.sleep(edit_time)
-    hmm3 = hmm2.edit_photo(file1, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm3 = hmm2.edit_photo(
+        file1, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
+    )
 
     asyncio.sleep(edit_time)
-    hmm4 = hmm3.edit_photo(file2, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm4 = hmm3.edit_photo(
+        file2, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
+    )
 
     asyncio.sleep(edit_time)
-    hmm5 = hmm4.edit_photo(file1, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm5 = hmm4.edit_photo(
+        file1, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
+    )
 
     asyncio.sleep(edit_time)
-    hmm6 = hmm5.edit_photo(file3, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm6 = hmm5.edit_photo(
+        file3, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
+    )
 
     asyncio.sleep(edit_time)
-    hmm6.edit_photo(file4, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
+    hmm6.edit_photo(
+        file4, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
+    )
+
 
 ALIVE_HANDLER = DisableAbleCommandHandler("alive", awake, run_async=True)
 NEKO_PTB.add_handler(ALIVE_HANDLER)
