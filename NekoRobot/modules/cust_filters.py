@@ -210,7 +210,7 @@ def filters(update, context):
             "Saved filter '{}' in *{}*!".format(keyword, chat_name),
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
-    raise NEKO_PTBHandlerStop
+    raise DispatcherHandlerStop
 
 
 # NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
@@ -250,7 +250,7 @@ def stop_filter(update, context):
                 "Okay, I'll stop replying to that filter in *{}*.".format(chat_name),
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
-            raise NEKO_PTBHandlerStop
+            raise DispatcherHandlerStop
 
     send_message(
         update.effective_message,

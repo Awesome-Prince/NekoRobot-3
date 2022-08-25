@@ -361,7 +361,7 @@ def add_warn_filter(update: Update, context: CallbackContext):
     sql.add_warn_filter(chat.id, keyword, content)
 
     update.effective_message.reply_text(f"Warn handler added for '{keyword}'!")
-    raise NEKO_PTBHandlerStop
+    raise DispatcherHandlerStop
 
 
 @user_admin
@@ -393,7 +393,7 @@ def remove_warn_filter(update: Update, context: CallbackContext):
         if filt == to_remove:
             sql.remove_warn_filter(chat.id, to_remove)
             msg.reply_text("Okay, I'll stop warning people for that.")
-            raise NEKO_PTBHandlerStop
+            raise DispatcherHandlerStop
 
     msg.reply_text(
         "That's not a current warning filter - run /warnlist for all active warning filters."
