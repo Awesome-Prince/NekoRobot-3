@@ -95,7 +95,7 @@ def awake(update: Update, context: CallbackContext):
         ]
     ]
    
-  update.effective_message.reply_photo(
+    hmm = message.reply_photo(
         random.choice(NEKOX),
         caption=NEKO_ALIVE,
         reply_markup=InlineKeyboardMarkup(buttons),
