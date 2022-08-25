@@ -23,7 +23,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import asyncio
 import datetime
 from datetime import datetime
 from platform import python_version
@@ -34,13 +33,14 @@ from telegram.ext import CallbackContext
 from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB, SUPPORT_CHAT
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
-
 """ =======================Neko====================== """
-NEKOX = ("https://telegra.ph/file/cd7aad1ea310312886358.png"
-        "https://telegra.ph/file/48a97320463caa61dba3d.png"
-        "https://telegra.ph/file/2295a7207495eccbbe298.png"
-        "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
-        "https://telegra.ph/file/990684ecd3d119fa9fec6.png")
+NEKOX = (
+    "https://telegra.ph/file/cd7aad1ea310312886358.png"
+    "https://telegra.ph/file/48a97320463caa61dba3d.png"
+    "https://telegra.ph/file/2295a7207495eccbbe298.png"
+    "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
+    "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
+)
 """ =======================Neko====================== """
 
 START_TIME = datetime.utcnow()
@@ -74,7 +74,7 @@ def awake(update: Update, context: CallbackContext):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = _human_time_duration(int(uptime_sec))
-   
+
     NEKO_ALIVE = f"""
     *♡ Hey [{user.first_name}](tg://user?id={user.id})
     I'm {BOT_NAME}*
@@ -85,7 +85,7 @@ def awake(update: Update, context: CallbackContext):
     ➖➖➖➖➖➖➖➖➖➖➖➖➖
     *Thanks For Adding Me In* {chat_name}
     """
-      
+
     buttons = [
         [
             InlineKeyboardButton(
@@ -94,13 +94,14 @@ def awake(update: Update, context: CallbackContext):
             InlineKeyboardButton("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
         ]
     ]
-   
+
     hmm = message.reply_photo(
         random.choice(NEKOX),
         caption=NEKO_ALIVE,
         reply_markup=InlineKeyboardMarkup(buttons),
         parse_mode=ParseMode.MARKDOWN,
     )
+
 
 ALIVE_HANDLER = DisableAbleCommandHandler("alive", awake, run_async=True)
 NEKO_PTB.add_handler(ALIVE_HANDLER)
