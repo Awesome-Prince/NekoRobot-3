@@ -73,12 +73,15 @@ def awake(update: Update, context: CallbackContext):
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = _human_time_duration(int(uptime_sec))
     NekoX = (
-        f"** ♡ Hey [{user.first_name}](tg://user?id={user.id}) I'm {BOT_NAME} **\n\n"
+        f"* ♡ Hey [{user.first_name}](tg://user?id={user.id}),*\n\n"
     )
-    NekoX += f"**♡ My Uptime :** `{uptime}`\n\n"
-    NekoX += f"**♡ Python Version :** `{python_version()}`\n\n"
-    NekoX += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
-    NekoX += f"Thanks For Adding Me In {chat_name}"
+    NekoX += f"*I'm {BOT_NAME}*\n\n"
+    NekoX += "➖➖➖➖➖➖➖➖➖➖➖➖➖"
+    NekoX += f"*♡ My Uptime :* `{uptime}`\n\n"
+    NekoX += f"*♡ Python Version :* `{python_version()}`\n\n"
+    NekoX += "*♡ My Master :* [LovelyPrince](https://t.me/BlackLover_Prince)\n\n"
+    NekoX += "➖➖➖➖➖➖➖➖➖➖➖➖➖"
+    NekoX += f"*Thanks For Adding Me In* {chat_name}"
     buttons = [
         [
             InlineKeyboardButton(
