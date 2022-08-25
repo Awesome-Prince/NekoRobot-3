@@ -34,13 +34,13 @@ from telegram.ext import CallbackContext
 from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB, SUPPORT_CHAT
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
-edit_time = 5
+
 """ =======================Neko====================== """
-file1 = "https://telegra.ph/file/cd7aad1ea310312886358.png"
-file2 = "https://telegra.ph/file/48a97320463caa61dba3d.png"
-file3 = "https://telegra.ph/file/2295a7207495eccbbe298.png"
-file4 = "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
-file5 = "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
+NEKOX = ("https://telegra.ph/file/cd7aad1ea310312886358.png"
+        "https://telegra.ph/file/48a97320463caa61dba3d.png"
+        "https://telegra.ph/file/2295a7207495eccbbe298.png"
+        "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
+        "https://telegra.ph/file/990684ecd3d119fa9fec6.png")
 """ =======================Neko====================== """
 
 START_TIME = datetime.utcnow()
@@ -74,13 +74,18 @@ def awake(update: Update, context: CallbackContext):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = _human_time_duration(int(uptime_sec))
-    NekoX = f"* ♡ Hey [{user.first_name}](tg://user?id={user.id}) I'm {BOT_NAME}*\n\n"
-    NekoX += "➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
-    NekoX += f"*♡ My Uptime :* `{uptime}`\n\n"
-    NekoX += f"*♡ Python Version :* `{python_version()}`\n\n"
-    NekoX += "*♡ My Master :* [LovelyPrince](https://t.me/BlackLover_Prince)\n\n"
-    NekoX += "➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
-    NekoX += f"*Thanks For Adding Me In* {chat_name}"
+   
+    NEKO_ALIVE = f"""
+    *♡ Hey [{user.first_name}](tg://user?id={user.id})
+    I'm {BOT_NAME}*
+    ➖➖➖➖➖➖➖➖➖➖➖➖➖
+    *♡ My Uptime :* `{uptime}`
+    *♡ Python Version :* `{python_version()}`
+    *♡ My Master :* [LovelyPrince](https://t.me/BlackLover_Prince)
+    ➖➖➖➖➖➖➖➖➖➖➖➖➖
+    *Thanks For Adding Me In* {chat_name}
+    """
+      
     buttons = [
         [
             InlineKeyboardButton(
@@ -89,49 +94,13 @@ def awake(update: Update, context: CallbackContext):
             InlineKeyboardButton("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
         ]
     ]
-
-    hmm = message.reply_photo(
-        file2,
-        caption=NekoX,
+   
+  update.effective_message.reply_photo(
+        random.choice(NEKOX),
+        caption=NEKO_ALIVE,
         reply_markup=InlineKeyboardMarkup(buttons),
         parse_mode=ParseMode.MARKDOWN,
     )
-
-    asyncio.sleep(edit_time)
-    hmm1 = hmm.edit_photo(
-        file3, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
-    )
-
-    asyncio.sleep(edit_time)
-    hmm2 = hmm1.edit_photo(
-        file4, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
-    )
-
-    asyncio.sleep(edit_time)
-    hmm3 = hmm2.edit_photo(
-        file1, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
-    )
-
-    asyncio.sleep(edit_time)
-    hmm4 = hmm3.edit_photo(
-        file2, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
-    )
-
-    asyncio.sleep(edit_time)
-    hmm5 = hmm4.edit_photo(
-        file1, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
-    )
-
-    asyncio.sleep(edit_time)
-    hmm6 = hmm5.edit_photo(
-        file3, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
-    )
-
-    asyncio.sleep(edit_time)
-    hmm6.edit_photo(
-        file4, reply_markup=InlineKeyboardMarkup(buttons), parse_mode=ParseMode.MARKDOWN
-    )
-
 
 ALIVE_HANDLER = DisableAbleCommandHandler("alive", awake, run_async=True)
 NEKO_PTB.add_handler(ALIVE_HANDLER)
