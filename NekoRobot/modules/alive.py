@@ -74,8 +74,7 @@ def awake(update: Update, context: CallbackContext):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = _human_time_duration(int(uptime_sec))
-    NekoX = f"* ♡ Hey [{user.first_name}](tg://user?id={user.id})*"
-    NekoX += f"*I'm {BOT_NAME}*\n\n"
+    NekoX = f"* ♡ Hey [{user.first_name}](tg://user?id={user.id}) I'm {BOT_NAME}*\n\n"
     NekoX += "➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
     NekoX += f"*♡ My Uptime :* `{uptime}`\n\n"
     NekoX += f"*♡ Python Version :* `{python_version()}`\n\n"
