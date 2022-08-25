@@ -3,7 +3,7 @@ STATUS: Code is working. ✅
 """
 
 """
-GNU General Public License v3.0
+ BSD-2-Clause license
 
 Copyright (C) 2022, SOME-1HING [https://github.com/SOME-1HING]
 
