@@ -1,38 +1,35 @@
 """
-BSD 2-Clause License
-Copyright (C) 2017-2019, Paul Larsen
-Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince]
-Copyright (c) 2022-2023, BlackLover Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
-All rights reserved.
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+STATUS: Code is working. ✅
+"""
+
+"""
+GNU General Public License v3.0
+
+Copyright (C) 2022, SOME-1HING [https://github.com/SOME-1HING]
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 import asyncio
 import datetime
 from datetime import datetime
+from platform import python_version
 
-from pyrogram import __version__ as pyrover
-from telegram.ext import CommandHandler
-from telethon import Button
-from telethon import __version__ as tlhver
-
-from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB, tbot
+from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB, SUPPORT_CHAT
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from telegram import ParseMode, Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import CallbackContext
 
 edit_time = 5
 """ =======================Neko====================== """
@@ -53,8 +50,7 @@ TIME_DURATION_UNITS = (
     ("sec", 1),
 )
 
-
-async def _human_time_duration(seconds):
+def _human_time_duration(seconds):
     if seconds == 0:
         return "inf"
     parts = []
@@ -64,49 +60,53 @@ async def _human_time_duration(seconds):
             parts.append("{} {}{}".format(amount, unit, "" if amount == 1 else "s"))
     return ", ".join(parts)
 
+def awake(update: Update, context: CallbackContext):
+    message = update.effective_message
 
-async def alive(yes):
-    await yes.get_chat()
+    user = message.from_user
+    chat_name = update.effective_message.chat.title
+
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
-    uptime = await _human_time_duration(int(uptime_sec))
-    NekoX = f"** ♡ Hey [{yes.sender.first_name}](tg://user?id={yes.sender.id}) I'm {BOT_NAME} **\n\n"
+    uptime = _human_time_duration(int(uptime_sec))
+    NekoX = f"** ♡ Hey [{user.first_name}](tg://user?id={user.id}) I'm {BOT_NAME} **\n\n"
     NekoX += f"**♡ My Uptime :** `{uptime}`\n\n"
-    NekoX += f"**♡ Python Version :** `{python_version}`\n\n"
-    NekoX += f"**♡ Telethon Version :** `{tlhver}`\n\n"
-    NekoX += f"**♡ Pyrogram Version :** `{pyrover}`\n\n"
+    NekoX += f"**♡ Python Version :** `{python_version()}`\n\n"
     NekoX += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
-    NekoX += f"Thanks For Adding Me In {yes.chat.title}"
-    BUTTON = [
+    NekoX += f"Thanks For Adding Me In {chat_name}"
+    buttons = [
         [
-            Button.url("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
-            Button.url("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
+           InlineKeyboardButton("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
+           InlineKeyboardButton("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
         ]
     ]
-    on = await tbot.send_file(yes.chat_id, file=file2, caption=NekoX, buttons=BUTTON)
 
-    await asyncio.sleep(edit_time)
-    ok = await tbot.edit_message(yes.chat_id, on, file=file3, buttons=BUTTON)
+    hmm = message.reply_photo(file2, caption=NekoX, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
-    await asyncio.sleep(edit_time)
-    ok2 = await tbot.edit_message(yes.chat_id, ok, file=file4, buttons=BUTTON)
+    asyncio.sleep(edit_time)
+    hmm1 = hmm.edit_photo(file3, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
-    await asyncio.sleep(edit_time)
-    ok3 = await tbot.edit_message(yes.chat_id, ok2, file=file1, buttons=BUTTON)
+    asyncio.sleep(edit_time)
+    hmm2 = hmm1.edit_photo(file4, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
-    await asyncio.sleep(edit_time)
-    ok4 = await tbot.edit_message(yes.chat_id, ok3, file=file2, buttons=BUTTON)
+    asyncio.sleep(edit_time)
+    hmm3 = hmm2.edit_photo(file1, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
-    await asyncio.sleep(edit_time)
-    ok5 = await tbot.edit_message(yes.chat_id, ok4, file=file1, buttons=BUTTON)
+    asyncio.sleep(edit_time)
+    hmm4 = hmm3.edit_photo(file2, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
-    await asyncio.sleep(edit_time)
-    ok6 = await tbot.edit_message(yes.chat_id, ok5, file=file3, buttons=BUTTON)
+    asyncio.sleep(edit_time)
+    hmm5 = hmm4.edit_photo(file1, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
-    await asyncio.sleep(edit_time)
-    ok7 = await tbot.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
+    asyncio.sleep(edit_time)
+    hmm6 = hmm5.edit_photo(file3, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
+    asyncio.sleep(edit_time)
+    hmm6.edit_photo(file4, reply_markup=InlineKeyboardMarkup(buttons),parse_mode=ParseMode.MARKDOWN)
 
-ALIVE_HANDLER = CommandHandler("alive", alive, run_async=True)
-
+ALIVE_HANDLER = DisableAbleCommandHandler("alive", awake, run_async=True)
 NEKO_PTB.add_handler(ALIVE_HANDLER)
+__command_list__ = ["alive"]
+__handlers__ = [
+    ALIVE_HANDLER,
+]
