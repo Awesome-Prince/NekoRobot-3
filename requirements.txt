@@ -93,5 +93,5 @@ tgcrypto==1.2.3
 pycryptodome
 base58
 httpx
-httpx[http2]
+http2
 async-timeout==4.0.2
