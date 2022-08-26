@@ -753,7 +753,7 @@ def main():
         )
 
     if len not in (1, 3, 4):
-        tbot.disconnect()
+        tbot.connect()
     else:
         tbot.run_until_disconnected()
 
@@ -762,6 +762,7 @@ def main():
 
 if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
+    tbot.start(bot_token=TOKEN)
     pgram.start()
     main()
     idle()
