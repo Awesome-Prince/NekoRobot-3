@@ -31,11 +31,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import contextlib
 import html
-import sys
 import importlib
 import json
 import random
 import re
+import sys
 import time
 import traceback
 from sys import argv
