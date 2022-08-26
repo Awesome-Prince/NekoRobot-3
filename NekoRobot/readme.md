@@ -1,4 +1,8 @@
 # Clients
+## Importing Telethon
+```python3
+from NekoRobot import tbot
+```
 ## Importing Pyrogram
 ```python3
 from NekoRobot import pgram
@@ -11,7 +15,6 @@ from NekoRobot import arq
 ```python3
 from NekoRobot import aiohttp
 ```
-
 # DataBase
 ## Importing Postgres
 ```python3
