@@ -24,22 +24,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 import asyncio
-import telegram
-import os
-import requests
 import datetime
-import time
-from PIL import Image
-from io import BytesIO
 from datetime import datetime
-import random
-from telethon import events, Button, custom, version
-from NekoRobot.events import register
-from NekoRobot import telethn as neko, OWNER_ID, BOT_NAME, BOT_USERNAME
-from NekoRobot import StartTime, NEKO_PTB
-from telethon.tl.types import ChannelParticipantsAdmins
+
 from pyrogram import __version__ as pyrover
+from telethon import Button
 from telethon import __version__ as tlhver
+
+from NekoRobot import BOT_NAME, BOT_USERNAME
+from NekoRobot import telethn as neko
+from NekoRobot.events import register
 
 edit_time = 5
 """ =======================Neko====================== """
@@ -53,27 +47,28 @@ file5 = "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
 START_TIME = datetime.utcnow()
 START_TIME_ISO = START_TIME.replace(microsecond=0).isoformat()
 TIME_DURATION_UNITS = (
-    ('week', 60 * 60 * 24 * 7),
-    ('day', 60 * 60 * 24),
-    ('hour', 60 * 60),
-    ('min', 60),
-    ('sec', 1)
+    ("week", 60 * 60 * 24 * 7),
+    ("day", 60 * 60 * 24),
+    ("hour", 60 * 60),
+    ("min", 60),
+    ("sec", 1),
 )
+
 
 async def _human_time_duration(seconds):
     if seconds == 0:
-        return 'inf'
+        return "inf"
     parts = []
     for unit, div in TIME_DURATION_UNITS:
         amount, seconds = divmod(int(seconds), div)
         if amount > 0:
-            parts.append('{} {}{}'
-                         .format(amount, unit, "" if amount == 1 else "s"))
-    return ', '.join(parts)
+            parts.append("{} {}{}".format(amount, unit, "" if amount == 1 else "s"))
+    return ", ".join(parts)
+
 
 @register(pattern=("/alive"))
 async def hmm(yes):
-    chat = await yes.get_chat()
+    await yes.get_chat()
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
@@ -84,26 +79,31 @@ async def hmm(yes):
     NekoX += f"**♡ Pyrogram Version :** `{pyrover}`\n\n"
     NekoX += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
     NekoX += f"Thanks For Adding Me In {yes.chat.title}"
-    BUTTON = [[Button.url("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"), Button.url("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}")]]
-    on = await neko.send_file(yes.chat_id, file=file2,caption=NekoX, buttons=BUTTON)
+    BUTTON = [
+        [
+            Button.url("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
+            Button.url("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
+        ]
+    ]
+    on = await neko.send_file(yes.chat_id, file=file2, caption=NekoX, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
-    ok = await neko.edit_message(yes.chat_id, on, file=file3, buttons=BUTTON) 
+    ok = await neko.edit_message(yes.chat_id, on, file=file3, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
     ok2 = await neko.edit_message(yes.chat_id, ok, file=file4, buttons=BUTTON)
 
     await asyncio.sleep(edit_time)
     ok3 = await neko.edit_message(yes.chat_id, ok2, file=file1, buttons=BUTTON)
-    
+
     await asyncio.sleep(edit_time)
     ok4 = await neko.edit_message(yes.chat_id, ok3, file=file2, buttons=BUTTON)
-    
+
     await asyncio.sleep(edit_time)
     ok5 = await neko.edit_message(yes.chat_id, ok4, file=file1, buttons=BUTTON)
-    
+
     await asyncio.sleep(edit_time)
     ok6 = await neko.edit_message(yes.chat_id, ok5, file=file3, buttons=BUTTON)
-    
+
     await asyncio.sleep(edit_time)
     ok7 = await neko.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
