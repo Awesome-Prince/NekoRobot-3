@@ -34,6 +34,10 @@
          "required": true,
          "value": ""
       },
+       "STRING_SESSION": {
+         "description": "Telethon Based String Session (2nd ID) [ From https://repl.it/@SpEcHiDe/GenerateStringSession ]",
+         "required": true,
+         "value": ""
       "SQLALCHEMY_DATABASE_URI": {
          "description": "Your postgres sql db, empty this field if you dont have one.",
          "required": false,
