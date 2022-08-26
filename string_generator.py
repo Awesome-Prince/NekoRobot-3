@@ -1,5 +1,5 @@
-from pyrogram.sessions import StringSession
-from pyrogram.sync import TelegramClient
+from telethon.sessions import StringSession
+from telethon.sync import TelegramClient
 
 print(
     """Please go-to my.telegram.org
