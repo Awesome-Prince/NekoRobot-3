@@ -38,6 +38,7 @@ import re
 import time
 import traceback
 from typing import Optional
+from sys import argv
 
 from pyrogram import idle
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
@@ -752,8 +753,8 @@ def main():
             allowed_updates=Update.ALL_TYPES,
         )
 
-    if len not in (1, 3, 4):
-        tbot.connect()
+    if len(argv) not in (1, 3, 4):
+        tbot.disconnect()
     else:
         tbot.run_until_disconnected()
 
