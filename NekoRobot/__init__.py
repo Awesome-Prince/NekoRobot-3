@@ -41,6 +41,7 @@ from Python_ARQ import ARQ
 from telegraph import Telegraph
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
+from telethon.sessions import StringSession
 
 StartTime = time.time()
 
@@ -128,6 +129,9 @@ if ENV:
     AI_API_KEY = os.environ.get("AI_API_KEY", None)
     WALL_API = os.environ.get("WALL_API", None)
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", None)
+    STRING_SESSION = os.environ.get(
+        "STRING_SESSION"
+    )  # Telethon Based String Session (2nd ID) [ From https://repl.it/@SpEcHiDe/GenerateStringSession ]
     SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     REPOSITORY = os.environ.get("REPOSITORY", "")
@@ -152,8 +156,6 @@ if ENV:
     REM_BG_API_KEY = os.environ.get(
         "REM_BG_API_KEY", None
     )  # From:- https://www.remove.bg/
-    STRING_SEESSOIN = os.environ.get("STRING_SEESSOIN", None)
-
     try:
         BL_CHATS = set(int(x) for x in os.environ.get("BL_CHATS", "").split())
     except ValueError:
@@ -295,6 +297,10 @@ print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsession)
 print(
     "[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database"
+)
+ubot = TelegramClient(StringSession(STRING_SESSION), APP_ID, APP_HASH)
+print(
+    "[NEKOROBOT]: Connecting To BlackLover • Neko Userbot (https://telegram.dog/Awesome_Neko)"
 )
 timeout = httpx.Timeout(40)
 http = httpx.AsyncClient(http2=True, timeout=timeout)
