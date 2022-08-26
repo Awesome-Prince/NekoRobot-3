@@ -73,6 +73,7 @@ from NekoRobot import (
     StartTime,
     pgram,
     tbot,
+    ubot,
     updater,
 )
 
@@ -759,7 +760,12 @@ def main():
         tbot.run_until_disconnected()
 
     updater.idle()
-
+   
+try:
+    ubot.start()
+except BaseException:
+    print("Userbot Error! Have you added a STRING_SESSION in deploying??")
+    sys.exit(1)
 
 if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
