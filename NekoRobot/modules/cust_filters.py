@@ -393,7 +393,6 @@ def reply_filter(update, context):
                     ENUM_FUNC_MAP[filt.file_type](
                         chat.id,
                         filt.file_id,
-                        caption=filtext,
                         reply_to_message_id=message.message_id,
                         parse_mode=ParseMode.HTML,
                         reply_markup=keyboard,
