@@ -1,8 +1,8 @@
 """
 BSD 2-Clause License
 Copyright (C) 2017-2019, Paul Larsen
-Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince ]
-Copyright (c) 2022-2023, BlackLover • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince]
+Copyright (c) 2022-2023, BlackLover Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -23,90 +23,87 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+import asyncio
+import telegram
+import os
+import requests
 import datetime
-import random
+import time
+from PIL import Image
+from io import BytesIO
 from datetime import datetime
-from platform import python_version
+import random
+from telethon import events, Button, custom, version
+from NekoRobot.events import register
+from NekoRobot import telethn as neko, OWNER_ID, BOT_NAME, BOT_USERNAME
+from NekoRobot import StartTime, NEKO_PTB
+from telethon.tl.types import ChannelParticipantsAdmins
+from pyrogram import __version__ as pyrover
+from telethon import __version__ as tlhver
 
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
-from telegram.ext import CallbackContext
-
-from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB, SUPPORT_CHAT
-from NekoRobot.modules.disable import DisableAbleCommandHandler
-
+edit_time = 5
 """ =======================Neko====================== """
-NEKOX = (
-    "https://telegra.ph/file/cd7aad1ea310312886358.png"
-    "https://telegra.ph/file/48a97320463caa61dba3d.png"
-    "https://telegra.ph/file/2295a7207495eccbbe298.png"
-    "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
-    "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
-)
+file1 = "https://telegra.ph/file/cd7aad1ea310312886358.png"
+file2 = "https://telegra.ph/file/48a97320463caa61dba3d.png"
+file3 = "https://telegra.ph/file/2295a7207495eccbbe298.png"
+file4 = "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
+file5 = "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
 """ =======================Neko====================== """
 
 START_TIME = datetime.utcnow()
 START_TIME_ISO = START_TIME.replace(microsecond=0).isoformat()
 TIME_DURATION_UNITS = (
-    ("week", 60 * 60 * 24 * 7),
-    ("day", 60 * 60 * 24),
-    ("hour", 60 * 60),
-    ("min", 60),
-    ("sec", 1),
+    ('week', 60 * 60 * 24 * 7),
+    ('day', 60 * 60 * 24),
+    ('hour', 60 * 60),
+    ('min', 60),
+    ('sec', 1)
 )
 
-
-def _human_time_duration(seconds):
+async def _human_time_duration(seconds):
     if seconds == 0:
-        return "inf"
+        return 'inf'
     parts = []
     for unit, div in TIME_DURATION_UNITS:
         amount, seconds = divmod(int(seconds), div)
         if amount > 0:
-            parts.append("{} {}{}".format(amount, unit, "" if amount == 1 else "s"))
-    return ", ".join(parts)
+            parts.append('{} {}{}'
+                         .format(amount, unit, "" if amount == 1 else "s"))
+    return ', '.join(parts)
 
-
-def awake(update: Update, context: CallbackContext):
-    message = update.effective_message
-
-    user = message.from_user
-    chat_name = update.effective_message.chat.title
-
+@register(pattern=("/alive"))
+async def hmm(yes):
+    chat = await yes.get_chat()
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
-    uptime = _human_time_duration(int(uptime_sec))
+    uptime = await _human_time_duration(int(uptime_sec))
+    NekoX = f"** ♡ Hey [{yes.sender.first_name}](tg://user?id={yes.sender.id}) I'm {BOT_NAME} **\n\n"
+    NekoX += f"**♡ My Uptime :** `{uptime}`\n\n"
+    NekoX += f"**♡ Python Version :** `{python_version}`\n\n"
+    NekoX += f"**♡ Telethon Version :** `{tlhver}`\n\n"
+    NekoX += f"**♡ Pyrogram Version :** `{pyrover}`\n\n"
+    NekoX += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
+    NekoX += f"Thanks For Adding Me In {yes.chat.title}"
+    BUTTON = [[Button.url("【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"), Button.url("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}")]]
+    on = await neko.send_file(yes.chat_id, file=file2,caption=NekoX, buttons=BUTTON)
 
-    NEKO_ALIVE = f"""
-    *♡ Hey [{user.first_name}](tg://user?id={user.id})
-    I'm {BOT_NAME}*
-    ➖➖➖➖➖➖➖➖➖➖➖➖➖
-    *♡ My Uptime :* `{uptime}`
-    *♡ Python Version :* `{python_version()}`
-    *♡ My Master :* [LovelyPrince](https://t.me/BlackLover_Prince)
-    ➖➖➖➖➖➖➖➖➖➖➖➖➖
-    *Thanks For Adding Me In* {chat_name}
-    """
+    await asyncio.sleep(edit_time)
+    ok = await neko.edit_message(yes.chat_id, on, file=file3, buttons=BUTTON) 
 
-    buttons = [
-        [
-            InlineKeyboardButton(
-                "【► Help ◄】", f"https://t.me/{BOT_USERNAME}?start=help"
-            ),
-            InlineKeyboardButton("【► Support ◄】", f"https://t.me/{SUPPORT_CHAT}"),
-        ]
-    ]
+    await asyncio.sleep(edit_time)
+    ok2 = await neko.edit_message(yes.chat_id, ok, file=file4, buttons=BUTTON)
 
-    hmm = message.reply_photo(
-        random.choice(NEKOX),
-        caption=NEKO_ALIVE,
-        reply_markup=InlineKeyboardMarkup(buttons),
-        parse_mode=ParseMode.MARKDOWN,
-    )
-
-
-ALIVE_HANDLER = DisableAbleCommandHandler("alive", awake, run_async=True)
-NEKO_PTB.add_handler(ALIVE_HANDLER)
-__command_list__ = ["alive"]
-__handlers__ = [
-    ALIVE_HANDLER,
-]
+    await asyncio.sleep(edit_time)
+    ok3 = await neko.edit_message(yes.chat_id, ok2, file=file1, buttons=BUTTON)
+    
+    await asyncio.sleep(edit_time)
+    ok4 = await neko.edit_message(yes.chat_id, ok3, file=file2, buttons=BUTTON)
+    
+    await asyncio.sleep(edit_time)
+    ok5 = await neko.edit_message(yes.chat_id, ok4, file=file1, buttons=BUTTON)
+    
+    await asyncio.sleep(edit_time)
+    ok6 = await neko.edit_message(yes.chat_id, ok5, file=file3, buttons=BUTTON)
+    
+    await asyncio.sleep(edit_time)
+    ok7 = await neko.edit_message(yes.chat_id, ok6, file=file4, buttons=BUTTON)
