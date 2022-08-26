@@ -37,8 +37,8 @@ import random
 import re
 import time
 import traceback
-from typing import Optional
 from sys import argv
+from typing import Optional
 
 from pyrogram import idle
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
