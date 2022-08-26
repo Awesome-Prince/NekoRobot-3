@@ -240,6 +240,6 @@ async def clear(update: Update, context: CallbackContext) -> None:
 
 
 NEKO_PTB.add_handler(CommandHandler(("x", "ex", "exe", "py"), execute, run_async=True))
-NEKO_PTB.add_handler(CommandHandler("clearlocals", clear, run_async=True)
+NEKO_PTB.add_handler(CommandHandler("clearlocals", clear, run_async=True))
 
 __mod_name__ = "Eval Module"
