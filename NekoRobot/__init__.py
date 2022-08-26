@@ -40,8 +40,7 @@ from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, PeerIdInv
 from Python_ARQ import ARQ
 from telegraph import Telegraph
 from telethon import TelegramClient
-from telethon.sessions import MemorySession
-from telethon.sessions import StringSession
+from telethon.sessions import MemorySession, StringSession
 
 StartTime = time.time()
 
