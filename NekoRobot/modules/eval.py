@@ -43,7 +43,7 @@ from time import time
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram import ParseMode, Update
-from telegram.ext import CallbackContext
+from telegram.ext import CallbackContext, CommandHandler
 
 from NekoRobot import DEV_USERS, LOGGER
 from NekoRobot import pgram as pgram
