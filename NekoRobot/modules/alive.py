@@ -32,7 +32,7 @@ from telethon import Button
 from telethon import __version__ as tlhver
 
 from NekoRobot import BOT_NAME, BOT_USERNAME
-from NekoRobot import telethn as neko
+from NekoRobot import tbot as neko
 from NekoRobot.events import register
 
 edit_time = 5
