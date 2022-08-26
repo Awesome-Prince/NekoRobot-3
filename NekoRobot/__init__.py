@@ -297,7 +297,7 @@ arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsessi
 print(
     "[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database"
 )
-ubot = TelegramClient(StringSession(STRING_SESSION), APP_ID, APP_HASH)
+ubot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 print(
     "[NEKOROBOT]: Connecting To BlackLover • Neko Userbot (https://telegram.dog/Awesome_Neko)"
 )
