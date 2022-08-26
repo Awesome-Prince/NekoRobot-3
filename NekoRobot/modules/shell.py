@@ -52,9 +52,9 @@ def shell(update: Update, context: CallbackContext):
         reply += f"*Stderr*\n`{stderr}`\n"
         LOGGER.error(f"Shell - {cmd} - {stderr}")
     if len(reply) > 3000:
-        with open("Giv_Credits.py", "w") as file:
+        with open("NekoRobot.txt", "w") as file:
             file.write(reply)
-        with open("Giv_Credits.py", "rb") as doc:
+        with open("NekoRobot.txt", "rb") as doc:
             context.bot.send_document(
                 document=doc,
                 filename=doc.name,
