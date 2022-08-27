@@ -104,6 +104,7 @@ def blush(update, context):
         e = r.json()
         blushme = e["results"][0]["url"]
         msg = update.effective_message
+        name1 = msg.from_user.first_name
         msg.reply_video(blushme, caption="*Oh {}~kun I Luv You*~".format(name1))
 
 
