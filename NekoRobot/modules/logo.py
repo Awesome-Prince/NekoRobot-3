@@ -6,7 +6,7 @@ import random
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
-from NekoRobot import BOT_USERNAME, OWNER_ID, tbot
+from NekoRobot import OWNER_ID, tbot
 from NekoRobot.events import register
 
 LOGO_LINKS = [
