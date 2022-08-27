@@ -24,7 +24,7 @@
 # For more information on the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # For more samples to get started with GitHub Action workflows to deploy to Azure: https://github.com/Azure/actions-workflow-samples
 
-name: Build and deploy a container to an Azure Web App
+name: Azure Host
 
 env:
   AZURE_WEBAPP_NAME: NekoRobot  # set this to the name of your Azure Web App
@@ -76,7 +76,7 @@ jobs:
 
     steps:
       - name: Lowercase the repo name and username
-        run: echo "REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+        run: echo "REPO=$awesome-prince/nekorobot-3" >>${GITHUB_ENV}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
