@@ -602,7 +602,7 @@ Check `/markdownhelp` to know more!
 
 __mod_name__ = "Filters"
 
-FILTER_HANDLER = DisableAbleCommandHandler("filter", filters)
+FILTER_HANDLER = DisableAbleCommandHandler("filter", filters, run_async=True)
 STOP_HANDLER = DisableAbleCommandHandler("stop", stop_filter)
 RMALLFILTER_HANDLER = DisableAbleCommandHandler(
     "removeallfilters", rmall_filters, filters=Filters.chat_type.groups, run_async=True
