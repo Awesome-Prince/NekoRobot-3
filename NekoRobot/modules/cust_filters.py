@@ -1,47 +1,78 @@
-import random
+"""
+BSD 2-Clause License
+Copyright (C) 2017-2019, Paul Larsen
+Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince ]
+Copyright (c) 2022-2023, BlackLover • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
+
 import re
 from html import escape
+from typing import Optional
 
 import telegram
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Message, ParseMode
+from telegram import Chat, ParseMode, InlineKeyboardMarkup, Message, InlineKeyboardButton
 from telegram.error import BadRequest
-from telegram.ext import CallbackQueryHandler, Filters, MessageHandler
-from telegram.utils.helpers import escape_markdown, mention_html
+from telegram.ext import (
+    DispatcherHandlerStop,
+    Filters,
+)
+from telegram.utils.helpers import mention_html, escape_markdown
 
-from NekoRobot import DRAGONS, LOGGER, NEKO_PTB
-from NekoRobot.modules.connection import connected
-from NekoRobot.modules.disable import DisableAbleCommandHandler
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
-from NekoRobot.modules.helper_funcs.chat_status import user_admin
+from NekoRobot import dispatcher, LOGGER as log, DRAGONS
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.filters import CustomFilters
-from NekoRobot.modules.helper_funcs.handlers import MessageHandlerChecker
 from NekoRobot.modules.helper_funcs.misc import build_keyboard_parser
 from NekoRobot.modules.helper_funcs.msg_types import get_filter_type
 from NekoRobot.modules.helper_funcs.string_handling import (
+    split_quotes,
     button_markdown_parser,
     escape_invalid_curly_brackets,
     markdown_to_html,
-    split_quotes,
 )
 from NekoRobot.modules.sql import cust_filters_sql as sql
+
+from NekoRobot.modules.connection import connected
+
+from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
+from NekoRobot.modules.helper_funcs.decorators import nekocmd, nekomsg, nekocallback
+
+from NekoRobot.modules.helper_funcs.anonymous import user_admin, AdminPerms
 
 HANDLER_GROUP = 10
 
 ENUM_FUNC_MAP = {
-    sql.Types.TEXT.value: NEKO_PTB.bot.send_message,
-    sql.Types.BUTTON_TEXT.value: NEKO_PTB.bot.send_message,
-    sql.Types.STICKER.value: NEKO_PTB.bot.send_sticker,
-    sql.Types.DOCUMENT.value: NEKO_PTB.bot.send_document,
-    sql.Types.PHOTO.value: NEKO_PTB.bot.send_photo,
-    sql.Types.AUDIO.value: NEKO_PTB.bot.send_audio,
-    sql.Types.VOICE.value: NEKO_PTB.bot.send_voice,
-    sql.Types.VIDEO.value: NEKO_PTB.bot.send_video,
-    # sql.Types.VIDEO_NOTE.value: NEKO_PTB.bot.send_video_note
+    sql.Types.TEXT.value: dispatcher.bot.send_message,
+    sql.Types.BUTTON_TEXT.value: dispatcher.bot.send_message,
+    sql.Types.STICKER.value: dispatcher.bot.send_sticker,
+    sql.Types.DOCUMENT.value: dispatcher.bot.send_document,
+    sql.Types.PHOTO.value: dispatcher.bot.send_photo,
+    sql.Types.AUDIO.value: dispatcher.bot.send_audio,
+    sql.Types.VOICE.value: dispatcher.bot.send_voice,
+    sql.Types.VIDEO.value: dispatcher.bot.send_video,
+    # sql.Types.VIDEO_NOTE.value: dispatcher.bot.send_video_note
 }
 
 
 @typing_action
+@nekocmd(command='filters', admin_ok=True)
 def list_handlers(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -49,7 +80,7 @@ def list_handlers(update, context):
     conn = connected(context.bot, update, chat, user.id, need_admin=False)
     if conn is not False:
         chat_id = conn
-        chat_name = NEKO_PTB.bot.getChat(conn).title
+        chat_name = dispatcher.bot.getChat(conn).title
         filter_list = "*Filter in {}:*\n"
     else:
         chat_id = update.effective_chat.id
@@ -87,10 +118,11 @@ def list_handlers(update, context):
     )
 
 
-# NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
-@user_admin
+# NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
+@nekocmd(command='filter', run_async=False)
+@user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
-def filters(update, context):
+def filters(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     user = update.effective_user
     msg = update.effective_message
@@ -101,14 +133,10 @@ def filters(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if conn is not False:
         chat_id = conn
-        chat_name = NEKO_PTB.bot.getChat(conn).title
+        chat_name = dispatcher.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
-        if chat.type == "private":
-            chat_name = "local filters"
-        else:
-            chat_name = chat.title
-
+        chat_name = "local filters" if chat.type == "private" else chat.title
     if not msg.reply_to_message and len(args) < 2:
         send_message(
             update.effective_message,
@@ -123,7 +151,8 @@ def filters(update, context):
                 "Please provide keyword for this filter to reply with!",
             )
             return
-        keyword = args[1]
+        else:
+            keyword = args[1]
     else:
         extracted = split_quotes(args[1])
         if len(extracted) < 1:
@@ -133,9 +162,9 @@ def filters(update, context):
 
     # Add the filter
     # Note: perhaps handlers can be removed somehow using sql.get_chat_filters
-    for handler in NEKO_PTB.handlers.get(HANDLER_GROUP, []):
+    for handler in dispatcher.handlers.get(HANDLER_GROUP, []):
         if handler.filters == (keyword, chat_id):
-            NEKO_PTB.remove_handler(handler, HANDLER_GROUP)
+            dispatcher.remove_handler(handler, HANDLER_GROUP)
 
     text, file_type, file_id = get_filter_type(msg)
     if not msg.reply_to_message and len(extracted) >= 2:
@@ -149,7 +178,7 @@ def filters(update, context):
         if not text:
             send_message(
                 update.effective_message,
-                "There is no note message - You can't JUST have buttons, you need a message to go with it!",
+                "There is no filter message - You can't JUST have buttons, you need a message to go with it!",
             )
             return
 
@@ -192,7 +221,7 @@ def filters(update, context):
         if (msg.reply_to_message.text or msg.reply_to_message.caption) and not text:
             send_message(
                 update.effective_message,
-                "There is no note message - You can't JUST have buttons, you need a message to go with it!",
+                "There is no filter message - You can't JUST have buttons, you need a message to go with it!",
             )
             return
 
@@ -213,8 +242,9 @@ def filters(update, context):
     raise DispatcherHandlerStop
 
 
-# NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
-@user_admin
+# NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
+@nekocmd(command='stop', run_async=False)
+@user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
 def stop_filter(update, context):
     chat = update.effective_chat
@@ -224,14 +254,10 @@ def stop_filter(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if conn is not False:
         chat_id = conn
-        chat_name = NEKO_PTB.bot.getChat(conn).title
+        chat_name = dispatcher.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
-        if chat.type == "private":
-            chat_name = "Local filters"
-        else:
-            chat_name = chat.title
-
+        chat_name = "Local filters" if chat.type == "private" else chat.title
     if len(args) < 2:
         send_message(update.effective_message, "What should i stop?")
         return
@@ -258,7 +284,8 @@ def stop_filter(update, context):
     )
 
 
-def reply_filter(update, context):
+@nekomsg((CustomFilters.has_text & ~Filters.update.edited_message))
+def reply_filter(update, context):  # sourcery no-metrics
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
 
@@ -272,8 +299,6 @@ def reply_filter(update, context):
     for keyword in chat_filters:
         pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
         if re.search(pattern, to_match, flags=re.IGNORECASE):
-            if MessageHandlerChecker.check_user(update.effective_user.id):
-                return
             filt = sql.get_filter(chat.id, keyword)
             if filt.reply == "there is should be a new reply":
                 buttons = sql.get_buttons(chat.id, filt.keyword)
@@ -290,34 +315,8 @@ def reply_filter(update, context):
                     "mention",
                 ]
                 if filt.reply_text:
-                    if "%%%" in filt.reply_text:
-                        split = filt.reply_text.split("%%%")
-                        text = random.choice(split) if all(split) else filt.reply_text
-                    else:
-                        text = filt.reply_text
-                    if text.startswith("~!") and text.endswith("!~"):
-                        sticker_id = text.replace("~!", "").replace("!~", "")
-                        try:
-                            context.bot.send_sticker(
-                                chat.id,
-                                sticker_id,
-                                reply_to_message_id=message.message_id,
-                            )
-                            return
-                        except BadRequest as excp:
-                            if (
-                                excp.message
-                                == "Wrong remote file identifier specified: wrong padding in the string"
-                            ):
-                                context.bot.send_message(
-                                    chat.id,
-                                    "Message couldn't be sent, Is the sticker id valid?",
-                                )
-                                return
-                            LOGGER.exception("Error in filters: " + excp.message)
-                            return
                     valid_format = escape_invalid_curly_brackets(
-                        text, VALID_WELCOME_FORMATTERS
+                        markdown_to_html(filt.reply_text), VALID_WELCOME_FORMATTERS
                     )
                     if valid_format:
                         filtext = valid_format.format(
@@ -356,7 +355,7 @@ def reply_filter(update, context):
                     try:
                         context.bot.send_message(
                             chat.id,
-                            markdown_to_html(filtext),
+                            filtext,
                             reply_to_message_id=message.message_id,
                             parse_mode=ParseMode.HTML,
                             disable_web_page_preview=True,
@@ -368,13 +367,13 @@ def reply_filter(update, context):
                             try:
                                 context.bot.send_message(
                                     chat.id,
-                                    markdown_to_html(filtext),
+                                    filtext,
                                     parse_mode=ParseMode.HTML,
                                     disable_web_page_preview=True,
                                     reply_markup=keyboard,
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception("Error in filters: " + excp.message)
+                                log.exception("Error in filters: " + excp.message)
                                 send_message(
                                     update.effective_message,
                                     get_exception(excp, filt, chat),
@@ -386,18 +385,26 @@ def reply_filter(update, context):
                                     get_exception(excp, filt, chat),
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception(
+                                log.exception(
                                     "Failed to send message: " + excp.message
                                 )
-                else:
+                elif ENUM_FUNC_MAP[filt.file_type] == dispatcher.bot.send_sticker:
                     ENUM_FUNC_MAP[filt.file_type](
                         chat.id,
                         filt.file_id,
                         reply_to_message_id=message.message_id,
                         reply_markup=keyboard,
                     )
-                break
-            if filt.is_sticker:
+                else:
+                    ENUM_FUNC_MAP[filt.file_type](
+                        chat.id,
+                        filt.file_id,
+                        caption=filtext,
+                        reply_to_message_id=message.message_id,
+                        parse_mode=ParseMode.HTML,
+                        reply_markup=keyboard,
+                    )
+            elif filt.is_sticker:
                 message.reply_sticker(filt.reply)
             elif filt.is_document:
                 message.reply_document(filt.reply)
@@ -432,7 +439,7 @@ def reply_filter(update, context):
                                 "again...",
                             )
                         except BadRequest as excp:
-                            LOGGER.exception("Error in filters: " + excp.message)
+                            log.exception("Error in filters: " + excp.message)
                     elif excp.message == "Reply message not found":
                         try:
                             context.bot.send_message(
@@ -443,7 +450,7 @@ def reply_filter(update, context):
                                 reply_markup=keyboard,
                             )
                         except BadRequest as excp:
-                            LOGGER.exception("Error in filters: " + excp.message)
+                            log.exception("Error in filters: " + excp.message)
                     else:
                         try:
                             send_message(
@@ -451,26 +458,27 @@ def reply_filter(update, context):
                                 "This message couldn't be sent as it's incorrectly formatted.",
                             )
                         except BadRequest as excp:
-                            LOGGER.exception("Error in filters: " + excp.message)
-                        LOGGER.warning(
+                            log.exception("Error in filters: " + excp.message)
+                        log.warning(
                             "Message %s could not be parsed", str(filt.reply)
                         )
-                        LOGGER.exception(
+                        log.exception(
                             "Could not parse filter %s in chat %s",
                             str(filt.keyword),
                             str(chat.id),
                         )
 
             else:
-                # LEGACY - all new filters will have has_markdown set to True.
+                    # LEGACY - all new filters will have has_markdown set to True.
                 try:
                     send_message(update.effective_message, filt.reply)
                 except BadRequest as excp:
-                    LOGGER.exception("Error in filters: " + excp.message)
+                    log.exception("Error in filters: " + excp.message)
             break
 
 
-def rmall_filters(update, context):
+@nekocmd(command="removeallfilters", filters=Filters.chat_type.groups)
+def rmall_filters(update, _):
     chat = update.effective_chat
     user = update.effective_user
     member = chat.get_member(user.id)
@@ -496,13 +504,14 @@ def rmall_filters(update, context):
         )
 
 
-def rmall_callback(update, context):
+@nekocallback(pattern=r"filters_.*")
+def rmall_callback(update, _):
     query = update.callback_query
     chat = update.effective_chat
     msg = update.effective_message
     member = chat.get_member(query.from_user.id)
     if query.data == "filters_rmall":
-        if member.status == "creator" or query.from_user.id in DRAGONS:
+        if member.status == "creator" or query.from_user.id in SUDO_USERS:
             allfilters = sql.get_chat_triggers(chat.id)
             if not allfilters:
                 msg.edit_text("No filters in this chat, nothing to stop!")
@@ -538,24 +547,26 @@ def rmall_callback(update, context):
 def get_exception(excp, filt, chat):
     if excp.message == "Unsupported url protocol":
         return "You seem to be trying to use the URL protocol which is not supported. Telegram does not support key for multiple protocols, such as tg: //. Please try again!"
-    if excp.message == "Reply message not found":
+    elif excp.message == "Reply message not found":
         return "noreply"
-    LOGGER.warning("Message %s could not be parsed", str(filt.reply))
-    LOGGER.exception(
-        "Could not parse filter %s in chat %s", str(filt.keyword), str(chat.id)
-    )
-    return "This data could not be sent because it is incorrectly formatted."
+    else:
+        log.warning("Message %s could not be parsed", str(filt.reply))
+        log.exception(
+            "Could not parse filter %s in chat %s", str(filt.keyword), str(chat.id)
+        )
+        return "This data could not be sent because it is incorrectly formatted."
 
 
 # NOT ASYNC NOT A HANDLER
 def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
     msg = update.effective_message
     totalfilt = sql.get_chat_triggers(chat_id)
-    if len(totalfilt) >= 150:  # Idk why i made this like function....
+    if len(totalfilt) >= 1000:  # Idk why i made this like function....
         msg.reply_text("This group has reached its max filters limit of 150.")
         return False
-    sql.new_add_filter(chat_id, keyword, text, file_type, file_id, buttons)
-    return True
+    else:
+        sql.new_add_filter(chat_id, keyword, text, file_type, file_id, buttons)
+        return True
 
 
 def __stats__():
@@ -566,69 +577,43 @@ def __import_data__(chat_id, data):
     # set chat filters
     filters = data.get("filters", {})
     for trigger in filters:
-        sql.add_filter(chat_id, trigger, text, file_type, file_id, buttons)
+        sql.add_to_blacklist(chat_id, trigger)
 
 
 def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+def __chat_settings__(chat_id, _):
     cust_filters = sql.get_chat_triggers(chat_id)
     return "There are `{}` custom filters here.".format(len(cust_filters))
 
 
 __help__ = """
-  • `/filters`*:* List all active filters saved in the chat.
+• /filters*:* List all active filters saved in the chat.
+
 *Admin only:*
-  • `/filter <keyword> <reply message>`*:* Add a filter to this chat. The bot will now reply that message whenever 'keyword'\
-is mentioned. If you reply to a sticker with a keyword, the bot will reply with that sticker. NOTE: all filter \
-keywords are in lowercase. If you want your keyword to be a sentence, use quotes. eg: /filter "hey there" How you \
-doin?
- Separate diff replies by `%%%` to get random replies
- *Example:* 
+  
+• /filter <keyword> <reply message>*:* Add a filter to this chat. The bot will now reply that message whenever 'keyword' is mentioned. If you reply to a sticker with a keyword, the bot will reply with that sticker.
+
+NOTE: all filter 'keywords' are in lowercase. If you want your keyword to be a sentence, use quotes. eg: /filter "hey there, How you doin?"
+
+Separate diff replies by `%%%` to get random replies
+
+*Example:* 
  `/filter "filtername"
  Reply 1
  %%%
  Reply 2
  %%%
  Reply 3`
-  • `/stop <filter keyword>`*:* Stop that filter.
+
+• /stop <filter keyword>*:* Stops that filter.
+
 *Chat creator only:*
-  • `/removeallfilters`*:* Remove all chat filters at once.
+• /removeallfilters*:* Remove all chat filters at once.
+
 *Note*: Filters also support markdown formatters like: {first}, {last} etc.. and buttons.
-Check `/markdownhelp` to know more!
+Check /markdownhelp to know more!
 """
-
 __mod_name__ = "Filters"
-
-FILTER_HANDLER = DisableAbleCommandHandler("filter", filters, run_async=True)
-STOP_HANDLER = DisableAbleCommandHandler("stop", stop_filter)
-RMALLFILTER_HANDLER = DisableAbleCommandHandler(
-    "removeallfilters", rmall_filters, filters=Filters.chat_type.groups, run_async=True
-)
-RMALLFILTER_CALLBACK = CallbackQueryHandler(
-    rmall_callback, pattern=r"filters_.*", run_async=True
-)
-LIST_HANDLER = DisableAbleCommandHandler(
-    "filters", list_handlers, admin_ok=True, run_async=True
-)
-CUST_FILTER_HANDLER = MessageHandler(
-    CustomFilters.has_text & ~Filters.update.edited_message,
-    reply_filter,
-    run_async=True,
-)
-
-NEKO_PTB.add_handler(FILTER_HANDLER)
-NEKO_PTB.add_handler(STOP_HANDLER)
-NEKO_PTB.add_handler(LIST_HANDLER)
-NEKO_PTB.add_handler(CUST_FILTER_HANDLER, HANDLER_GROUP)
-NEKO_PTB.add_handler(RMALLFILTER_HANDLER)
-NEKO_PTB.add_handler(RMALLFILTER_CALLBACK)
-
-__handlers__ = [
-    FILTER_HANDLER,
-    STOP_HANDLER,
-    LIST_HANDLER,
-    (CUST_FILTER_HANDLER, HANDLER_GROUP, RMALLFILTER_HANDLER),
-]
