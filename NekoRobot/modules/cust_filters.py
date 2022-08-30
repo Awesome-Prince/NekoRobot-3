@@ -41,7 +41,7 @@ from telegram.utils.helpers import escape_markdown, mention_html
 
 from NekoRobot import DRAGONS
 from NekoRobot import LOGGER as log
-from NekoRobot import dispatcher
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
@@ -61,15 +61,15 @@ from NekoRobot.modules.sql import cust_filters_sql as sql
 HANDLER_GROUP = 10
 
 ENUM_FUNC_MAP = {
-    sql.Types.TEXT.value: dispatcher.bot.send_message,
-    sql.Types.BUTTON_TEXT.value: dispatcher.bot.send_message,
-    sql.Types.STICKER.value: dispatcher.bot.send_sticker,
-    sql.Types.DOCUMENT.value: dispatcher.bot.send_document,
-    sql.Types.PHOTO.value: dispatcher.bot.send_photo,
-    sql.Types.AUDIO.value: dispatcher.bot.send_audio,
-    sql.Types.VOICE.value: dispatcher.bot.send_voice,
-    sql.Types.VIDEO.value: dispatcher.bot.send_video,
-    # sql.Types.VIDEO_NOTE.value: dispatcher.bot.send_video_note
+    sql.Types.TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.BUTTON_TEXT.value: NEKO_PTB.bot.send_message,
+    sql.Types.STICKER.value: NEKO_PTB.bot.send_sticker,
+    sql.Types.DOCUMENT.value: NEKO_PTB.bot.send_document,
+    sql.Types.PHOTO.value: NEKO_PTB.bot.send_photo,
+    sql.Types.AUDIO.value: NEKO_PTB.bot.send_audio,
+    sql.Types.VOICE.value: NEKO_PTB.bot.send_voice,
+    sql.Types.VIDEO.value: NEKO_PTB.bot.send_video,
+    # sql.Types.VIDEO_NOTE.value: NEKO_PTB.bot.send_video_note
 }
 
 
@@ -82,7 +82,7 @@ def list_handlers(update, context):
     conn = connected(context.bot, update, chat, user.id, need_admin=False)
     if conn is not False:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
         filter_list = "*Filter in {}:*\n"
     else:
         chat_id = update.effective_chat.id
@@ -120,7 +120,7 @@ def list_handlers(update, context):
     )
 
 
-# NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
+# NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @nekocmd(command="filter", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
@@ -135,7 +135,7 @@ def filters(update, context):  # sourcery no-metrics
     conn = connected(context.bot, update, chat, user.id)
     if conn is not False:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         chat_name = "local filters" if chat.type == "private" else chat.title
@@ -164,9 +164,9 @@ def filters(update, context):  # sourcery no-metrics
 
     # Add the filter
     # Note: perhaps handlers can be removed somehow using sql.get_chat_filters
-    for handler in dispatcher.handlers.get(HANDLER_GROUP, []):
+    for handler in NEKO_PTB.handlers.get(HANDLER_GROUP, []):
         if handler.filters == (keyword, chat_id):
-            dispatcher.remove_handler(handler, HANDLER_GROUP)
+            NEKO_PTB.remove_handler(handler, HANDLER_GROUP)
 
     text, file_type, file_id = get_filter_type(msg)
     if not msg.reply_to_message and len(extracted) >= 2:
@@ -244,7 +244,7 @@ def filters(update, context):  # sourcery no-metrics
     raise DispatcherHandlerStop
 
 
-# NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
+# NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @nekocmd(command="stop", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
@@ -256,7 +256,7 @@ def stop_filter(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if conn is not False:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
+        chat_name = NEKO_PTB.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
         chat_name = "Local filters" if chat.type == "private" else chat.title
@@ -388,7 +388,7 @@ def reply_filter(update, context):  # sourcery no-metrics
                                 )
                             except BadRequest as excp:
                                 log.exception("Failed to send message: " + excp.message)
-                elif ENUM_FUNC_MAP[filt.file_type] == dispatcher.bot.send_sticker:
+                elif ENUM_FUNC_MAP[filt.file_type] == NEKO_PTB.bot.send_sticker:
                     ENUM_FUNC_MAP[filt.file_type](
                         chat.id,
                         filt.file_id,
