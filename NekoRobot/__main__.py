@@ -133,7 +133,7 @@ buttons = [
         InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
         InlineKeyboardButton(text="❔ Chit Chat", url="https://telegram.dog/Besties_XD"),
         InlineKeyboardButton(
-            text="[► Repo ◄]", url="https://github.com/Awesome-Prince/NekoRobot-3"
+            text="[► Repo ◄]", url="https://github.com/Awesome-Prince/NekoRobot-3.git"
         ),
     ],
     [
