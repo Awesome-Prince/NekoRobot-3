@@ -28,33 +28,35 @@ from html import escape
 from typing import Optional
 
 import telegram
-from telegram import Chat, ParseMode, InlineKeyboardMarkup, Message, InlineKeyboardButton
-from telegram.error import BadRequest
-from telegram.ext import (
-    DispatcherHandlerStop,
-    Filters,
+from telegram import (
+    Chat,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+    ParseMode,
 )
-from telegram.utils.helpers import mention_html, escape_markdown
+from telegram.error import BadRequest
+from telegram.ext import DispatcherHandlerStop, Filters
+from telegram.utils.helpers import escape_markdown, mention_html
 
-from NekoRobot import dispatcher, LOGGER as log, DRAGONS
+from NekoRobot import DRAGONS
+from NekoRobot import LOGGER as log
+from NekoRobot import dispatcher
+from NekoRobot.modules.connection import connected
+from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
+from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
+from NekoRobot.modules.helper_funcs.decorators import nekocallback, nekocmd, nekomsg
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.filters import CustomFilters
 from NekoRobot.modules.helper_funcs.misc import build_keyboard_parser
 from NekoRobot.modules.helper_funcs.msg_types import get_filter_type
 from NekoRobot.modules.helper_funcs.string_handling import (
-    split_quotes,
     button_markdown_parser,
     escape_invalid_curly_brackets,
     markdown_to_html,
+    split_quotes,
 )
 from NekoRobot.modules.sql import cust_filters_sql as sql
-
-from NekoRobot.modules.connection import connected
-
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
-from NekoRobot.modules.helper_funcs.decorators import nekocmd, nekomsg, nekocallback
-
-from NekoRobot.modules.helper_funcs.anonymous import user_admin, AdminPerms
 
 HANDLER_GROUP = 10
 
@@ -72,7 +74,7 @@ ENUM_FUNC_MAP = {
 
 
 @typing_action
-@nekocmd(command='filters', admin_ok=True)
+@nekocmd(command="filters", admin_ok=True)
 def list_handlers(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -119,7 +121,7 @@ def list_handlers(update, context):
 
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
-@nekocmd(command='filter', run_async=False)
+@nekocmd(command="filter", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
 def filters(update, context):  # sourcery no-metrics
@@ -243,7 +245,7 @@ def filters(update, context):  # sourcery no-metrics
 
 
 # NOT ASYNC BECAUSE DISPATCHER HANDLER RAISED
-@nekocmd(command='stop', run_async=False)
+@nekocmd(command="stop", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
 def stop_filter(update, context):
@@ -385,9 +387,7 @@ def reply_filter(update, context):  # sourcery no-metrics
                                     get_exception(excp, filt, chat),
                                 )
                             except BadRequest as excp:
-                                log.exception(
-                                    "Failed to send message: " + excp.message
-                                )
+                                log.exception("Failed to send message: " + excp.message)
                 elif ENUM_FUNC_MAP[filt.file_type] == dispatcher.bot.send_sticker:
                     ENUM_FUNC_MAP[filt.file_type](
                         chat.id,
@@ -459,9 +459,7 @@ def reply_filter(update, context):  # sourcery no-metrics
                             )
                         except BadRequest as excp:
                             log.exception("Error in filters: " + excp.message)
-                        log.warning(
-                            "Message %s could not be parsed", str(filt.reply)
-                        )
+                        log.warning("Message %s could not be parsed", str(filt.reply))
                         log.exception(
                             "Could not parse filter %s in chat %s",
                             str(filt.keyword),
@@ -469,7 +467,7 @@ def reply_filter(update, context):  # sourcery no-metrics
                         )
 
             else:
-                    # LEGACY - all new filters will have has_markdown set to True.
+                # LEGACY - all new filters will have has_markdown set to True.
                 try:
                     send_message(update.effective_message, filt.reply)
                 except BadRequest as excp:
