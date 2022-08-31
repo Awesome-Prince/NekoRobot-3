@@ -193,7 +193,6 @@ async def lyrics_func(_, message):
     await m.edit(f"**LYRICS_TOO_LONG:** [URL]({lyrics})")
 
 
-
 __help__ = """
 ❍ *Play Music* ✨🎧
 
@@ -223,4 +222,3 @@ __help__ = """
 1) Add @Awesome_Neko to your group to admin with all permission
 2) Use /play <song name> and enjoy the music✨🥀
 """
-
