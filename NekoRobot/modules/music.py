@@ -41,7 +41,7 @@ from NekoRobot.utils.errors import capture_err
 from NekoRobot.utils.pastebin import paste
 
 is_downloading = False
-
+Neko_PYRO_Music = filters.command("saavn")
 
 def get_file_extension_from_url(url):
     url_path = urlparse(url).path
@@ -133,7 +133,7 @@ async def download_song(url):
 # Jiosaavn Music
 
 
-@pgram.on_message(filters.command("saavn") & ~filters.edited)
+@pgram.on_message(Neko_PYRO_Music) & ~filters.edited & ~filters.bot)
 @capture_err
 async def jssong(_, message):
     global is_downloading
