@@ -33,7 +33,7 @@ from urllib.parse import urlparse
 
 import ffmpeg
 import youtube_dl
-from NekkRobot.modules.memek import arq
+from NekoRobot import arq
 from pyrogram import filters
 
 from NekoRobot import aiohttpsession as session
