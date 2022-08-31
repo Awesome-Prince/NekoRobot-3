@@ -133,7 +133,8 @@ async def download_song(url):
 # Jiosaavn Music
 
 
-@pgram.on_message(Neko_PYRO_Music) & ~filters.edited & ~filters.bot)
+@pgram.on_message(Neko_PYRO_Music)
+@pgram.on_edited_message(Neko_PYRO_Music)
 @capture_err
 async def jssong(_, message):
     global is_downloading
