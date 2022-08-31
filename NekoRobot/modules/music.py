@@ -40,6 +40,7 @@ from NekoRobot import arq, pgram
 from NekoRobot.utils.errors import capture_err
 from NekoRobot.utils.pastebin import paste
 
+__mod_name__ = "Music"
 is_downloading = False
 Neko_PYRO_Music = filters.command("saavn")
 
@@ -192,10 +193,8 @@ async def lyrics_func(_, message):
     await m.edit(f"**LYRICS_TOO_LONG:** [URL]({lyrics})")
 
 
-__mod_name__ = "Music"
 
 __help__ = """
-
 ❍ *Play Music* ✨🎧
 
 ➛ /play <song name> - play song you requested
@@ -224,3 +223,4 @@ __help__ = """
 1) Add @Awesome_Neko to your group to admin with all permission
 2) Use /play <song name> and enjoy the music✨🥀
 """
+
