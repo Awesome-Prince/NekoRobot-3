@@ -124,7 +124,8 @@ PM_START_TEXT = """
 buttons = [
     [
         InlineKeyboardButton(
-            text="Summon Mewo ➕", url=f"https://telegram.dog/{NEKO_PTB.bot.username}?startgroup=true"
+            text="Summon Mewo ➕",
+            url=f"https://telegram.dog/{NEKO_PTB.bot.username}?startgroup=true",
         )
     ],
     [
