@@ -124,7 +124,7 @@ PM_START_TEXT = """
 buttons = [
     [
         InlineKeyboardButton(
-            text="Summon Mewo ➕", url=f"t.me/{BOT_USERNAME}?startgroup=true"
+            text="Summon Mewo ➕", url=f"https://telegram.dog/{NEKO_PTB.bot.username}?startgroup=true"
         )
     ],
     [
@@ -138,7 +138,7 @@ buttons = [
             text="🚑 Support", url=f"https://telegram.dog/{SUPPORT_CHAT}"
         ),
         InlineKeyboardButton(
-            text="📢 Updates", url="https://telegram.dog/BlackLover_Network"
+            text="📢 Updates", url="https://telegram.dog/BlackLover_Updates"
         ),
     ],
 ]
