@@ -194,7 +194,7 @@ async def lyrics_func(_, message):
 
 
 __help__ = """
-❍ *Play Music* ✨🎧
+❍ *Play Music*
 
 ➛ /play <song name> - play song you requested
 ➛ /dplay <song name> - play song you requested via deezer
@@ -220,5 +220,5 @@ __help__ = """
 ❍ *Guidelines*
 
 1) Add @Awesome_Neko to your group to admin with all permission
-2) Use /play <song name> and enjoy the music✨🥀
+2) Use /play <song name> and enjoy the Music.
 """
