@@ -33,10 +33,10 @@ from urllib.parse import urlparse
 
 import ffmpeg
 import youtube_dl
-from NekoRobot import arq
 from pyrogram import filters
 
 from NekoRobot import aiohttpsession as session
+from NekoRobot import arq
 from NekoRobot.utils.errors import capture_err
 from NekoRobot.utils.pastebin import paste
 
