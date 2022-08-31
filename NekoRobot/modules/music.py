@@ -36,8 +36,7 @@ import youtube_dl
 from pyrogram import filters
 
 from NekoRobot import aiohttpsession as session
-from NekoRobot import arq
-from NekoRobot import pgram
+from NekoRobot import arq, pgram
 from NekoRobot.utils.errors import capture_err
 from NekoRobot.utils.pastebin import paste
 
