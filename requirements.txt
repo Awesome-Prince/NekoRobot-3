@@ -13,7 +13,7 @@ PyDictionary==2.0.1
 GitPython==3.1.27
 emoji~=1.6.3
 pretty-errors==1.2.25
-lxml
+lxml==4.9.1
 textblob==0.17.1
 beautifulsoup4
 requests
