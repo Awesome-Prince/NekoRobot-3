@@ -17,7 +17,7 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ master ]
-  schedule:
+schedule:
     - cron: "44 16 * * 3'
 
 jobs:
