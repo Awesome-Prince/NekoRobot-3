@@ -82,7 +82,7 @@ glitch_this
 NumPy
 opencv-python-headless
 countryinfo==0.1.2
-python-rapidjson==1.5
+python-rapidjson==1.8
 pytimeparse
 markdown2
 gpytranslate
