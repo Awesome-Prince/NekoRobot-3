@@ -3,7 +3,7 @@ MIT License
 
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022 Awesome-Prince
-Copyright (c) 2022, BlackLover Network, <https://github.com/Awesome-Prince/NekoRobot-3>
+Copyright (c) 2022,Programmer Network, <https://github.com/Awesome-Prince/NekoRobot-3>
 
 This file is part of @NekoXRobot (Telegram Bot)
 
