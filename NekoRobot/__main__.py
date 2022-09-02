@@ -3,7 +3,7 @@ BSD 2-Clause License
 
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince ]
-Copyright (c) 2022-2023, BlackLover • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (c) 2022-2023, Programmer • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
 
 All rights reserved.
 
@@ -140,7 +140,7 @@ buttons = [
             text="🚑 Support", url=f"https://telegram.dog/{SUPPORT_CHAT}"
         ),
         InlineKeyboardButton(
-            text="📢 Updates", url="https://telegram.dog/BlackLover_Updates"
+            text="📢 Updates", url="https://telegram.dog/Programmer_Updates"
         ),
     ],
 ]
@@ -304,7 +304,7 @@ def start(update: Update, context: CallbackContext):
                         ),
                         InlineKeyboardButton(
                             text="📢 Updates",
-                            url="https://telegram.dog/BlackLover_Updates",
+                            url="https://telegram.dog/Programmer_Updates",
                         ),
                     ]
                 ]
@@ -666,7 +666,7 @@ def donate(update: Update, context: CallbackContext) -> None:
                         [
                             InlineKeyboardButton(
                                 text="📢 Updates",
-                                url="https://telegram.dog/BlackLover_Updates",
+                                url="https://telegram.dog/Programmer_Updates",
                             ),
                             InlineKeyboardButton(
                                 text="🚑 Support",

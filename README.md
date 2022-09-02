@@ -1,7 +1,7 @@
 ![Neko-X](https://telegra.ph/file/4bf4b16a4e561dac5ad62.jpg)
 
 # 𝐍𝐞𝐤𝐨 𝐑𝐨𝐛𝐨𝐭 [ BETA ]
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html) [![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gh/Awesome-Prince/NekoRobot-3/?ref=repository-badge) [![Join Support!](https://img.shields.io/badge/Join%20Channel-!-red)](https://telegram.dog/BlackLover_Support) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) [![Maintenance](https://img.shields.io/badge/Maintained%3F-no-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) [![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)](https://GitHub.com/Awesome-Prince/NekoRobot-3/graphs/contributors/)
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html) [![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gh/Awesome-Prince/NekoRobot-3/?ref=repository-badge) [![Join Support!](https://img.shields.io/badge/Join%20Channel-!-red)](https://telegram.dog/ProgrammerSupport) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) [![Maintenance](https://img.shields.io/badge/Maintained%3F-no-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity) [![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)](https://GitHub.com/Awesome-Prince/NekoRobot-3/graphs/contributors/)
 
 A modular Python Bot For Telegram That Runs On Python3 And Connects To Sqlalchemy Database.
 
@@ -39,7 +39,7 @@ This repo was just reamped to suit an Anime-centric community. All original cred
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-The Support group can be reached out to at [BlackLover • Support](https://telegram.dog/Blacklover_Support) Or [Neko Support (Github)](https://github.com/Awesome-Prince/NekoRobot-3/discussions/15), where you can ask for help about [NekoRobot](https://telegram.dog/NekoX_bot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
+The Support group can be reached out to at [BlackLover • Support](https://telegram.dog/ProgrammerSupport) Or [Neko Support (Github)](https://github.com/Awesome-Prince/NekoRobot-3/discussions/15), where you can ask for help about [NekoRobot](https://telegram.dog/NekoX_bot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
 
 <details>
 	<summary>Deploy Options</summary>

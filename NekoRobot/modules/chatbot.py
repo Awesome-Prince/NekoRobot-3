@@ -158,7 +158,7 @@ __help__ = """
 *Admins only Commands*:
   • `/Chatbot`*:* Shows chatbot control panel
   
-*Powered By @BlackLover_Network*
+*Powered By @Programmer_Network*
 """
 
 __mod_name__ = "ChatBot"
