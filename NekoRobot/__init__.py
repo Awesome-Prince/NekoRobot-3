@@ -252,10 +252,10 @@ pgram = Client(
 
 # Credits Logger
 print(
-    "[NEKOROBOT] NEKO Is Starting. |Programmer Network Project | BSD 2-Clause License."
+    "[NEKOROBOT] NEKO Is Starting. | Programmer Network Project | BSD 2-Clause License."
 )
 print(
-    "[NEKOROBOT] Mewo Mewo! Successfully Connected WithProgrammer •Data Center • Chennai"
+    "[NEKOROBOT] Mewo Mewo! Successfully Connected With Programmer • Data Center • Chennai"
 )
 print(
     "[NEKOROBOT] Project Maintained By: github.com/Awesome-Prince (https://github.com/Awesome-Prince/NekoRobot-3)"
@@ -294,7 +294,7 @@ aiohttpsession = ClientSession()
 print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsession)
 print(
-    "[NEKOROBOT]: Connecting ToProgrammer •Data Center • Chennai • PostgreSQL Database"
+    "[NEKOROBOT]: Connecting To Programmer • Data Center • Chennai • PostgreSQL Database"
 )
 timeout = httpx.Timeout(40)
 http = httpx.AsyncClient(http2=True, timeout=timeout)
