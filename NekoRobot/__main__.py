@@ -225,7 +225,7 @@ def send_help(context: CallbackContext, chat_id, text, keyboard=None):
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     NEKO_PTB.bot.send_message(
         chat_id=chat_id,
-        text=HELP_STRINGS,
+        text=text,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
         reply_markup=keyboard,
