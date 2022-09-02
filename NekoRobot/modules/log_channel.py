@@ -63,7 +63,7 @@ if is_module_loaded(FILENAME):
                 datetime_fmt = "%H:%M - %d-%m-%Y"
                 result += f"\n<b>Event Stamp</b>: <code>{datetime.utcnow().strftime(datetime_fmt)}</code>"
 
-                if message.chat.type == Chat.SUPERGROUP and message.chat.username:
+                if message.chat.type == chat.SUPERGROUP and message.chat.username:
                     result += f'\n<b>Link:</b> <a href="https://t.me/{chat.username}/{message.message_id}">click here</a>'
                 log_chat = sql.get_chat_log_channel(chat.id)
                 if log_chat:
