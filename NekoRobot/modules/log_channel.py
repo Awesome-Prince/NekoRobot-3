@@ -45,7 +45,7 @@ if is_module_loaded(FILENAME):
     from telegram.error import BadRequest, Unauthorized
     from telegram.utils.helpers import escape_markdown
 
-    from NekoRobot import GBAN_LOGS, LOGGER, NEKO_PTB
+    from NekoRobot import GBAN_LOGS, LOGGER
     from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
     from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
     from NekoRobot.modules.sql import log_channel_sql as sql
