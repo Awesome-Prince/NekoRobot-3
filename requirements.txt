@@ -70,7 +70,7 @@ tgcrypto
 python-arq==6.0.3
 hachoir
 configparser
-python-dotenv==0.19.2
+python-dotenv==0.21.0
 bing_image_downloader
 parsel
 urllib3
