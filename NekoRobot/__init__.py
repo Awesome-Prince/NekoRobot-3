@@ -98,6 +98,7 @@ if ENV:
     INFOPIC = bool(
         os.environ.get("INFOPIC", True)
     )  # Info Pic (use True[Value] If You Want To Show In /info.)
+    GBAN_LOGS = os.environ.get("GBAN_LOGS", None)  # G-Ban Logs (Channel) (-100)
     EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
     ARQ_API_URL = os.environ.get("ARQ_API_URL", None)
