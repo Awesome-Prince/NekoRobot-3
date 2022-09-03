@@ -220,7 +220,7 @@ for module_name in ALL_MODULES:
 
 
 # do not async
-def send_help(context: CallbackContext, chat_id, text, keyboard=None):
+def send_help(chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     NEKO_PTB.bot.send_message(
