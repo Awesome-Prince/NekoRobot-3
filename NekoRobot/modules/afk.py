@@ -1,4 +1,3 @@
-import html
 import random
 
 from telegram import MessageEntity, Update
@@ -133,9 +132,12 @@ def check_afk(update, context, user_id, fst_name, userc_id):
         else:
             if int(userc_id) == int(user_id):
                 return
-            res = "{} is afk!\nReason: {}\nLast seen: {} Ago.".format(fst_name, reason, since_afk)
-            
+            res = "{} is afk!\nReason: {}\nLast seen: {} Ago.".format(
+                fst_name, reason, since_afk
+            )
+
             update.effective_message.reply_text(res, parse_mode="html")
+
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=True)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
