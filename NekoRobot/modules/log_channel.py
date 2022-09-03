@@ -45,7 +45,7 @@ if is_module_loaded(FILENAME):
     from telegram.error import BadRequest, Unauthorized
     from telegram.utils.helpers import escape_markdown
 
-    from NekoRobot import GBAN_LOGS, log
+    from NekoRobot import GBAN_LOGS, LOGGER, NEKO_PTB
     from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
     from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
     from NekoRobot.modules.sql import log_channel_sql as sql
@@ -118,9 +118,9 @@ if is_module_loaded(FILENAME):
                 )
                 sql.stop_chat_logging(orig_chat_id)
             else:
-                log.warning(excp.message)
-                log.warning(result)
-                log.exception("Could not parse")
+                LOGGER.warning(excp.message)
+                LOGGER.warning(result)
+                LOGGER.exception("Could not parse")
 
                 bot.send_message(
                     log_chat_id,
@@ -164,7 +164,7 @@ if is_module_loaded(FILENAME):
                 message.delete()
             except BadRequest as excp:
                 if excp.message != "Message to delete not found":
-                    log.exception(
+                    LOGGER.exception(
                         "Error deleting message in log channel. Should work anyway though."
                     )
 
@@ -177,7 +177,7 @@ if is_module_loaded(FILENAME):
                 if excp.message == "Forbidden: bot is not a member of the channel chat":
                     bot.send_message(chat.id, "Successfully set log channel!")
                 else:
-                    log.exception("ERROR in setting the log channel.")
+                    LOGGER.exception("ERROR in setting the log channel.")
 
             bot.send_message(chat.id, "Successfully set log channel!")
 
