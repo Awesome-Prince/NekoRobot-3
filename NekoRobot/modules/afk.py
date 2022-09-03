@@ -1,4 +1,3 @@
-import html
 import random
 
 from telegram import MessageEntity, Update
@@ -120,8 +119,6 @@ def reply_afk(update: Update, context: CallbackContext):
         user_id = message.reply_to_message.from_user.id
         fst_name = message.reply_to_message.from_user.first_name
         check_afk(update, context, user_id, fst_name, userc_id)
-
-
 
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=True)
