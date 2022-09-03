@@ -122,19 +122,6 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
-def check_afk(update, context, user_id, fst_name, userc_id):
-    if sql.is_afk(user_id):
-        user = sql.check_afk_status(user_id)
-        if int(userc_id) == int(user_id):
-            return
-        if not user.reason:
-            res = "{} is afk".format(fst_name)
-            update.effective_message.reply_text(res)
-        else:
-            res = "{} is afk.\nReason: <code>{}</code>".format(
-                html.escape(fst_name), html.escape(user.reason)
-            )
-            update.effective_message.reply_text(res, parse_mode="html")
 
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=True)
