@@ -29,7 +29,7 @@ from pyrogram import __version__ as pyrover
 from telethon import Button
 from telethon import __version__ as tlhver
 
-from NekoRobot import tbot
+from NekoRobot import SUPPORT_CHAT, BOT_USERNAME, tbot
 from NekoRobot.events import register
 
 PRINCE = (
@@ -51,8 +51,8 @@ async def alive(event):
     NEKO += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
     BUTTON = [
         [
-            Button.url("Support", f"https://t.me/{SUPPORT_CHAT}"),
-            Button.url("Updates", "https://t.me/Programmer_Updates"),
+            Button.url("【► HELP ◄】", f"https://t.me/{BOT_USERNAME}?start=help"),
+            Button.url("【► SUPPORT ◄】", f"https://t.me/{SUPPORT_CHAT}"),
         ]
     ]
     await tbot.send_file(
