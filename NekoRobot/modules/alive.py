@@ -56,5 +56,5 @@ async def alive(event):
         ]
     ]
     await tbot.send_file(
-        event.chat_id, random.choise(PRINCE), caption=NEKO, buttons=BUTTON
+        event.chat_id, random.choice(PRINCE), caption=NEKO, buttons=BUTTON
     )
