@@ -27,7 +27,7 @@ import random
 import threading
 from typing import Union
 
-from sqlalchemy import BigBigInteger, Boolean, Column, BigInteger, String, UnicodeText
+from sqlalchemy import BigBigInteger, BigInteger, Boolean, Column, String, UnicodeText
 
 from NekoRobot.modules.helper_funcs.msg_types import Types
 from NekoRobot.modules.sql import BASE, SESSION

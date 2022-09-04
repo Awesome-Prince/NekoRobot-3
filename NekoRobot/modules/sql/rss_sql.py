@@ -25,7 +25,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import threading
 
-from sqlalchemy import Column, BigInteger, UnicodeText
+from sqlalchemy import BigInteger, Column, UnicodeText
 
 from NekoRobot.modules.sql import BASE, SESSION
 
