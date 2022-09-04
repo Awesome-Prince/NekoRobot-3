@@ -28,6 +28,7 @@ import threading
 from sqlalchemy import BigInteger, Boolean, Column, String, UnicodeText
 from telegram.error import BadRequest, Unauthorized
 
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.sql import BASE, SESSION
 
 
