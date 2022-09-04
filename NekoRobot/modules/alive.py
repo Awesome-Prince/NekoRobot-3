@@ -29,7 +29,7 @@ from pyrogram import __version__ as pyrover
 from telethon import Button
 from telethon import __version__ as tlhver
 
-from NekoRobot import SUPPORT_CHAT, BOT_USERNAME, tbot
+from NekoRobot import BOT_USERNAME, SUPPORT_CHAT, tbot
 from NekoRobot.events import register
 
 PRINCE = (
