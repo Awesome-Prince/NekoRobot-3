@@ -24,10 +24,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 import datetime
-from datetime import datetime
 import random
-
+from datetime import datetime
 from platform import python_version
+
 from pyrogram import __version__ as pyrover
 from telethon import Button
 from telethon import __version__ as tlhver
@@ -64,6 +64,7 @@ def _human_time_duration(seconds):
         if amount > 0:
             parts.append(f'{amount} {unit}{"" if amount == 1 else "s"}')
     return ", ".join(parts)
+
 
 @register(pattern=("/alive"))
 async def alive(event):
