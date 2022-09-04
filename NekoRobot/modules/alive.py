@@ -23,9 +23,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import datetime
 import random
-from datetime import datetime
 from platform import python_version
 
 from pyrogram import __version__ as pyrover
@@ -42,8 +40,6 @@ PRINCE = (
     "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
     "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
 )
-
-
 
 
 @register(pattern=("/alive"))
