@@ -25,14 +25,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import threading
 
-from sqlalchemy import Column, Integer, UnicodeText
+from sqlalchemy import Column, BigInteger, UnicodeText
 
 from NekoRobot.modules.sql import BASE, SESSION
 
 
 class RSS(BASE):
     __tablename__ = "rss_feed"
-    id = Column(Integer, primary_key=True)
+    id = Column(BigInteger, primary_key=True)
     chat_id = Column(UnicodeText, nullable=False)
     feed_link = Column(UnicodeText)
     old_entry_link = Column(UnicodeText)

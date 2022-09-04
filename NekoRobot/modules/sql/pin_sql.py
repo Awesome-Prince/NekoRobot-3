@@ -25,7 +25,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import threading
 
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, BigInteger, String
 
 from NekoRobot.modules.sql import BASE, SESSION
 
@@ -34,7 +34,7 @@ class SPinSettings(BASE):
     __tablename__ = "pin_settings"
 
     chat_id = Column(String(14), primary_key=True)
-    message_id = Column(Integer)
+    message_id = Column(BigInteger)
     suacpmo = Column(Boolean, default=False)
     scldpmo = Column(Boolean, default=False)
 
