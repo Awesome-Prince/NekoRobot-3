@@ -26,25 +26,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import random
 
 from pyrogram import __version__ as pyrover
+from telethon import Button
 from telethon import __version__ as tlhver
-from telethon import events, Button, custom
-from NekoRobot.events import register
-from NekoRobot import tbot
 
-PRINCE = ("https://telegra.ph/file/cd7aad1ea310312886358.png"
-          "https://telegra.ph/file/48a97320463caa61dba3d.png"
-          "https://telegra.ph/file/2295a7207495eccbbe298.png"
-          "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
-          "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
+from NekoRobot import tbot
+from NekoRobot.events import register
+
+PRINCE = (
+    "https://telegra.ph/file/cd7aad1ea310312886358.png"
+    "https://telegra.ph/file/48a97320463caa61dba3d.png"
+    "https://telegra.ph/file/2295a7207495eccbbe298.png"
+    "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
+    "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
 )
+
 
 @register(pattern=("/alive"))
 async def alive(event):
-  NEKO = f"** ♡ Hey [{yes.sender.first_name}](tg://user?id={yes.sender.id}) I,m NekoRobot **\n\n"
-  NEKO += f"**♡ My Uptime :** `{uptime}`\n\n"
-  NEKO += f"**♡ Python Version :** `{python_version}`\n\n"
-  NEKO += f"**♡ Telethon Version :** `{tlhver}`\n\n"
-  NEKO += f"**♡ Pyrogram Version :** `{pyrover}`\n\n"
-  NEKO += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
-  BUTTON = [[Button.url("Support", f"https://t.me/{SUPPORT_CHAT}"), Button.url("Updates", "https://t.me/Programmer_Updates")]]
-  await tbot.send_file(event.chat_id, random.choise(PRINCE), caption=NEKO,  buttons=BUTTON)
+    NEKO = f"** ♡ Hey [{yes.sender.first_name}](tg://user?id={yes.sender.id}) I,m NekoRobot **\n\n"
+    NEKO += f"**♡ My Uptime :** `{uptime}`\n\n"
+    NEKO += f"**♡ Python Version :** `{python_version}`\n\n"
+    NEKO += f"**♡ Telethon Version :** `{tlhver}`\n\n"
+    NEKO += f"**♡ Pyrogram Version :** `{pyrover}`\n\n"
+    NEKO += "**♡ My Master :** [LovelyPrince](https://t.me/BlackLover_Prince) "
+    BUTTON = [
+        [
+            Button.url("Support", f"https://t.me/{SUPPORT_CHAT}"),
+            Button.url("Updates", "https://t.me/Programmer_Updates"),
+        ]
+    ]
+    await tbot.send_file(
+        event.chat_id, random.choise(PRINCE), caption=NEKO, buttons=BUTTON
+    )
