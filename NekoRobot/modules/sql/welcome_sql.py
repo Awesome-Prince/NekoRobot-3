@@ -258,7 +258,7 @@ class Welcome(BASE):
     custom_leave = Column(UnicodeText, default=random.choice(DEFAULT_GOODBYE_MESSAGES))
     leave_type = Column(BigInteger, default=Types.TEXT.value)
 
-    clean_welcome = Column(BigBigInteger)
+    clean_welcome = Column(BigInteger)
 
     def __init__(self, chat_id, should_welcome=True, should_goodbye=True):
         self.chat_id = chat_id
