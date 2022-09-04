@@ -25,9 +25,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import threading
 
-from sqlalchemy import Column, String, UnicodeText
-
 from NekoRobot.modules.sql import BASE, SESSION
+from sqlalchemy import Column, String, UnicodeText
 
 
 class BlacklistUsers(BASE):
@@ -86,7 +85,9 @@ def is_user_blacklisted(user_id):
 def __load_blacklist_userid_list():
     global BLACKLIST_USERS
     try:
-        BLACKLIST_USERS = {int(x.user_id) for x in SESSION.query(BlacklistUsers).all()}
+        BLACKLIST_USERS = {
+            int(x.user_id) for x in SESSION.query(BlacklistUsers).all()
+        }
     finally:
         SESSION.close()
 
