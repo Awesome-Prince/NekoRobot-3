@@ -25,10 +25,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import threading
 
-from sqlalchemy import Column, Integer, String, UnicodeText
+from sqlalchemy import String, Column, BigInteger, UnicodeText
 
-from NekoRobot.modules.sql import BASE, SESSION
-
+from NekoRobot.modules.sql import SESSION, BASE
 DEF_COUNT = 1
 DEF_LIMIT = 0
 DEF_OBJ = (None, DEF_COUNT, DEF_LIMIT)
@@ -37,9 +36,9 @@ DEF_OBJ = (None, DEF_COUNT, DEF_LIMIT)
 class FloodControl(BASE):
     __tablename__ = "antiflood"
     chat_id = Column(String(14), primary_key=True)
-    user_id = Column(Integer)
-    count = Column(Integer, default=DEF_COUNT)
-    limit = Column(Integer, default=DEF_LIMIT)
+    user_id = Column(BigInteger)
+    count = Column(BigInteger, default=DEF_COUNT)
+    limit = Column(BigInteger, default=DEF_LIMIT)
 
     def __init__(self, chat_id):
         self.chat_id = str(chat_id)  # ensure string
@@ -51,7 +50,7 @@ class FloodControl(BASE):
 class FloodSettings(BASE):
     __tablename__ = "antiflood_settings"
     chat_id = Column(String(14), primary_key=True)
-    flood_type = Column(Integer, default=1)
+    flood_type = Column(BigInteger, default=1)
     value = Column(UnicodeText, default="0")
 
     def __init__(self, chat_id, flood_type=1, value="0"):
@@ -60,7 +59,8 @@ class FloodSettings(BASE):
         self.value = value
 
     def __repr__(self):
-        return "<{} will executing {} for flood.>".format(self.chat_id, self.flood_type)
+        return "<{} will executing {} for flood.>".format(
+            self.chat_id, self.flood_type)
 
 
 FloodControl.__table__.create(checkfirst=True)
@@ -123,8 +123,7 @@ def set_flood_strength(chat_id, flood_type, value):
         curr_setting = SESSION.query(FloodSettings).get(str(chat_id))
         if not curr_setting:
             curr_setting = FloodSettings(
-                chat_id, flood_type=int(flood_type), value=value
-            )
+                chat_id, flood_type=int(flood_type), value=value)
 
         curr_setting.flood_type = int(flood_type)
         curr_setting.value = str(value)
@@ -149,7 +148,8 @@ def migrate_chat(old_chat_id, new_chat_id):
     with INSERTION_FLOOD_LOCK:
         flood = SESSION.query(FloodControl).get(str(old_chat_id))
         if flood:
-            CHAT_FLOOD[str(new_chat_id)] = CHAT_FLOOD.get(str(old_chat_id), DEF_OBJ)
+            CHAT_FLOOD[str(new_chat_id)] = CHAT_FLOOD.get(
+                str(old_chat_id), DEF_OBJ)
             flood.chat_id = str(new_chat_id)
             SESSION.commit()
 
@@ -160,7 +160,9 @@ def __load_flood_settings():
     global CHAT_FLOOD
     try:
         all_chats = SESSION.query(FloodControl).all()
-        CHAT_FLOOD = {chat.chat_id: (None, DEF_COUNT, chat.limit) for chat in all_chats}
+        CHAT_FLOOD = {
+            chat.chat_id: (None, DEF_COUNT, chat.limit) for chat in all_chats
+        }
     finally:
         SESSION.close()
 
