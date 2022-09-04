@@ -34,11 +34,11 @@ from NekoRobot import BOT_USERNAME, SUPPORT_CHAT, tbot
 from NekoRobot.events import register
 
 PRINCE = (
-    "https://telegra.ph/file/cd7aad1ea310312886358.png"
-    "https://telegra.ph/file/48a97320463caa61dba3d.png"
-    "https://telegra.ph/file/2295a7207495eccbbe298.png"
-    "https://telegra.ph/file/67e0bf231a97cd2e364ea.png"
-    "https://telegra.ph/file/990684ecd3d119fa9fec6.png"
+    "https://telegra.ph/file/cd7aad1ea310312886358.jpg",
+    "https://telegra.ph/file/48a97320463caa61dba3d.jpg",
+    "https://telegra.ph/file/2295a7207495eccbbe298.jpg",
+    "https://telegra.ph/file/67e0bf231a97cd2e364ea.jpg",
+    "https://telegra.ph/file/990684ecd3d119fa9fec6.jpg",
 )
 
 
