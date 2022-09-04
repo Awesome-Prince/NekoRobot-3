@@ -215,7 +215,7 @@ if is_module_loaded(FILENAME):
     def __chat_settings__(chat_id, user_id):
         log_channel = sql.get_chat_log_channel(chat_id)
         if log_channel:
-            log_channel_info = dispatcher.bot.get_chat(log_channel)
+            log_channel_info = NEKO_PTB.bot.get_chat(log_channel)
             return f"This group has all it's logs sent to: {escape_markdown(log_channel_info.title)} (`{log_channel}`)"
         return "No log channel is set for this group!"
 
