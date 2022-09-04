@@ -55,6 +55,6 @@ async def alive(event):
             Button.url("【► SUPPORT ◄】", f"https://t.me/{SUPPORT_CHAT}"),
         ]
     ]
-    await tbot.send_image(
+    await tbot.send_photo(
         event.chat_id, random.choice(PRINCE), caption=NEKO, buttons=BUTTON
     )
