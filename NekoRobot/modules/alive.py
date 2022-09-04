@@ -28,6 +28,7 @@ import random
 from pyrogram import __version__ as pyrover
 from telethon import Button
 from telethon import __version__ as tlhver
+from telethon import events, Button, custom
 
 from NekoRobot import tbot
 from NekoRobot.events import register
