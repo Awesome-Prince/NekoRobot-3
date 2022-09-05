@@ -43,8 +43,6 @@ gtts
 tswift
 pytz
 PyYAML==6.0
-aioredis==2.0.1
-hiredis==2.0.0
 html2text
 pythonping
 html_telegraph_poster
