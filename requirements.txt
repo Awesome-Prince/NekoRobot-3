@@ -59,7 +59,7 @@ validators
 asyncio
 nltk
 aiohttp==3.8.1
-pykeyboard==0.1.2
+pykeyboard==0.1.5
 Pillow==9.2.0
 CurrencyConverter
 googletrans==4.0.0-rc1
