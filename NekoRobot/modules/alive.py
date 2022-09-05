@@ -42,7 +42,7 @@ PRINCE = (
 )
 
 
-@register(pattern=("^/alive$")
+@register(pattern="^/alive$")
 async def alive(event):
     NEKO = f"** ♡ Hey [{event.sender.first_name}](tg://user?id={event.sender.id}) I,m NekoRobot **\n\n"
     NEKO += f"**♡ Python Version :** `{python_version}`\n\n"
