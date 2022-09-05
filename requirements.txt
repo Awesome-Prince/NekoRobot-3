@@ -7,7 +7,7 @@ humanize
 wget==3.2
 secureme==0.0.4
 cowpy
-motor==2.5.1
+motor==3.0.0
 gpytranslate==1.3.0
 PyDictionary==2.0.1
 GitPython==3.1.27
