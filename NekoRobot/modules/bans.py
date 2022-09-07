@@ -32,12 +32,12 @@ from telegram import (
     ChatMember,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    ParseMode,
     Update,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest, TelegramError
-from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, Filters
-from telegram.utils.helpers import mention_html
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, filters
+from telegram.helpers import mention_html
 
 from NekoRobot import (
     BAN_STICKER,
@@ -87,7 +87,7 @@ def cannot_ban(banner_id, user_id, message) -> bool:
 
 ban_myself = "Oh yeah, ban myself, noob!"
 
-from NekoRobot.modules.helper_funcs.admin_status import (
+from Cutiepii_Robot.modules.helper_funcs.admin_status import (
     AdminPerms,
     bot_admin_check,
     bot_is_admin,
@@ -803,13 +803,10 @@ NEKO_PTB.add_handler(CommandHandler(["selfunban", "roar"], selfunban))
 NEKO_PTB.add_handler(CallbackQueryHandler(unbanb_btn, pattern=r"unbanb_"))
 NEKO_PTB.add_handler(
     DisableAbleCommandHandler(
-        ["kickme", "punchme"], kickme, filters=Filters.chat_type.groups, run_async=True
+        ["kickme", "punchme"], kickme, filters=filters.ChatType.GROUPS
     )
 )
-
-NEKO_PTB.add_handler(
-    CommandHandler("snipe", snipe, filters=CustomFilters.sudo_filter, run_async=True)
-)
-NEKO_PTB.add_handler(CommandHandler("banme", banme, run_async=True))
+NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=filters.User(SUDO_USERS)))
+NEKO_PTB.add_handler(CommandHandler("banme", banme))
 
 __mod_name__ = "Bans/Mutes"
