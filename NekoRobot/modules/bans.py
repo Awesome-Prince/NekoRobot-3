@@ -87,7 +87,7 @@ def cannot_ban(banner_id, user_id, message) -> bool:
 
 ban_myself = "Oh yeah, ban myself, noob!"
 
-from Cutiepii_Robot.modules.helper_funcs.admin_status import (
+from NekoRobot.modules.helper_funcs.admin_status import (
     AdminPerms,
     bot_admin_check,
     bot_is_admin,
