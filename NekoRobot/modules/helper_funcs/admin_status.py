@@ -6,9 +6,9 @@ from telegram import (
     ChatMember,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
+    ParseMode,
     Update,
 )
-from telegram import ParseMode
 from telegram.ext import CallbackContext as Ctx
 from telegram.ext import CallbackQueryHandler as CBHandler
 
