@@ -86,9 +86,7 @@ if ENV:
         raise Exception("Your support users list does not contain valid integers.")
 
     try:
-        WHITELIST_USERS = set(
-            int(x) for x in os.environ.get("WHITELIST_USERS", "").split()
-        )
+        WHITELIST_USERS = set(int(x) for x in os.environ.get("WHITELIST_USERS", "").split())
     except ValueError:
         raise Exception("Your whitelisted users list does not contain valid integers.")
 
@@ -287,7 +285,7 @@ pgram = Client(
     api_hash=API_HASH,
     bot_token=TOKEN,
     workers=min(32, os.cpu_count() + 4),
-    parse_mode=ParseMode.HTML,
+    parse_mode=ParseMode.DEFAULT,
     sleep_threshold=60,
     in_memory=True,
 )
