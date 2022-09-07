@@ -34,7 +34,7 @@ from telegram import (
     InlineKeyboardMarkup,
     Update,
 )
-from telegram.constants import ParseMode
+from telegram import ParseMode
 from telegram.error import BadRequest, TelegramError
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, filters
 from telegram.helpers import mention_html
