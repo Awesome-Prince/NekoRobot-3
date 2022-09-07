@@ -269,11 +269,11 @@ print("[NEKOROBOT]: Telegraph Installing")
 telegraph = Telegraph()
 print("[NEKOROBOT]: Telegraph Account Creating")
 telegraph.create_account(short_name="Neko")
-#------------------------------------------------------------------
+# ------------------------------------------------------------------
 print("[NEKOROBOT]: TELETHON CLIENT STARTING")
 tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
 
-NEKO_PTB = (tg.Application.builder().token(TOKEN).build())
+NEKO_PTB = tg.Application.builder().token(TOKEN).build()
 # asyncio.get_event_loop().run_until_complete(NEKO_PTB.bot.initialize())
 # ------------------------------------------------------------------
 print("[NEKOROBOT]: PYROGRAM CLIENT STARTING")
