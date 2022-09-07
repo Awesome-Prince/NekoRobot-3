@@ -11,7 +11,7 @@ from telegram import (
     Update,
 )
 
-from NekoRobot import DEV_USERS, SUDO_USERS
+from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
 
 # stores admin in memory for 10 min.
 ADMINS_CACHE = TTLCache(maxsize=512, ttl=(60 * 30), timer=perf_counter)
