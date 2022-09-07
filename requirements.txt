@@ -12,7 +12,7 @@ motor==3.0.0
 gpytranslate==1.4.0
 PyDictionary==2.0.1
 GitPython==3.1.27
-emoji==1.6.3
+emoji==1.7.0
 pretty-errors==1.2.25
 lxml==4.9.1
 textblob==0.17.1
