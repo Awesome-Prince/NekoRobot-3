@@ -34,10 +34,10 @@ from telegram import (
     InlineKeyboardMarkup,
     ParseMode,
     Update,
-    mention_html,
 )
 from telegram.error import BadRequest, TelegramError
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, filters
+from telegram.utils.helpers import mention_html
 
 from NekoRobot import (
     BAN_STICKER,
