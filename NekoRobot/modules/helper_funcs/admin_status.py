@@ -87,9 +87,7 @@ def user_is_admin(
     perm: AdminPerms = None,  # if not None, returns True if user has the specified permission
 ) -> bool:
     chat = update.effective_chat
-    if chat.type == "private" or user_id in (
-        DRAGONS if allow_moderators else DRAGONS
-    ):
+    if chat.type == "private" or user_id in (DRAGONS if allow_moderators else DRAGONS):
         return True
 
     if channels and (
