@@ -8,7 +8,7 @@ from telegram import (
     InlineKeyboardMarkup,
     Update,
 )
-from telegram.constants import ParseMode
+from telegram import ParseMode
 from telegram.ext import CallbackContext as Ctx
 from telegram.ext import CallbackQueryHandler as CBHandler
 
