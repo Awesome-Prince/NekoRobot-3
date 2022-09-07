@@ -9,7 +9,6 @@ wget==3.2
 secureme==0.0.4
 cowpy
 motor==3.0.0
-gpytranslate==1.4.0
 PyDictionary==2.0.1
 GitPython==3.1.27
 emoji==1.6.3
@@ -59,8 +58,6 @@ aiohttp
 pykeyboard==0.1.5
 Pillow==9.2.0
 CurrencyConverter
-googletrans==4.0.0-rc1
-google_trans_new
 pyrate-limiter
 nekos.py
 tgcrypto
@@ -82,7 +79,6 @@ countryinfo==0.1.2
 python-rapidjson==1.8
 pytimeparse
 markdown2
-gpytranslate
 tgcrypto==1.2.3
 pycryptodome
 base58
