@@ -803,10 +803,10 @@ NEKO_PTB.add_handler(CommandHandler(["selfunban", "roar"], selfunban))
 NEKO_PTB.add_handler(CallbackQueryHandler(unbanb_btn, pattern=r"unbanb_"))
 NEKO_PTB.add_handler(
     DisableAbleCommandHandler(
-        ["kickme", "punchme"], kickme, filters=filters.ChatType.GROUPS
+        ["kickme", "punchme"], kickme, filters=Filters.chat_type.groups, run_async=True
     )
-)
-NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=filters.User(SUDO_USERS)))
-NEKO_PTB.add_handler(CommandHandler("banme", banme))
+   
+NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=CustomFilters.sudo_filter, run_async=True))
+NEKO_PTB.add_handler(CommandHandler("banme", banme, run_async=True))
 
 __mod_name__ = "Bans/Mutes"
