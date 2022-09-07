@@ -16,8 +16,7 @@ from NekoRobot import NEKO_PTB
 
 from .admin_status_helpers import ADMINS_CACHE as A_CACHE
 from .admin_status_helpers import BOT_ADMIN_CACHE as B_CACHE
-from .admin_status_helpers import DRAGONS
-from .admin_status_helpers import AdminPerms
+from .admin_status_helpers import DRAGONS, AdminPerms
 from .admin_status_helpers import anon_callbacks as a_cb
 from .admin_status_helpers import button_expired_error as bxp
 from .admin_status_helpers import edit_anon_msg as eam
