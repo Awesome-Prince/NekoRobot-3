@@ -7,7 +7,15 @@ from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
-from NekoRobot import SUPPORT_USERS, DEV_USERS, SUDO_USERS, NEKO_PTB, OWNER_ID, TIGERS, WHITELIST_USERS
+from NekoRobot import (
+    DEV_USERS,
+    NEKO_PTB,
+    OWNER_ID,
+    SUDO_USERS,
+    SUPPORT_USERS,
+    TIGERS,
+    WHITELIST_USERS,
+)
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from NekoRobot.modules.helper_funcs.extraction import (
     extract_user,
@@ -15,7 +23,9 @@ from NekoRobot.modules.helper_funcs.extraction import (
 )
 from NekoRobot.modules.log_channel import gloggable
 
-BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + SUDO_USERS + WHITELIST_USERS + SUPPORT_USERS
+BLACKLISTWHITELIST = (
+    [OWNER_ID] + DEV_USERS + SUDO_USERS + WHITELIST_USERS + SUPPORT_USERS
+)
 BLABLEUSERS = [OWNER_ID] + DEV_USERS
 
 

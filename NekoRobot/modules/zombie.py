@@ -30,7 +30,7 @@ from telethon.errors import ChatAdminRequiredError, UserAdminInvalidError
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import ChannelParticipantsAdmins, ChatBannedRights
 
-from NekoRobot import SUPPORT_USERS, DEV_USERS, SUDO_USERS, OWNER_ID, tbot
+from NekoRobot import DEV_USERS, OWNER_ID, SUDO_USERS, SUPPORT_USERS, tbot
 
 # =================== CONSTANT ===================
 

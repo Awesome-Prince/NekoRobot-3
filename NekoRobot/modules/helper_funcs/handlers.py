@@ -9,7 +9,14 @@ from telegram import Update
 from telegram.ext import CommandHandler, Filters, MessageHandler, RegexHandler
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
-from NekoRobot import ALLOW_EXCL, SUPPORT_USERS, DEV_USERS, SUDO_USERS, TIGERS, WHITELIST_USERS
+from NekoRobot import (
+    ALLOW_EXCL,
+    DEV_USERS,
+    SUDO_USERS,
+    SUPPORT_USERS,
+    TIGERS,
+    WHITELIST_USERS,
+)
 
 CMD_STARTERS = ("/", "!") if ALLOW_EXCL else ("/",)
 

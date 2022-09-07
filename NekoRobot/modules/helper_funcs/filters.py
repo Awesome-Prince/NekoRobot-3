@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from telegram import Message
 from telegram.ext import MessageFilter
 
-from NekoRobot import SUPPORT_USERS, DEV_USERS, SUDO_USERS
+from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS
 
 
 class CustomFilters:

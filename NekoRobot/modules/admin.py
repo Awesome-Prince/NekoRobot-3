@@ -39,7 +39,7 @@ from telethon.errors import *
 from telethon.tl import *
 from telethon.tl import functions, types
 
-from NekoRobot import SUDO_USERS, NEKO_PTB
+from NekoRobot import NEKO_PTB, SUDO_USERS
 from NekoRobot import tbot as bot
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message

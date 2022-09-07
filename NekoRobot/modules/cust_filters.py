@@ -39,9 +39,8 @@ from telegram.error import BadRequest
 from telegram.ext import DispatcherHandlerStop, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from NekoRobot import SUDO_USERS
 from NekoRobot import LOGGER as log
-from NekoRobot import NEKO_PTB
+from NekoRobot import NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin

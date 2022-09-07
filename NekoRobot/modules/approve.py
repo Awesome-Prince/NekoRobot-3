@@ -31,7 +31,7 @@ from telegram.ext import CallbackContext, CallbackQueryHandler
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.approve_sql as sql
-from NekoRobot import SUDO_USERS, NEKO_PTB
+from NekoRobot import NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.helper_funcs.extraction import extract_user

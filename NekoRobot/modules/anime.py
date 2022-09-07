@@ -8,7 +8,7 @@ import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext, CallbackQueryHandler
 
-from NekoRobot import DEV_USERS, SUDO_USERS, NEKO_PTB, OWNER_ID
+from NekoRobot import DEV_USERS, NEKO_PTB, OWNER_ID, SUDO_USERS
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 info_btn = "More Information"

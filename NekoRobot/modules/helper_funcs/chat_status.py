@@ -34,11 +34,11 @@ from telegram.ext import CallbackContext
 
 from NekoRobot import (
     DEL_CMDS,
-    SUPPORT_USERS,
     DEV_USERS,
-    SUDO_USERS,
     NEKO_PTB,
+    SUDO_USERS,
     SUPPORT_CHAT,
+    SUPPORT_USERS,
     TIGERS,
     WHITELIST_USERS,
 )
@@ -49,7 +49,10 @@ THREAD_LOCK = RLock()
 
 
 def is_whitelist_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    return any(user_id in user for user in [WHITELIST_USERS, TIGERS, SUPPORT_USERS, SUDO_USERS, DEV_USERS])
+    return any(
+        user_id in user
+        for user in [WHITELIST_USERS, TIGERS, SUPPORT_USERS, SUDO_USERS, DEV_USERS]
+    )
 
 
 def is_support_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:

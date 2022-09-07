@@ -31,7 +31,7 @@ from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackQueryHandler, CommandHandler
 
 import NekoRobot.modules.sql.connection_sql as sql
-from NekoRobot import DEV_USERS, SUDO_USERS, NEKO_PTB
+from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.helper_funcs import chat_status
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 

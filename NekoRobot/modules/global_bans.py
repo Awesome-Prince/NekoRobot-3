@@ -10,15 +10,15 @@ from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.global_bans_sql as sql
 from NekoRobot import (
-    SUPPORT_USERS,
     DEV_USERS,
-    SUDO_USERS,
     EVENT_LOGS,
     NEKO_PTB,
     OWNER_ID,
     SPAMWATCH_SUPPORT_CHAT,
     STRICT_GBAN,
+    SUDO_USERS,
     SUPPORT_CHAT,
+    SUPPORT_USERS,
     TIGERS,
     WHITELIST_USERS,
     sw,
@@ -225,7 +225,9 @@ def gban(update: Update, context: CallbackContext):
                     )
                 else:
                     send_to_list(
-                        bot, SUDO_USERS + SUPPORT_USERS, f"Could not gban due to: {excp.message}"
+                        bot,
+                        SUDO_USERS + SUPPORT_USERS,
+                        f"Could not gban due to: {excp.message}",
                     )
                 sql.ungban_user(user_id)
                 return
