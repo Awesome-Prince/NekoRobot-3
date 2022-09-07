@@ -47,7 +47,7 @@ from NekoRobot import (
     LOGGER,
     NEKO_PTB,
     OWNER_ID,
-    WHITELIST_USERS,
+    WOLVES,
 )
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -79,7 +79,7 @@ def cannot_ban(banner_id, user_id, message) -> bool:
         elif user_id in DRAGONS:
             message.reply_text("My sudos are ban immune")
             return True
-        elif user_id in WHITELIST_USERS:
+        elif user_id in WOLVES:
             message.reply_text("Let one of my Devs fight a Whitelist user.")
             return True
         return False
@@ -662,7 +662,7 @@ async def unban(
     return logmsg
 
 
-WHITELISTED_USERS = [OWNER_ID] + DEV_USERS + DRAGONS + WHITELIST_USERS
+WHITELISTED_USERS = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES
 
 
 @connection_status
