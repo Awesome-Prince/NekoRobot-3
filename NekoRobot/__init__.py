@@ -33,12 +33,12 @@ import httpx
 import spamwatch
 import telegram.ext as tg
 from aiohttp import ClientSession
-from telegram.ext import Application, Defaults
 from httpx import AsyncClient, Timeout
 from pyrogram import Client
 from pyrogram.enums import ParseMode
 from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, PeerIdInvalid
 from Python_ARQ import ARQ
+from telegram.ext import Application, Defaults
 from telegraph import Telegraph
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
@@ -279,7 +279,13 @@ print("[NEKOROBOT]: TELETHON CLIENT STARTING")
 tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
 
 defaults = Defaults(block=False)
-NEKO_PTB = Application.builder().token(TOKEN).defaults(defaults).concurrent_updates(True).build()
+NEKO_PTB = (
+    Application.builder()
+    .token(TOKEN)
+    .defaults(defaults)
+    .concurrent_updates(True)
+    .build()
+)
 # asyncio.get_event_loop().run_until_complete(NEKO_PTB.bot.initialize())
 # ------------------------------------------------------------------
 print("[NEKOROBOT]: PYROGRAM CLIENT STARTING")
