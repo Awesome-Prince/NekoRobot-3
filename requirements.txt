@@ -47,7 +47,6 @@ pythonping
 html_telegraph_poster
 pytube
 youtube-search-python
-instantmusic
 PyLyrics
 hachoir
 pybase64
