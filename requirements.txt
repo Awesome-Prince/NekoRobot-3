@@ -4,6 +4,7 @@ multicolorcaptcha
 faker
 ffmpeg
 humanize
+youtube_dl
 wget==3.2
 secureme==0.0.4
 cowpy
