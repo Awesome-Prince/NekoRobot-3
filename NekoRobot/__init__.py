@@ -33,6 +33,7 @@ import httpx
 import spamwatch
 import telegram.ext as tg
 from aiohttp import ClientSession
+from telegram.ext import Application, Defaults
 from httpx import AsyncClient, Timeout
 from pyrogram import Client
 from pyrogram.enums import ParseMode
@@ -276,7 +277,9 @@ updater = tg.Updater(
 )
 print("[NEKOROBOT]: TELETHON CLIENT STARTING")
 tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
-NEKO_PTB = updater.dispatcher
+
+defaults = Defaults(block=False)
+NEKO_PTB = Application.builder().token(TOKEN).defaults(defaults).concurrent_updates(True).build()
 # asyncio.get_event_loop().run_until_complete(NEKO_PTB.bot.initialize())
 # ------------------------------------------------------------------
 print("[NEKOROBOT]: PYROGRAM CLIENT STARTING")
