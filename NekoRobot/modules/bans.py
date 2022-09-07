@@ -805,7 +805,8 @@ NEKO_PTB.add_handler(
     DisableAbleCommandHandler(
         ["kickme", "punchme"], kickme, filters=Filters.chat_type.groups, run_async=True
     )
-   
+)
+
 NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=CustomFilters.sudo_filter, run_async=True))
 NEKO_PTB.add_handler(CommandHandler("banme", banme, run_async=True))
 
