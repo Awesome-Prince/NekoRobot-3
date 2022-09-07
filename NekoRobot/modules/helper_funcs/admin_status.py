@@ -88,7 +88,7 @@ def user_is_admin(
 ) -> bool:
     chat = update.effective_chat
     if chat.type == "private" or user_id in (
-        SUDO_USERS if allow_moderators else SUDO_USERS
+        DRAGONS if allow_moderators else DRAGONS
     ):
         return True
 
@@ -170,7 +170,7 @@ def user_admin_check(permission: AdminPerms = None):
                 if (
                     getattr(mem, permission.value) is True
                     or mem.status == "creator"
-                    or user_id in SUDO_USERS
+                    or user_id in DRAGONS
                 ):
                     return func(update, context, *args, **kwargs)
                 else:
