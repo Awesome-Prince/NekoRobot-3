@@ -25,13 +25,13 @@ from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot import (
-    DEMONS,
+    SUPPORT_USERS,
     DEV_USERS,
-    DRAGONS,
+    SUDO_USERS,
     LOGGER,
     OWNER_ID,
     TIGERS,
-    WOLVES,
+    WHITELIST_USERS,
     pgram,
     sw,
 )
@@ -162,16 +162,16 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
     elif user.id in DEV_USERS:
         text += f"\n\nThis Person is a part Developer Team of Saber 剣"
         nation_level_present = True
-    elif user.id in DRAGONS:
+    elif user.id in SUDO_USERS:
         text += f"\n\nThe Power level of this person is Royal"
         nation_level_present = True
-    elif user.id in DEMONS:
+    elif user.id in SUPPORT_USERS:
         text += f"\n\nThe Power level of this person is Demon"
         nation_level_present = True
     elif user.id in TIGERS:
         text += f"\n\nThe Power level of this person is Tiger Level Disaster"
         nation_level_present = True
-    elif user.id in WOLVES:
+    elif user.id in WHITELIST_USERS:
         text += f"\n\nThe Power level of this person is Wolf Level Disaster"
         nation_level_present = True
 

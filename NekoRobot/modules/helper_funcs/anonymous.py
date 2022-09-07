@@ -31,7 +31,7 @@ from telegram.ext import CallbackContext
 from telegram.inline.inlinekeyboardbutton import InlineKeyboardButton
 from telegram.inline.inlinekeyboardmarkup import InlineKeyboardMarkup
 
-from NekoRobot import DEV_USERS, DRAGONS, NEKO_PTB
+from NekoRobot import DEV_USERS, SUDO_USERS, NEKO_PTB
 from NekoRobot.modules.helper_funcs.decorators import nekocallback
 
 
@@ -93,7 +93,7 @@ def user_admin(permission: AdminPerms):
                 if (
                     getattr(mem, permission.value) is True
                     or mem.status == "creator"
-                    or user_id in DRAGONS
+                    or user_id in SUDO_USERS
                 ):
                     return func(update, context, *args, **kwargs)
                 else:

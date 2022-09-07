@@ -37,7 +37,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import NEKO_PTB, TIGERS, WOLVES
+from NekoRobot import NEKO_PTB, TIGERS, WHITELIST_USERS
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -62,7 +62,7 @@ def check_flood(update, context) -> str:
         return ""
 
     # ignore admins and whitelists
-    if is_user_admin(chat, user.id) or user.id in WOLVES or user.id in TIGERS:
+    if is_user_admin(chat, user.id) or user.id in WHITELIST_USERS or user.id in TIGERS:
         sql.update_flood(chat.id, None)
         return ""
 

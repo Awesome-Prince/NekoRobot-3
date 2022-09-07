@@ -36,13 +36,13 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import DRAGONS, LOGGER, NEKO_PTB, TIGERS, WOLVES
+from NekoRobot import SUDO_USERS, LOGGER, NEKO_PTB, TIGERS, WHITELIST_USERS
 from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_not_admin
 from NekoRobot.modules.log_channel import loggable
 from NekoRobot.modules.sql import reporting_sql as sql
 
 REPORT_GROUP = 12
-REPORT_IMMUNE_USERS = DRAGONS + TIGERS + WOLVES
+REPORT_IMMUNE_USERS = SUDO_USERS + TIGERS + WHITELIST_USERS
 
 
 @user_admin

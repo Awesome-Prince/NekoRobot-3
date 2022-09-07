@@ -10,9 +10,9 @@ from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.global_bans_sql as sql
 from NekoRobot import (
-    DEMONS,
+    SUPPORT_USERS,
     DEV_USERS,
-    DRAGONS,
+    SUDO_USERS,
     EVENT_LOGS,
     NEKO_PTB,
     OWNER_ID,
@@ -20,7 +20,7 @@ from NekoRobot import (
     STRICT_GBAN,
     SUPPORT_CHAT,
     TIGERS,
-    WOLVES,
+    WHITELIST_USERS,
     sw,
 )
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -88,13 +88,13 @@ def gban(update: Update, context: CallbackContext):
         )
         return
 
-    if int(user_id) in DRAGONS:
+    if int(user_id) in SUDO_USERS:
         message.reply_text(
             "I spy, with my little eye... a disaster! Why are you guys turning on each other?"
         )
         return
 
-    if int(user_id) in DEMONS:
+    if int(user_id) in SUPPORT_USERS:
         message.reply_text(
             "OOOH someone's trying to gban a Demon Disaster! *grabs popcorn*"
         )
@@ -104,7 +104,7 @@ def gban(update: Update, context: CallbackContext):
         message.reply_text("That's a Tiger! They cannot be banned!")
         return
 
-    if int(user_id) in WOLVES:
+    if int(user_id) in WHITELIST_USERS:
         message.reply_text("That's a Wolf! They cannot be banned!")
         return
 
@@ -194,7 +194,7 @@ def gban(update: Update, context: CallbackContext):
             )
 
     else:
-        send_to_list(bot, DRAGONS + DEMONS, log_message, html=True)
+        send_to_list(bot, SUDO_USERS + SUPPORT_USERS, log_message, html=True)
 
     sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
 
@@ -225,7 +225,7 @@ def gban(update: Update, context: CallbackContext):
                     )
                 else:
                     send_to_list(
-                        bot, DRAGONS + DEMONS, f"Could not gban due to: {excp.message}"
+                        bot, SUDO_USERS + SUPPORT_USERS, f"Could not gban due to: {excp.message}"
                     )
                 sql.ungban_user(user_id)
                 return
@@ -240,7 +240,7 @@ def gban(update: Update, context: CallbackContext):
     else:
         send_to_list(
             bot,
-            DRAGONS + DEMONS,
+            SUDO_USERS + SUPPORT_USERS,
             f"Gban complete! (User banned in <code>{gbanned_chats}</code> chats)",
             html=True,
         )
@@ -322,7 +322,7 @@ def ungban(update: Update, context: CallbackContext):
                 + "\n\nFormatting has been disabled due to an unexpected error.",
             )
     else:
-        send_to_list(bot, DRAGONS + DEMONS, log_message, html=True)
+        send_to_list(bot, SUDO_USERS + SUPPORT_USERS, log_message, html=True)
 
     chats = get_user_com_chats(user_id)
     ungbanned_chats = 0
@@ -367,7 +367,7 @@ def ungban(update: Update, context: CallbackContext):
             parse_mode=ParseMode.HTML,
         )
     else:
-        send_to_list(bot, DRAGONS + DEMONS, "un-gban complete!")
+        send_to_list(bot, SUDO_USERS + SUPPORT_USERS, "un-gban complete!")
 
     end_time = time.time()
     ungban_time = round((end_time - start_time), 2)
@@ -505,7 +505,7 @@ def __user_info__(user_id):
         return ""
     if user_id == NEKO_PTB.bot.id:
         return ""
-    if int(user_id) in DRAGONS + TIGERS + WOLVES:
+    if int(user_id) in SUDO_USERS + TIGERS + WHITELIST_USERS:
         return ""
     if is_gbanned:
         text = text.format("Yes")

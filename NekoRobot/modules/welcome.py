@@ -23,14 +23,14 @@ from telegram.utils.helpers import escape_markdown, mention_html, mention_markdo
 
 import NekoRobot.modules.sql.welcome_sql as sql
 from NekoRobot import (
-    DEMONS,
+    SUPPORT_USERS,
     DEV_USERS,
-    DRAGONS,
+    SUDO_USERS,
     LOGGER,
     NEKO_PTB,
     OWNER_ID,
     TIGERS,
-    WOLVES,
+    WHITELIST_USERS,
     sw,
 )
 from NekoRobot.modules.helper_funcs.chat_status import is_user_ban_protected, user_admin
@@ -208,7 +208,7 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Sudos
-            elif new_mem.id in DRAGONS:
+            elif new_mem.id in SUDO_USERS:
                 update.effective_message.reply_photo(
                     NEKO,
                     caption="Huh! A Rank Hunter just joined! Stay Alert!",
@@ -217,7 +217,7 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Support
-            elif new_mem.id in DEMONS:
+            elif new_mem.id in SUPPORT_USERS:
                 update.effective_message.reply_photo(
                     NEKO,
                     caption="Huh! Someone with a B Rank Hunter level just joined!",
@@ -235,7 +235,7 @@ def new_member(update: Update, context: CallbackContext):
                 continue
 
             # Welcome Tigers
-            elif new_mem.id in WOLVES:
+            elif new_mem.id in WHITELIST_USERS:
                 update.effective_message.reply_photo(
                     NEKO,
                     caption="Oof! A D Rank Hunter just joined!",

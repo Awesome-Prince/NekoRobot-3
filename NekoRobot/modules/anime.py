@@ -8,7 +8,7 @@ import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext, CallbackQueryHandler
 
-from NekoRobot import DEV_USERS, DRAGONS, NEKO_PTB, OWNER_ID
+from NekoRobot import DEV_USERS, SUDO_USERS, NEKO_PTB, OWNER_ID
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 info_btn = "More Information"
@@ -466,7 +466,7 @@ def button(update: Update, context: CallbackContext):
     query_type = data[0]
     original_user_id = int(data[1])
 
-    user_and_admin_list = [original_user_id, OWNER_ID] + DRAGONS + DEV_USERS
+    user_and_admin_list = [original_user_id, OWNER_ID] + SUDO_USERS + DEV_USERS
 
     bot.answer_callback_query(query.id)
     if query_type == "anime_close":

@@ -16,7 +16,7 @@ from NekoRobot import NEKO_PTB
 
 from .admin_status_helpers import ADMINS_CACHE as A_CACHE
 from .admin_status_helpers import BOT_ADMIN_CACHE as B_CACHE
-from .admin_status_helpers import DRAGONS, AdminPerms
+from .admin_status_helpers import SUDO_USERS, AdminPerms
 from .admin_status_helpers import anon_callbacks as a_cb
 from .admin_status_helpers import button_expired_error as bxp
 from .admin_status_helpers import edit_anon_msg as eam
@@ -87,7 +87,7 @@ def user_is_admin(
     perm: AdminPerms = None,  # if not None, returns True if user has the specified permission
 ) -> bool:
     chat = update.effective_chat
-    if chat.type == "private" or user_id in (DRAGONS if allow_moderators else DRAGONS):
+    if chat.type == "private" or user_id in (SUDO_USERS if allow_moderators else SUDO_USERS):
         return True
 
     if channels and (
@@ -168,7 +168,7 @@ def user_admin_check(permission: AdminPerms = None):
                 if (
                     getattr(mem, permission.value) is True
                     or mem.status == "creator"
-                    or user_id in DRAGONS
+                    or user_id in SUDO_USERS
                 ):
                     return func(update, context, *args, **kwargs)
                 else:

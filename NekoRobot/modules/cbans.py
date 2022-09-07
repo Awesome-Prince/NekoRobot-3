@@ -6,7 +6,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters
 from telegram.utils.helpers import mention_html
 
-from NekoRobot import DEMONS, DEV_USERS, DRAGONS, LOGGER, OWNER_ID, TIGERS, WOLVES
+from NekoRobot import SUPPORT_USERS, DEV_USERS, SUDO_USERS, LOGGER, OWNER_ID, TIGERS, WHITELIST_USERS
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.chat_status import (
     bot_admin,
@@ -87,13 +87,13 @@ def cban(
             message.reply_text("I'd never ban my owner.")
         elif user_id in DEV_USERS:
             message.reply_text("I can't act against our own.")
-        elif user_id in DRAGONS:
+        elif user_id in SUDO_USERS:
             message.reply_text("My sudos are ban immune")
-        elif user_id in DEMONS:
+        elif user_id in SUPPORT_USERS:
             message.reply_text("My support users are ban immune")
         elif user_id in TIGERS:
             message.reply_text("Sorry, He is Tiger Level Disaster.")
-        elif user_id in WOLVES:
+        elif user_id in WHITELIST_USERS:
             message.reply_text("Neptunians are ban immune!")
         else:
             message.reply_text("This user has immunity and cannot be banned.")
@@ -394,7 +394,7 @@ def selfunban(context: CallbackContext, update: Update) -> Optional[str]:
     message = update.effective_message
     user = update.effective_user
     bot, args = context.bot, context.args
-    if user.id not in DRAGONS or user.id not in TIGERS:
+    if user.id not in SUDO_USERS or user.id not in TIGERS:
         return
 
     try:

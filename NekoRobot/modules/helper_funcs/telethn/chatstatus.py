@@ -25,7 +25,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from telethon.tl.types import ChannelParticipantsAdmins
 
-from NekoRobot import DRAGONS
+from NekoRobot import SUDO_USERS
 from NekoRobot.modules.helper_funcs.telethn import IMMUNE_USERS, tbot
 
 
@@ -53,7 +53,7 @@ async def user_is_admin(user_id: int, message):
         message.chat_id,
         filter=ChannelParticipantsAdmins,
     ):
-        if user_id == user.id or user_id in DRAGONS:
+        if user_id == user.id or user_id in SUDO_USERS:
             status = True
             break
     return status
@@ -65,7 +65,7 @@ async def is_user_admin(user_id: int, chat_id):
         chat_id,
         filter=ChannelParticipantsAdmins,
     ):
-        if user_id == user.id or user_id in DRAGONS:
+        if user_id == user.id or user_id in SUDO_USERS:
             status = True
             break
     return status

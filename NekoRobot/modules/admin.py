@@ -39,7 +39,7 @@ from telethon.errors import *
 from telethon.tl import *
 from telethon.tl import functions, types
 
-from NekoRobot import DRAGONS, NEKO_PTB
+from NekoRobot import SUDO_USERS, NEKO_PTB
 from NekoRobot import tbot as bot
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message
@@ -277,7 +277,7 @@ def promote(update: Update, context: CallbackContext) -> str:
 
     if (
         not (promoter.can_promote_members or promoter.status == "creator")
-        and user.id not in DRAGONS
+        and user.id not in SUDO_USERS
     ):
         message.reply_text("You don't have the necessary rights to do that!")
         return
@@ -359,7 +359,7 @@ def midpromote(update: Update, context: CallbackContext) -> str:
 
     if (
         not (promoter.can_promote_members or promoter.status == "creator")
-        and user.id not in DRAGONS
+        and user.id not in SUDO_USERS
     ):
         message.reply_text("You don't have the necessary rights to do that!")
         return
@@ -436,7 +436,7 @@ def lowpromote(update: Update, context: CallbackContext) -> str:
 
     if (
         not (promoter.can_promote_members or promoter.status == "creator")
-        and user.id not in DRAGONS
+        and user.id not in SUDO_USERS
     ):
         message.reply_text("You don't have the necessary rights to do that!")
         return
@@ -512,7 +512,7 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
 
     if (
         not (promoter.can_promote_members or promoter.status == "creator")
-        and user.id not in DRAGONS
+        and user.id not in SUDO_USERS
     ):
         message.reply_text("You don't have the necessary rights to do that!")
         return

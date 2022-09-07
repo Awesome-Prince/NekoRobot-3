@@ -33,14 +33,14 @@ from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import (
-    DEMONS,
+    SUPPORT_USERS,
     DEV_USERS,
-    DRAGONS,
+    SUDO_USERS,
     NEKO_PTB,
     OWNER_ID,
     SUPPORT_CHAT,
     TIGERS,
-    WOLVES,
+    WHITELIST_USERS,
 )
 from NekoRobot.modules.helper_funcs.chat_status import (
     dev_plus,
@@ -97,22 +97,22 @@ def addsudo(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, "r") as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
+    if user_id in SUDO_USERS:
         message.reply_text("This member is already a A Rank Hunter")
         return ""
 
-    if user_id in DEMONS:
+    if user_id in SUPPORT_USERS:
         rt += "Requested HA to promote a B Rank Hunter to A Rank Hunter."
         data["supports"].remove(user_id)
-        DEMONS.remove(user_id)
+        SUPPORT_USERS.remove(user_id)
 
-    if user_id in WOLVES:
+    if user_id in WHITELIST_USERS:
         rt += "Requested HA to promote a D Rank Hunter to A Rank Hunter."
         data["whitelists"].remove(user_id)
-        WOLVES.remove(user_id)
+        WHITELIST_USERS.remove(user_id)
 
     data["sudos"].append(user_id)
-    DRAGONS.append(user_id)
+    SUDO_USERS.append(user_id)
 
     with open(ELEVATED_USERS_FILE, "w") as outfile:
         json.dump(data, outfile, indent=4)
@@ -158,22 +158,22 @@ def addsupport(
     with open(ELEVATED_USERS_FILE, "r") as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
+    if user_id in SUDO_USERS:
         rt += "Requested HA to demote this A Rank Hunter to B Rank Hunter"
         data["sudos"].remove(user_id)
-        DRAGONS.remove(user_id)
+        SUDO_USERS.remove(user_id)
 
-    if user_id in DEMONS:
+    if user_id in SUPPORT_USERS:
         message.reply_text("This user is already a B Rank Hunter.")
         return ""
 
-    if user_id in WOLVES:
+    if user_id in WHITELIST_USERS:
         rt += "Requested HA to promote this D Rank Hunter to B Rank Hunter"
         data["whitelists"].remove(user_id)
-        WOLVES.remove(user_id)
+        WHITELIST_USERS.remove(user_id)
 
     data["supports"].append(user_id)
-    DEMONS.append(user_id)
+    SUPPORT_USERS.append(user_id)
 
     with open(ELEVATED_USERS_FILE, "w") as outfile:
         json.dump(data, outfile, indent=4)
@@ -213,22 +213,22 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, "r") as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
+    if user_id in SUDO_USERS:
         rt += "This member is a A Rank Hunter, Demoting to D Rank Hunter."
         data["sudos"].remove(user_id)
-        DRAGONS.remove(user_id)
+        SUDO_USERS.remove(user_id)
 
-    if user_id in DEMONS:
+    if user_id in SUPPORT_USERS:
         rt += "This user is already a B Rank Hunter, Demoting to D Rank Hunter."
         data["supports"].remove(user_id)
-        DEMONS.remove(user_id)
+        SUPPORT_USERS.remove(user_id)
 
-    if user_id in WOLVES:
+    if user_id in WHITELIST_USERS:
         message.reply_text("This user is already a D Rank Hunter.")
         return ""
 
     data["whitelists"].append(user_id)
-    WOLVES.append(user_id)
+    WHITELIST_USERS.append(user_id)
 
     with open(ELEVATED_USERS_FILE, "w") as outfile:
         json.dump(data, outfile, indent=4)
@@ -268,20 +268,20 @@ def addtiger(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, "r") as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
+    if user_id in SUDO_USERS:
         rt += "This member is a A Rank Hunter, Demoting to C Rank Hunter."
         data["sudos"].remove(user_id)
-        DRAGONS.remove(user_id)
+        SUDO_USERS.remove(user_id)
 
-    if user_id in DEMONS:
+    if user_id in SUPPORT_USERS:
         rt += "This user is already a B Rank Hunter, Demoting to C Rank Hunter."
         data["supports"].remove(user_id)
-        DEMONS.remove(user_id)
+        SUPPORT_USERS.remove(user_id)
 
-    if user_id in WOLVES:
+    if user_id in WHITELIST_USERS:
         rt += "This user is already a D Rank Hunter, Demoting to C Rank Hunter."
         data["whitelists"].remove(user_id)
-        WOLVES.remove(user_id)
+        WHITELIST_USERS.remove(user_id)
 
     if user_id in TIGERS:
         message.reply_text("This user is already a C Rank Hunter.")
@@ -327,9 +327,9 @@ def removesudo(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, "r") as infile:
         data = json.load(infile)
 
-    if user_id in DRAGONS:
+    if user_id in SUDO_USERS:
         message.reply_text("Requested HA to demote this user to Civilian")
-        DRAGONS.remove(user_id)
+        SUDO_USERS.remove(user_id)
         data["sudos"].remove(user_id)
 
         with open(ELEVATED_USERS_FILE, "w") as outfile:
@@ -369,9 +369,9 @@ def removesupport(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, "r") as infile:
         data = json.load(infile)
 
-    if user_id in DEMONS:
+    if user_id in SUPPORT_USERS:
         message.reply_text("Requested HA to demote this user to Civilian")
-        DEMONS.remove(user_id)
+        SUPPORT_USERS.remove(user_id)
         data["supports"].remove(user_id)
 
         with open(ELEVATED_USERS_FILE, "w") as outfile:
@@ -411,9 +411,9 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
     with open(ELEVATED_USERS_FILE, "r") as infile:
         data = json.load(infile)
 
-    if user_id in WOLVES:
+    if user_id in WHITELIST_USERS:
         message.reply_text("Demoting to normal user")
-        WOLVES.remove(user_id)
+        WHITELIST_USERS.remove(user_id)
         data["whitelists"].remove(user_id)
 
         with open(ELEVATED_USERS_FILE, "w") as outfile:
@@ -479,7 +479,7 @@ def removetiger(update: Update, context: CallbackContext) -> str:
 def whitelistlist(update: Update, context: CallbackContext):
     reply = "<b>Known D Rank Hunters 🐺:</b>\n"
     bot = context.bot
-    for each_user in WOLVES:
+    for each_user in WHITELIST_USERS:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
@@ -508,7 +508,7 @@ def tigerlist(update: Update, context: CallbackContext):
 def supportlist(update: Update, context: CallbackContext):
     bot = context.bot
     reply = "<b>Known B Rank Hunters 👹:</b>\n"
-    for each_user in DEMONS:
+    for each_user in SUPPORT_USERS:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
@@ -521,7 +521,7 @@ def supportlist(update: Update, context: CallbackContext):
 @whitelist_plus
 def sudolist(update: Update, context: CallbackContext):
     bot = context.bot
-    true_sudo = list(set(DRAGONS) - set(DEV_USERS))
+    true_sudo = list(set(SUDO_USERS) - set(DEV_USERS))
     reply = "<b>Known A Rank Hunters 🐉:</b>\n"
     for each_user in true_sudo:
         user_id = int(each_user)

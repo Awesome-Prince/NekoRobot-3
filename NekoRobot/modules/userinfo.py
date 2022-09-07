@@ -24,15 +24,15 @@ from telethon.tl.types import ChannelParticipantsAdmins
 
 import NekoRobot.modules.sql.userinfo_sql as sql
 from NekoRobot import (
-    DEMONS,
+    SUPPORT_USERS,
     DEV_USERS,
-    DRAGONS,
+    SUDO_USERS,
     INFOPIC,
     NEKO_PTB,
     OWNER_ID,
     SUPPORT_CHAT,
     TIGERS,
-    WOLVES,
+    WHITELIST_USERS,
     StartTime,
     sw,
     tbot,
@@ -187,7 +187,7 @@ def get_id(update: Update, context: CallbackContext):
 @tbot.on(
     events.NewMessage(
         pattern="/ginfo ",
-        from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or []),
+        from_users=(TIGERS or []) + (SUDO_USERS or []) + (SUPPORT_USERS or []),
     ),
 )
 async def group_info(event) -> None:
@@ -320,13 +320,13 @@ def info(update: Update, context: CallbackContext):
         text += "\n\nThe Disaster level of this person is 'God'."
     elif user.id in DEV_USERS:
         text += "\n\nThis user is member of 'Heros Association'."
-    elif user.id in DRAGONS:
+    elif user.id in SUDO_USERS:
         text += "\n\nThe Disaster level of this person is 'Dragon'."
-    elif user.id in DEMONS:
+    elif user.id in SUPPORT_USERS:
         text += "\n\nThe Disaster level of this person is 'Demon'."
     elif user.id in TIGERS:
         text += "\n\nThe Disaster level of this person is 'Tiger'."
-    elif user.id in WOLVES:
+    elif user.id in WHITELIST_USERS:
         text += "\n\nThe Disaster level of this person is 'Wolf'."
     elif user.id == 5561111332:
         text += "\n\nSenorita Is Girlfriend Of @BlackLover_Prince."

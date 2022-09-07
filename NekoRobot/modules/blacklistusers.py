@@ -7,7 +7,7 @@ from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
-from NekoRobot import DEMONS, DEV_USERS, DRAGONS, NEKO_PTB, OWNER_ID, TIGERS, WOLVES
+from NekoRobot import SUPPORT_USERS, DEV_USERS, SUDO_USERS, NEKO_PTB, OWNER_ID, TIGERS, WHITELIST_USERS
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from NekoRobot.modules.helper_funcs.extraction import (
     extract_user,
@@ -15,7 +15,7 @@ from NekoRobot.modules.helper_funcs.extraction import (
 )
 from NekoRobot.modules.log_channel import gloggable
 
-BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
+BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + SUDO_USERS + WHITELIST_USERS + SUPPORT_USERS
 BLABLEUSERS = [OWNER_ID] + DEV_USERS
 
 
@@ -135,7 +135,7 @@ def __user_info__(user_id):
         return ""
     if user_id == NEKO_PTB.bot.id:
         return ""
-    if int(user_id) in DRAGONS + TIGERS + WOLVES:
+    if int(user_id) in SUDO_USERS + TIGERS + WHITELIST_USERS:
         return ""
     if is_blacklisted:
         text = text.format("Yes")

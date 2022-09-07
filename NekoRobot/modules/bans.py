@@ -42,12 +42,12 @@ from telegram.utils.helpers import mention_html
 from NekoRobot import (
     BAN_STICKER,
     DEV_USERS,
-    DRAGONS,
+    SUDO_USERS,
     ERROR_LOGS,
     LOGGER,
     NEKO_PTB,
     OWNER_ID,
-    WOLVES,
+    WHITELIST_USERS,
 )
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import (
@@ -76,10 +76,10 @@ def cannot_ban(banner_id, user_id, message) -> bool:
                 "This user is one of my Devs, I can't act against our own."
             )
             return True
-        elif user_id in DRAGONS:
+        elif user_id in SUDO_USERS:
             message.reply_text("My sudos are ban immune")
             return True
-        elif user_id in WOLVES:
+        elif user_id in WHITELIST_USERS:
             message.reply_text("Let one of my Devs fight a Whitelist user.")
             return True
         return False
@@ -662,7 +662,7 @@ async def unban(
     return logmsg
 
 
-WHITELISTED_USERS = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES
+WHITELISTED_USERS = [OWNER_ID] + DEV_USERS + SUDO_USERS + WHITELIST_USERS
 
 
 @connection_status
@@ -806,7 +806,7 @@ NEKO_PTB.add_handler(
         ["kickme", "punchme"], kickme, filters=filters.ChatType.GROUPS
     )
 )
-NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=filters.User(DRAGONS)))
+NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=filters.User(SUDO_USERS)))
 NEKO_PTB.add_handler(CommandHandler("banme", banme))
 
 __mod_name__ = "Bans/Mutes"

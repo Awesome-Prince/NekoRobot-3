@@ -39,7 +39,7 @@ from telegram.error import BadRequest
 from telegram.ext import DispatcherHandlerStop, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from NekoRobot import DRAGONS
+from NekoRobot import SUDO_USERS
 from NekoRobot import LOGGER as log
 from NekoRobot import NEKO_PTB
 from NekoRobot.modules.connection import connected
@@ -480,7 +480,7 @@ def rmall_filters(update, _):
     chat = update.effective_chat
     user = update.effective_user
     member = chat.get_member(user.id)
-    if member.status != "creator" and user.id not in DRAGONS:
+    if member.status != "creator" and user.id not in SUDO_USERS:
         update.effective_message.reply_text(
             "Only the chat owner can clear all notes at once."
         )
@@ -532,7 +532,7 @@ def rmall_callback(update, _):
         if member.status == "member":
             query.answer("You need to be admin to do this.")
     elif query.data == "filters_cancel":
-        if member.status == "creator" or query.from_user.id in DRAGONS:
+        if member.status == "creator" or query.from_user.id in SUDO_USERS:
             msg.edit_text("Clearing of all filters has been cancelled.")
             return
         if member.status == "administrator":
