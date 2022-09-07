@@ -1,24 +1,49 @@
-from pyrate_limiter import (
-    BucketFullException,
-    Duration,
-    Limiter,
-    MemoryListBucket,
-    RequestRate,
-)
-from telegram import Update
-from telegram.ext import CommandHandler, Filters, MessageHandler, RegexHandler
+"""
+BSD 2-Clause License
+
+Copyright (C) 2017-2019, Paul Larsen
+Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince ]
+Copyright (c) 2022-2023, Programmer • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
-from NekoRobot import (
-    ALLOW_EXCL,
-    DEV_USERS,
-    SUDO_USERS,
-    SUPPORT_USERS,
-    TIGERS,
-    WHITELIST_USERS,
+
+from NekoRobot import ALLOW_EXCL
+from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS, TIGERS, WHITELIST_USERS, NEKO_PTB
+
+from telegram import Update
+import telegram.ext as tg
+from pyrate_limiter import (
+    Duration,
+    RequestRate,
+    Limiter,
+    MemoryListBucket,
 )
 
-CMD_STARTERS = ("/", "!") if ALLOW_EXCL else ("/",)
+CMD_STARTERS = ("/", "!", "?", ".", "~", "+") if ALLOW_EXCL else ("/", "!", "?", ".", "+")
 
 
 class AntiSpam:
@@ -48,70 +73,52 @@ class AntiSpam:
         """
         Return True if user is to be ignored else False
         """
-        if user in self.whitelist:
-            return False
-        try:
-            self.limiter.try_acquire(user)
-            return False
-        except BucketFullException:
-            return True
-
+        return bool(sql.is_user_blacklisted(user))
 
 SpamChecker = AntiSpam()
 MessageHandlerChecker = AntiSpam()
 
 
-class CustomCommandHandler(CommandHandler):
-    def __init__(self, command, callback, admin_ok=False, allow_edit=False, **kwargs):
+class CustomCommandHandler(tg.CommandHandler):
+    def __init__(self, command, callback, block=False, **kwargs):
+        if "admin_ok" in kwargs:
+            del kwargs["admin_ok"]
         super().__init__(command, callback, **kwargs)
 
-        if allow_edit is False:
-            self.filters &= ~(
-                Filters.update.edited_message | Filters.update.edited_channel_post
-            )
-
-    def check_update(self, update):
+    def check_update(self, update: object) -> Any:
         if not isinstance(update, Update) or not update.effective_message:
             return
         message = update.effective_message
 
         try:
             user_id = update.effective_user.id
-        except:
+        except Exception:
             user_id = None
-
-        if user_id and sql.is_user_blacklisted(user_id):
-            return False
 
         if message.text and len(message.text) > 1:
             fst_word = message.text.split(None, 1)[0]
             if len(fst_word) > 1 and any(
                 fst_word.startswith(start) for start in CMD_STARTERS
             ):
-
                 args = message.text.split()[1:]
                 command = fst_word[1:].split("@")
-                command.append(message.bot.username)
-                if user_id == 1087968824:
-                    user_id = update.effective_chat.id
+                command.append(
+                    message._bot.username
+                )  # in case the command was sent without a username
+
                 if not (
-                    command[0].lower() in self.command
-                    and command[1].lower() == message.bot.username.lower()
+                    frozenset({command[0].lower()}) in self.commands
+                    and command[1].lower() == message._bot.username.lower()
                 ):
                     return None
+
                 if SpamChecker.check_user(user_id):
                     return None
-                filter_result = self.filters(update)
-                if filter_result:
+
+                if filter_result := self.filters.check_update(update):
                     return args, filter_result
                 return False
 
-    def handle_update(self, update, NEKO_PTB, check_result, context=None):
-        if context:
-            self.collect_additional_context(context, update, NEKO_PTB, check_result)
-            return self.callback(update, context)
-        optional_args = self.collect_optional_args(NEKO_PTB, update, check_result)
-        return self.callback(NEKO_PTB.bot, update, **optional_args)
 
     def collect_additional_context(self, context, update, NEKO_PTB, check_result):
         if isinstance(check_result, bool):
@@ -121,20 +128,3 @@ class CustomCommandHandler(CommandHandler):
             if isinstance(check_result[1], dict):
                 context.update(check_result[1])
 
-
-class CustomRegexHandler(RegexHandler):
-    def __init__(self, pattern, callback, friendly="", **kwargs):
-        super().__init__(pattern, callback, **kwargs)
-
-
-class CustomMessageHandler(MessageHandler):
-    def __init__(self, filters, callback, friendly="", allow_edit=False, **kwargs):
-        super().__init__(filters, callback, **kwargs)
-        if allow_edit is False:
-            self.filters &= ~(
-                Filters.update.edited_message | Filters.update.edited_channel_post
-            )
-
-        def check_update(self, update):
-            if isinstance(update, Update) and update.effective_message:
-                return self.filters(update)
