@@ -46,7 +46,7 @@ from NekoRobot import (
     LOGGER,
     NEKO_PTB,
     OWNER_ID,
-    SUDO_USERS,
+    DRAGONS,
     WHITELIST_USERS,
 )
 from NekoRobot.modules.disable import DisableAbleCommandHandler
@@ -76,7 +76,7 @@ def cannot_ban(banner_id, user_id, message) -> bool:
                 "This user is one of my Devs, I can't act against our own."
             )
             return True
-        elif user_id in SUDO_USERS:
+        elif user_id in DRAGONS:
             message.reply_text("My sudos are ban immune")
             return True
         elif user_id in WHITELIST_USERS:
@@ -662,7 +662,7 @@ async def unban(
     return logmsg
 
 
-WHITELISTED_USERS = [OWNER_ID] + DEV_USERS + SUDO_USERS + WHITELIST_USERS
+WHITELISTED_USERS = [OWNER_ID] + DEV_USERS + DRAGONS + WHITELIST_USERS
 
 
 @connection_status
@@ -806,7 +806,7 @@ NEKO_PTB.add_handler(
         ["kickme", "punchme"], kickme, filters=filters.ChatType.GROUPS
     )
 )
-NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=filters.User(SUDO_USERS)))
+NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=filters.User(DRAGONS)))
 NEKO_PTB.add_handler(CommandHandler("banme", banme))
 
 __mod_name__ = "Bans/Mutes"
