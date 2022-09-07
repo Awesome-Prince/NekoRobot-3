@@ -32,9 +32,9 @@ from telegram import (
     ChatMember,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
+    ParseMode,
     Update,
 )
-from telegram import ParseMode
 from telegram.error import BadRequest, TelegramError
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, filters
 from telegram.helpers import mention_html
