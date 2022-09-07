@@ -36,7 +36,7 @@ from telegram import (
     Update,
 )
 from telegram.error import BadRequest, TelegramError
-from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler, filters
+from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 from telegram.utils.helpers import mention_html
 
 from NekoRobot import (
@@ -807,7 +807,9 @@ NEKO_PTB.add_handler(
     )
 )
 
-NEKO_PTB.add_handler(CommandHandler("snipe", snipe, filters=CustomFilters.sudo_filter, run_async=True))
+NEKO_PTB.add_handler(
+    CommandHandler("snipe", snipe, filters=CustomFilters.sudo_filter, run_async=True)
+)
 NEKO_PTB.add_handler(CommandHandler("banme", banme, run_async=True))
 
 __mod_name__ = "Bans/Mutes"
