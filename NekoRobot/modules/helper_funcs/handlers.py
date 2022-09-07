@@ -29,21 +29,23 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import NekoRobot.modules.sql.blacklistusers_sql as sql
-
-from NekoRobot import ALLOW_EXCL
-from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS, TIGERS, WHITELIST_USERS, NEKO_PTB
-
-from telegram import Update
 import telegram.ext as tg
-from pyrate_limiter import (
-    Duration,
-    RequestRate,
-    Limiter,
-    MemoryListBucket,
+from pyrate_limiter import Duration, Limiter, MemoryListBucket, RequestRate
+from telegram import Update
+
+import NekoRobot.modules.sql.blacklistusers_sql as sql
+from NekoRobot import (
+    ALLOW_EXCL,
+    DEV_USERS,
+    SUDO_USERS,
+    SUPPORT_USERS,
+    TIGERS,
+    WHITELIST_USERS,
 )
 
-CMD_STARTERS = ("/", "!", "?", ".", "~", "+") if ALLOW_EXCL else ("/", "!", "?", ".", "+")
+CMD_STARTERS = (
+    ("/", "!", "?", ".", "~", "+") if ALLOW_EXCL else ("/", "!", "?", ".", "+")
+)
 
 
 class AntiSpam:
@@ -74,6 +76,7 @@ class AntiSpam:
         Return True if user is to be ignored else False
         """
         return bool(sql.is_user_blacklisted(user))
+
 
 SpamChecker = AntiSpam()
 MessageHandlerChecker = AntiSpam()
@@ -119,7 +122,6 @@ class CustomCommandHandler(tg.CommandHandler):
                     return args, filter_result
                 return False
 
-
     def collect_additional_context(self, context, update, NEKO_PTB, check_result):
         if isinstance(check_result, bool):
             context.args = update.effective_message.text.split()[1:]
@@ -127,4 +129,3 @@ class CustomCommandHandler(tg.CommandHandler):
             context.args = check_result[0]
             if isinstance(check_result[1], dict):
                 context.update(check_result[1])
-
