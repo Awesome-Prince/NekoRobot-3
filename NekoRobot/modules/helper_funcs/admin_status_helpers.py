@@ -3,7 +3,7 @@ from cachetools import TTLCache
 from time import perf_counter
 
 from telegram import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, Update, Message
-from telegram.constants import ParseMode
+from telegram import ParseMode
 
 from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
 
