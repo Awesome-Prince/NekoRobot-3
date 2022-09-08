@@ -23,7 +23,7 @@ SOFTWARE.
 
 from telethon import Button
 
-from NekoRobot import tbot as tbot
+from NekoRobot import tbot
 from NekoRobot.events import register
 
 PHOTO = "https://telegra.ph/file/70061cba45ee824dad6f6.jpg"
@@ -32,9 +32,9 @@ PHOTO = "https://telegra.ph/file/70061cba45ee824dad6f6.jpg"
 @register(pattern=("/repo"))
 async def awake(event):
     NEKO = """
-         We Are So Happy To Announce That We Have Public Our NekoRobot Repo. ✨🥀
+We Are So Happy To Announce That We Have Public Our NekoRobot Repo. ✨🥀
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-「@NekoXRobot」
+「@NekoX_Bot」
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 Here is the Repo Deploy your Own NekoRobot.
 ⚜️Repo ➤ https://github.com/Awesome-Prince/NekoRobot-3.git
