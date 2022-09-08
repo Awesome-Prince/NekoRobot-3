@@ -56,4 +56,4 @@ async def lookup(update, context):
         message.reply_text(
             "`cannot reach SpamProtection API`", parse_mode=telegram.ParseMode.MARKDOWN
         )
-        time.await sleep(3)
+        time.sleep(3)
