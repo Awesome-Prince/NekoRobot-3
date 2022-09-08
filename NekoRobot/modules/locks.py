@@ -31,9 +31,9 @@ from telegram import (
     ChatPermissions,
     Message,
     MessageEntity,
-    ParseMode,
     TelegramError,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
