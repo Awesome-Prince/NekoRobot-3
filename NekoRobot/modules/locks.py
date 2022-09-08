@@ -29,7 +29,7 @@ from alphabet_detector import AlphabetDetector
 from telegram import Chat, ChatPermissions, Message, MessageEntity, TelegramError
 from telegram.constants import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler
+from telegram.ext import CommandHandler, filters, MessageHandler
 from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.locks_sql as sql

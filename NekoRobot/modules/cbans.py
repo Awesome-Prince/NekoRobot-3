@@ -4,7 +4,7 @@ from typing import Optional
 from telegram import Update
 from telegram.constants import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, Filters
+from telegram.ext import CallbackContext, filters
 from telegram.helpers import mention_html
 
 from NekoRobot import (

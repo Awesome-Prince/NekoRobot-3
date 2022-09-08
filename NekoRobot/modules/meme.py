@@ -6,7 +6,7 @@ import requests
 from telegram import ChatPermissions, Update
 from telegram.constants import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, Filters
+from telegram.ext import CallbackContext, filters
 
 import NekoRobot.modules.helper_funcs.string_store as fun
 import NekoRobot.modules.NekoFunBot_Strings as fun_strings
