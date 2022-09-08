@@ -23,7 +23,8 @@ SOFTWARE...
 
 import subprocess
 
-from telegram import ParseMode, Update
+from telegram import Update
+from telegram.constants import ParseMode
 from telegram.ext import CallbackContext, CommandHandler
 
 from NekoRobot import LOGGER, NEKO_PTB

@@ -27,7 +27,8 @@ import html
 import re
 
 from feedparser import parse
-from telegram import ParseMode, Update, constants
+from telegram import Update, constants
+from telegram.constants import ParseMode
 from telegram.ext import CallbackContext, CommandHandler
 
 from NekoRobot import NEKO_PTB, updater

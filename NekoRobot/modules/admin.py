@@ -29,7 +29,8 @@ SOFTWARE.
 import html
 import os
 
-from telegram import ParseMode, Update
+from telegram.constants import ParseMode
+from telegram import Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters
 from telegram.utils.helpers import mention_html
