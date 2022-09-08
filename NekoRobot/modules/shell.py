@@ -63,7 +63,7 @@ async def shell(update: Update, context: CallbackContext):
                 chat_id=message.chat_id,
             )
     else:
-        message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
+        message.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 SHELL_HANDLER = CommandHandler(["sh"], shell, run_async=True)

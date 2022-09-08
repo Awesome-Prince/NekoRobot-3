@@ -88,7 +88,7 @@ async def send(update, message, keyboard, backup_message):
     try:
         msg = update.effective_message.reply_text(
             message,
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
             reply_markup=keyboard,
             reply_to_message_id=reply,
         )
@@ -96,7 +96,7 @@ async def send(update, message, keyboard, backup_message):
         if excp.message == "Reply message not found":
             msg = update.effective_message.reply_text(
                 message,
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
                 reply_markup=keyboard,
                 quote=False,
             )
@@ -106,7 +106,7 @@ async def send(update, message, keyboard, backup_message):
                     backup_message + "\nNote: the current message has an invalid url "
                     "in one of its buttons. Please update."
                 ),
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
                 reply_to_message_id=reply,
             )
         elif excp.message == "Unsupported url protocol":
@@ -116,7 +116,7 @@ async def send(update, message, keyboard, backup_message):
                     "use url protocols that are unsupported by "
                     "telegram. Please update."
                 ),
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
                 reply_to_message_id=reply,
             )
         elif excp.message == "Wrong url host":
@@ -125,7 +125,7 @@ async def send(update, message, keyboard, backup_message):
                     backup_message + "\nNote: the current message has some bad urls. "
                     "Please update."
                 ),
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
                 reply_to_message_id=reply,
             )
             LOGGER.warning(message)
@@ -139,7 +139,7 @@ async def send(update, message, keyboard, backup_message):
                     backup_message + "\nNote: An error occured when sending the "
                     "custom message. Please update."
                 ),
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
                 reply_to_message_id=reply,
             )
             LOGGER.exception()
@@ -252,7 +252,7 @@ async def new_member(update: Update, context: CallbackContext):
                         user.first_name, context.bot.first_name, chat.title
                     ),
                     reply_to_message_id=reply,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
@@ -599,7 +599,7 @@ async def welcome(update: Update, context: CallbackContext):
         update.effective_message.reply_text(
             f"This chat has it's welcome setting set to: `{pref}`.\n"
             f"*The welcome message (not filling the {{}}) is:*",
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
 
         if welcome_type == sql.Types.BUTTON_TEXT or welcome_type == sql.Types.TEXT:
@@ -627,7 +627,7 @@ async def welcome(update: Update, context: CallbackContext):
                     cust_content,
                     caption=welcome_m,
                     reply_markup=keyboard,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                     disable_web_page_preview=True,
                 )
 
@@ -661,7 +661,7 @@ async def goodbye(update: Update, context: CallbackContext):
         update.effective_message.reply_text(
             f"This chat has it's goodbye setting set to: `{pref}`.\n"
             f"*The goodbye  message (not filling the {{}}) is:*",
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
 
         if goodbye_type == sql.Types.BUTTON_TEXT:
@@ -682,7 +682,7 @@ async def goodbye(update: Update, context: CallbackContext):
 
             else:
                 ENUM_FUNC_MAP[goodbye_type](
-                    chat.id, goodbye_m, parse_mode=ParseMode.MARKDOWN
+                    chat.id, goodbye_m, parse_mode=ParseMode.MARKDOWN_V2
                 )
 
     elif len(args) >= 1:
@@ -1019,13 +1019,13 @@ WELC_MUTE_HELP_TXT = (
 
 @user_admin
 async def welcome_help(update: Update, context: CallbackContext):
-    update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 @user_admin
 async def welcome_mute_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
-        WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN
+        WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN_V2
     )
 
 

@@ -361,7 +361,7 @@ def blacklist_mode(update: Update, context: CallbackContext):
             text = "Blacklist sticker mode is currently set to *{}*.".format(
                 settypeblacklist
             )
-        send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
+        send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN_V2)
     return ""
 
 

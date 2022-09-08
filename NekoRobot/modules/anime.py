@@ -179,7 +179,7 @@ async def airing(update: Update, context: CallbackContext):
         msg += f"\n*Episode*: `{response['nextAiringEpisode']['episode']}`\n*Airing In*: `{time}`"
     else:
         msg += f"\n*Episode*:{response['episodes']}\n*Status*: `N/A`"
-    update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 async def anime(update: Update, context: CallbackContext):
@@ -237,20 +237,20 @@ async def anime(update: Update, context: CallbackContext):
                 update.effective_message.reply_photo(
                     photo=image,
                     caption=msg,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
             except:
                 msg += f" [〽️]({image})"
                 update.effective_message.reply_text(
                     msg,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
         else:
             update.effective_message.reply_text(
                 msg,
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
 
@@ -281,11 +281,11 @@ async def character(update: Update, context: CallbackContext):
             update.effective_message.reply_photo(
                 photo=image,
                 caption=msg.replace("<b>", "</b>"),
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
         else:
             update.effective_message.reply_text(
-                msg.replace("<b>", "</b>"), parse_mode=ParseMode.MARKDOWN
+                msg.replace("<b>", "</b>"), parse_mode=ParseMode.MARKDOWN_V2
             )
 
 
@@ -337,20 +337,20 @@ async def manga(update: Update, context: CallbackContext):
                 update.effective_message.reply_photo(
                     photo=image,
                     caption=msg,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
             except:
                 msg += f" [〽️]({image})"
                 update.effective_message.reply_text(
                     msg,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                     reply_markup=InlineKeyboardMarkup(buttons),
                 )
         else:
             update.effective_message.reply_text(
                 msg,
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
                 reply_markup=InlineKeyboardMarkup(buttons),
             )
 
@@ -436,7 +436,7 @@ async def user(update: Update, context: CallbackContext):
     update.effective_message.reply_photo(
         photo=img,
         caption=caption,
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.MARKDOWN_V2,
         reply_markup=InlineKeyboardMarkup(buttons),
         disable_web_page_preview=False,
     )

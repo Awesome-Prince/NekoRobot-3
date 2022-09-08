@@ -424,7 +424,7 @@ async def reply_filter(update, context):  # sourcery no-metrics
                     send_message(
                         update.effective_message,
                         filt.reply,
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                         disable_web_page_preview=True,
                         reply_markup=keyboard,
                     )
@@ -444,7 +444,7 @@ async def reply_filter(update, context):  # sourcery no-metrics
                             context.bot.send_message(
                                 chat.id,
                                 filt.reply,
-                                parse_mode=ParseMode.MARKDOWN,
+                                parse_mode=ParseMode.MARKDOWN_V2,
                                 disable_web_page_preview=True,
                                 reply_markup=keyboard,
                             )
@@ -497,7 +497,7 @@ async def rmall_filters(update, _):
         update.effective_message.reply_text(
             f"Are you sure you would like to stop ALL filters in {chat.title}? This action cannot be undone.",
             reply_markup=buttons,
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
 
 

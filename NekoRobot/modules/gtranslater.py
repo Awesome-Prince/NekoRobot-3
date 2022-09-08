@@ -72,7 +72,7 @@ async def languages(update: Update, context: CallbackContext) -> None:
         text="Click [here](https://telegra.ph/Lang-Codes-03-19-3) to see the list of supported language codes!",
         chat_id=message.chat.id,
         disable_web_page_preview=True,
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.MARKDOWN_V2,
     )
 
 

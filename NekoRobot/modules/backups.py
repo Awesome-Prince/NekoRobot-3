@@ -176,7 +176,7 @@ async def export_data(update, context):
                 "You can only backup once a day!\nYou can backup again in about `{}`".format(
                     timeformatt
                 ),
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
             return
         else:
@@ -359,7 +359,7 @@ async def export_data(update, context):
             "*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(
                 chat.title, chat_id, tgl
             ),
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
     except BadRequest:
         pass
@@ -371,7 +371,7 @@ async def export_data(update, context):
         ),
         timeout=360,
         reply_to_message_id=msg.message_id,
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.MARKDOWN_V2,
     )
     os.remove("Sung Jin-Woo {}.backup".format(chat_id))  # Cleaning file
 

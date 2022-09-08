@@ -512,12 +512,12 @@ async def set_warn_strength(update: Update, context: CallbackContext):
         if soft_warn:
             msg.reply_text(
                 "Warns are currently set to *punch* users when they exceed the limits.",
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
         else:
             msg.reply_text(
                 "Warns are currently set to *Ban* users when they exceed the limits.",
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
     return ""
 

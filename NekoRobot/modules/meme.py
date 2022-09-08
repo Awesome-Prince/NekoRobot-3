@@ -373,7 +373,7 @@ async def weebify(update: Update, context: CallbackContext):
         string = "  ".join(args).lower()
 
     if not string:
-        message.reply_text("Usage is `/weebify <text>`", parse_mode=ParseMode.MARKDOWN)
+        message.reply_text("Usage is `/weebify <text>`", parse_mode=ParseMode.MARKDOWN_V2)
         return
 
     for normiecharacter in string:
@@ -391,14 +391,14 @@ async def weebify(update: Update, context: CallbackContext):
 async def goodnight(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDNIGHT)
-    message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
+    message.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 @typing_action
 async def goodmorning(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDMORNING)
-    message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
+    message.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 __help__ = """

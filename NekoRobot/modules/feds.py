@@ -127,7 +127,7 @@ async def new_fed(update: Update, context: CallbackContext):
             "\nID: `{}`"
             "\n\nUse the command below to join the federation:"
             "\n`/joinfed {}`".format(fed_name, fed_id, fed_id),
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
         try:
             bot.send_message(
@@ -1266,7 +1266,7 @@ async def get_frules(update: Update, context: CallbackContext):
     rules = sql.get_frules(fed_id)
     text = "*Rules in this fed:*\n"
     text += rules
-    update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
+    update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 async def fed_broadcast(update: Update, context: CallbackContext):
@@ -1379,7 +1379,7 @@ async def fed_ban_list(update: Update, context: CallbackContext):
                         "You can backup your data once every 30 minutes!\nYou can back up data again at `{}`".format(
                             waktu
                         ),
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                     )
                     return
                 else:
@@ -1423,7 +1423,7 @@ async def fed_ban_list(update: Update, context: CallbackContext):
                         "You can back up data once every 30 minutes!\nYou can back up data again at `{}`".format(
                             waktu
                         ),
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                     )
                     return
                 else:
@@ -1488,7 +1488,7 @@ async def fed_ban_list(update: Update, context: CallbackContext):
                     "You can back up data once every 30 minutes!\nYou can back up data again at `{}`".format(
                         waktu
                     ),
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                 )
                 return
             else:
@@ -1647,7 +1647,7 @@ async def fed_import_bans(update: Update, context: CallbackContext):
                     "You can get your data once every 30 minutes!\nYou can get data again at `{}`".format(
                         waktu
                     ),
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                 )
                 return
             else:
@@ -2342,7 +2342,7 @@ async def fed_owner_help(update: Update, context: CallbackContext):
  • `/unsetfedlog <fed_id>`*:* Removed the group as a fed log report base for the federation
  • `/fbroadcast <message>`*:* Broadcasts a messages to all groups that have joined your fed
  • `/fedsubs`*:* Shows the feds your group is subscribed to `(broken rn)`""",
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.MARKDOWN_V2,
     )
 
 
@@ -2359,7 +2359,7 @@ async def fed_admin_help(update: Update, context: CallbackContext):
  • `/fbanlist`*:* Displays all users who are victimized at the Federation at this time
  • `/fedchats`*:* Get all the chats that are connected in the Federation
  • `/chatfed `*:* See the Federation in the current chat\n""",
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.MARKDOWN_V2,
     )
 
 
@@ -2369,7 +2369,7 @@ async def fed_user_help(update: Update, context: CallbackContext):
  • `/fbanstat`*:* Shows if you/or the user you are replying to or their username is fbanned somewhere or not
  • `/fednotif <on/off>`*:* Federation settings not in PM when there are users who are fbaned/unfbanned
  • `/frules`*:* See Federation regulations\n""",
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.MARKDOWN_V2,
     )
 
 

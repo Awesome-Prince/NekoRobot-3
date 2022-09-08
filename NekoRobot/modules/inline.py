@@ -261,7 +261,7 @@ async def about(query: str, update: Update, context: CallbackContext) -> None:
             thumb_url="https://telegra.ph/file/0bf1b29555518a0d45948.jpg",
             photo_url="https://telegra.ph/file/0bf1b29555518a0d45948.jpg",
             caption=about_text,
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
             reply_markup=kb,
         )
     )
@@ -349,7 +349,7 @@ async def spb(query: str, update: Update, context: CallbackContext) -> None:
             title=f"SpamProtection API info of {srdata or a}",
             thumb_url="https://telegra.ph/file/0bf1b29555518a0d45948.jpg",
             input_message_content=InputTextMessageContent(
-                stats, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
+                stats, parse_mode=ParseMode.MARKDOWN_V2, disable_web_page_preview=True
             ),
             reply_markup=kb,
         ),
@@ -500,7 +500,7 @@ async def media_query(query: str, update: Update, context: CallbackContext) -> N
                 title=f"Media {query} not found",
                 input_message_content=InputTextMessageContent(
                     f"Media {query} not found due to {e}",
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                     disable_web_page_preview=True,
                 ),
                 reply_markup=kb,

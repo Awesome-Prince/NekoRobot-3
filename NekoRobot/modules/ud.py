@@ -17,7 +17,7 @@ async def ud(update: Update, context: CallbackContext):
         reply_text = f'*{text}*\n\n{results["list"][0]["definition"]}\n\n_{results["list"][0]["example"]}_'
     except:
         reply_text = "No results found."
-    message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
+    message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 UD_HANDLER = DisableAbleCommandHandler(["ud"], ud, run_async=True)

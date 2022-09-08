@@ -65,7 +65,7 @@ async def report_setting(update: Update, context: CallbackContext):
         else:
             msg.reply_text(
                 f"Your current report preference is: `{sql.user_should_report(chat.id)}`",
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
 
     else:
@@ -85,7 +85,7 @@ async def report_setting(update: Update, context: CallbackContext):
         else:
             msg.reply_text(
                 f"This group's current setting is: `{sql.chat_should_report(chat.id)}`",
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
 
 

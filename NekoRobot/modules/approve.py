@@ -64,13 +64,13 @@ async def approve(update, context):
     if sql.is_approved(message.chat_id, user_id):
         message.reply_text(
             f"[{member.user['first_name']}](tg://user?id={member.user['id']}) is already approved in {chat_title}",
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
         return ""
     sql.approve(message.chat_id, user_id)
     message.reply_text(
         f"[{member.user['first_name']}](tg://user?id={member.user['id']}) has been approved in {chat_title}! They will now be ignored by automated admin actions like locks, blocklists, and antiflood.",
-        parse_mode=ParseMode.MARKDOWN,
+        parse_mode=ParseMode.MARKDOWN_V2,
     )
     log_message = (
         f"<b>{html.escape(chat.title)}:</b>\n"
@@ -134,7 +134,7 @@ async def approved(update, context):
         message.reply_text(f"No users are approved in {chat_title}.")
         return ""
     else:
-        message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
+        message.reply_text(msg, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 @user_admin
@@ -185,7 +185,7 @@ async def unapproveall(update: Update, context: CallbackContext):
         update.effective_message.reply_text(
             f"Are you sure you would like to unapprove ALL users in {chat.title}? This action cannot be undone.",
             reply_markup=buttons,
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
 
 

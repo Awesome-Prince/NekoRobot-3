@@ -62,7 +62,7 @@ async def cb_sticker(update: Update, context: CallbackContext):
     for result, title in zip(results, titles):
         link = result["href"]
         reply += f"\n• [{title.get_text()}]({link})"
-    msg.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
+    msg.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 async def getsticker(update: Update, context: CallbackContext):
@@ -184,7 +184,7 @@ async def kang(update: Update, context: CallbackContext):
                 msg.reply_text(
                     f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
                     + f"\nEmoji is: {sticker_emoji}",
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                 )
 
             except OSError as e:
@@ -215,7 +215,7 @@ async def kang(update: Update, context: CallbackContext):
                     msg.reply_text(
                         f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
                         + f"\nEmoji is: {sticker_emoji}",
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                     )
                 elif e.message == "Invalid sticker emojis":
                     msg.reply_text("Invalid emoji(s).")
@@ -227,7 +227,7 @@ async def kang(update: Update, context: CallbackContext):
                         % packname
                         + "\n"
                         "Emoji is:" + " " + sticker_emoji,
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                     )
                 print(e)
 
@@ -263,7 +263,7 @@ async def kang(update: Update, context: CallbackContext):
                 msg.reply_text(
                     f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
                     + f"\nEmoji is: {sticker_emoji}",
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                 )
             except TelegramError as e:
                 if e.message == "Stickerset_invalid":
@@ -285,7 +285,7 @@ async def kang(update: Update, context: CallbackContext):
                         % packname
                         + "\n"
                         "Emoji is:" + " " + sticker_emoji,
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                     )
                 print(e)
 
@@ -324,7 +324,7 @@ async def kang(update: Update, context: CallbackContext):
                 msg.reply_text(
                     f"Sticker Successfully added to [pack](t.me/addstickers/{packname})"
                     + f"\nEmoji is: {sticker_emoji}",
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                 )
 
             except TelegramError as e:
@@ -345,7 +345,7 @@ async def kang(update: Update, context: CallbackContext):
                     msg.reply_text(
                         f"Sticker Successfully added to [pack](t.me/addsticker/{packname})",
                         +"\n" f"Emoji is: {sticker_emoji}",
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                     )
 
     elif args:
@@ -387,7 +387,7 @@ async def kang(update: Update, context: CallbackContext):
             msg.reply_text(
                 f"Sticker successfully added to [pack](t.me/addstickers/{packname})"
                 + f"\nEmoji is: {sticker_emoji}",
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
         except OSError as e:
             msg.reply_text("I can only kang images m8.")
@@ -420,7 +420,7 @@ async def kang(update: Update, context: CallbackContext):
                     + "Emoji is:"
                     + " "
                     + sticker_emoji,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                 )
             elif e.message == "Invalid sticker emojis":
                 msg.reply_text("Invalid emoji(s).")
@@ -432,7 +432,7 @@ async def kang(update: Update, context: CallbackContext):
                     % packname
                     + "\n"
                     "Emoji is:" + " " + sticker_emoji,
-                    parse_mode=ParseMode.MARKDOWN,
+                    parse_mode=ParseMode.MARKDOWN_V2,
                 )
             print(e)
     else:
@@ -446,7 +446,7 @@ async def kang(update: Update, context: CallbackContext):
                     packs += f"[pack{i}](t.me/addstickers/{packname})\n"
         else:
             packs += f"[pack](t.me/addstickers/{packname})"
-        msg.reply_text(packs, parse_mode=ParseMode.MARKDOWN)
+        msg.reply_text(packs, parse_mode=ParseMode.MARKDOWN_V2)
     try:
         if os.path.isfile("kangsticker.png"):
             os.remove("kangsticker.png")
@@ -508,7 +508,7 @@ async def makepack_internal(
         if e.message == "Sticker set name is already occupied":
             msg.reply_text(
                 "Your pack can be found [here](t.me/addstickers/%s)" % packname,
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
         elif e.message in ("Peer_id_invalid", "bot was blocked by the user"):
             msg.reply_text(
@@ -528,7 +528,7 @@ async def makepack_internal(
             msg.reply_text(
                 "Sticker pack successfully created. Get it [here](t.me/addstickers/%s)"
                 % packname,
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
         return
 
@@ -536,7 +536,7 @@ async def makepack_internal(
         msg.reply_text(
             "Sticker pack successfully created. Get it [here](t.me/addstickers/%s)"
             % packname,
-            parse_mode=ParseMode.MARKDOWN,
+            parse_mode=ParseMode.MARKDOWN_V2,
         )
     else:
         msg.reply_text("Failed to create sticker pack. Possibly due to blek mejik.")
@@ -562,7 +562,7 @@ async def delsticker(update, context):
         if e.message == "Stickerset_invalid":
             msg.reply_text(
                 "Maybe the sticker pack is not yours or the pack was not made by me!",
-                parse_mode=ParseMode.MARKDOWN,
+                parse_mode=ParseMode.MARKDOWN_V2,
             )
 
 

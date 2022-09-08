@@ -100,7 +100,7 @@ async def user_admin(permission: AdminPerms):
                 else:
                     return message.reply_text(
                         f"You lack the permission: `{permission.name}`",
-                        parse_mode=ParseMode.MARKDOWN,
+                        parse_mode=ParseMode.MARKDOWN_V2,
                     )
 
         return awrapper
