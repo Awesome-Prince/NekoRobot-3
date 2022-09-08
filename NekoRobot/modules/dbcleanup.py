@@ -10,7 +10,9 @@ from NekoRobot import DEV_USERS, NEKO_PTB, OWNER_ID
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
-async def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = False):
+async def get_invalid_chats(
+    update: Update, context: CallbackContext, remove: bool = False
+):
     bot = context.bot
     chat_id = update.effective_chat.id
     chats = user_sql.get_all_chats()
@@ -57,7 +59,9 @@ async def get_invalid_chats(update: Update, context: CallbackContext, remove: bo
         return kicked_chats
 
 
-async def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = False):
+async def get_invalid_gban(
+    update: Update, context: CallbackContext, remove: bool = False
+):
     bot = context.bot
     banned = gban_sql.get_gban_list()
     ungbanned_users = 0

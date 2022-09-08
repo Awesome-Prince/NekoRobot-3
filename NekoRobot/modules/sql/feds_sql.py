@@ -72,7 +72,9 @@ class BansF(BASE):
     reason = Column(UnicodeText, default="")
     time = Column(BigInteger, default=0)
 
-    async def __init__(self, fed_id, user_id, first_name, last_name, user_name, reason, time):
+    async def __init__(
+        self, fed_id, user_id, first_name, last_name, user_name, reason, time
+    ):
         self.fed_id = fed_id
         self.user_id = user_id
         self.first_name = first_name

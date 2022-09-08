@@ -48,7 +48,9 @@ ADMIN_CACHE = TTLCache(maxsize=512, ttl=60 * 10, timer=perf_counter)
 THREAD_LOCK = RLock()
 
 
-async def is_whitelist_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
+async def is_whitelist_plus(
+    chat: Chat, user_id: int, member: ChatMember = None
+) -> bool:
     return any(
         user_id in user
         for user in [WHITELIST_USERS, TIGERS, SUPPORT_USERS, SUDO_USERS, DEV_USERS]
@@ -120,7 +122,9 @@ async def can_delete(chat: Chat, bot_id: int) -> bool:
     return chat.get_member(bot_id).can_delete_messages
 
 
-async def is_user_ban_protected(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
+async def is_user_ban_protected(
+    chat: Chat, user_id: int, member: ChatMember = None
+) -> bool:
     if (
         chat.type == "private"
         or user_id in SUDO_USERS
@@ -145,7 +149,9 @@ async def is_user_in_chat(chat: Chat, user_id: int) -> bool:
 
 async def dev_plus(func):
     @wraps(func)
-    async def is_dev_plus_func(update: Update, context: CallbackContext, *args, **kwargs):
+    async def is_dev_plus_func(
+        update: Update, context: CallbackContext, *args, **kwargs
+    ):
         context.bot
         user = update.effective_user
 
@@ -169,7 +175,9 @@ async def dev_plus(func):
 
 async def sudo_plus(func):
     @wraps(func)
-    async def is_sudo_plus_func(update: Update, context: CallbackContext, *args, **kwargs):
+    async def is_sudo_plus_func(
+        update: Update, context: CallbackContext, *args, **kwargs
+    ):
         context.bot
         user = update.effective_user
         chat = update.effective_chat
@@ -193,7 +201,9 @@ async def sudo_plus(func):
 
 async def stats_plus(func):
     @wraps(func)
-    async def is_stats_plus_func(update: Update, context: CallbackContext, *args, **kwargs):
+    async def is_stats_plus_func(
+        update: Update, context: CallbackContext, *args, **kwargs
+    ):
         context.bot
         user = update.effective_user
         chat = update.effective_chat
@@ -217,7 +227,9 @@ async def stats_plus(func):
 
 async def support_plus(func):
     @wraps(func)
-    async def is_support_plus_func(update: Update, context: CallbackContext, *args, **kwargs):
+    async def is_support_plus_func(
+        update: Update, context: CallbackContext, *args, **kwargs
+    ):
         context.bot
         user = update.effective_user
         chat = update.effective_chat
@@ -403,7 +415,9 @@ async def can_promote(func):
 
 async def can_restrict(func):
     @wraps(func)
-    async def restrict_rights(update: Update, context: CallbackContext, *args, **kwargs):
+    async def restrict_rights(
+        update: Update, context: CallbackContext, *args, **kwargs
+    ):
         bot = context.bot
         chat = update.effective_chat
         update_chat_title = chat.title
@@ -426,7 +440,9 @@ async def can_restrict(func):
 
 async def user_can_ban(func):
     @wraps(func)
-    async def user_is_banhammer(update: Update, context: CallbackContext, *args, **kwargs):
+    async def user_is_banhammer(
+        update: Update, context: CallbackContext, *args, **kwargs
+    ):
         context.bot
         user = update.effective_user.id
         member = update.effective_chat.get_member(user)
@@ -447,7 +463,9 @@ async def user_can_ban(func):
 
 async def connection_status(func):
     @wraps(func)
-    async def connected_status(update: Update, context: CallbackContext, *args, **kwargs):
+    async def connected_status(
+        update: Update, context: CallbackContext, *args, **kwargs
+    ):
         conn = connected(
             context.bot,
             update,

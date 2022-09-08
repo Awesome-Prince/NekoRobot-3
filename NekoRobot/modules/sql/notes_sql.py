@@ -77,7 +77,9 @@ NOTES_INSERTION_LOCK = threading.RLock()
 BUTTONS_INSERTION_LOCK = threading.RLock()
 
 
-async def add_note_to_db(chat_id, note_name, note_data, msgtype, buttons=None, file=None):
+async def add_note_to_db(
+    chat_id, note_name, note_data, msgtype, buttons=None, file=None
+):
     if not buttons:
         buttons = []
 
