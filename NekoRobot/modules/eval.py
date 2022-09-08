@@ -86,7 +86,7 @@ async def send(msg, bot, update):
         )
 
 
-async async def aexec(code, client, message):
+async def aexec(code, client, message):
     exec(
         "async def __aexec(client, message): "
         + "".join(f"\n {a}" for a in code.split("\n"))
