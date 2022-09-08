@@ -39,6 +39,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ContextTypes
 import NekoRobot.modules.sql.connection_sql as sql
 from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.helper_funcs import admin_status
+from NekoRobot.modules.helper_funcs import chat_status
 from NekoRobot.modules.helper_funcs.alternate import send_message
 
 AdminPerms = admin_status.AdminPerms
