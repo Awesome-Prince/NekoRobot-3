@@ -15,7 +15,7 @@ from NekoRobot.modules.log_channel import loggable
 # https://github.com/python-telegram-bot/python-telegram-bot/blob/master/examples/chatmemberbot.py
 
 
-def extract_status_change(chat_member_update: ChatMemberUpdated):
+async def extract_status_change(chat_member_update: ChatMemberUpdated):
     try:
         status_change = chat_member_update.difference().get("status")
     except AttributeError:  # no change in status
@@ -29,12 +29,12 @@ def extract_status_change(chat_member_update: ChatMemberUpdated):
     return status_change, title_change
 
 
-def do_announce(chat):  # announce to chat or only to log channel?
+async def do_announce(chat):  # announce to chat or only to log channel?
     return bool(chat.type != "chat" and sql.does_chat_log(chat.id))
 
 
 @loggable
-def chatmemberupdates(update: Update, context: CallbackContext) -> Optional[str]:
+async def chatmemberupdates(update: Update, context: CallbackContext) -> Optional[str]:
     bot = context.bot
     chat = update.effective_chat
     message = update.effective_message

@@ -35,14 +35,14 @@ class StickersFilters(BASE):
     chat_id = Column(String(14), primary_key=True)
     trigger = Column(UnicodeText, primary_key=True, nullable=False)
 
-    def __init__(self, chat_id, trigger):
+    async def __init__(self, chat_id, trigger):
         self.chat_id = str(chat_id)  # ensure string
         self.trigger = trigger
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Stickers filter '%s' for %s>" % (self.trigger, self.chat_id)
 
-    def __eq__(self, other):
+    async def __eq__(self, other):
         return bool(
             isinstance(other, StickersFilters)
             and self.chat_id == other.chat_id
@@ -56,12 +56,12 @@ class StickerSettings(BASE):
     blacklist_type = Column(BigInteger, default=1)
     value = Column(UnicodeText, default="0")
 
-    def __init__(self, chat_id, blacklist_type=1, value="0"):
+    async def __init__(self, chat_id, blacklist_type=1, value="0"):
         self.chat_id = str(chat_id)
         self.blacklist_type = blacklist_type
         self.value = value
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<{} will executing {} for blacklist trigger.>".format(
             self.chat_id, self.blacklist_type
         )
@@ -77,7 +77,7 @@ CHAT_STICKERS = {}
 CHAT_BLSTICK_BLACKLISTS = {}
 
 
-def add_to_stickers(chat_id, trigger):
+async def add_to_stickers(chat_id, trigger):
     with STICKERS_FILTER_INSERTION_LOCK:
         stickers_filt = StickersFilters(str(chat_id), trigger)
 
@@ -90,7 +90,7 @@ def add_to_stickers(chat_id, trigger):
             CHAT_STICKERS.get(str(chat_id), set()).add(trigger)
 
 
-def rm_from_stickers(chat_id, trigger):
+async def rm_from_stickers(chat_id, trigger):
     with STICKERS_FILTER_INSERTION_LOCK:
         stickers_filt = SESSION.query(StickersFilters).get((str(chat_id), trigger))
         if stickers_filt:
@@ -105,18 +105,18 @@ def rm_from_stickers(chat_id, trigger):
         return False
 
 
-def get_chat_stickers(chat_id):
+async def get_chat_stickers(chat_id):
     return CHAT_STICKERS.get(str(chat_id), set())
 
 
-def num_stickers_filters():
+async def num_stickers_filters():
     try:
         return SESSION.query(StickersFilters).count()
     finally:
         SESSION.close()
 
 
-def num_stickers_chat_filters(chat_id):
+async def num_stickers_chat_filters(chat_id):
     try:
         return (
             SESSION.query(StickersFilters.chat_id)
@@ -127,14 +127,14 @@ def num_stickers_chat_filters(chat_id):
         SESSION.close()
 
 
-def num_stickers_filter_chats():
+async def num_stickers_filter_chats():
     try:
         return SESSION.query(func.count(distinct(StickersFilters.chat_id))).scalar()
     finally:
         SESSION.close()
 
 
-def set_blacklist_strength(chat_id, blacklist_type, value):
+async def set_blacklist_strength(chat_id, blacklist_type, value):
     # for blacklist_type
     # 0 = nothing
     # 1 = delete
@@ -163,7 +163,7 @@ def set_blacklist_strength(chat_id, blacklist_type, value):
         SESSION.commit()
 
 
-def get_blacklist_setting(chat_id):
+async def get_blacklist_setting(chat_id):
     try:
         setting = CHAT_BLSTICK_BLACKLISTS.get(str(chat_id))
         if setting:
@@ -175,7 +175,7 @@ def get_blacklist_setting(chat_id):
         SESSION.close()
 
 
-def __load_CHAT_STICKERS():
+async def __load_CHAT_STICKERS():
     global CHAT_STICKERS
     try:
         chats = SESSION.query(StickersFilters.chat_id).distinct().all()
@@ -192,7 +192,7 @@ def __load_CHAT_STICKERS():
         SESSION.close()
 
 
-def __load_chat_stickerset_blacklists():
+async def __load_chat_stickerset_blacklists():
     global CHAT_BLSTICK_BLACKLISTS
     try:
         chats_settings = SESSION.query(StickerSettings).all()
@@ -206,7 +206,7 @@ def __load_chat_stickerset_blacklists():
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with STICKERS_FILTER_INSERTION_LOCK:
         chat_filters = (
             SESSION.query(StickersFilters)

@@ -13,7 +13,7 @@ from NekoRobot.modules.helper_funcs.misc import is_module_loaded
 from NekoRobot.modules.language import gs
 
 
-def get_help(chat):
+async def get_help(chat):
     return gs(chat, "disable_help")
 
 
@@ -32,7 +32,7 @@ if is_module_loaded(FILENAME):
     ADMIN_CMDS = []
 
     class DisableAbleCommandHandler(CommandHandler):
-        def __init__(self, command, callback, run_async=True, admin_ok=False, **kwargs):
+        async def __init__(self, command, callback, run_async=True, admin_ok=False, **kwargs):
             super().__init__(command, callback, run_async=run_async, **kwargs)
             self.admin_ok = admin_ok
             if isinstance(command, string_types):
@@ -44,7 +44,7 @@ if is_module_loaded(FILENAME):
                 if admin_ok:
                     ADMIN_CMDS.extend(command)
 
-        def check_update(self, update):
+        async def check_update(self, update):
             if not isinstance(update, Update) or not update.effective_message:
                 return
             message = update.effective_message
@@ -84,12 +84,12 @@ if is_module_loaded(FILENAME):
                         return False
 
     class DisableAbleMessageHandler(MessageHandler):
-        def __init__(self, pattern, callback, run_async=True, friendly="", **kwargs):
+        async def __init__(self, pattern, callback, run_async=True, friendly="", **kwargs):
             super().__init__(pattern, callback, run_async=run_async, **kwargs)
             DISABLE_OTHER.append(friendly or pattern)
             self.friendly = friendly or pattern
 
-        def check_update(self, update):
+        async def check_update(self, update):
             if isinstance(update, Update) and update.effective_message:
                 chat = update.effective_chat
                 return self.filters(update) and not sql.is_command_disabled(
@@ -98,7 +98,7 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     @typing_action
-    def disable(update, context):
+    async def disable(update, context):
         chat = update.effective_chat  # type: Optional[Chat]
         user = update.effective_user
         args = context.args
@@ -143,7 +143,7 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     @typing_action
-    def enable(update, context):
+    async def enable(update, context):
         chat = update.effective_chat  # type: Optional[Chat]
         user = update.effective_user
         args = context.args
@@ -188,7 +188,7 @@ if is_module_loaded(FILENAME):
 
     @user_admin
     @typing_action
-    def list_cmds(update, context):
+    async def list_cmds(update, context):
         if DISABLE_CMDS + DISABLE_OTHER:
             result = "".join(
                 " - `{}`\n".format(escape_markdown(str(cmd)))
@@ -203,7 +203,7 @@ if is_module_loaded(FILENAME):
             update.effective_message.reply_text("No commands can be disabled.")
 
     # do not async
-    def build_curr_disabled(chat_id: Union[str, int]) -> str:
+    async def build_curr_disabled(chat_id: Union[str, int]) -> str:
         disabled = sql.get_all_disabled(chat_id)
         if not disabled:
             return "No commands are disabled!"
@@ -212,7 +212,7 @@ if is_module_loaded(FILENAME):
         return "The following commands are currently restricted:\n{}".format(result)
 
     @typing_action
-    def commands(update, context):
+    async def commands(update, context):
         chat = update.effective_chat
         user = update.effective_user
         conn = connected(context.bot, update, chat, user.id, need_admin=True)
@@ -231,20 +231,20 @@ if is_module_loaded(FILENAME):
         text = build_curr_disabled(chat.id)
         send_message(update.effective_message, text, parse_mode=ParseMode.MARKDOWN)
 
-    def __import_data__(chat_id, data):
+    async def __import_data__(chat_id, data):
         disabled = data.get("disabled", {})
         for disable_cmd in disabled:
             sql.disable_command(chat_id, disable_cmd)
 
-    def __stats__():
+    async def __stats__():
         return "• {} disabled items, across {} chats.".format(
             sql.num_disabled(), sql.num_chats()
         )
 
-    def __migrate__(old_chat_id, new_chat_id):
+    async def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
 
-    def __chat_settings__(chat_id, user_id):
+    async def __chat_settings__(chat_id, user_id):
         return build_curr_disabled(chat_id)
 
     __mod_name__ = "Disabling"

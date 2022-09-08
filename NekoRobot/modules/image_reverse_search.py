@@ -44,7 +44,7 @@ useragent = "Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebK
 opener.addheaders = [("User-agent", useragent)]
 
 
-def reverse(update: Update, context: CallbackContext):
+async def reverse(update: Update, context: CallbackContext):
     if os.path.isfile("okgoogle.png"):
         os.remove("okgoogle.png")
 
@@ -179,7 +179,7 @@ def reverse(update: Update, context: CallbackContext):
         print(exception)
 
 
-def grs(update: Update, context: CallbackContext):
+async def grs(update: Update, context: CallbackContext):
     if os.path.isfile("okgoogle.png"):
         os.remove("okgoogle.png")
 
@@ -314,7 +314,7 @@ def grs(update: Update, context: CallbackContext):
         print(exception)
 
 
-def gg(update: Update, context: CallbackContext):
+async def gg(update: Update, context: CallbackContext):
     if os.path.isfile("okgoogle.png"):
         os.remove("okgoogle.png")
 
@@ -449,7 +449,7 @@ def gg(update: Update, context: CallbackContext):
         print(exception)
 
 
-def ParseSauce(googleurl):
+async def ParseSauce(googleurl):
     """Parse/Scrape the HTML code for the info we want."""
 
     source = opener.open(googleurl).read()
@@ -476,7 +476,7 @@ def ParseSauce(googleurl):
     return results
 
 
-def scam(imgspage, lim):
+async def scam(imgspage, lim):
     """Parse/Scrape the HTML code for the info we want."""
 
     single = opener.open(imgspage).read()

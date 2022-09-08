@@ -54,7 +54,7 @@ FLOOD_GROUP = 3
 
 
 @loggable
-def check_flood(update, context) -> str:
+async def check_flood(update, context) -> str:
     user = update.effective_user  # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
     msg = update.effective_message  # type: Optional[Message]
@@ -133,7 +133,7 @@ def check_flood(update, context) -> str:
 
 @user_admin_no_reply
 @bot_admin
-def flood_button(update: Update, context: CallbackContext):
+async def flood_button(update: Update, context: CallbackContext):
     bot = context.bot
     query = update.callback_query
     user = update.effective_user
@@ -162,7 +162,7 @@ def flood_button(update: Update, context: CallbackContext):
 
 @user_admin
 @loggable
-def set_flood(update, context) -> str:
+async def set_flood(update, context) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
@@ -255,7 +255,7 @@ def set_flood(update, context) -> str:
     return ""
 
 
-def flood(update, context):
+async def flood(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message
@@ -298,7 +298,7 @@ def flood(update, context):
 
 
 @user_admin
-def set_flood_mode(update, context):
+async def set_flood_mode(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
@@ -404,11 +404,11 @@ Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.
     return ""
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     limit = sql.get_flood_limit(chat_id)
     if limit == 0:
         return "Not enforcing to flood control."

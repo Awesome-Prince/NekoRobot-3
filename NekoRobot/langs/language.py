@@ -30,11 +30,11 @@ import yaml
 
 
 class Language:
-    def __init__(self) -> None:
+    async def __init__(self) -> None:
         self.languages: Dict = {}
         self.reload_strings()
 
-    def get_string(self, lang: str, string: str) -> str:
+    async def get_string(self, lang: str, string: str) -> str:
         try:
             return self.languages[lang][string]
         except (KeyError, IndexError):
@@ -44,7 +44,7 @@ class Language:
                 raise StringNotFound(f"String: ({string}) not found.")
             return en_string
 
-    def reload_strings(self) -> None:
+    async def reload_strings(self) -> None:
         for filename in os.listdir(r"./NekoRobot/langs"):
             if filename.endswith(".yaml"):
                 language_name = filename[:-5]
@@ -52,13 +52,13 @@ class Language:
                     open(r"./NekoRobot/langs/" + filename, encoding="utf8")
                 )
 
-    def get_languages(self) -> Dict:
+    async def get_languages(self) -> Dict:
         to_return: Dict = {}
         for language in self.languages:
             to_return[language] = self.languages[language]["language"]
         return to_return
 
-    def get_language(self, language: str) -> str:
+    async def get_language(self, language: str) -> str:
         return self.languages[language]["language"]
 
 

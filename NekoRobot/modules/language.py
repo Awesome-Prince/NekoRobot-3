@@ -36,7 +36,7 @@ from NekoRobot.langs import get_language, get_languages, get_string
 from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
 
 
-def paginate(iterable: Iterable, page_size: int) -> Generator[List, None, None]:
+async def paginate(iterable: Iterable, page_size: int) -> Generator[List, None, None]:
     while True:
         i1, i2 = itertools.tee(iterable)
         iterable, page = (
@@ -48,13 +48,13 @@ def paginate(iterable: Iterable, page_size: int) -> Generator[List, None, None]:
         yield page
 
 
-def gs(chat_id: Union[int, str], string: str) -> str:
+async def gs(chat_id: Union[int, str], string: str) -> str:
     lang = sql.get_chat_lang(chat_id)
     return get_string(lang, string)
 
 
 @user_admin
-def set_lang(update: Update, _) -> None:
+async def set_lang(update: Update, _) -> None:
     chat = update.effective_chat
     msg = update.effective_message
 
@@ -82,7 +82,7 @@ def set_lang(update: Update, _) -> None:
 
 
 @user_admin_no_reply
-def lang_button(update: Update, _) -> None:
+async def lang_button(update: Update, _) -> None:
     query = update.callback_query
     chat = update.effective_chat
 

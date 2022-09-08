@@ -25,7 +25,7 @@ from NekoRobot.modules.disable import DisableAbleCommandHandler
 combot_stickers_url = "https://combot.org/telegram/stickers?q="
 
 
-def stickerid(update: Update, context: CallbackContext):
+async def stickerid(update: Update, context: CallbackContext):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.sticker:
         update.effective_message.reply_text(
@@ -45,7 +45,7 @@ def stickerid(update: Update, context: CallbackContext):
         )
 
 
-def cb_sticker(update: Update, context: CallbackContext):
+async def cb_sticker(update: Update, context: CallbackContext):
     msg = update.effective_message
     split = msg.text.split(" ", 1)
     if len(split) == 1:
@@ -65,7 +65,7 @@ def cb_sticker(update: Update, context: CallbackContext):
     msg.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
 
 
-def getsticker(update: Update, context: CallbackContext):
+async def getsticker(update: Update, context: CallbackContext):
     bot = context.bot
     msg = update.effective_message
     chat_id = update.effective_chat.id
@@ -81,7 +81,7 @@ def getsticker(update: Update, context: CallbackContext):
         )
 
 
-def kang(update: Update, context: CallbackContext):
+async def kang(update: Update, context: CallbackContext):
     msg = update.effective_message
     user = update.effective_user
     args = context.args
@@ -460,7 +460,7 @@ def kang(update: Update, context: CallbackContext):
         pass
 
 
-def makepack_internal(
+async def makepack_internal(
     update,
     context,
     msg,
@@ -543,7 +543,7 @@ def makepack_internal(
 
 
 # if your are reading this, it took me 2 hours to make delsticker
-def delsticker(update, context):
+async def delsticker(update, context):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.sticker:
         file_id = msg.reply_to_message.sticker.file_id
@@ -570,7 +570,7 @@ Credit = "This Plugin Made by Kittu (@A_viyu), if you're using this code in your
 
 
 @Neko(pattern="^/mmf ?(.*)")
-async def handler(event):
+async async def handler(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:
@@ -599,7 +599,7 @@ async def handler(event):
 # Maybe replyed to suit the needs of this module
 
 
-async def drawText(image_path, text):
+async async def drawText(image_path, text):
     img = Image.open(image_path)
     os.remove(image_path)
     i_width, i_height = img.size

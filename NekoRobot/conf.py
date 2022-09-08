@@ -7,7 +7,7 @@ DEFAULTS = {
 }
 
 
-def get_str_key(name, required=False):
+async def get_str_key(name, required=False):
     if name in DEFAULTS:
         default = DEFAULTS[name]
     else:
@@ -22,7 +22,7 @@ def get_str_key(name, required=False):
         return data
 
 
-def get_int_key(name, required=False):
+async def get_int_key(name, required=False):
     if name in DEFAULTS:
         default = DEFAULTS[name]
     else:

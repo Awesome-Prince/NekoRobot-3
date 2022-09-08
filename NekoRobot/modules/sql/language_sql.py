@@ -35,11 +35,11 @@ class ChatLangs(BASE):
     chat_id = Column(String(14), primary_key=True)
     language = Column(UnicodeText)
 
-    def __init__(self, chat_id, language):
+    async def __init__(self, chat_id, language):
         self.chat_id = str(chat_id)  # ensure string
         self.language = language
 
-    def __repr__(self):
+    async def __repr__(self):
         return "Language {} chat {}".format(self.language, self.chat_id)
 
 
@@ -48,7 +48,7 @@ LANG_LOCK = threading.RLock()
 ChatLangs.__table__.create(checkfirst=True)
 
 
-def set_lang(chat_id: str, lang: str) -> None:
+async def set_lang(chat_id: str, lang: str) -> None:
     with LANG_LOCK:
         curr = SESSION.query(ChatLangs).get(str(chat_id))
         if not curr:
@@ -62,14 +62,14 @@ def set_lang(chat_id: str, lang: str) -> None:
         SESSION.commit()
 
 
-def get_chat_lang(chat_id: str) -> str:
+async def get_chat_lang(chat_id: str) -> str:
     lang = CHAT_LANG.get(str(chat_id))
     if lang is None:
         lang = "en"
     return lang
 
 
-def __load_chat_language() -> None:
+async def __load_chat_language() -> None:
     global CHAT_LANG
     try:
         allchats = SESSION.query(ChatLangs).all()

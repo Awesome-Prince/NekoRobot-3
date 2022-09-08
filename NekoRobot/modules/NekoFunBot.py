@@ -22,7 +22,7 @@ K = "Vid" "Text" "Gif"
 sleep_type = random.choice(K)
 
 
-def kiss(update, context):
+async def kiss(update, context):
     url = "https://nekos.best/api/v2/kiss"
     r = requests.get(url)
     e = r.json()
@@ -31,7 +31,7 @@ def kiss(update, context):
     msg.reply_video(kissme, caption="*Kisses u with all my love*~")
 
 
-def pat(update, context):
+async def pat(update, context):
     msg = update.effective_message
     name = (
         msg.reply_to_message.from_user.first_name
@@ -45,7 +45,7 @@ def pat(update, context):
     msg.reply_video(patme, caption=random.choice(OWO).format(name))
 
 
-def hug(update, context):
+async def hug(update, context):
     msg = update.effective_message
     if msg.reply_to_message:
         url = "https://nekos.best/api/v2/hug"
@@ -65,7 +65,7 @@ def hug(update, context):
         msg.reply_video(hugme, caption="*Hugs u with all my love*~")
 
 
-def slap(update, context):
+async def slap(update, context):
     msg = update.effective_message
     if msg.reply_to_message:
         url = "https://nekos.best/api/v2/slap"
@@ -85,7 +85,7 @@ def slap(update, context):
         msg.reply_video(slapme, caption="Here... Take this from me.")
 
 
-def blush(update, context):
+async def blush(update, context):
     msg = update.effective_message
     if msg.reply_to_message:
         url = "https://nekos.best/api/v2/blush"
@@ -108,7 +108,7 @@ def blush(update, context):
         msg.reply_video(blushme, caption="*Oh {}~kun I Luv You*~".format(name1))
 
 
-def cute(update, context):
+async def cute(update, context):
     msg = update.effective_message
     name = msg.from_user.first_name
     url = "https://nekos.best/api/v2/neko"
@@ -120,7 +120,7 @@ def cute(update, context):
     )
 
 
-def sleep(update, context):
+async def sleep(update, context):
     if sleep_type == "Text":
         msg = update.effective_message
         msg.reply_text(". . . (∪｡∪)｡｡｡zzzZZ")

@@ -56,7 +56,7 @@ Keep in mind that your message <b>MUST</b> contain some text other than just a b
 
 
 @user_admin
-def echo(update: Update, context: CallbackContext):
+async def echo(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     message = update.effective_message
 
@@ -71,7 +71,7 @@ def echo(update: Update, context: CallbackContext):
     message.delete()
 
 
-def markdown_help_sender(update: Update):
+async def markdown_help_sender(update: Update):
     update.effective_message.reply_text(MARKDOWN_HELP, parse_mode=ParseMode.HTML)
     update.effective_message.reply_text(
         "Try forwarding the following message to me, and you'll see, and Use #test!"
@@ -83,7 +83,7 @@ def markdown_help_sender(update: Update):
     )
 
 
-def markdown_help(update: Update, context: CallbackContext):
+async def markdown_help(update: Update, context: CallbackContext):
     if update.effective_chat.type != "private":
         update.effective_message.reply_text(
             "Contact me in pm",

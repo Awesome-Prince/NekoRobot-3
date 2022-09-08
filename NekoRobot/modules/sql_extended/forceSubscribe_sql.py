@@ -8,7 +8,7 @@ class forceSubscribe(BASE):
     chat_id = Column(Numeric, primary_key=True)
     channel = Column(String)
 
-    def __init__(self, chat_id, channel):
+    async def __init__(self, chat_id, channel):
         self.chat_id = chat_id
         self.channel = channel
 
@@ -16,7 +16,7 @@ class forceSubscribe(BASE):
 forceSubscribe.__table__.create(checkfirst=True)
 
 
-def fs_settings(chat_id):
+async def fs_settings(chat_id):
     try:
         return (
             SESSION.query(forceSubscribe)
@@ -29,7 +29,7 @@ def fs_settings(chat_id):
         SESSION.close()
 
 
-def add_channel(chat_id, channel):
+async def add_channel(chat_id, channel):
     adder = SESSION.query(forceSubscribe).get(chat_id)
     if adder:
         adder.channel = channel
@@ -39,7 +39,7 @@ def add_channel(chat_id, channel):
     SESSION.commit()
 
 
-def disapprove(chat_id):
+async def disapprove(chat_id):
     rem = SESSION.query(forceSubscribe).get(chat_id)
     if rem:
         SESSION.delete(rem)

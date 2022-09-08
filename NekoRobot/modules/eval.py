@@ -53,7 +53,7 @@ Neko_PYRO_Eval = filters.command(["eval", "e"])
 namespaces = {}
 
 
-def namespace_of(chat, update, bot):
+async def namespace_of(chat, update, bot):
     if chat not in namespaces:
         namespaces[chat] = {
             "__builtins__": globals()["__builtins__"],
@@ -66,13 +66,13 @@ def namespace_of(chat, update, bot):
     return namespaces[chat]
 
 
-def log_input(update):
+async def log_input(update):
     user = update.effective_user.id
     chat = update.effective_chat.id
     LOGGER.info(f"IN: {update.effective_message.text} (user={user}, chat={chat})")
 
 
-async def send(msg, bot, update):
+async async def send(msg, bot, update):
     if len(str(msg)) > 2000:
         with io.BytesIO(str.encode(msg)) as out_file:
             out_file.name = "output.txt"
@@ -86,33 +86,33 @@ async def send(msg, bot, update):
         )
 
 
-async def aexec(code, client, message):
+async async def aexec(code, client, message):
     exec(
-        "async def __aexec(client, message): "
+        "async async def __aexec(client, message): "
         + "".join(f"\n {a}" for a in code.split("\n"))
     )
     return await locals()["__aexec"](client, message)
 
 
-async def edit_or_reply(msg: Message, **kwargs):
+async async def edit_or_reply(msg: Message, **kwargs):
     func = msg.edit_text if msg.from_user.is_self else msg.reply
     spec = getfullargspec(func.__wrapped__).args
     await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
 @dev_plus
-async def execute(update: Update, context: CallbackContext) -> None:
+async async def execute(update: Update, context: CallbackContext) -> None:
     bot = context.bot
     await send((await do(exec, bot, update)), bot, update)
 
 
-def cleanup_code(code):
+async def cleanup_code(code):
     if code.startswith("```") and code.endswith("```"):
         return "\n".join(code.split("\n")[1:-1])
     return code.strip("` \n")
 
 
-async def do(func, bot, update):
+async async def do(func, bot, update):
     log_input(update)
     content = await update.message.text.split(" ", 1)[-1]
     body = cleanup_code(content)
@@ -124,7 +124,7 @@ async def do(func, bot, update):
     ) as temp:
         temp.write(body)
     stdout = io.StringIO()
-    to_compile = f'def func():\n{textwrap.indent(body, "  ")}'
+    to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
     try:
         exec(to_compile, env)
     except Exception as e:
@@ -157,7 +157,7 @@ async def do(func, bot, update):
     Neko_PYRO_Eval & filters.user(DEV_USERS) & (~filters.forwarded) & (~filters.via_bot)
 )
 @pgram.on_edited_message(Neko_PYRO_Eval)
-async def executor(client, message):
+async async def executor(client, message):
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -225,13 +225,13 @@ async def executor(client, message):
 
 
 @pgram.on_callback_query(filters.regex(r"runtime"))
-async def runtime_func_cq(_, cq):
+async async def runtime_func_cq(_, cq):
     runtime = cq.data.split(None, 1)[1]
     await cq.answer(runtime, show_alert=True)
 
 
 @dev_plus
-async def clear(update: Update, context: CallbackContext) -> None:
+async async def clear(update: Update, context: CallbackContext) -> None:
     bot = context.bot
     log_input(update)
     if update.message.chat_id in namespaces:

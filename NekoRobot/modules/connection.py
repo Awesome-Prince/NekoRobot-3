@@ -40,7 +40,7 @@ user_admin = chat_status.user_admin
 
 @user_admin
 @typing_action
-def allow_connections(update, context) -> str:
+async def allow_connections(update, context) -> str:
 
     chat = update.effective_chat
     args = context.args
@@ -88,7 +88,7 @@ def allow_connections(update, context) -> str:
 
 
 @typing_action
-def connection_chat(update, context):
+async def connection_chat(update, context):
 
     chat = update.effective_chat
     user = update.effective_user
@@ -112,7 +112,7 @@ def connection_chat(update, context):
 
 
 @typing_action
-def connect_chat(update, context):
+async def connect_chat(update, context):
 
     chat = update.effective_chat
     user = update.effective_user
@@ -282,7 +282,7 @@ def connect_chat(update, context):
             )
 
 
-def disconnect_chat(update, context):
+async def disconnect_chat(update, context):
 
     if update.effective_chat.type == "private":
         disconnection_status = sql.disconnect(update.effective_message.from_user.id)
@@ -297,7 +297,7 @@ def disconnect_chat(update, context):
         send_message(update.effective_message, "This command is only available in PM.")
 
 
-def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
+async def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
     user = update.effective_user
 
     if chat.type == chat.PRIVATE and sql.get_connected_chat(user_id):
@@ -361,7 +361,7 @@ Actions which are available with connected groups:-
 """
 
 
-def help_connect_chat(update, context):
+async def help_connect_chat(update, context):
 
     context.args
 
@@ -371,7 +371,7 @@ def help_connect_chat(update, context):
     send_message(update.effective_message, CONN_HELP, parse_mode="markdown")
 
 
-def connect_button(update, context):
+async def connect_button(update, context):
 
     query = update.callback_query
     chat = update.effective_chat

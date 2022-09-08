@@ -36,10 +36,10 @@ class ReportingUserSettings(BASE):
     user_id = Column(BigInteger, primary_key=True)
     should_report = Column(Boolean, default=True)
 
-    def __init__(self, user_id):
+    async def __init__(self, user_id):
         self.user_id = user_id
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<User report settings ({})>".format(self.user_id)
 
 
@@ -48,10 +48,10 @@ class ReportingChatSettings(BASE):
     chat_id = Column(String(14), primary_key=True)
     should_report = Column(Boolean, default=True)
 
-    def __init__(self, chat_id):
+    async def __init__(self, chat_id):
         self.chat_id = str(chat_id)
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Chat report settings ({})>".format(self.chat_id)
 
 
@@ -62,7 +62,7 @@ CHAT_LOCK = threading.RLock()
 USER_LOCK = threading.RLock()
 
 
-def chat_should_report(chat_id: Union[str, int]) -> bool:
+async def chat_should_report(chat_id: Union[str, int]) -> bool:
     try:
         chat_setting = SESSION.query(ReportingChatSettings).get(str(chat_id))
         if chat_setting:
@@ -72,7 +72,7 @@ def chat_should_report(chat_id: Union[str, int]) -> bool:
         SESSION.close()
 
 
-def user_should_report(user_id: int) -> bool:
+async def user_should_report(user_id: int) -> bool:
     try:
         user_setting = SESSION.query(ReportingUserSettings).get(user_id)
         if user_setting:
@@ -82,7 +82,7 @@ def user_should_report(user_id: int) -> bool:
         SESSION.close()
 
 
-def set_chat_setting(chat_id: Union[int, str], setting: bool):
+async def set_chat_setting(chat_id: Union[int, str], setting: bool):
     with CHAT_LOCK:
         chat_setting = SESSION.query(ReportingChatSettings).get(str(chat_id))
         if not chat_setting:
@@ -93,7 +93,7 @@ def set_chat_setting(chat_id: Union[int, str], setting: bool):
         SESSION.commit()
 
 
-def set_user_setting(user_id: int, setting: bool):
+async def set_user_setting(user_id: int, setting: bool):
     with USER_LOCK:
         user_setting = SESSION.query(ReportingUserSettings).get(user_id)
         if not user_setting:
@@ -104,7 +104,7 @@ def set_user_setting(user_id: int, setting: bool):
         SESSION.commit()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with CHAT_LOCK:
         chat_notes = (
             SESSION.query(ReportingChatSettings)

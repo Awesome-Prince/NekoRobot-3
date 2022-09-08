@@ -73,7 +73,7 @@ CURRENT_WARNING_FILTER_STRING = "<b>Current warning filters in this chat:</b>\n"
 
 
 # Not async
-def warn(
+async def warn(
     user: User, chat: Chat, reason: str, message: Message, warner: User = None
 ) -> str:
     if is_user_admin(chat, user.id):
@@ -181,7 +181,7 @@ def warn(
 @user_admin_no_reply
 @bot_admin
 @loggable
-def button(update: Update, context: CallbackContext) -> str:
+async def button(update: Update, context: CallbackContext) -> str:
     query: Optional[CallbackQuery] = update.callback_query
     user: Optional[User] = update.effective_user
     match = re.match(r"rm_warn\((.+?)\)", query.data)
@@ -212,7 +212,7 @@ def button(update: Update, context: CallbackContext) -> str:
 @user_admin
 @can_restrict
 @loggable
-def warn_user(update: Update, context: CallbackContext) -> str:
+async def warn_user(update: Update, context: CallbackContext) -> str:
     args = context.args
     message: Optional[Message] = update.effective_message
     chat: Optional[Chat] = update.effective_chat
@@ -242,7 +242,7 @@ def warn_user(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @bot_admin
-def rmwarn_cmd(update: Update, context: CallbackContext) -> str:
+async def rmwarn_cmd(update: Update, context: CallbackContext) -> str:
     args = context.args
     message: Optional[Message] = update.effective_message
     chat: Optional[Chat] = update.effective_chat
@@ -278,7 +278,7 @@ def rmwarn_cmd(update: Update, context: CallbackContext) -> str:
 @user_admin
 @bot_admin
 @loggable
-def reset_warns(update: Update, context: CallbackContext) -> str:
+async def reset_warns(update: Update, context: CallbackContext) -> str:
     args = context.args
     message: Optional[Message] = update.effective_message
     chat: Optional[Chat] = update.effective_chat
@@ -301,7 +301,7 @@ def reset_warns(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-def warns(update: Update, context: CallbackContext):
+async def warns(update: Update, context: CallbackContext):
     args = context.args
     message: Optional[Message] = update.effective_message
     chat: Optional[Chat] = update.effective_chat
@@ -332,7 +332,7 @@ def warns(update: Update, context: CallbackContext):
 
 # NEKO_PTB handler stop - do not async
 @user_admin
-def add_warn_filter(update: Update, context: CallbackContext):
+async def add_warn_filter(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
     msg: Optional[Message] = update.effective_message
 
@@ -365,7 +365,7 @@ def add_warn_filter(update: Update, context: CallbackContext):
 
 
 @user_admin
-def remove_warn_filter(update: Update, context: CallbackContext):
+async def remove_warn_filter(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
     msg: Optional[Message] = update.effective_message
 
@@ -400,7 +400,7 @@ def remove_warn_filter(update: Update, context: CallbackContext):
     )
 
 
-def list_warn_filters(update: Update, context: CallbackContext):
+async def list_warn_filters(update: Update, context: CallbackContext):
     chat: Optional[Chat] = update.effective_chat
     all_handlers = sql.get_chat_warn_triggers(chat.id)
 
@@ -422,7 +422,7 @@ def list_warn_filters(update: Update, context: CallbackContext):
 
 
 @loggable
-def reply_filter(update: Update, context: CallbackContext) -> str:
+async def reply_filter(update: Update, context: CallbackContext) -> str:
     chat: Optional[Chat] = update.effective_chat
     message: Optional[Message] = update.effective_message
     user: Optional[User] = update.effective_user
@@ -449,7 +449,7 @@ def reply_filter(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @loggable
-def set_warn_limit(update: Update, context: CallbackContext) -> str:
+async def set_warn_limit(update: Update, context: CallbackContext) -> str:
     args = context.args
     chat: Optional[Chat] = update.effective_chat
     user: Optional[User] = update.effective_user
@@ -478,7 +478,7 @@ def set_warn_limit(update: Update, context: CallbackContext) -> str:
 
 
 @user_admin
-def set_warn_strength(update: Update, context: CallbackContext):
+async def set_warn_strength(update: Update, context: CallbackContext):
     args = context.args
     chat: Optional[Chat] = update.effective_chat
     user: Optional[User] = update.effective_user
@@ -522,24 +522,24 @@ def set_warn_strength(update: Update, context: CallbackContext):
     return ""
 
 
-def __stats__():
+async def __stats__():
     return (
         f"• {sql.num_warns()} overall warns, across {sql.num_warn_chats()} chats.\n"
         f"• {sql.num_warn_filters()} warn filters, across {sql.num_warn_filter_chats()} chats."
     )
 
 
-def __import_data__(chat_id, data):
+async def __import_data__(chat_id, data):
     for user_id, count in data.get("warns", {}).items():
         for x in range(int(count)):
             sql.warn_user(user_id, chat_id)
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     num_warn_filters = sql.num_warn_chat_filters(chat_id)
     limit, soft_warn = sql.get_warn_setting(chat_id)
     return (

@@ -35,17 +35,17 @@ from NekoRobot import NO_LOAD
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
-    def __eq__(self, other):
+    async def __eq__(self, other):
         return self.text == other.text
 
-    def __lt__(self, other):
+    async def __lt__(self, other):
         return self.text < other.text
 
-    def __gt__(self, other):
+    async def __gt__(self, other):
         return self.text > other.text
 
 
-def split_message(msg: str) -> List[str]:
+async def split_message(msg: str) -> List[str]:
     if len(msg) < MAX_MESSAGE_LENGTH:
         return [msg]
 
@@ -64,7 +64,7 @@ def split_message(msg: str) -> List[str]:
     return result
 
 
-def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
+async def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
     if not chat:
         modules = sorted(
             [
@@ -102,7 +102,7 @@ def paginate_modules(page_n: int, module_dict: Dict, prefix, chat=None) -> List:
     return pairs
 
 
-def send_to_list(
+async def send_to_list(
     bot: Bot, send_to: list, message: str, markdown=False, html=False
 ) -> None:
     if html and markdown:
@@ -119,7 +119,7 @@ def send_to_list(
             pass  # ignore users who fail
 
 
-def build_keyboard(buttons):
+async def build_keyboard(buttons):
     keyb = []
     for btn in buttons:
         if btn.same_line and keyb:
@@ -130,7 +130,7 @@ def build_keyboard(buttons):
     return keyb
 
 
-def revert_buttons(buttons):
+async def revert_buttons(buttons):
     return "".join(
         "\n[{}](buttonurl://{}:same)".format(btn.name, btn.url)
         if btn.same_line
@@ -139,7 +139,7 @@ def revert_buttons(buttons):
     )
 
 
-def build_keyboard_parser(bot, chat_id, buttons):
+async def build_keyboard_parser(bot, chat_id, buttons):
     keyb = []
     for btn in buttons:
         if btn.url == "{rules}":
@@ -152,5 +152,5 @@ def build_keyboard_parser(bot, chat_id, buttons):
     return keyb
 
 
-def is_module_loaded(name):
+async def is_module_loaded(name):
     return name not in NO_LOAD

@@ -41,7 +41,7 @@ auth_url = data["auth_url"]
 
 
 @register(pattern="^/t(gm|gt) ?(.*)")
-async def telegrap(event):
+async async def telegrap(event):
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
         datetime.now()
@@ -119,7 +119,7 @@ async def telegrap(event):
         await event.reply("Reply to a message to get a permanent telegra.ph link.")
 
 
-def resize_image(image):
+async def resize_image(image):
     im = Image.open(image)
     im.save(image, "PNG")
 

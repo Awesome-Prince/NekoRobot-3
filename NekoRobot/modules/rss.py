@@ -36,7 +36,7 @@ from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.sql import rss_sql as sql
 
 
-def show_url(update: Update, context: CallbackContext):
+async def show_url(update: Update, context: CallbackContext):
     tg_chat_id = str(update.effective_chat.id)
     bot = context.bot
     args = context.args
@@ -98,7 +98,7 @@ def show_url(update: Update, context: CallbackContext):
         update.effective_message.reply_text("URL missing")
 
 
-def list_urls(update: Update, context: CallbackContext):
+async def list_urls(update: Update, context: CallbackContext):
     tg_chat_id = str(update.effective_chat.id)
     bot = context.bot
     user_data = sql.get_urls(tg_chat_id)
@@ -127,7 +127,7 @@ def list_urls(update: Update, context: CallbackContext):
 
 
 @user_admin
-def add_url(update: Update, context: CallbackContext):
+async def add_url(update: Update, context: CallbackContext):
     context.bot
     args = context.args
     if len(args) >= 1:
@@ -162,7 +162,7 @@ def add_url(update: Update, context: CallbackContext):
 
 
 @user_admin
-def remove_url(update: Update, context: CallbackContext):
+async def remove_url(update: Update, context: CallbackContext):
     context.bot
     args = context.args
     if len(args) >= 1:
@@ -189,7 +189,7 @@ def remove_url(update: Update, context: CallbackContext):
         update.effective_message.reply_text("URL missing")
 
 
-def rss_update(context: CallbackContext):
+async def rss_update(context: CallbackContext):
     user_data = sql.get_all()
     context.job
     bot = context.bot
@@ -272,7 +272,7 @@ def rss_update(context: CallbackContext):
             )
 
 
-def rss_set(context: CallbackContext):
+async def rss_set(context: CallbackContext):
     user_data = sql.get_all()
     bot, job = context.bot, context.job
     # this loop checks for every row in the DB

@@ -32,7 +32,7 @@ from NekoRobot.modules.log_channel import gloggable
 
 @user_admin_no_reply
 @gloggable
-def kukirm(update: Update, context: CallbackContext) -> str:
+async def kukirm(update: Update, context: CallbackContext) -> str:
     query: Optional[CallbackQuery] = update.callback_query
     user: Optional[User] = update.effective_user
     match = re.match(r"rm_chat\((.+?)\)", query.data)
@@ -60,7 +60,7 @@ def kukirm(update: Update, context: CallbackContext) -> str:
 
 @user_admin_no_reply
 @gloggable
-def kukiadd(update: Update, context: CallbackContext) -> str:
+async def kukiadd(update: Update, context: CallbackContext) -> str:
     query: Optional[CallbackQuery] = update.callback_query
     user: Optional[User] = update.effective_user
     match = re.match(r"add_chat\((.+?)\)", query.data)
@@ -88,7 +88,7 @@ def kukiadd(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @gloggable
-def kuki(update: Update, context: CallbackContext):
+async def kuki(update: Update, context: CallbackContext):
     update.effective_user
     message = update.effective_message
     msg = "Choose an option"
@@ -105,7 +105,7 @@ def kuki(update: Update, context: CallbackContext):
     )
 
 
-def kuki_message(context: CallbackContext, message):
+async def kuki_message(context: CallbackContext, message):
     reply_message = message.reply_to_message
     if message.text.lower() == "kuki":
         return True
@@ -116,7 +116,7 @@ def kuki_message(context: CallbackContext, message):
         return False
 
 
-def chatbot(update: Update, context: CallbackContext):
+async def chatbot(update: Update, context: CallbackContext):
     message = update.effective_message
     chat_id = update.effective_chat.id
     bot = context.bot
@@ -135,11 +135,11 @@ def chatbot(update: Update, context: CallbackContext):
 
         Kuki = json.loads(kukiurl.text)
         kuki = Kuki["reply"]
-        sleep(0.3)
+        await sleep(0.3)
         message.reply_text(kuki, timeout=60)
 
 
-def list_all_chats(update: Update, context: CallbackContext):
+async def list_all_chats(update: Update, context: CallbackContext):
     chats = sql.get_all_kuki_chats()
     text = "<b>Neko Enabled Chats</b>\n"
     for chat in chats:
@@ -150,7 +150,7 @@ def list_all_chats(update: Update, context: CallbackContext):
         except (BadRequest, Unauthorized):
             sql.rem_kuki(*chat)
         except RetryAfter as e:
-            sleep(e.retry_after)
+            await sleep(e.retry_after)
     update.effective_message.reply_text(text, parse_mode="HTML")
 
 

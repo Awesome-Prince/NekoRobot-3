@@ -27,7 +27,7 @@ LINK_REGEX = re.compile(r"(?<!\\)\[.+?\]\((.*?)\)")
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
 
 
-def _selective_escape(to_parse: str) -> str:
+async def _selective_escape(to_parse: str) -> str:
     """
     Escape all invalid markdown
     :param to_parse: text to escape
@@ -45,7 +45,7 @@ def _selective_escape(to_parse: str) -> str:
 
 
 # This is a fun one.
-def _calc_emoji_offset(to_calc) -> int:
+async def _calc_emoji_offset(to_calc) -> int:
     # Get all emoji in text.
     emoticons = emoji.get_emoji_regexp().finditer(to_calc)
     # Check the utf16 length of the emoji to determine the offset it caused.
@@ -55,7 +55,7 @@ def _calc_emoji_offset(to_calc) -> int:
     return sum(len(e.group(0).encode("utf-16-le")) // 2 - 1 for e in emoticons)
 
 
-def markdown_parser(
+async def markdown_parser(
     txt: str, entities: Dict[MessageEntity, str] = None, offset: int = 0
 ) -> str:
     """
@@ -127,7 +127,7 @@ def markdown_parser(
     return res
 
 
-def button_markdown_parser(
+async def button_markdown_parser(
     txt: str,
     entities: Dict[MessageEntity, str] = None,
     offset: int = 0,
@@ -160,7 +160,7 @@ def button_markdown_parser(
     return note_data, buttons
 
 
-def escape_invalid_curly_brackets(text: str, valids: List[str]) -> str:
+async def escape_invalid_curly_brackets(text: str, valids: List[str]) -> str:
     new_text = ""
     idx = 0
     while idx < len(text):
@@ -202,7 +202,7 @@ SMART_CLOSE = "”"
 START_CHAR = ("'", '"', SMART_OPEN)
 
 
-def split_quotes(text: str) -> List:
+async def split_quotes(text: str) -> List:
     if any(text.startswith(char) for char in START_CHAR):
         counter = 1  # ignore first char -> is some kind of quote
         while counter < len(text):
@@ -227,7 +227,7 @@ def split_quotes(text: str) -> List:
         return text.split(None, 1)
 
 
-def remove_escapes(text: str) -> str:
+async def remove_escapes(text: str) -> str:
     counter = 0
     res = ""
     is_escaped = False
@@ -243,7 +243,7 @@ def remove_escapes(text: str) -> str:
     return res
 
 
-def escape_chars(text: str, to_escape: List[str]) -> str:
+async def escape_chars(text: str, to_escape: List[str]) -> str:
     to_escape.append("\\")
     new_text = ""
     for x in text:
@@ -253,7 +253,7 @@ def escape_chars(text: str, to_escape: List[str]) -> str:
     return new_text
 
 
-def extract_time(message, time_val):
+async def extract_time(message, time_val):
     if any(time_val.endswith(unit) for unit in ("m", "h", "d")):
         unit = time_val[-1]
         time_num = time_val[:-1]  # type: str
@@ -279,7 +279,7 @@ def extract_time(message, time_val):
     return ""
 
 
-def markdown_to_html(text):
+async def markdown_to_html(text):
     text = text.replace("*", "**")
     text = text.replace("`", "```")
     text = text.replace("~", "~~")

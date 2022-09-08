@@ -36,15 +36,15 @@ class GloballyBannedUsers(BASE):
     name = Column(UnicodeText, nullable=False)
     reason = Column(UnicodeText)
 
-    def __init__(self, user_id, name, reason=None):
+    async def __init__(self, user_id, name, reason=None):
         self.user_id = user_id
         self.name = name
         self.reason = reason
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<GBanned User {} ({})>".format(self.name, self.user_id)
 
-    def to_dict(self):
+    async def to_dict(self):
         return {"user_id": self.user_id, "name": self.name, "reason": self.reason}
 
 
@@ -53,11 +53,11 @@ class GbanSettings(BASE):
     chat_id = Column(String(14), primary_key=True)
     setting = Column(Boolean, default=True, nullable=False)
 
-    def __init__(self, chat_id, enabled):
+    async def __init__(self, chat_id, enabled):
         self.chat_id = str(chat_id)
         self.setting = enabled
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Gban setting {} ({})>".format(self.chat_id, self.setting)
 
 
@@ -70,7 +70,7 @@ GBANNED_LIST = set()
 GBANSTAT_LIST = set()
 
 
-def gban_user(user_id, name, reason=None):
+async def gban_user(user_id, name, reason=None):
     with GBANNED_USERS_LOCK:
         user = SESSION.query(GloballyBannedUsers).get(user_id)
         if not user:
@@ -84,7 +84,7 @@ def gban_user(user_id, name, reason=None):
         __load_gbanned_userid_list()
 
 
-def update_gban_reason(user_id, name, reason=None):
+async def update_gban_reason(user_id, name, reason=None):
     with GBANNED_USERS_LOCK:
         user = SESSION.query(GloballyBannedUsers).get(user_id)
         if not user:
@@ -98,7 +98,7 @@ def update_gban_reason(user_id, name, reason=None):
         return old_reason
 
 
-def ungban_user(user_id):
+async def ungban_user(user_id):
     with GBANNED_USERS_LOCK:
         user = SESSION.query(GloballyBannedUsers).get(user_id)
         if user:
@@ -108,25 +108,25 @@ def ungban_user(user_id):
         __load_gbanned_userid_list()
 
 
-def is_user_gbanned(user_id):
+async def is_user_gbanned(user_id):
     return user_id in GBANNED_LIST
 
 
-def get_gbanned_user(user_id):
+async def get_gbanned_user(user_id):
     try:
         return SESSION.query(GloballyBannedUsers).get(user_id)
     finally:
         SESSION.close()
 
 
-def get_gban_list():
+async def get_gban_list():
     try:
         return [x.to_dict() for x in SESSION.query(GloballyBannedUsers).all()]
     finally:
         SESSION.close()
 
 
-def enable_gbans(chat_id):
+async def enable_gbans(chat_id):
     with GBAN_SETTING_LOCK:
         chat = SESSION.query(GbanSettings).get(str(chat_id))
         if not chat:
@@ -139,7 +139,7 @@ def enable_gbans(chat_id):
             GBANSTAT_LIST.remove(str(chat_id))
 
 
-def disable_gbans(chat_id):
+async def disable_gbans(chat_id):
     with GBAN_SETTING_LOCK:
         chat = SESSION.query(GbanSettings).get(str(chat_id))
         if not chat:
@@ -151,15 +151,15 @@ def disable_gbans(chat_id):
         GBANSTAT_LIST.add(str(chat_id))
 
 
-def does_chat_gban(chat_id):
+async def does_chat_gban(chat_id):
     return str(chat_id) not in GBANSTAT_LIST
 
 
-def num_gbanned_users():
+async def num_gbanned_users():
     return len(GBANNED_LIST)
 
 
-def __load_gbanned_userid_list():
+async def __load_gbanned_userid_list():
     global GBANNED_LIST
     try:
         GBANNED_LIST = {x.user_id for x in SESSION.query(GloballyBannedUsers).all()}
@@ -167,7 +167,7 @@ def __load_gbanned_userid_list():
         SESSION.close()
 
 
-def __load_gban_stat_list():
+async def __load_gban_stat_list():
     global GBANSTAT_LIST
     try:
         GBANSTAT_LIST = {
@@ -177,7 +177,7 @@ def __load_gban_stat_list():
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with GBAN_SETTING_LOCK:
         chat = SESSION.query(GbanSettings).get(str(old_chat_id))
         if chat:

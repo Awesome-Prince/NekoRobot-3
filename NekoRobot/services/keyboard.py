@@ -4,7 +4,7 @@ from pyrogram.types import InlineKeyboardButton as Ikb
 from NekoRobot.utils.functions import get_urls_from_text as is_url
 
 
-def keyboard(buttons_list, row_width: int = 2):
+async def keyboard(buttons_list, row_width: int = 2):
     """
     Buttons builder, pass buttons in a list and it will
     return pyrogram.types.IKB object
@@ -24,7 +24,7 @@ def keyboard(buttons_list, row_width: int = 2):
     return buttons
 
 
-def ikb(data: dict, row_width: int = 2):
+async def ikb(data: dict, row_width: int = 2):
     """
     Converts a dict to pyrogram buttons
     Ex: dict_to_keyboard({"click here": "this is callback data"})

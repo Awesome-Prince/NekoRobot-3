@@ -37,7 +37,7 @@ from NekoRobot.modules.helper_funcs.regex_helper import infinite_loop_check
 DELIMITERS = ("/", ":", "|", "_")
 
 
-def separate_sed(sed_string):
+async def separate_sed(sed_string):
     if (
         len(sed_string) >= 3
         and sed_string[1] in DELIMITERS
@@ -83,7 +83,7 @@ def separate_sed(sed_string):
         return replace, replace_with, flags.lower()
 
 
-def sed(update: Update, context: CallbackContext):
+async def sed(update: Update, context: CallbackContext):
     sed_result = separate_sed(update.effective_message.text)
     if sed_result and update.effective_message.reply_to_message:
         if update.effective_message.reply_to_message.text:

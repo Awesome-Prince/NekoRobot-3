@@ -74,7 +74,7 @@ WAIFUS_IMG = "https://telegra.ph/file/e9284f19f009784e24043.jpg"
 
 
 # do not async
-def send(update, message, keyboard, backup_message):
+async def send(update, message, keyboard, backup_message):
     chat = update.effective_chat
     cleanserv = sql.clean_service(chat.id)
     reply = update.message.message_id
@@ -147,7 +147,7 @@ def send(update, message, keyboard, backup_message):
 
 
 @loggable
-def new_member(update: Update, context: CallbackContext):
+async def new_member(update: Update, context: CallbackContext):
     bot, job_queue = context.bot, context.job_queue
     chat = update.effective_chat
     user = update.effective_user
@@ -460,7 +460,7 @@ def new_member(update: Update, context: CallbackContext):
     return ""
 
 
-def check_not_bot(member, chat_id, message_id, context):
+async def check_not_bot(member, chat_id, message_id, context):
     bot = context.bot
     member_dict = VERIFIED_USER_WAITLIST.pop(member.id)
     member_status = member_dict.get("status")
@@ -480,7 +480,7 @@ def check_not_bot(member, chat_id, message_id, context):
             pass
 
 
-def left_member(update: Update, context: CallbackContext):
+async def left_member(update: Update, context: CallbackContext):
     bot = context.bot
     chat = update.effective_chat
     user = update.effective_user
@@ -589,7 +589,7 @@ def left_member(update: Update, context: CallbackContext):
 
 
 @user_admin
-def welcome(update: Update, context: CallbackContext):
+async def welcome(update: Update, context: CallbackContext):
     args = context.args
     chat = update.effective_chat
     # if no args, show current replies.
@@ -651,7 +651,7 @@ def welcome(update: Update, context: CallbackContext):
 
 
 @user_admin
-def goodbye(update: Update, context: CallbackContext):
+async def goodbye(update: Update, context: CallbackContext):
     args = context.args
     chat = update.effective_chat
 
@@ -703,7 +703,7 @@ def goodbye(update: Update, context: CallbackContext):
 
 @user_admin
 @loggable
-def set_welcome(update: Update, context: CallbackContext) -> str:
+async def set_welcome(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     user = update.effective_user
     msg = update.effective_message
@@ -727,7 +727,7 @@ def set_welcome(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @loggable
-def reset_welcome(update: Update, context: CallbackContext) -> str:
+async def reset_welcome(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     user = update.effective_user
 
@@ -746,7 +746,7 @@ def reset_welcome(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @loggable
-def set_goodbye(update: Update, context: CallbackContext) -> str:
+async def set_goodbye(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     user = update.effective_user
     msg = update.effective_message
@@ -768,7 +768,7 @@ def set_goodbye(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @loggable
-def reset_goodbye(update: Update, context: CallbackContext) -> str:
+async def reset_goodbye(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     user = update.effective_user
 
@@ -787,7 +787,7 @@ def reset_goodbye(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @loggable
-def welcomemute(update: Update, context: CallbackContext) -> str:
+async def welcomemute(update: Update, context: CallbackContext) -> str:
     args = context.args
     chat = update.effective_chat
     user = update.effective_user
@@ -843,7 +843,7 @@ def welcomemute(update: Update, context: CallbackContext) -> str:
 
 @user_admin
 @loggable
-def clean_welcome(update: Update, context: CallbackContext) -> str:
+async def clean_welcome(update: Update, context: CallbackContext) -> str:
     args = context.args
     chat = update.effective_chat
     user = update.effective_user
@@ -884,7 +884,7 @@ def clean_welcome(update: Update, context: CallbackContext) -> str:
 
 
 @user_admin
-def cleanservice(update: Update, context: CallbackContext) -> str:
+async def cleanservice(update: Update, context: CallbackContext) -> str:
     args = context.args
     chat = update.effective_chat  # type: Optional[Chat]
     if chat.type != chat.PRIVATE:
@@ -917,7 +917,7 @@ def cleanservice(update: Update, context: CallbackContext) -> str:
             )
 
 
-def user_button(update: Update, context: CallbackContext):
+async def user_button(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
     query = update.callback_query
@@ -1018,19 +1018,19 @@ WELC_MUTE_HELP_TXT = (
 
 
 @user_admin
-def welcome_help(update: Update, context: CallbackContext):
+async def welcome_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
 
 
 @user_admin
-def welcome_mute_help(update: Update, context: CallbackContext):
+async def welcome_mute_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
         WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN
     )
 
 
 # TODO: get welcome data from group butler snap
-# def __import_data__(chat_id, data):
+# async def __import_data__(chat_id, data):
 #     welcome = data.get('info', {}).get('rules')
 #     welcome = welcome.replace('$username', '{username}')
 #     welcome = welcome.replace('$name', '{fullname}')
@@ -1041,11 +1041,11 @@ def welcome_mute_help(update: Update, context: CallbackContext):
 #     sql.set_custom_welcome(chat_id, welcome, sql.Types.TEXT)
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     welcome_pref = sql.get_welc_pref(chat_id)[0]
     goodbye_pref = sql.get_gdbye_pref(chat_id)[0]
     return (

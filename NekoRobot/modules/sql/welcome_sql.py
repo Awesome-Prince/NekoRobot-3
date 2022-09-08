@@ -260,12 +260,12 @@ class Welcome(BASE):
 
     clean_welcome = Column(BigInteger)
 
-    def __init__(self, chat_id, should_welcome=True, should_goodbye=True):
+    async def __init__(self, chat_id, should_welcome=True, should_goodbye=True):
         self.chat_id = chat_id
         self.should_welcome = should_welcome
         self.should_goodbye = should_goodbye
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Chat {} should Welcome new users: {}>".format(
             self.chat_id, self.should_welcome
         )
@@ -279,7 +279,7 @@ class WelcomeButtons(BASE):
     url = Column(UnicodeText, nullable=False)
     same_line = Column(Boolean, default=False)
 
-    def __init__(self, chat_id, name, url, same_line=False):
+    async def __init__(self, chat_id, name, url, same_line=False):
         self.chat_id = str(chat_id)
         self.name = name
         self.url = url
@@ -294,7 +294,7 @@ class GoodbyeButtons(BASE):
     url = Column(UnicodeText, nullable=False)
     same_line = Column(Boolean, default=False)
 
-    def __init__(self, chat_id, name, url, same_line=False):
+    async def __init__(self, chat_id, name, url, same_line=False):
         self.chat_id = str(chat_id)
         self.name = name
         self.url = url
@@ -306,7 +306,7 @@ class WelcomeMute(BASE):
     chat_id = Column(String(14), primary_key=True)
     welcomemutes = Column(UnicodeText, default=False)
 
-    def __init__(self, chat_id, welcomemutes):
+    async def __init__(self, chat_id, welcomemutes):
         self.chat_id = str(chat_id)  # ensure string
         self.welcomemutes = welcomemutes
 
@@ -317,7 +317,7 @@ class WelcomeMuteUsers(BASE):
     chat_id = Column(String(14), primary_key=True)
     human_check = Column(Boolean)
 
-    def __init__(self, user_id, chat_id, human_check):
+    async def __init__(self, user_id, chat_id, human_check):
         self.user_id = user_id  # ensure string
         self.chat_id = str(chat_id)
         self.human_check = human_check
@@ -328,10 +328,10 @@ class CleanServiceSetting(BASE):
     chat_id = Column(String(14), primary_key=True)
     clean_service = Column(Boolean, default=True)
 
-    def __init__(self, chat_id):
+    async def __init__(self, chat_id):
         self.chat_id = str(chat_id)
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Chat used clean service ({})>".format(self.chat_id)
 
 
@@ -349,7 +349,7 @@ WM_LOCK = threading.RLock()
 CS_LOCK = threading.RLock()
 
 
-def welcome_mutes(chat_id):
+async def welcome_mutes(chat_id):
     try:
         welcomemutes = SESSION.query(WelcomeMute).get(str(chat_id))
         if welcomemutes:
@@ -359,7 +359,7 @@ def welcome_mutes(chat_id):
         SESSION.close()
 
 
-def set_welcome_mutes(chat_id, welcomemutes):
+async def set_welcome_mutes(chat_id, welcomemutes):
     with WM_LOCK:
         prev = SESSION.query(WelcomeMute).get((str(chat_id)))
         if prev:
@@ -369,7 +369,7 @@ def set_welcome_mutes(chat_id, welcomemutes):
         SESSION.commit()
 
 
-def set_human_checks(user_id, chat_id):
+async def set_human_checks(user_id, chat_id):
     with INSERTION_LOCK:
         human_check = SESSION.query(WelcomeMuteUsers).get((user_id, str(chat_id)))
         if not human_check:
@@ -384,7 +384,7 @@ def set_human_checks(user_id, chat_id):
         return human_check
 
 
-def get_human_checks(user_id, chat_id):
+async def get_human_checks(user_id, chat_id):
     try:
         human_check = SESSION.query(WelcomeMuteUsers).get((user_id, str(chat_id)))
         if not human_check:
@@ -395,7 +395,7 @@ def get_human_checks(user_id, chat_id):
         SESSION.close()
 
 
-def get_welc_mutes_pref(chat_id):
+async def get_welc_mutes_pref(chat_id):
     welcomemutes = SESSION.query(WelcomeMute).get(str(chat_id))
     SESSION.close()
 
@@ -405,7 +405,7 @@ def get_welc_mutes_pref(chat_id):
     return False
 
 
-def get_welc_pref(chat_id):
+async def get_welc_pref(chat_id):
     welc = SESSION.query(Welcome).get(str(chat_id))
     SESSION.close()
     if welc:
@@ -421,7 +421,7 @@ def get_welc_pref(chat_id):
         return True, DEFAULT_WELCOME, None, Types.TEXT
 
 
-def get_gdbye_pref(chat_id):
+async def get_gdbye_pref(chat_id):
     welc = SESSION.query(Welcome).get(str(chat_id))
     SESSION.close()
     if welc:
@@ -431,7 +431,7 @@ def get_gdbye_pref(chat_id):
         return True, DEFAULT_GOODBYE, Types.TEXT
 
 
-def set_clean_welcome(chat_id, clean_welcome):
+async def set_clean_welcome(chat_id, clean_welcome):
     with INSERTION_LOCK:
         curr = SESSION.query(Welcome).get(str(chat_id))
         if not curr:
@@ -443,7 +443,7 @@ def set_clean_welcome(chat_id, clean_welcome):
         SESSION.commit()
 
 
-def get_clean_pref(chat_id):
+async def get_clean_pref(chat_id):
     welc = SESSION.query(Welcome).get(str(chat_id))
     SESSION.close()
 
@@ -453,7 +453,7 @@ def get_clean_pref(chat_id):
     return False
 
 
-def set_welc_preference(chat_id, should_welcome):
+async def set_welc_preference(chat_id, should_welcome):
     with INSERTION_LOCK:
         curr = SESSION.query(Welcome).get(str(chat_id))
         if not curr:
@@ -465,7 +465,7 @@ def set_welc_preference(chat_id, should_welcome):
         SESSION.commit()
 
 
-def set_gdbye_preference(chat_id, should_goodbye):
+async def set_gdbye_preference(chat_id, should_goodbye):
     with INSERTION_LOCK:
         curr = SESSION.query(Welcome).get(str(chat_id))
         if not curr:
@@ -477,7 +477,7 @@ def set_gdbye_preference(chat_id, should_goodbye):
         SESSION.commit()
 
 
-def set_custom_welcome(
+async def set_custom_welcome(
     chat_id, custom_content, custom_welcome, welcome_type, buttons=None
 ):
     if buttons is None:
@@ -515,7 +515,7 @@ def set_custom_welcome(
         SESSION.commit()
 
 
-def get_custom_welcome(chat_id):
+async def get_custom_welcome(chat_id):
     welcome_settings = SESSION.query(Welcome).get(str(chat_id))
     ret = DEFAULT_WELCOME
     if welcome_settings and welcome_settings.custom_welcome:
@@ -525,7 +525,7 @@ def get_custom_welcome(chat_id):
     return ret
 
 
-def set_custom_gdbye(chat_id, custom_goodbye, goodbye_type, buttons=None):
+async def set_custom_gdbye(chat_id, custom_goodbye, goodbye_type, buttons=None):
     if buttons is None:
         buttons = []
 
@@ -560,7 +560,7 @@ def set_custom_gdbye(chat_id, custom_goodbye, goodbye_type, buttons=None):
         SESSION.commit()
 
 
-def get_custom_gdbye(chat_id):
+async def get_custom_gdbye(chat_id):
     welcome_settings = SESSION.query(Welcome).get(str(chat_id))
     ret = DEFAULT_GOODBYE
     if welcome_settings and welcome_settings.custom_leave:
@@ -570,7 +570,7 @@ def get_custom_gdbye(chat_id):
     return ret
 
 
-def get_welc_buttons(chat_id):
+async def get_welc_buttons(chat_id):
     try:
         return (
             SESSION.query(WelcomeButtons)
@@ -582,7 +582,7 @@ def get_welc_buttons(chat_id):
         SESSION.close()
 
 
-def get_gdbye_buttons(chat_id):
+async def get_gdbye_buttons(chat_id):
     try:
         return (
             SESSION.query(GoodbyeButtons)
@@ -594,7 +594,7 @@ def get_gdbye_buttons(chat_id):
         SESSION.close()
 
 
-def clean_service(chat_id: Union[str, int]) -> bool:
+async def clean_service(chat_id: Union[str, int]) -> bool:
     try:
         chat_setting = SESSION.query(CleanServiceSetting).get(str(chat_id))
         if chat_setting:
@@ -604,7 +604,7 @@ def clean_service(chat_id: Union[str, int]) -> bool:
         SESSION.close()
 
 
-def set_clean_service(chat_id: Union[int, str], setting: bool):
+async def set_clean_service(chat_id: Union[int, str], setting: bool):
     with CS_LOCK:
         chat_setting = SESSION.query(CleanServiceSetting).get(str(chat_id))
         if not chat_setting:
@@ -615,7 +615,7 @@ def set_clean_service(chat_id: Union[int, str], setting: bool):
         SESSION.commit()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with INSERTION_LOCK:
         chat = SESSION.query(Welcome).get(str(old_chat_id))
         if chat:

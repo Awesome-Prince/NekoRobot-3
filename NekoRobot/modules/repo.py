@@ -30,7 +30,7 @@ PHOTO = "https://telegra.ph/file/70061cba45ee824dad6f6.jpg"
 
 
 @register(pattern=("/repo"))
-async def awake(event):
+async async def awake(event):
     NEKO = """
          We Are So Happy To Announce That We Have Public Our NekoRobot Repo. ✨🥀
 ➖➖➖➖➖➖➖➖➖➖➖➖➖

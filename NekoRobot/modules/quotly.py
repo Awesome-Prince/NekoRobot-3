@@ -24,7 +24,7 @@ COLORS = [
 ]
 
 
-async def process(msg, user, client, reply, replied=None):
+async async def process(msg, user, client, reply, replied=None):
     if not os.path.isdir("resources"):
         os.mkdir("resources", 0o755)
         urllib.request.urlretrieve(
@@ -292,7 +292,7 @@ async def process(msg, user, client, reply, replied=None):
     return True, canvas
 
 
-async def drawer(width, height):
+async async def drawer(width, height):
     # Top part
     top = Image.new("RGBA", (width, 20), (0, 0, 0, 0))
     draw = ImageDraw.Draw(top)
@@ -309,14 +309,14 @@ async def drawer(width, height):
     return top, middle, bottom
 
 
-async def fontTest(letter):
+async async def fontTest(letter):
     test = TTFont("resources/Roboto-Medium.ttf")
     for table in test["cmap"].tables:
         if ord(letter) in table.cmap.keys():
             return True
 
 
-async def get_entity(msg):
+async async def get_entity(msg):
     bold = {0: 0}
     italic = {0: 0}
     mono = {0: 0}
@@ -339,7 +339,7 @@ async def get_entity(msg):
     return bold, mono, italic, link
 
 
-async def doctype(name, size, type, canvas):
+async async def doctype(name, size, type, canvas):
     font = ImageFont.truetype("resources/Roboto-Medium.ttf", 38)
     doc = Image.new("RGBA", (130, 130), (29, 29, 29, 255))
     draw = ImageDraw.Draw(doc)
@@ -354,7 +354,7 @@ async def doctype(name, size, type, canvas):
     return canvas
 
 
-async def no_photo(reply, tot):
+async async def no_photo(reply, tot):
     pfp = Image.new("RGBA", (105, 105), (0, 0, 0, 0))
     pen = ImageDraw.Draw(pfp)
     color = random.choice(COLORS)
@@ -365,7 +365,7 @@ async def no_photo(reply, tot):
     return pfp, color
 
 
-async def emoji_fetch(emoji):
+async async def emoji_fetch(emoji):
     emojis = json.loads(
         urllib.request.urlopen(
             "https://github.com/erenmetesar/modules-repo/raw/master/emojis.txt"
@@ -385,7 +385,7 @@ async def emoji_fetch(emoji):
         )
 
 
-async def transparent(emoji):
+async async def transparent(emoji):
     emoji = Image.open(emoji).convert("RGBA")
     emoji.thumbnail((40, 40))
 
@@ -396,7 +396,7 @@ async def transparent(emoji):
     return emoji, mask
 
 
-async def replied_user(draw, tot, text, maxlength, title):
+async async def replied_user(draw, tot, text, maxlength, title):
     namefont = ImageFont.truetype("resources/Roboto-Medium.ttf", 38)
     namefallback = ImageFont.truetype("resources/Quivira.otf", 38)
     textfont = ImageFont.truetype("resources/Roboto-Regular.ttf", 32)
@@ -423,7 +423,7 @@ async def replied_user(draw, tot, text, maxlength, title):
 
 
 @tbot.on(events.NewMessage(pattern="^[!/]q$"))
-async def q(event):
+async async def q(event):
     if event.fwd_from:
         return
     reply = await event.get_reply_message()

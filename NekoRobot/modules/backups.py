@@ -52,7 +52,7 @@ from NekoRobot.modules.sql import disable_sql as disabledsql
 
 @user_admin
 @typing_action
-def import_data(update, context):
+async def import_data(update, context):
     msg = update.effective_message
     chat = update.effective_chat
     user = update.effective_user
@@ -144,7 +144,7 @@ def import_data(update, context):
 
 
 @user_admin
-def export_data(update, context):
+async def export_data(update, context):
     chat_data = context.chat_data
     msg = update.effective_message  # type: Optional[Message]
     user = update.effective_user  # type: Optional[User]
@@ -377,7 +377,7 @@ def export_data(update, context):
 
 
 # Temporary data
-def put_chat(chat_id, value, chat_data):
+async def put_chat(chat_id, value, chat_data):
     # print(chat_data)
     if value is False:
         status = False
@@ -386,7 +386,7 @@ def put_chat(chat_id, value, chat_data):
     chat_data[chat_id] = {"backups": {"status": status, "value": value}}
 
 
-def get_chat(chat_id, chat_data):
+async def get_chat(chat_id, chat_data):
     # print(chat_data)
     try:
         value = chat_data[chat_id]["backups"]

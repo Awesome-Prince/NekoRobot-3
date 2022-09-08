@@ -32,7 +32,7 @@ BLABLEUSERS = [OWNER_ID] + DEV_USERS
 
 @dev_plus
 @gloggable
-def bl_user(update: Update, context: CallbackContext) -> str:
+async def bl_user(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     bot, args = context.bot, context.args
@@ -74,7 +74,7 @@ def bl_user(update: Update, context: CallbackContext) -> str:
 
 @dev_plus
 @gloggable
-def unbl_user(update: Update, context: CallbackContext) -> str:
+async def unbl_user(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
     user = update.effective_user
     bot, args = context.bot, context.args
@@ -115,7 +115,7 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
 
 
 @dev_plus
-def bl_users(update: Update, context: CallbackContext):
+async def bl_users(update: Update, context: CallbackContext):
     users = []
     bot = context.bot
     for each_user in sql.BLACKLIST_USERS:
@@ -138,7 +138,7 @@ def bl_users(update: Update, context: CallbackContext):
     update.effective_message.reply_text(message, parse_mode=ParseMode.HTML)
 
 
-def __user_info__(user_id):
+async def __user_info__(user_id):
     is_blacklisted = sql.is_user_blacklisted(user_id)
 
     text = "Blacklisted: <b>{}</b>"

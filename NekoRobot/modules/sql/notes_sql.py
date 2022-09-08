@@ -42,14 +42,14 @@ class Notes(BASE):
     has_buttons = Column(Boolean, default=False)
     msgtype = Column(BigInteger, default=Types.BUTTON_TEXT.value)
 
-    def __init__(self, chat_id, name, value, msgtype, file=None):
+    async def __init__(self, chat_id, name, value, msgtype, file=None):
         self.chat_id = str(chat_id)  # ensure string
         self.name = name
         self.value = value
         self.msgtype = msgtype
         self.file = file
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Note %s>" % self.name
 
 
@@ -62,7 +62,7 @@ class Buttons(BASE):
     url = Column(UnicodeText, nullable=False)
     same_line = Column(Boolean, default=False)
 
-    def __init__(self, chat_id, note_name, name, url, same_line=False):
+    async def __init__(self, chat_id, note_name, name, url, same_line=False):
         self.chat_id = str(chat_id)
         self.note_name = note_name
         self.name = name
@@ -77,7 +77,7 @@ NOTES_INSERTION_LOCK = threading.RLock()
 BUTTONS_INSERTION_LOCK = threading.RLock()
 
 
-def add_note_to_db(chat_id, note_name, note_data, msgtype, buttons=None, file=None):
+async def add_note_to_db(chat_id, note_name, note_data, msgtype, buttons=None, file=None):
     if not buttons:
         buttons = []
 
@@ -105,7 +105,7 @@ def add_note_to_db(chat_id, note_name, note_data, msgtype, buttons=None, file=No
         add_note_button_to_db(chat_id, note_name, b_name, url, same_line)
 
 
-def get_note(chat_id, note_name):
+async def get_note(chat_id, note_name):
     try:
         return (
             SESSION.query(Notes)
@@ -116,7 +116,7 @@ def get_note(chat_id, note_name):
         SESSION.close()
 
 
-def rm_note(chat_id, note_name):
+async def rm_note(chat_id, note_name):
     with NOTES_INSERTION_LOCK:
         note = (
             SESSION.query(Notes)
@@ -144,7 +144,7 @@ def rm_note(chat_id, note_name):
             return False
 
 
-def get_all_chat_notes(chat_id):
+async def get_all_chat_notes(chat_id):
     try:
         return (
             SESSION.query(Notes)
@@ -156,14 +156,14 @@ def get_all_chat_notes(chat_id):
         SESSION.close()
 
 
-def add_note_button_to_db(chat_id, note_name, b_name, url, same_line):
+async def add_note_button_to_db(chat_id, note_name, b_name, url, same_line):
     with BUTTONS_INSERTION_LOCK:
         button = Buttons(chat_id, note_name, b_name, url, same_line)
         SESSION.add(button)
         SESSION.commit()
 
 
-def get_buttons(chat_id, note_name):
+async def get_buttons(chat_id, note_name):
     try:
         return (
             SESSION.query(Buttons)
@@ -175,21 +175,21 @@ def get_buttons(chat_id, note_name):
         SESSION.close()
 
 
-def num_notes():
+async def num_notes():
     try:
         return SESSION.query(Notes).count()
     finally:
         SESSION.close()
 
 
-def num_chats():
+async def num_chats():
     try:
         return SESSION.query(func.count(distinct(Notes.chat_id))).scalar()
     finally:
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with NOTES_INSERTION_LOCK:
         chat_notes = (
             SESSION.query(Notes).filter(Notes.chat_id == str(old_chat_id)).all()

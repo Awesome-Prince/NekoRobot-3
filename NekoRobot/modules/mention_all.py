@@ -46,7 +46,7 @@ spam_chats = []
         pattern="^/tagall|/call|/tall|/all|/mentionall|#all|@all|@mentionall|@tagall|@utag(.*)",
     )
 )
-async def all(event):
+async async def all(event):
     chat_id = event.chat_id
     if event.is_private:
         return await event.respond("This command Can Be Use In Groups And Channels/n")
@@ -105,7 +105,7 @@ async def all(event):
 
 
 @tbot.on(events.NewMessage(pattern="^/cancel$"))
-async def cancel_spam(event):
+async async def cancel_spam(event):
     if event.chat_id not in spam_chats:
         return await event.respond("There Is No Proccess On Going")
     try:

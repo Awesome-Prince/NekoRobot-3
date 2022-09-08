@@ -10,7 +10,7 @@ from NekoRobot import DEV_USERS, NEKO_PTB, OWNER_ID
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
-def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = False):
+async def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = False):
     bot = context.bot
     chat_id = update.effective_chat.id
     chats = user_sql.get_all_chats()
@@ -34,7 +34,7 @@ def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = F
             progress += 5
 
         cid = chat.chat_id
-        sleep(0.1)
+        await sleep(0.1)
         try:
             bot.get_chat(cid, timeout=60)
         except (BadRequest, Unauthorized):
@@ -52,12 +52,12 @@ def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = F
         return kicked_chats
     else:
         for muted_chat in chat_list:
-            sleep(0.1)
+            await sleep(0.1)
             user_sql.rem_chat(muted_chat)
         return kicked_chats
 
 
-def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = False):
+async def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = False):
     bot = context.bot
     banned = gban_sql.get_gban_list()
     ungbanned_users = 0
@@ -65,7 +65,7 @@ def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = Fa
 
     for user in banned:
         user_id = user["user_id"]
-        sleep(0.1)
+        await sleep(0.1)
         try:
             bot.get_chat(user_id)
         except BadRequest:
@@ -78,13 +78,13 @@ def get_invalid_gban(update: Update, context: CallbackContext, remove: bool = Fa
         return ungbanned_users
     else:
         for user_id in ungban_list:
-            sleep(0.1)
+            await sleep(0.1)
             gban_sql.ungban_user(user_id)
         return ungbanned_users
 
 
 @dev_plus
-def dbcleanup(update: Update, context: CallbackContext):
+async def dbcleanup(update: Update, context: CallbackContext):
     msg = update.effective_message
 
     msg.reply_text("Getting invalid chat count ...")
@@ -103,7 +103,7 @@ def dbcleanup(update: Update, context: CallbackContext):
     )
 
 
-def callback_button(update: Update, context: CallbackContext):
+async def callback_button(update: Update, context: CallbackContext):
     bot = context.bot
     query = update.callback_query
     message = query.message

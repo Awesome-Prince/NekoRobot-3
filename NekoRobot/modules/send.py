@@ -31,7 +31,7 @@ from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
 @dev_plus
-def send(update, context):
+async def send(update, context):
     args = update.effective_message.text.split(None, 1)
     creply = args[1]
     send_message(update.effective_message, creply)

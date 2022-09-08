@@ -23,7 +23,7 @@ GIF_ID = "CgACAgQAAx0CSVUvGgAC7KpfWxMrgGyQs-GUUJgt-TSO8cOIDgACaAgAAlZD0VHT3Zynpr
 
 
 @register(pattern="^/truth ?(.*)")
-async def _(td):
+async async def _(td):
     try:
         resp = requests.get("https://api.safone.tech/truth").json()
         results = f"{resp['truth']}"
@@ -33,7 +33,7 @@ async def _(td):
 
 
 @register(pattern="^/dare ?(.*)")
-async def _(dr):
+async async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/dare").json()
         results = f"{resp['dare']}"
@@ -43,7 +43,7 @@ async def _(dr):
 
 
 @register(pattern="^/fact ?(.*)")
-async def _(dr):
+async async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/fact").json()
         results = f"{resp['fact']}"
@@ -53,7 +53,7 @@ async def _(dr):
 
 
 @register(pattern="^/quotes ?(.*)")
-async def _(dr):
+async async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/quote").json()
         results = f"{resp['quote']}"
@@ -63,7 +63,7 @@ async def _(dr):
 
 
 @register(pattern="^/joke ?(.*)")
-async def _(dr):
+async async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/joke").json()
         results = f"{resp['joke']}"
@@ -73,7 +73,7 @@ async def _(dr):
 
 
 @register(pattern="^/bully ?(.*)")
-async def _(dr):
+async async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/bully").json()
         results = f"{resp['bully']}"
@@ -83,7 +83,7 @@ async def _(dr):
 
 
 @register(pattern="^/advice ?(.*)")
-async def _(dr):
+async async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/advice").json()
         results = f"{resp['advice']}"
@@ -92,11 +92,11 @@ async def _(dr):
         await dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
-def runs(update: Update, context: CallbackContext):
+async def runs(update: Update, context: CallbackContext):
     update.effective_message.reply_text(random.choice(fun_strings.RUN_STRINGS))
 
 
-def sanitize(update: Update, context: CallbackContext):
+async def sanitize(update: Update, context: CallbackContext):
     message = update.effective_message
     name = (
         message.reply_to_message.from_user.first_name
@@ -111,7 +111,7 @@ def sanitize(update: Update, context: CallbackContext):
     reply_animation(GIF_ID, caption=f"*Sanitizes {name}*")
 
 
-def sanitize(update: Update, context: CallbackContext):
+async def sanitize(update: Update, context: CallbackContext):
     message = update.effective_message
     name = (
         message.reply_to_message.from_user.first_name
@@ -126,7 +126,7 @@ def sanitize(update: Update, context: CallbackContext):
     reply_animation(random.choice(fun_strings.GIFS), caption=f"*Sanitizes {name}*")
 
 
-def slap(update: Update, context: CallbackContext):
+async def slap(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
     chat = update.effective_chat
@@ -184,7 +184,7 @@ def slap(update: Update, context: CallbackContext):
     reply_text(reply, parse_mode=ParseMode.HTML)
 
 
-def pat(update: Update, context: CallbackContext):
+async def pat(update: Update, context: CallbackContext):
     bot = context.bot
     args = context.args
     message = update.effective_message
@@ -224,11 +224,11 @@ def pat(update: Update, context: CallbackContext):
         reply_to.reply_text(reply, parse_mode=ParseMode.HTML)
 
 
-def roll(update: Update, context: CallbackContext):
+async def roll(update: Update, context: CallbackContext):
     update.message.reply_text(random.choice(range(1, 7)))
 
 
-def shout(update: Update, context: CallbackContext):
+async def shout(update: Update, context: CallbackContext):
     args = context.args
     text = " ".join(args)
     result = []
@@ -242,11 +242,11 @@ def shout(update: Update, context: CallbackContext):
     return update.effective_message.reply_text(msg, parse_mode="MARKDOWN")
 
 
-def toss(update: Update, context: CallbackContext):
+async def toss(update: Update, context: CallbackContext):
     update.message.reply_text(random.choice(fun_strings.TOSS))
 
 
-def shrug(update: Update, context: CallbackContext):
+async def shrug(update: Update, context: CallbackContext):
     msg = update.effective_message
     reply_text = (
         msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
@@ -254,7 +254,7 @@ def shrug(update: Update, context: CallbackContext):
     reply_text(r"¯\_(ツ)_/¯")
 
 
-def bluetext(update: Update, context: CallbackContext):
+async def bluetext(update: Update, context: CallbackContext):
     msg = update.effective_message
     reply_text = (
         msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
@@ -264,7 +264,7 @@ def bluetext(update: Update, context: CallbackContext):
     )
 
 
-def rlg(update: Update, context: CallbackContext):
+async def rlg(update: Update, context: CallbackContext):
     eyes = random.choice(fun_strings.EYES)
     mouth = random.choice(fun_strings.MOUTHS)
     ears = random.choice(fun_strings.EARS)
@@ -276,7 +276,7 @@ def rlg(update: Update, context: CallbackContext):
     update.message.reply_text(repl)
 
 
-def decide(update: Update, context: CallbackContext):
+async def decide(update: Update, context: CallbackContext):
     reply_text = (
         update.effective_message.reply_to_message.reply_text
         if update.effective_message.reply_to_message
@@ -285,7 +285,7 @@ def decide(update: Update, context: CallbackContext):
     reply_text(random.choice(fun_strings.DECIDE))
 
 
-def eightball(update: Update, context: CallbackContext):
+async def eightball(update: Update, context: CallbackContext):
     reply_text = (
         update.effective_message.reply_to_message.reply_text
         if update.effective_message.reply_to_message
@@ -294,7 +294,7 @@ def eightball(update: Update, context: CallbackContext):
     reply_text(random.choice(fun_strings.EIGHTBALL))
 
 
-def table(update: Update, context: CallbackContext):
+async def table(update: Update, context: CallbackContext):
     reply_text = (
         update.effective_message.reply_to_message.reply_text
         if update.effective_message.reply_to_message
@@ -361,7 +361,7 @@ weebyfont = [
 ]
 
 
-def weebify(update: Update, context: CallbackContext):
+async def weebify(update: Update, context: CallbackContext):
     args = context.args
     message = update.effective_message
     string = ""
@@ -388,14 +388,14 @@ def weebify(update: Update, context: CallbackContext):
 
 
 @typing_action
-def goodnight(update, context):
+async def goodnight(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDNIGHT)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
 
 
 @typing_action
-def goodmorning(update, context):
+async def goodmorning(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDMORNING)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN)

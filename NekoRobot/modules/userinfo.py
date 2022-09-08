@@ -48,7 +48,7 @@ from NekoRobot.modules.sql.users_sql import get_user_num_chats
 NEKO_IMG = "https://telegra.ph/file/a21731c0c4c7f27a3ec16.jpg"
 
 
-def no_by_per(totalhp, percentage):
+async def no_by_per(totalhp, percentage):
     """
     rtype: num of `percentage` from total
     eg: 1000, 10 -> 10% of 1000 (100)
@@ -56,7 +56,7 @@ def no_by_per(totalhp, percentage):
     return totalhp * percentage / 100
 
 
-def get_percentage(totalhp, earnedhp):
+async def get_percentage(totalhp, earnedhp):
     """
     rtype: percentage of `totalhp` num
     eg: (1000, 100) will return 10%
@@ -68,7 +68,7 @@ def get_percentage(totalhp, earnedhp):
     return per_of_totalhp
 
 
-def get_readable_time(seconds: int) -> str:
+async def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
     time_list = []
@@ -93,7 +93,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-def hpmanager(user):
+async def hpmanager(user):
     total_hp = (get_user_num_chats(user.id) + 10) * 10
 
     if not is_user_gbanned(user.id):
@@ -137,12 +137,12 @@ def hpmanager(user):
     }
 
 
-def make_bar(per):
+async def make_bar(per):
     done = min(round(per / 10), 10)
     return "◈" * done + "◇" * (10 - done)
 
 
-def get_id(update: Update, context: CallbackContext):
+async def get_id(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
     chat = update.effective_chat
@@ -190,7 +190,7 @@ def get_id(update: Update, context: CallbackContext):
         from_users=(TIGERS or []) + (SUDO_USERS or []) + (SUPPORT_USERS or []),
     ),
 )
-async def group_info(event) -> None:
+async async def group_info(event) -> None:
     chat = event.text.split(" ", 1)[1]
     try:
         entity = await event.client.get_entity(chat)
@@ -224,7 +224,7 @@ async def group_info(event) -> None:
     await event.reply(msg)
 
 
-def gifid(update: Update, context: CallbackContext):
+async def gifid(update: Update, context: CallbackContext):
     msg = update.effective_message
     if msg.reply_to_message and msg.reply_to_message.animation:
         update.effective_message.reply_text(
@@ -235,7 +235,7 @@ def gifid(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Please reply to a gif to get its ID.")
 
 
-def info(update: Update, context: CallbackContext):
+async def info(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
     chat = update.effective_chat
@@ -381,7 +381,7 @@ def info(update: Update, context: CallbackContext):
     rep.delete()
 
 
-def about_me(update: Update, context: CallbackContext):
+async def about_me(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
     user_id = extract_user(message, args)
@@ -404,7 +404,7 @@ def about_me(update: Update, context: CallbackContext):
         update.effective_message.reply_text("There isnt one, use /setme to set one.")
 
 
-def set_about_me(update: Update, context: CallbackContext):
+async def set_about_me(update: Update, context: CallbackContext):
     message = update.effective_message
     user_id = message.from_user.id
     if user_id in [777000, 1087968824]:
@@ -437,7 +437,7 @@ def set_about_me(update: Update, context: CallbackContext):
 
 
 @sudo_plus
-def stats(update, context):
+async def stats(update, context):
     uptime = datetime.datetime.fromtimestamp(boot_time()).strftime("%Y-%m-%d %H:%M:%S")
     botuptime = get_readable_time((time.time() - StartTime))
     status = "*╒═══「 System statistics 」*\n\n"
@@ -500,7 +500,7 @@ def stats(update, context):
         )
 
 
-def about_bio(update: Update, context: CallbackContext):
+async def about_bio(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
 
@@ -525,7 +525,7 @@ def about_bio(update: Update, context: CallbackContext):
         )
 
 
-def set_about_bio(update: Update, context: CallbackContext):
+async def set_about_bio(update: Update, context: CallbackContext):
     message = update.effective_message
     sender_id = update.effective_user.id
     bot = context.bot
@@ -573,7 +573,7 @@ def set_about_bio(update: Update, context: CallbackContext):
         message.reply_text("Reply to someone to set their bio!")
 
 
-def __user_info__(user_id):
+async def __user_info__(user_id):
     bio = html.escape(sql.get_user_bio(user_id) or "")
     me = html.escape(sql.get_user_me_info(user_id) or "")
     result = ""

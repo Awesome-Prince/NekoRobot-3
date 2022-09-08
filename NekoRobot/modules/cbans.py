@@ -37,7 +37,7 @@ from NekoRobot.modules.log_channel import gloggable, loggable
 @can_restrict
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @loggable
-def cban(
+async def cban(
     update: Update, context: CallbackContext
 ) -> Optional[str]:  # sourcery no-metrics
     chat = update.effective_chat  # type: Optional[Chat]
@@ -156,7 +156,7 @@ def cban(
 @can_restrict
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @loggable
-def temp_ban(update: Update, context: CallbackContext) -> str:
+async def temp_ban(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     user = update.effective_user
     message = update.effective_message
@@ -245,7 +245,7 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
 @can_restrict
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @loggable
-def kick(update: Update, context: CallbackContext) -> str:
+async def kick(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     user = update.effective_user
     message = update.effective_message
@@ -300,7 +300,7 @@ def kick(update: Update, context: CallbackContext) -> str:
 @nekocmd(command="kickme", pass_args=True, filters=Filters.chat_type.groups)
 @bot_admin
 @can_restrict
-def kickme(update: Update, context: CallbackContext):
+async def kickme(update: Update, context: CallbackContext):
     user_id = update.effective_message.from_user.id
     if is_user_admin(update, user_id):
         update.effective_message.reply_text("I wish I could... but you're an admin.")
@@ -319,7 +319,7 @@ def kickme(update: Update, context: CallbackContext):
 @can_restrict
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @loggable
-def uncban(update: Update, context: CallbackContext) -> Optional[str]:
+async def uncban(update: Update, context: CallbackContext) -> Optional[str]:
     message = update.effective_message
     user = update.effective_user
     chat = update.effective_chat
@@ -399,7 +399,7 @@ def uncban(update: Update, context: CallbackContext) -> Optional[str]:
 @bot_admin
 @can_restrict
 @gloggable
-def selfunban(context: CallbackContext, update: Update) -> Optional[str]:
+async def selfunban(context: CallbackContext, update: Update) -> Optional[str]:
     message = update.effective_message
     user = update.effective_user
     bot, args = context.bot, context.args
@@ -442,7 +442,7 @@ def selfunban(context: CallbackContext, update: Update) -> Optional[str]:
 from NekoRobot.modules.language import gs
 
 
-def get_help(chat):
+async def get_help(chat):
     return gs(chat, "bans_help")
 
 

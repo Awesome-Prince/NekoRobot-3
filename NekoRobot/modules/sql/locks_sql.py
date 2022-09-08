@@ -54,7 +54,7 @@ class Permissions(BASE):
     egame = Column(Boolean, default=False)
     inline = Column(Boolean, default=False)
 
-    def __init__(self, chat_id):
+    async def __init__(self, chat_id):
         self.chat_id = str(chat_id)  # ensure string
         self.audio = False
         self.voice = False
@@ -74,7 +74,7 @@ class Permissions(BASE):
         self.egame = False
         self.inline = False
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Permissions for %s>" % self.chat_id
 
 
@@ -87,14 +87,14 @@ class Restrictions(BASE):
     other = Column(Boolean, default=False)
     preview = Column(Boolean, default=False)
 
-    def __init__(self, chat_id):
+    async def __init__(self, chat_id):
         self.chat_id = str(chat_id)  # ensure string
         self.messages = False
         self.media = False
         self.other = False
         self.preview = False
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Restrictions for %s>" % self.chat_id
 
 
@@ -109,7 +109,7 @@ PERM_LOCK = threading.RLock()
 RESTR_LOCK = threading.RLock()
 
 
-def init_permissions(chat_id, reset=False):
+async def init_permissions(chat_id, reset=False):
     curr_perm = SESSION.query(Permissions).get(str(chat_id))
     if reset:
         SESSION.delete(curr_perm)
@@ -120,7 +120,7 @@ def init_permissions(chat_id, reset=False):
     return perm
 
 
-def init_restrictions(chat_id, reset=False):
+async def init_restrictions(chat_id, reset=False):
     curr_restr = SESSION.query(Restrictions).get(str(chat_id))
     if reset:
         SESSION.delete(curr_restr)
@@ -131,7 +131,7 @@ def init_restrictions(chat_id, reset=False):
     return restr
 
 
-def update_lock(chat_id, lock_type, locked):
+async def update_lock(chat_id, lock_type, locked):
     with PERM_LOCK:
         curr_perm = SESSION.query(Permissions).get(str(chat_id))
         if not curr_perm:
@@ -176,7 +176,7 @@ def update_lock(chat_id, lock_type, locked):
         SESSION.commit()
 
 
-def update_restriction(chat_id, restr_type, locked):
+async def update_restriction(chat_id, restr_type, locked):
     with RESTR_LOCK:
         curr_restr = SESSION.query(Restrictions).get(str(chat_id))
         if not curr_restr:
@@ -199,7 +199,7 @@ def update_restriction(chat_id, restr_type, locked):
         SESSION.commit()
 
 
-def is_locked(chat_id, lock_type):
+async def is_locked(chat_id, lock_type):
     curr_perm = SESSION.query(Permissions).get(str(chat_id))
     SESSION.close()
 
@@ -242,7 +242,7 @@ def is_locked(chat_id, lock_type):
         return curr_perm.inline
 
 
-def is_restr_locked(chat_id, lock_type):
+async def is_restr_locked(chat_id, lock_type):
     curr_restr = SESSION.query(Restrictions).get(str(chat_id))
     SESSION.close()
 
@@ -266,21 +266,21 @@ def is_restr_locked(chat_id, lock_type):
         )
 
 
-def get_locks(chat_id):
+async def get_locks(chat_id):
     try:
         return SESSION.query(Permissions).get(str(chat_id))
     finally:
         SESSION.close()
 
 
-def get_restr(chat_id):
+async def get_restr(chat_id):
     try:
         return SESSION.query(Restrictions).get(str(chat_id))
     finally:
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with PERM_LOCK:
         perms = SESSION.query(Permissions).get(str(old_chat_id))
         if perms:

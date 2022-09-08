@@ -12,7 +12,7 @@ DEBUG_MODE = False
 
 
 @dev_plus
-def debug(update: Update, context: CallbackContext):
+async def debug(update: Update, context: CallbackContext):
     global DEBUG_MODE
     args = update.effective_message.text.split(None, 1)
     message = update.effective_message
@@ -32,7 +32,7 @@ def debug(update: Update, context: CallbackContext):
 
 
 @tbot.on(events.NewMessage(pattern="[/!?.,].*"))
-async def i_do_nothing_yes(event):
+async async def i_do_nothing_yes(event):
     global DEBUG_MODE
     if DEBUG_MODE:
         print(f"-{event.from_id} ({event.chat_id}) : {event.text}")
@@ -52,7 +52,7 @@ support_chat = os.getenv("SUPPORT_CHAT")
 
 
 @dev_plus
-def logs(update: Update, context: CallbackContext):
+async def logs(update: Update, context: CallbackContext):
     chat_username = update.effective_chat.username
     if not chat_username:
         return

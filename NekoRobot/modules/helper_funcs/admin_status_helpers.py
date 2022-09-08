@@ -51,7 +51,7 @@ class ChatStatus(Enum):
 # 	Mods = MOD_USERS
 
 
-def anon_reply_markup(cb_id: str) -> InlineKeyboardMarkup:
+async def anon_reply_markup(cb_id: str) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         [[InlineKeyboardButton(text="Prove identity", callback_data=cb_id)]]
     )
@@ -62,14 +62,14 @@ anon_reply_text = (
 )
 
 
-def edit_anon_msg(msg: Message, text: str):
+async def edit_anon_msg(msg: Message, text: str):
     """
     edit anon check message and remove the button
     """
     msg.edit_text(text, parse_mode=ParseMode.MARKDOWN, reply_markup=None)
 
 
-async def user_is_not_admin_errmsg(
+async async def user_is_not_admin_errmsg(
     msg: Message, permission: AdminPerms = None, cb: CallbackQuery = None
 ):
     errmsg = f"You are missing the following rights to use this command:\n*{permission.value}*"
@@ -78,7 +78,7 @@ async def user_is_not_admin_errmsg(
     return await msg.reply_text(errmsg, parse_mode=ParseMode.MARKDOWN)
 
 
-def button_expired_error(u: Update):
+async def button_expired_error(u: Update):
     errmsg = "This button has expired!"
     if u.callback_query:
         u.callback_query.answer(errmsg, show_alert=True)

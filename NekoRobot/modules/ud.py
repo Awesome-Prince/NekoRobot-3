@@ -7,7 +7,7 @@ from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 
-def ud(update: Update, context: CallbackContext):
+async def ud(update: Update, context: CallbackContext):
     message = update.effective_message
     text = message.text[len("/ud ") :]
     results = requests.get(

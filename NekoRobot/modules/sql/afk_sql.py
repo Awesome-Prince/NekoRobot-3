@@ -37,12 +37,12 @@ class AFK(BASE):
     is_afk = Column(Boolean)
     reason = Column(UnicodeText)
 
-    def __init__(self, user_id, reason="", is_afk=True):
+    async def __init__(self, user_id, reason="", is_afk=True):
         self.user_id = user_id
         self.reason = reason
         self.is_afk = is_afk
 
-    def __repr__(self):
+    async def __repr__(self):
         return "afk_status for {}".format(self.user_id)
 
 
@@ -52,18 +52,18 @@ INSERTION_LOCK = threading.RLock()
 AFK_USERS = {}
 
 
-def is_afk(user_id):
+async def is_afk(user_id):
     return user_id in AFK_USERS
 
 
-def check_afk_status(user_id):
+async def check_afk_status(user_id):
     try:
         return SESSION.query(AFK).get(user_id)
     finally:
         SESSION.close()
 
 
-def set_afk(user_id, reason=""):
+async def set_afk(user_id, reason=""):
     with INSERTION_LOCK:
         curr = SESSION.query(AFK).get(user_id)
         if not curr:
@@ -77,7 +77,7 @@ def set_afk(user_id, reason=""):
         SESSION.commit()
 
 
-def rm_afk(user_id):
+async def rm_afk(user_id):
     with INSERTION_LOCK:
         curr = SESSION.query(AFK).get(user_id)
         if curr:
@@ -92,7 +92,7 @@ def rm_afk(user_id):
         return False
 
 
-def toggle_afk(user_id, reason=""):
+async def toggle_afk(user_id, reason=""):
     with INSERTION_LOCK:
         curr = SESSION.query(AFK).get(user_id)
         if not curr:
@@ -105,7 +105,7 @@ def toggle_afk(user_id, reason=""):
         SESSION.commit()
 
 
-def __load_afk_users():
+async def __load_afk_users():
     global AFK_USERS
     try:
         all_afk = SESSION.query(AFK).all()

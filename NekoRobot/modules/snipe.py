@@ -6,7 +6,7 @@ from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.helper_funcs.filters import CustomFilters
 
 
-def snipe(update: Update, context: CallbackContext):
+async def snipe(update: Update, context: CallbackContext):
     args = context.args
     bot = context.bot
     try:

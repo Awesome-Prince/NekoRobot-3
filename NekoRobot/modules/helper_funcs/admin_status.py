@@ -25,7 +25,7 @@ anon_callbacks = {}
 anon_callback_messages = {}
 
 
-def bot_is_admin(chat: Chat, bot_id: int, bot_member: ChatMember = None) -> bool:
+async def bot_is_admin(chat: Chat, bot_id: int, bot_member: ChatMember = None) -> bool:
     if chat.type == "private" or chat.all_members_are_administrators:
         return True
 
@@ -38,10 +38,10 @@ def bot_is_admin(chat: Chat, bot_id: int, bot_member: ChatMember = None) -> bool
 # decorator, can be used as
 # @bot_perm_check() with no perm to check for admin-ship only
 # or as @bot_perm_check(AdminPerms.value) to check for a specific permission
-def bot_admin_check(permission: AdminPerms = None):
-    def wrapper(func):
+async def bot_admin_check(permission: AdminPerms = None):
+    async def wrapper(func):
         @wraps(func)
-        async def wrapped(update: Update, context: Ctx, *args, **kwargs):
+        async async def wrapped(update: Update, context: Ctx, *args, **kwargs):
             nonlocal permission
             chat = update.effective_chat
             if chat.type == "private" or chat.all_members_are_administrators:
@@ -79,7 +79,7 @@ def bot_admin_check(permission: AdminPerms = None):
     return wrapper
 
 
-def user_is_admin(
+async def user_is_admin(
     update: Update,
     user_id: int,
     channels: bool = False,  # if True, returns True if user is anonymous
@@ -116,7 +116,7 @@ def user_is_admin(
 RLOCK = RLock()
 
 
-async def get_mem_from_cache(user_id: int, chat_id: int) -> ChatMember:
+async async def get_mem_from_cache(user_id: int, chat_id: int) -> ChatMember:
     with RLOCK:
         try:
             for i in A_CACHE[chat_id]:
@@ -131,10 +131,10 @@ async def get_mem_from_cache(user_id: int, chat_id: int) -> ChatMember:
                     return i
 
 
-def user_admin_check(permission: AdminPerms = None):
-    def wrapper(func):
+async def user_admin_check(permission: AdminPerms = None):
+    async def wrapper(func):
         @wraps(func)
-        async def awrapper(update: Update, context: Ctx, *args, **kwargs):
+        async async def awrapper(update: Update, context: Ctx, *args, **kwargs):
             nonlocal permission
             if update.effective_chat.type == "private":
                 return func(update, context, *args, **kwargs)
@@ -185,9 +185,9 @@ def user_admin_check(permission: AdminPerms = None):
 
 
 # decorator, can be used as @user_not_admin_check to check user is not admin
-def user_not_admin_check(func):
+async def user_not_admin_check(func):
     @wraps(func)
-    def wrapped(update: Update, context: Ctx, *args, **kwargs):
+    async def wrapped(update: Update, context: Ctx, *args, **kwargs):
         message = update.effective_message
         user = message.sender_chat or update.effective_user
         if (
@@ -203,7 +203,7 @@ def user_not_admin_check(func):
     return wrapped
 
 
-def perm_callback_check(upd: Update, _: Ctx):
+async def perm_callback_check(upd: Update, _: Ctx):
     callback = upd.callback_query
     chat_id = int(callback.data.split("/")[1])
     message_id = int(callback.data.split("/")[2])

@@ -7,7 +7,7 @@ from NekoRobot import LOGGER
 from NekoRobot.modules.users import get_user_id
 
 
-def id_from_reply(message):
+async def id_from_reply(message):
     prev_message = message.reply_to_message
     if not prev_message:
         return None, None
@@ -18,11 +18,11 @@ def id_from_reply(message):
     return user_id, res[1]
 
 
-def extract_user(message: Message, args: List[str]) -> Optional[int]:
+async def extract_user(message: Message, args: List[str]) -> Optional[int]:
     return extract_user_and_text(message, args)[0]
 
 
-def extract_user_and_text(
+async def extract_user_and_text(
     message: Message,
     args: List[str],
 ) -> (Optional[int], Optional[str]):
@@ -86,7 +86,7 @@ def extract_user_and_text(
     return user_id, text
 
 
-def extract_text(message) -> str:
+async def extract_text(message) -> str:
     return (
         message.text
         or message.caption
@@ -94,7 +94,7 @@ def extract_text(message) -> str:
     )
 
 
-def extract_unt_fedban(
+async def extract_unt_fedban(
     message: Message,
     args: List[str],
 ) -> (Optional[int], Optional[str]):
@@ -163,5 +163,5 @@ def extract_unt_fedban(
     return user_id, text
 
 
-def extract_user_fban(message: Message, args: List[str]) -> Optional[int]:
+async def extract_user_fban(message: Message, args: List[str]) -> Optional[int]:
     return extract_unt_fedban(message, args)[0]

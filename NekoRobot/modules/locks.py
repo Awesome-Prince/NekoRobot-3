@@ -122,7 +122,7 @@ REST_GROUP = 2
 
 
 # NOT ASYNC
-def restr_members(
+async def restr_members(
     bot, chat_id, members, messages=False, media=False, other=False, previews=False
 ):
     for mem in members:
@@ -142,7 +142,7 @@ def restr_members(
 
 
 # NOT ASYNC
-def unrestr_members(
+async def unrestr_members(
     bot, chat_id, members, messages=True, media=True, other=True, previews=True
 ):
     for mem in members:
@@ -159,7 +159,7 @@ def unrestr_members(
             pass
 
 
-def locktypes(update, context):
+async def locktypes(update, context):
     update.effective_message.reply_text(
         "\n • ".join(
             ["Locks available: "]
@@ -171,7 +171,7 @@ def locktypes(update, context):
 @user_admin
 @loggable
 @typing_action
-def lock(update, context) -> str:
+async def lock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
     user = update.effective_user
@@ -278,7 +278,7 @@ def lock(update, context) -> str:
 @user_admin
 @loggable
 @typing_action
-def unlock(update, context) -> str:
+async def unlock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
     user = update.effective_user
@@ -381,7 +381,7 @@ def unlock(update, context) -> str:
 
 
 @user_not_admin
-def del_lockables(update, context):
+async def del_lockables(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
 
@@ -470,7 +470,7 @@ def del_lockables(update, context):
                 break
 
 
-def build_lock_message(chat_id):
+async def build_lock_message(chat_id):
     locks = sql.get_locks(chat_id)
     res = ""
     locklist = []
@@ -519,7 +519,7 @@ def build_lock_message(chat_id):
 
 @user_admin
 @typing_action
-def list_locks(update, context):
+async def list_locks(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user
 
@@ -545,7 +545,7 @@ def list_locks(update, context):
     send_message(update.effective_message, res, parse_mode=ParseMode.MARKDOWN)
 
 
-def get_permission_list(current, new):
+async def get_permission_list(current, new):
     permissions = {
         "can_send_messages": None,
         "can_send_media_messages": None,
@@ -562,7 +562,7 @@ def get_permission_list(current, new):
     return new_permissions
 
 
-def __import_data__(chat_id, data):
+async def __import_data__(chat_id, data):
     # set chat locks
     locks = data.get("locks", {})
     for itemlock in locks:
@@ -574,11 +574,11 @@ def __import_data__(chat_id, data):
             pass
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     return build_lock_message(chat_id)
 
 

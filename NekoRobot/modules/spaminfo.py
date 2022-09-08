@@ -9,7 +9,7 @@ from NekoRobot.modules.helper_funcs.extraction import extract_user
 
 
 @nekocmd(command="spbinfo")
-def lookup(update, context):
+async def lookup(update, context):
     message = update.effective_message
     args = context.args
     user_id = extract_user(message, args)
@@ -56,4 +56,4 @@ def lookup(update, context):
         message.reply_text(
             "`cannot reach SpamProtection API`", parse_mode=telegram.ParseMode.MARKDOWN
         )
-        time.sleep(3)
+        time.await sleep(3)

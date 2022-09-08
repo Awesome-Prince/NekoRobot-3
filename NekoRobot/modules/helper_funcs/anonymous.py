@@ -54,10 +54,10 @@ anon_callbacks = {}
 anon_callback_messages = {}
 
 
-def user_admin(permission: AdminPerms):
-    def wrapper(func):
+async def user_admin(permission: AdminPerms):
+    async def wrapper(func):
         @functools.wraps(func)
-        def awrapper(update: Update, context: CallbackContext, *args, **kwargs):
+        async def awrapper(update: Update, context: CallbackContext, *args, **kwargs):
             nonlocal permission
             if update.effective_chat.type == "private":
                 return func(update, context, *args, **kwargs)
@@ -109,7 +109,7 @@ def user_admin(permission: AdminPerms):
 
 
 @nekocallback(pattern="anoncb")
-def anon_callback_handler1(upd: Update, _: CallbackContext):
+async def anon_callback_handler1(upd: Update, _: CallbackContext):
     callback = upd.callback_query
     perm = callback.data.split("/")[3]
     chat_id = int(callback.data.split("/")[1])

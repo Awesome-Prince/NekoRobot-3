@@ -44,11 +44,11 @@ pretty_errors.mono()
 class ErrorsDict(dict):
     """A custom dict to store errors and their count"""
 
-    def __init__(self, *args, **kwargs):
+    async def __init__(self, *args, **kwargs):
         self.raw = []
         super().__init__(*args, **kwargs)
 
-    def __contains__(self, error):
+    async def __contains__(self, error):
         self.raw.append(error)
         error.identifier = "".join(random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ", k=5))
         for e in self:
@@ -58,14 +58,14 @@ class ErrorsDict(dict):
         self[error] = 0
         return False
 
-    def __len__(self):
+    async def __len__(self):
         return len(self.raw)
 
 
 errors = ErrorsDict()
 
 
-def error_callback(update: Update, context: CallbackContext):
+async def error_callback(update: Update, context: CallbackContext):
     if not update:
         return
     if context.error not in errors:
@@ -119,7 +119,7 @@ def error_callback(update: Update, context: CallbackContext):
         )
 
 
-def list_errors(update: Update, context: CallbackContext):
+async def list_errors(update: Update, context: CallbackContext):
     if update.effective_user.id not in DEV_USERS:
         return
     e = dict(sorted(errors.items(), key=lambda item: item[1], reverse=True))

@@ -39,13 +39,13 @@ class Warns(BASE):
     num_warns = Column(BigInteger, default=0)
     reasons = Column(postgresql.ARRAY(UnicodeText))
 
-    def __init__(self, user_id, chat_id):
+    async def __init__(self, user_id, chat_id):
         self.user_id = user_id
         self.chat_id = str(chat_id)
         self.num_warns = 0
         self.reasons = []
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<{} warns for {} in {} for reasons {}>".format(
             self.num_warns, self.user_id, self.chat_id, self.reasons
         )
@@ -57,15 +57,15 @@ class WarnFilters(BASE):
     keyword = Column(UnicodeText, primary_key=True, nullable=False)
     reply = Column(UnicodeText, nullable=False)
 
-    def __init__(self, chat_id, keyword, reply):
+    async def __init__(self, chat_id, keyword, reply):
         self.chat_id = str(chat_id)  # ensure string
         self.keyword = keyword
         self.reply = reply
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Permissions for %s>" % self.chat_id
 
-    def __eq__(self, other):
+    async def __eq__(self, other):
         return bool(
             isinstance(other, WarnFilters)
             and self.chat_id == other.chat_id
@@ -79,12 +79,12 @@ class WarnSettings(BASE):
     warn_limit = Column(BigInteger, default=3)
     soft_warn = Column(Boolean, default=False)
 
-    def __init__(self, chat_id, warn_limit=3, soft_warn=False):
+    async def __init__(self, chat_id, warn_limit=3, soft_warn=False):
         self.chat_id = str(chat_id)
         self.warn_limit = warn_limit
         self.soft_warn = soft_warn
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<{} has {} possible warns.>".format(self.chat_id, self.warn_limit)
 
 
@@ -99,7 +99,7 @@ WARN_SETTINGS_LOCK = threading.RLock()
 WARN_FILTERS = {}
 
 
-def warn_user(user_id, chat_id, reason=None):
+async def warn_user(user_id, chat_id, reason=None):
     with WARN_INSERTION_LOCK:
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
         if not warned_user:
@@ -120,7 +120,7 @@ def warn_user(user_id, chat_id, reason=None):
         return num, reasons
 
 
-def remove_warn(user_id, chat_id):
+async def remove_warn(user_id, chat_id):
     with WARN_INSERTION_LOCK:
         removed = False
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
@@ -136,7 +136,7 @@ def remove_warn(user_id, chat_id):
         return removed
 
 
-def reset_warns(user_id, chat_id):
+async def reset_warns(user_id, chat_id):
     with WARN_INSERTION_LOCK:
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
         if warned_user:
@@ -148,7 +148,7 @@ def reset_warns(user_id, chat_id):
         SESSION.close()
 
 
-def get_warns(user_id, chat_id):
+async def get_warns(user_id, chat_id):
     try:
         user = SESSION.query(Warns).get((user_id, str(chat_id)))
         if not user:
@@ -160,7 +160,7 @@ def get_warns(user_id, chat_id):
         SESSION.close()
 
 
-def add_warn_filter(chat_id, keyword, reply):
+async def add_warn_filter(chat_id, keyword, reply):
     with WARN_FILTER_INSERTION_LOCK:
         warn_filt = WarnFilters(str(chat_id), keyword, reply)
 
@@ -174,7 +174,7 @@ def add_warn_filter(chat_id, keyword, reply):
         SESSION.commit()
 
 
-def remove_warn_filter(chat_id, keyword):
+async def remove_warn_filter(chat_id, keyword):
     with WARN_FILTER_INSERTION_LOCK:
         warn_filt = SESSION.query(WarnFilters).get((str(chat_id), keyword))
         if warn_filt:
@@ -188,11 +188,11 @@ def remove_warn_filter(chat_id, keyword):
         return False
 
 
-def get_chat_warn_triggers(chat_id):
+async def get_chat_warn_triggers(chat_id):
     return WARN_FILTERS.get(str(chat_id), set())
 
 
-def get_chat_warn_filters(chat_id):
+async def get_chat_warn_filters(chat_id):
     try:
         return (
             SESSION.query(WarnFilters).filter(WarnFilters.chat_id == str(chat_id)).all()
@@ -201,14 +201,14 @@ def get_chat_warn_filters(chat_id):
         SESSION.close()
 
 
-def get_warn_filter(chat_id, keyword):
+async def get_warn_filter(chat_id, keyword):
     try:
         return SESSION.query(WarnFilters).get((str(chat_id), keyword))
     finally:
         SESSION.close()
 
 
-def set_warn_limit(chat_id, warn_limit):
+async def set_warn_limit(chat_id, warn_limit):
     with WARN_SETTINGS_LOCK:
         curr_setting = SESSION.query(WarnSettings).get(str(chat_id))
         if not curr_setting:
@@ -220,7 +220,7 @@ def set_warn_limit(chat_id, warn_limit):
         SESSION.commit()
 
 
-def set_warn_strength(chat_id, soft_warn):
+async def set_warn_strength(chat_id, soft_warn):
     with WARN_SETTINGS_LOCK:
         curr_setting = SESSION.query(WarnSettings).get(str(chat_id))
         if not curr_setting:
@@ -232,7 +232,7 @@ def set_warn_strength(chat_id, soft_warn):
         SESSION.commit()
 
 
-def get_warn_setting(chat_id):
+async def get_warn_setting(chat_id):
     try:
         setting = SESSION.query(WarnSettings).get(str(chat_id))
         if setting:
@@ -244,28 +244,28 @@ def get_warn_setting(chat_id):
         SESSION.close()
 
 
-def num_warns():
+async def num_warns():
     try:
         return SESSION.query(func.sum(Warns.num_warns)).scalar() or 0
     finally:
         SESSION.close()
 
 
-def num_warn_chats():
+async def num_warn_chats():
     try:
         return SESSION.query(func.count(distinct(Warns.chat_id))).scalar()
     finally:
         SESSION.close()
 
 
-def num_warn_filters():
+async def num_warn_filters():
     try:
         return SESSION.query(WarnFilters).count()
     finally:
         SESSION.close()
 
 
-def num_warn_chat_filters(chat_id):
+async def num_warn_chat_filters(chat_id):
     try:
         return (
             SESSION.query(WarnFilters.chat_id)
@@ -276,14 +276,14 @@ def num_warn_chat_filters(chat_id):
         SESSION.close()
 
 
-def num_warn_filter_chats():
+async def num_warn_filter_chats():
     try:
         return SESSION.query(func.count(distinct(WarnFilters.chat_id))).scalar()
     finally:
         SESSION.close()
 
 
-def __load_chat_warn_filters():
+async def __load_chat_warn_filters():
     global WARN_FILTERS
     try:
         chats = SESSION.query(WarnFilters.chat_id).distinct().all()
@@ -303,7 +303,7 @@ def __load_chat_warn_filters():
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with WARN_INSERTION_LOCK:
         chat_notes = (
             SESSION.query(Warns).filter(Warns.chat_id == str(old_chat_id)).all()

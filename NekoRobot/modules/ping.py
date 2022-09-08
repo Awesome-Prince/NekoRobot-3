@@ -43,7 +43,7 @@ sites_list = {
 }
 
 
-def get_readable_time(seconds: int) -> str:
+async def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
     time_list = []
@@ -71,7 +71,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-def ping_func(to_ping: List[str]) -> List[str]:
+async def ping_func(to_ping: List[str]) -> List[str]:
     ping_result = []
 
     for each_ping in to_ping:
@@ -95,7 +95,7 @@ def ping_func(to_ping: List[str]) -> List[str]:
 
 
 @sudo_plus
-def ping(update: Update, context: CallbackContext):
+async def ping(update: Update, context: CallbackContext):
     msg = update.effective_message
 
     start_time = time.time()
@@ -113,7 +113,7 @@ def ping(update: Update, context: CallbackContext):
 
 
 @sudo_plus
-def pingall(update: Update, context: CallbackContext):
+async def pingall(update: Update, context: CallbackContext):
     to_ping = ["Kaizoku", "Kayo", "Telegram", "Jikan"]
     pinged_list = ping_func(to_ping)
     pinged_list.insert(2, "")

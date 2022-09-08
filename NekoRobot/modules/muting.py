@@ -47,7 +47,7 @@ from NekoRobot.modules.helper_funcs.string_handling import extract_time
 from NekoRobot.modules.log_channel import loggable
 
 
-def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
+async def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
     if not user_id:
         reply = "You don't seem to be referring to a user or the ID specified is incorrect.."
         return reply
@@ -76,7 +76,7 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
 @bot_admin
 @user_admin
 @loggable
-def mute(update: Update, context: CallbackContext) -> str:
+async def mute(update: Update, context: CallbackContext) -> str:
     bot = context.bot
     args = context.args
 
@@ -123,7 +123,7 @@ def mute(update: Update, context: CallbackContext) -> str:
 @bot_admin
 @user_admin
 @loggable
-def unmute(update: Update, context: CallbackContext) -> str:
+async def unmute(update: Update, context: CallbackContext) -> str:
     bot, args = context.bot, context.args
     chat = update.effective_chat
     user = update.effective_user
@@ -186,7 +186,7 @@ def unmute(update: Update, context: CallbackContext) -> str:
 @can_restrict
 @user_admin
 @loggable
-def temp_mute(update: Update, context: CallbackContext) -> str:
+async def temp_mute(update: Update, context: CallbackContext) -> str:
     bot, args = context.bot, context.args
     chat = update.effective_chat
     user = update.effective_user

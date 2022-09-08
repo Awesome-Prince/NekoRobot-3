@@ -15,7 +15,7 @@ CHAT_GROUP = 5
 DEV_AND_MORE = DEV_USERS.append(int(OWNER_ID))
 
 
-def get_user_id(username):
+async def get_user_id(username):
     # ensure valid userid
     if len(username) <= 5:
         return None
@@ -44,7 +44,7 @@ def get_user_id(username):
 
 
 @dev_plus
-def broadcast(update: Update, context: CallbackContext):
+async def broadcast(update: Update, context: CallbackContext):
     to_send = update.effective_message.text.split(None, 1)
 
     if len(to_send) >= 2:
@@ -69,7 +69,7 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True,
                     )
-                    sleep(0.1)
+                    await sleep(0.1)
                 except TelegramError:
                     failed += 1
         if to_user:
@@ -81,7 +81,7 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True,
                     )
-                    sleep(0.1)
+                    await sleep(0.1)
                 except TelegramError:
                     failed_user += 1
         update.effective_message.reply_text(
@@ -89,7 +89,7 @@ def broadcast(update: Update, context: CallbackContext):
         )
 
 
-def log_user(update: Update, context: CallbackContext):
+async def log_user(update: Update, context: CallbackContext):
     chat = update.effective_chat
     msg = update.effective_message
 
@@ -108,7 +108,7 @@ def log_user(update: Update, context: CallbackContext):
 
 
 @sudo_plus
-def chats(update: Update, context: CallbackContext):
+async def chats(update: Update, context: CallbackContext):
     all_chats = sql.get_all_chats() or []
     chatfile = "List of chats.\n0. Chat name | Chat ID | Members count\n"
     P = 1
@@ -136,7 +136,7 @@ def chats(update: Update, context: CallbackContext):
         )
 
 
-def chat_checker(update: Update, context: CallbackContext):
+async def chat_checker(update: Update, context: CallbackContext):
     bot = context.bot
     try:
         if update.effective_message.chat.get_member(bot.id).can_send_messages is False:
@@ -145,7 +145,7 @@ def chat_checker(update: Update, context: CallbackContext):
         pass
 
 
-def __user_info__(user_id):
+async def __user_info__(user_id):
     if user_id in [777000, 1087968824]:
         return """╘══「 Groups count: <code>???</code> 」"""
     if user_id == NEKO_PTB.bot.id:
@@ -154,11 +154,11 @@ def __user_info__(user_id):
     return f"""╘══「 Groups count: <code>{num_chats}</code> 」"""
 
 
-def __stats__():
+async def __stats__():
     return f"• {sql.num_users()} users, across {sql.num_chats()} chats"
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 

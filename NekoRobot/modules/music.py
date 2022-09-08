@@ -45,13 +45,13 @@ is_downloading = False
 Neko_PYRO_Music = filters.command("saavn")
 
 
-def get_file_extension_from_url(url):
+async def get_file_extension_from_url(url):
     url_path = urlparse(url).path
     basename = os.path.basename(url_path)
     return basename.split(".")[-1]
 
 
-def download_youtube_audio(url: str):
+async def download_youtube_audio(url: str):
     global is_downloading
     with youtube_dl.YoutubeDL(
         {
@@ -84,7 +84,7 @@ def download_youtube_audio(url: str):
 
 @pgram.on_message(filters.command("ytmusic"))
 @capture_err
-async def music(_, message):
+async async def music(_, message):
     global is_downloading
     if len(message.command) != 2:
         return await message.reply_text("/ytmusic needs a link as argument")
@@ -124,7 +124,7 @@ async def music(_, message):
 
 
 # Funtion To Download Song
-async def download_song(url):
+async async def download_song(url):
     async with session.get(url) as resp:
         song = await resp.read()
     song = BytesIO(song)
@@ -138,7 +138,7 @@ async def download_song(url):
 @pgram.on_message(Neko_PYRO_Music)
 @pgram.on_edited_message(Neko_PYRO_Music)
 @capture_err
-async def jssong(_, message):
+async async def jssong(_, message):
     global is_downloading
     if len(message.command) < 2:
         return await message.reply_text("/saavn requires an argument.")
@@ -180,7 +180,7 @@ async def jssong(_, message):
 
 
 @pgram.on_message(filters.command("lyricz"))
-async def lyrics_func(_, message):
+async async def lyrics_func(_, message):
     if len(message.command) < 2:
         return await message.reply_text("**Usage:**\n/lyrics [QUERY]")
     m = await message.reply_text("**Searching**")

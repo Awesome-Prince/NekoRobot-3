@@ -42,10 +42,10 @@ from NekoRobot.modules.disable import (
 
 
 class NekoTelegramHandler:
-    def __init__(self, d):
+    async def __init__(self, d):
         self._NEKO_PTB = d
 
-    def command(
+    async def command(
         self,
         command: str,
         filters: Optional[BaseFilter] = None,
@@ -56,7 +56,7 @@ class NekoTelegramHandler:
         can_disable: bool = True,
         group: Optional[Union[int]] = 40,
     ):
-        def _command(func):
+        async def _command(func):
             try:
                 if can_disable:
                     self._NEKO_PTB.add_handler(
@@ -116,7 +116,7 @@ class NekoTelegramHandler:
 
         return _command
 
-    def message(
+    async def message(
         self,
         pattern: Optional[str] = None,
         can_disable: bool = True,
@@ -124,7 +124,7 @@ class NekoTelegramHandler:
         group: Optional[Union[int]] = 60,
         friendly=None,
     ):
-        def _message(func):
+        async def _message(func):
             try:
                 if can_disable:
                     self._NEKO_PTB.add_handler(
@@ -159,8 +159,8 @@ class NekoTelegramHandler:
 
         return _message
 
-    def callbackquery(self, pattern: str = None, run_async: bool = True):
-        def _callbackquery(func):
+    async def callbackquery(self, pattern: str = None, run_async: bool = True):
+        async def _callbackquery(func):
             self._NEKO_PTB.add_handler(
                 CallbackQueryHandler(
                     pattern=pattern, callback=func, run_async=run_async
@@ -173,7 +173,7 @@ class NekoTelegramHandler:
 
         return _callbackquery
 
-    def inlinequery(
+    async def inlinequery(
         self,
         pattern: Optional[str] = None,
         run_async: bool = True,
@@ -181,7 +181,7 @@ class NekoTelegramHandler:
         pass_chat_data: bool = True,
         chat_types: List[str] = None,
     ):
-        def _inlinequery(func):
+        async def _inlinequery(func):
             self._NEKO_PTB.add_handler(
                 InlineQueryHandler(
                     pattern=pattern,

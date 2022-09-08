@@ -5,14 +5,14 @@ VERSION = "1.1.0"
 APIURL = "https://api.github.com/repos/"
 
 
-def vercheck() -> str:
+async def vercheck() -> str:
     return str(VERSION)
 
 
 # Repo-wise stuff
 
 
-def getData(repoURL):
+async def getData(repoURL):
     try:
         with url.urlopen(APIURL + repoURL + "/releases") as data_raw:
             repoData = json.loads(data_raw.read().decode())
@@ -21,7 +21,7 @@ def getData(repoURL):
         return None
 
 
-def getReleaseData(repoData, index):
+async def getReleaseData(repoData, index):
     if index < len(repoData):
         return repoData[index]
     return None
@@ -30,49 +30,49 @@ def getReleaseData(repoData, index):
 # Release-wise stuff
 
 
-def getAuthor(releaseData):
+async def getAuthor(releaseData):
     if releaseData is None:
         return None
     return releaseData["author"]["login"]
 
 
-def getAuthorUrl(releaseData):
+async def getAuthorUrl(releaseData):
     if releaseData is None:
         return None
     return releaseData["author"]["html_url"]
 
 
-def getReleaseName(releaseData):
+async def getReleaseName(releaseData):
     if releaseData is None:
         return None
     return releaseData["name"]
 
 
-def getReleaseTag(releaseData):
+async def getReleaseTag(releaseData):
     if releaseData is None:
         return None
     return releaseData["tag_name"]
 
 
-def getReleaseDate(releaseData):
+async def getReleaseDate(releaseData):
     if releaseData is None:
         return None
     return releaseData["published_at"]
 
 
-def getAssetsSize(releaseData):
+async def getAssetsSize(releaseData):
     if releaseData is None:
         return None
     return len(releaseData["assets"])
 
 
-def getAssets(releaseData):
+async def getAssets(releaseData):
     if releaseData is None:
         return None
     return releaseData["assets"]
 
 
-def getBody(releaseData):  # changelog stuff
+async def getBody(releaseData):  # changelog stuff
     if releaseData is None:
         return None
     return releaseData["body"]
@@ -81,17 +81,17 @@ def getBody(releaseData):  # changelog stuff
 # Asset-wise stuff
 
 
-def getReleaseFileName(asset):
+async def getReleaseFileName(asset):
     return asset["name"]
 
 
-def getReleaseFileURL(asset):
+async def getReleaseFileURL(asset):
     return asset["browser_download_url"]
 
 
-def getDownloadCount(asset):
+async def getDownloadCount(asset):
     return asset["download_count"]
 
 
-def getSize(asset):
+async def getSize(asset):
     return asset["size"]

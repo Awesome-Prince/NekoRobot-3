@@ -49,7 +49,7 @@ CMD_STARTERS = (
 
 
 class AntiSpam:
-    def __init__(self):
+    async def __init__(self):
         self.whitelist = (
             (DEV_USERS or [])
             + (SUDO_USERS or [])
@@ -71,7 +71,7 @@ class AntiSpam:
             bucket_class=MemoryListBucket,
         )
 
-    def check_user(self, user):
+    async def check_user(self, user):
         """
         Return True if user is to be ignored else False
         """
@@ -83,12 +83,12 @@ MessageHandlerChecker = AntiSpam()
 
 
 class CustomCommandHandler(tg.CommandHandler):
-    def __init__(self, command, callback, block=False, **kwargs):
+    async def __init__(self, command, callback, block=False, **kwargs):
         if "admin_ok" in kwargs:
             del kwargs["admin_ok"]
         super().__init__(command, callback, **kwargs)
 
-    def check_update(self, update: object) -> any:
+    async def check_update(self, update: object) -> any:
         if not isinstance(update, Update) or not update.effective_message:
             return
         message = update.effective_message
@@ -122,7 +122,7 @@ class CustomCommandHandler(tg.CommandHandler):
                     return args, filter_result
                 return False
 
-    def collect_additional_context(self, context, update, NEKO_PTB, check_result):
+    async def collect_additional_context(self, context, update, NEKO_PTB, check_result):
         if isinstance(check_result, bool):
             context.args = update.effective_message.text.split()[1:]
         else:

@@ -34,7 +34,7 @@ from NekoRobot.modules.helper_funcs.misc import is_module_loaded
 from NekoRobot.modules.language import gs
 
 
-def get_help(chat):
+async def get_help(chat):
     return gs(chat, "log_help")
 
 
@@ -50,9 +50,9 @@ if is_module_loaded(FILENAME):
     from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
     from NekoRobot.modules.sql import log_channel_sql as sql
 
-    def loggable(func):
+    async def loggable(func):
         @wraps(func)
-        def log_action(update, context, *args, **kwargs):
+        async def log_action(update, context, *args, **kwargs):
             result = func(update, context, *args, **kwargs)
             chat = update.effective_chat  # type: Optional[Chat]
             message = update.effective_message  # type: Optional[Message]
@@ -77,9 +77,9 @@ if is_module_loaded(FILENAME):
 
         return log_action
 
-    def gloggable(func):
+    async def gloggable(func):
         @wraps(func)
-        def glog_action(update, context, *args, **kwargs):
+        async def glog_action(update, context, *args, **kwargs):
             result = func(update, context, *args, **kwargs)
             chat = update.effective_chat  # type: Optional[Chat]
             message = update.effective_message  # type: Optional[Message]
@@ -100,7 +100,7 @@ if is_module_loaded(FILENAME):
 
         return glog_action
 
-    def send_log(
+    async def send_log(
         context: CallbackContext, log_chat_id: str, orig_chat_id: str, result: str
     ):
         bot = context.bot
@@ -130,7 +130,7 @@ if is_module_loaded(FILENAME):
 
     @nekocmd(command="logchannel")
     @u_admin
-    def logging(update: Update, context: CallbackContext):
+    async def logging(update: Update, context: CallbackContext):
         bot = context.bot
         message = update.effective_message
         chat = update.effective_chat
@@ -149,7 +149,7 @@ if is_module_loaded(FILENAME):
 
     @nekocmd(command="setlog")
     @user_admin(AdminPerms.CAN_CHANGE_INFO)
-    def setlog(update: Update, context: CallbackContext):
+    async def setlog(update: Update, context: CallbackContext):
         bot = context.bot
         message = update.effective_message
         chat = update.effective_chat
@@ -191,7 +191,7 @@ if is_module_loaded(FILENAME):
 
     @nekocmd(command="unsetlog")
     @user_admin(AdminPerms.CAN_CHANGE_INFO)
-    def unsetlog(update: Update, context: CallbackContext):
+    async def unsetlog(update: Update, context: CallbackContext):
         bot = context.bot
         message = update.effective_message
         chat = update.effective_chat
@@ -206,13 +206,13 @@ if is_module_loaded(FILENAME):
         else:
             message.reply_text("No log channel has been set yet!")
 
-    def __stats__():
+    async def __stats__():
         return f"• {sql.num_logchannels()} log channels set."
 
-    def __migrate__(old_chat_id, new_chat_id):
+    async def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
 
-    def __chat_settings__(chat_id, user_id):
+    async def __chat_settings__(chat_id, user_id):
         log_channel = sql.get_chat_log_channel(chat_id)
         if log_channel:
             log_channel_info = NEKO_PTB.bot.get_chat(log_channel)
@@ -235,16 +235,16 @@ Setting the log channel is done by:
 
 else:
     # run anyway if module not loaded
-    def loggable(func):
+    async def loggable(func):
         return func
 
-    def gloggable(func):
+    async def gloggable(func):
         return func
 
 
 @nekocmd("logsettings")
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
-def log_settings(update: Update, _: CallbackContext):
+async def log_settings(update: Update, _: CallbackContext):
     chat = update.effective_chat
     chat_set = sql.get_chat_setting(chat_id=chat.id)
     if not chat_set:
@@ -272,7 +272,7 @@ from NekoRobot.modules.sql import log_channel_sql as sql
 
 
 @nekocallback(pattern=r"log_tog_.*")
-def log_setting_callback(update: Update, context: CallbackContext):
+async def log_setting_callback(update: Update, context: CallbackContext):
     cb = update.callback_query
     user = cb.from_user
     chat = cb.message.chat

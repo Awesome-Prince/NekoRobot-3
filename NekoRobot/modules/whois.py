@@ -32,7 +32,7 @@ from pyrogram.types import Message, User
 from NekoRobot import pgram
 
 
-def ReplyCheck(message: Message):
+async def ReplyCheck(message: Message):
     reply_id = None
 
     if message.reply_to_message:
@@ -55,7 +55,7 @@ infotext = (
 )
 
 
-def LastOnline(user: User):
+async def LastOnline(user: User):
     if user.is_bot:
         return ""
     elif user.status == "recently":
@@ -74,12 +74,12 @@ def LastOnline(user: User):
         )
 
 
-def FullName(user: User):
+async def FullName(user: User):
     return user.first_name + " " + user.last_name if user.last_name else user.first_name
 
 
 @pgram.on_message(filters.command("whois"))
-async def whois(client, message):
+async async def whois(client, message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
         get_user = message.from_user.id

@@ -5,7 +5,7 @@ from NekoRobot import pgram
 from NekoRobot.utils.errors import capture_err
 
 
-def ikb(data: dict, row_width: int = 2):
+async def ikb(data: dict, row_width: int = 2):
     """
     Converts a dict to pyrogram buttons
     Ex: dict_to_keyboard({"click here": "this is callback data"})
@@ -22,7 +22,7 @@ bold_ul = lambda x: f"**--{x}:**-- "
 mono = lambda x: f"`{x}`{n}"
 
 
-def section(
+async def section(
     title: str,
     body: dict,
     indent: int = 2,
@@ -42,7 +42,7 @@ def section(
 
 @pgram.on_message(filters.command("crypto"))
 @capture_err
-async def crypto(_, message):
+async async def crypto(_, message):
     if len(message.command) < 2:
         return await message.reply("/crypto `[currency]`")
 

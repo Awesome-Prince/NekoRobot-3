@@ -74,7 +74,7 @@ ENUM_FUNC_MAP = {
 
 @typing_action
 @nekocmd(command="filters", admin_ok=True)
-def list_handlers(update, context):
+async def list_handlers(update, context):
     chat = update.effective_chat
     user = update.effective_user
 
@@ -123,7 +123,7 @@ def list_handlers(update, context):
 @nekocmd(command="filter", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
-def filters(update, context):  # sourcery no-metrics
+async def filters(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     user = update.effective_user
     msg = update.effective_message
@@ -247,7 +247,7 @@ def filters(update, context):  # sourcery no-metrics
 @nekocmd(command="stop", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
-def stop_filter(update, context):
+async def stop_filter(update, context):
     chat = update.effective_chat
     user = update.effective_user
     args = update.effective_message.text.split(None, 1)
@@ -286,7 +286,7 @@ def stop_filter(update, context):
 
 
 @nekomsg((CustomFilters.has_text & ~Filters.update.edited_message))
-def reply_filter(update, context):  # sourcery no-metrics
+async def reply_filter(update, context):  # sourcery no-metrics
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
 
@@ -475,7 +475,7 @@ def reply_filter(update, context):  # sourcery no-metrics
 
 
 @nekocmd(command="removeallfilters", filters=Filters.chat_type.groups)
-def rmall_filters(update, _):
+async def rmall_filters(update, _):
     chat = update.effective_chat
     user = update.effective_user
     member = chat.get_member(user.id)
@@ -502,7 +502,7 @@ def rmall_filters(update, _):
 
 
 @nekocallback(pattern=r"filters_.*")
-def rmall_callback(update, _):
+async def rmall_callback(update, _):
     query = update.callback_query
     chat = update.effective_chat
     msg = update.effective_message
@@ -541,7 +541,7 @@ def rmall_callback(update, _):
 
 
 # NOT ASYNC NOT A HANDLER
-def get_exception(excp, filt, chat):
+async def get_exception(excp, filt, chat):
     if excp.message == "Unsupported url protocol":
         return "You seem to be trying to use the URL protocol which is not supported. Telegram does not support key for multiple protocols, such as tg: //. Please try again!"
     elif excp.message == "Reply message not found":
@@ -555,7 +555,7 @@ def get_exception(excp, filt, chat):
 
 
 # NOT ASYNC NOT A HANDLER
-def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
+async def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
     msg = update.effective_message
     totalfilt = sql.get_chat_triggers(chat_id)
     if len(totalfilt) >= 1000:  # Idk why i made this like function....
@@ -566,22 +566,22 @@ def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
         return True
 
 
-def __stats__():
+async def __stats__():
     return "• {} filters, across {} chats.".format(sql.num_filters(), sql.num_chats())
 
 
-def __import_data__(chat_id, data):
+async def __import_data__(chat_id, data):
     # set chat filters
     filters = data.get("filters", {})
     for trigger in filters:
         sql.add_to_blacklist(chat_id, trigger)
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, _):
+async def __chat_settings__(chat_id, _):
     cust_filters = sql.get_chat_triggers(chat_id)
     return "There are `{}` custom filters here.".format(len(cust_filters))
 

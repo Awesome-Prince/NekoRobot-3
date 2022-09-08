@@ -68,7 +68,7 @@ UNGBAN_ERRORS = {
 
 
 @support_plus
-def gban(update: Update, context: CallbackContext):
+async def gban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
     user = update.effective_user
@@ -271,7 +271,7 @@ def gban(update: Update, context: CallbackContext):
 
 
 @support_plus
-def ungban(update: Update, context: CallbackContext):
+async def ungban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
     user = update.effective_user
@@ -383,7 +383,7 @@ def ungban(update: Update, context: CallbackContext):
 
 
 @support_plus
-def gbanlist(update: Update, context: CallbackContext):
+async def gbanlist(update: Update, context: CallbackContext):
     banned_users = sql.get_gban_list()
 
     if not banned_users:
@@ -407,7 +407,7 @@ def gbanlist(update: Update, context: CallbackContext):
         )
 
 
-def check_and_ban(update, user_id, should_message=True):
+async def check_and_ban(update, user_id, should_message=True):
 
     chat = update.effective_chat  # type: Optional[Chat]
     try:
@@ -443,7 +443,7 @@ def check_and_ban(update, user_id, should_message=True):
             update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
-def enforce_gban(update: Update, context: CallbackContext):
+async def enforce_gban(update: Update, context: CallbackContext):
     # Not using @restrict handler to avoid spamming - just ignore if cant gban.
     bot = context.bot
     try:
@@ -473,7 +473,7 @@ def enforce_gban(update: Update, context: CallbackContext):
 
 
 @user_admin
-def gbanstat(update: Update, context: CallbackContext):
+async def gbanstat(update: Update, context: CallbackContext):
     args = context.args
     if len(args) > 0:
         if args[0].lower() in ["on", "yes"]:
@@ -497,11 +497,11 @@ def gbanstat(update: Update, context: CallbackContext):
         )
 
 
-def __stats__():
+async def __stats__():
     return f"• {sql.num_gbanned_users()} gbanned users."
 
 
-def __user_info__(user_id):
+async def __user_info__(user_id):
     is_gbanned = sql.is_user_gbanned(user_id)
     text = "Malicious: <b>{}</b>"
     if user_id in [777000, 1087968824]:
@@ -521,11 +521,11 @@ def __user_info__(user_id):
     return text
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     return f"This chat is enforcing *gbans*: `{sql.does_chat_gban(chat_id)}`."
 
 

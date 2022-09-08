@@ -36,7 +36,7 @@ from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 
 
 @dev_plus
-def leave(update: Update, context: CallbackContext):
+async def leave(update: Update, context: CallbackContext):
     bot = context.bot
     args = context.args
     if args:
@@ -53,7 +53,7 @@ def leave(update: Update, context: CallbackContext):
 
 
 @dev_plus
-def gitpull(update: Update, context: CallbackContext):
+async def gitpull(update: Update, context: CallbackContext):
     sent_msg = update.effective_message.reply_text(
         "Pulling all changes from remote and then attempting to restart."
     )
@@ -63,7 +63,7 @@ def gitpull(update: Update, context: CallbackContext):
 
     for i in reversed(range(5)):
         sent_msg.edit_text(sent_msg_text + str(i + 1))
-        sleep(1)
+        await sleep(1)
 
     sent_msg.edit_text("Restarted.")
 
@@ -72,7 +72,7 @@ def gitpull(update: Update, context: CallbackContext):
 
 
 @dev_plus
-def restart(update: Update, context: CallbackContext):
+async def restart(update: Update, context: CallbackContext):
     update.effective_message.reply_text(
         "Starting a new instance and shutting down this one"
     )

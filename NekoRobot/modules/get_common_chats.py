@@ -35,7 +35,7 @@ from NekoRobot.modules.helper_funcs.extraction import extract_user
 from NekoRobot.modules.sql.users_sql import get_user_com_chats
 
 
-def get_user_common_chats(update: Update, context: CallbackContext):
+async def get_user_common_chats(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     msg = update.effective_message
     user = extract_user(msg, args)
@@ -51,14 +51,14 @@ def get_user_common_chats(update: Update, context: CallbackContext):
     for chat in common_list:
         try:
             chat_name = bot.get_chat(chat).title
-            sleep(0.3)
+            await sleep(0.3)
             text += f"• <code>{chat_name}</code>\n"
         except BadRequest:
             pass
         except Unauthorized:
             pass
         except RetryAfter as e:
-            sleep(e.retry_after)
+            await sleep(e.retry_after)
 
     if len(text) < 4096:
         msg.reply_text(text, parse_mode="HTML")

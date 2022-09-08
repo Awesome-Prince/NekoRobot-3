@@ -34,7 +34,7 @@ from NekoRobot.modules.disable import DisableAbleCommandHandler
 trans = SyncTranslator()
 
 
-def translate(update: Update, context: CallbackContext) -> None:
+async def translate(update: Update, context: CallbackContext) -> None:
     bot = context.bot
     message = update.effective_message
     reply_msg = message.reply_to_message
@@ -65,7 +65,7 @@ def translate(update: Update, context: CallbackContext) -> None:
     bot.send_message(text=reply, chat_id=message.chat.id, parse_mode=ParseMode.HTML)
 
 
-def languages(update: Update, context: CallbackContext) -> None:
+async def languages(update: Update, context: CallbackContext) -> None:
     message = update.effective_message
     bot = context.bot
     bot.send_message(

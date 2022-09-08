@@ -243,7 +243,7 @@ LOGO_LINKS = [
 
 
 @register(pattern="^/logo ?(.*)")
-async def lego(event):
+async async def lego(event):
     quew = event.pattern_match.group(1)
     if event.sender_id != OWNER_ID and not quew:
         await event.reply(

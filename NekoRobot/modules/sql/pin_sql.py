@@ -38,11 +38,11 @@ class SPinSettings(BASE):
     suacpmo = Column(Boolean, default=False)
     scldpmo = Column(Boolean, default=False)
 
-    def __init__(self, chat_id, message_id):
+    async def __init__(self, chat_id, message_id):
         self.chat_id = str(chat_id)
         self.message_id = message_id
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Pin Settings for {} in {}>".format(self.chat_id, self.message_id)
 
 
@@ -51,7 +51,7 @@ SPinSettings.__table__.create(checkfirst=True)
 PIN_INSERTION_LOCK = threading.RLock()
 
 
-def add_mid(chat_id, message_id):
+async def add_mid(chat_id, message_id):
     with PIN_INSERTION_LOCK:
         chat = SESSION.query(SPinSettings).get(str(chat_id))
         if not chat:
@@ -61,7 +61,7 @@ def add_mid(chat_id, message_id):
         SESSION.close()
 
 
-def remove_mid(chat_id):
+async def remove_mid(chat_id):
     with PIN_INSERTION_LOCK:
         chat = SESSION.query(SPinSettings).get(str(chat_id))
         if chat:
@@ -70,7 +70,7 @@ def remove_mid(chat_id):
         SESSION.close()
 
 
-def add_acp_o(chat_id, setting):
+async def add_acp_o(chat_id, setting):
     with PIN_INSERTION_LOCK:
         chat = SESSION.query(SPinSettings).get(str(chat_id))
         if not chat:
@@ -81,7 +81,7 @@ def add_acp_o(chat_id, setting):
         SESSION.close()
 
 
-def add_ldp_m(chat_id, setting):
+async def add_ldp_m(chat_id, setting):
     with PIN_INSERTION_LOCK:
         chat = SESSION.query(SPinSettings).get(str(chat_id))
         if not chat:
@@ -92,7 +92,7 @@ def add_ldp_m(chat_id, setting):
         SESSION.close()
 
 
-def get_current_settings(chat_id):
+async def get_current_settings(chat_id):
     with PIN_INSERTION_LOCK:
         chat = SESSION.query(SPinSettings).get(str(chat_id))
         return chat

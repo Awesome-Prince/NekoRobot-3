@@ -34,7 +34,7 @@ class KukiChats(BASE):
     __tablename__ = "kuki_chats"
     chat_id = Column(String(14), primary_key=True)
 
-    def __init__(self, chat_id):
+    async def __init__(self, chat_id):
         self.chat_id = chat_id
 
 
@@ -42,7 +42,7 @@ KukiChats.__table__.create(checkfirst=True)
 INSERTION_LOCK = threading.RLock()
 
 
-def is_kuki(chat_id):
+async def is_kuki(chat_id):
     try:
         chat = SESSION.query(KukiChats).get(str(chat_id))
         return bool(chat)
@@ -50,7 +50,7 @@ def is_kuki(chat_id):
         SESSION.close()
 
 
-def set_kuki(chat_id):
+async def set_kuki(chat_id):
     with INSERTION_LOCK:
         kukichat = SESSION.query(KukiChats).get(str(chat_id))
         if not kukichat:
@@ -59,7 +59,7 @@ def set_kuki(chat_id):
         SESSION.commit()
 
 
-def rem_kuki(chat_id):
+async def rem_kuki(chat_id):
     with INSERTION_LOCK:
         kukichat = SESSION.query(KukiChats).get(str(chat_id))
         if kukichat:
@@ -67,7 +67,7 @@ def rem_kuki(chat_id):
         SESSION.commit()
 
 
-def get_all_kuki_chats():
+async def get_all_kuki_chats():
     try:
         return SESSION.query(KukiChats.chat_id).all()
     finally:

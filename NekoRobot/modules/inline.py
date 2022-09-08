@@ -40,14 +40,14 @@ from NekoRobot.modules.helper_funcs.miku_misc import article
 from NekoRobot.modules.sudoers import bot_sys_stats as wall
 
 
-def remove_prefix(text, prefix):
+async def remove_prefix(text, prefix):
     if text.startswith(prefix):
         text = text.replace(prefix, "", 1)
     return text
 
 
 @nekoinline()
-def inlinequery(update: Update, _) -> None:
+async def inlinequery(update: Update, _) -> None:
     """
     Main InlineQueryHandler callback.
     """
@@ -120,7 +120,7 @@ def inlinequery(update: Update, _) -> None:
         update.inline_query.answer(results, cache_time=5)
 
 
-def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
+async def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
     bot = context.bot
     query = update.inline_query.query
@@ -223,12 +223,12 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
 
 
 @pgram.on_callback_query(filters.regex("pingCB"))
-async def stats_callbacc(_, CallbackQuery):
+async async def stats_callbacc(_, CallbackQuery):
     text = await wall()
     await pgram.answer_callback_query(CallbackQuery.id, text, show_alert=True)
 
 
-def about(query: str, update: Update, context: CallbackContext) -> None:
+async def about(query: str, update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
     update.inline_query.query
     user_id = update.effective_user.id
@@ -268,7 +268,7 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
     update.inline_query.answer(results)
 
 
-def spb(query: str, update: Update, context: CallbackContext) -> None:
+async def spb(query: str, update: Update, context: CallbackContext) -> None:
     """Handle the inline query."""
     query = update.inline_query.query
     user_id = update.effective_user.id
@@ -392,7 +392,7 @@ MEDIA_QUERY = """query ($search: String) {
 }"""
 
 
-def media_query(query: str, update: Update, context: CallbackContext) -> None:
+async def media_query(query: str, update: Update, context: CallbackContext) -> None:
     """
     Handle anime inline query.
     """

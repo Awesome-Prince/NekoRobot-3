@@ -46,7 +46,7 @@ REPORT_IMMUNE_USERS = SUDO_USERS + TIGERS + WHITELIST_USERS
 
 
 @user_admin
-def report_setting(update: Update, context: CallbackContext):
+async def report_setting(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     chat = update.effective_chat
     msg = update.effective_message
@@ -91,7 +91,7 @@ def report_setting(update: Update, context: CallbackContext):
 
 @user_not_admin
 @loggable
-def report(update: Update, context: CallbackContext) -> str:
+async def report(update: Update, context: CallbackContext) -> str:
     bot = context.bot
     args = context.args
     message = update.effective_message
@@ -227,15 +227,15 @@ def report(update: Update, context: CallbackContext) -> str:
     return ""
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, _):
+async def __chat_settings__(chat_id, _):
     return f"This chat is setup to send user reports to admins, via /report and @admin: `{sql.chat_should_report(chat_id)}`"
 
 
-def __user_settings__(user_id):
+async def __user_settings__(user_id):
     if sql.user_should_report(user_id) is True:
         text = "You will receive reports from chats you're admin."
     else:
@@ -243,7 +243,7 @@ def __user_settings__(user_id):
     return text
 
 
-def buttons(update: Update, context: CallbackContext):
+async def buttons(update: Update, context: CallbackContext):
     bot = context.bot
     query = update.callback_query
     splitter = query.data.replace("report_", "").split("=")

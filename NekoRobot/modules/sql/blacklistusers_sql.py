@@ -35,7 +35,7 @@ class BlacklistUsers(BASE):
     user_id = Column(String(14), primary_key=True)
     reason = Column(UnicodeText)
 
-    def __init__(self, user_id, reason=None):
+    async def __init__(self, user_id, reason=None):
         self.user_id = user_id
         self.reason = reason
 
@@ -46,7 +46,7 @@ BLACKLIST_LOCK = threading.RLock()
 BLACKLIST_USERS = set()
 
 
-def blacklist_user(user_id, reason=None):
+async def blacklist_user(user_id, reason=None):
     with BLACKLIST_LOCK:
         user = SESSION.query(BlacklistUsers).get(str(user_id))
         if not user:
@@ -59,7 +59,7 @@ def blacklist_user(user_id, reason=None):
         __load_blacklist_userid_list()
 
 
-def unblacklist_user(user_id):
+async def unblacklist_user(user_id):
     with BLACKLIST_LOCK:
         user = SESSION.query(BlacklistUsers).get(str(user_id))
         if user:
@@ -69,7 +69,7 @@ def unblacklist_user(user_id):
         __load_blacklist_userid_list()
 
 
-def get_reason(user_id):
+async def get_reason(user_id):
     user = SESSION.query(BlacklistUsers).get(str(user_id))
     rep = ""
     if user:
@@ -79,11 +79,11 @@ def get_reason(user_id):
     return rep
 
 
-def is_user_blacklisted(user_id):
+async def is_user_blacklisted(user_id):
     return user_id in BLACKLIST_USERS
 
 
-def __load_blacklist_userid_list():
+async def __load_blacklist_userid_list():
     global BLACKLIST_USERS
     try:
         BLACKLIST_USERS = {int(x.user_id) for x in SESSION.query(BlacklistUsers).all()}

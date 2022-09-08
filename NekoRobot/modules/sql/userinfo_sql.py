@@ -11,11 +11,11 @@ class UserInfo(BASE):
     user_id = Column(BigInteger, primary_key=True)
     info = Column(UnicodeText)
 
-    def __init__(self, user_id, info):
+    async def __init__(self, user_id, info):
         self.user_id = user_id
         self.info = info
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<User info %d>" % self.user_id
 
 
@@ -24,11 +24,11 @@ class UserBio(BASE):
     user_id = Column(BigInteger, primary_key=True)
     bio = Column(UnicodeText)
 
-    def __init__(self, user_id, bio):
+    async def __init__(self, user_id, bio):
         self.user_id = user_id
         self.bio = bio
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<User info %d>" % self.user_id
 
 
@@ -38,7 +38,7 @@ UserBio.__table__.create(checkfirst=True)
 INSERTION_LOCK = threading.RLock()
 
 
-def get_user_me_info(user_id):
+async def get_user_me_info(user_id):
     userinfo = SESSION.query(UserInfo).get(user_id)
     SESSION.close()
     if userinfo:
@@ -46,7 +46,7 @@ def get_user_me_info(user_id):
     return None
 
 
-def set_user_me_info(user_id, info):
+async def set_user_me_info(user_id, info):
     with INSERTION_LOCK:
         userinfo = SESSION.query(UserInfo).get(user_id)
         if userinfo:
@@ -57,7 +57,7 @@ def set_user_me_info(user_id, info):
         SESSION.commit()
 
 
-def get_user_bio(user_id):
+async def get_user_bio(user_id):
     userbio = SESSION.query(UserBio).get(user_id)
     SESSION.close()
     if userbio:
@@ -65,7 +65,7 @@ def get_user_bio(user_id):
     return None
 
 
-def set_user_bio(user_id, bio):
+async def set_user_bio(user_id, bio):
     with INSERTION_LOCK:
         userbio = SESSION.query(UserBio).get(user_id)
         if userbio:

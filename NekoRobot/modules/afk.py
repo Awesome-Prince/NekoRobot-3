@@ -16,7 +16,7 @@ AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
 
-def afk(update: Update, context: CallbackContext):
+async def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
 
@@ -43,7 +43,7 @@ def afk(update: Update, context: CallbackContext):
         pass
 
 
-def no_longer_afk(update: Update, context: CallbackContext):
+async def no_longer_afk(update: Update, context: CallbackContext):
     user = update.effective_user
     message = update.effective_message
 
@@ -72,7 +72,7 @@ def no_longer_afk(update: Update, context: CallbackContext):
             return
 
 
-def reply_afk(update: Update, context: CallbackContext):
+async def reply_afk(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
     userc = update.effective_user
@@ -121,7 +121,7 @@ def reply_afk(update: Update, context: CallbackContext):
         check_afk(update, context, user_id, fst_name, userc_id)
 
 
-def check_afk(update, context, user_id, fst_name, userc_id):
+async def check_afk(update, context, user_id, fst_name, userc_id):
     if sql.is_afk(user_id):
         user = sql.check_afk_status(user_id)
         if not user.reason:

@@ -19,7 +19,7 @@ sequel_btn = "Sequel ➡️"
 close_btn = "Close ❌"
 
 
-def shorten(description, info="anilist.co"):
+async def shorten(description, info="anilist.co"):
     msg = ""
     if len(description) > 700:
         description = description[0:500] + "...."
@@ -30,7 +30,7 @@ def shorten(description, info="anilist.co"):
 
 
 # time formatter from uniborg
-def t(milliseconds: int) -> str:
+async def t(milliseconds: int) -> str:
     """Inputs time in milliseconds, to get beautified time,
     as string"""
     seconds, milliseconds = divmod(int(milliseconds), 1000)
@@ -160,7 +160,7 @@ query ($id: Int,$search: String) {
 url = "https://graphql.anilist.co"
 
 
-def airing(update: Update, context: CallbackContext):
+async def airing(update: Update, context: CallbackContext):
     message = update.effective_message
     search_str = message.text.split(" ", 1)
     if len(search_str) == 1:
@@ -182,7 +182,7 @@ def airing(update: Update, context: CallbackContext):
     update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
-def anime(update: Update, context: CallbackContext):
+async def anime(update: Update, context: CallbackContext):
     message = update.effective_message
     search = message.text.split(" ", 1)
     if len(search) == 1:
@@ -255,7 +255,7 @@ def anime(update: Update, context: CallbackContext):
             )
 
 
-def character(update: Update, context: CallbackContext):
+async def character(update: Update, context: CallbackContext):
     message = update.effective_message
     search = message.text.split(" ", 1)
     if len(search) == 1:
@@ -289,7 +289,7 @@ def character(update: Update, context: CallbackContext):
             )
 
 
-def manga(update: Update, context: CallbackContext):
+async def manga(update: Update, context: CallbackContext):
     message = update.effective_message
     search = message.text.split(" ", 1)
     if len(search) == 1:
@@ -355,7 +355,7 @@ def manga(update: Update, context: CallbackContext):
             )
 
 
-def user(update: Update, context: CallbackContext):
+async def user(update: Update, context: CallbackContext):
     message = update.effective_message
     args = message.text.strip().split(" ", 1)
 
@@ -443,7 +443,7 @@ def user(update: Update, context: CallbackContext):
     progress_message.delete()
 
 
-def upcoming(update: Update, context: CallbackContext):
+async def upcoming(update: Update, context: CallbackContext):
     jikan = jikanpy.jikan.Jikan()
     upcoming = jikan.top("anime", page=1, subtype="upcoming")
 
@@ -458,7 +458,7 @@ def upcoming(update: Update, context: CallbackContext):
     update.effective_message.reply_text(upcoming_message)
 
 
-def button(update: Update, context: CallbackContext):
+async def button(update: Update, context: CallbackContext):
     bot = context.bot
     query = update.callback_query
     message = query.message
@@ -495,7 +495,7 @@ def button(update: Update, context: CallbackContext):
             query.answer("You are not allowed to use this.")
 
 
-def site_search(update: Update, context: CallbackContext, site: str):
+async def site_search(update: Update, context: CallbackContext, site: str):
     message = update.effective_message
     args = message.text.strip().split(" ", 1)
     more_results = True
@@ -555,11 +555,11 @@ def site_search(update: Update, context: CallbackContext, site: str):
         )
 
 
-def kaizoku(update: Update, context: CallbackContext):
+async def kaizoku(update: Update, context: CallbackContext):
     site_search(update, context, "kaizoku")
 
 
-def kayo(update: Update, context: CallbackContext):
+async def kayo(update: Update, context: CallbackContext):
     site_search(update, context, "kayo")
 
 

@@ -6,7 +6,7 @@ from NekoRobot import tbot as neko
 
 
 @neko.on(events.NewMessage(pattern="/guess ?(.*)"))
-async def wish(e):
+async async def wish(e):
 
     if e.is_reply:
         mm = random.randint(1, 100)

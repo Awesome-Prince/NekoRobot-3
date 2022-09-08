@@ -55,7 +55,7 @@ class CustomFilters(BASE):
     file_type = Column(BigInteger, nullable=False, default=1)
     file_id = Column(UnicodeText, default=None)
 
-    def __init__(
+    async def __init__(
         self,
         chat_id,
         keyword,
@@ -87,10 +87,10 @@ class CustomFilters(BASE):
         self.file_type = file_type
         self.file_id = file_id
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Permissions for %s>" % self.chat_id
 
-    def __eq__(self, other):
+    async def __eq__(self, other):
         return bool(
             isinstance(other, CustomFilters)
             and self.chat_id == other.chat_id
@@ -106,17 +106,17 @@ class NewCustomFilters(BASE):
     file_type = Column(BigInteger, nullable=False, default=1)
     file_id = Column(UnicodeText, default=None)
 
-    def __init__(self, chat_id, keyword, text, file_type, file_id):
+    async def __init__(self, chat_id, keyword, text, file_type, file_id):
         self.chat_id = str(chat_id)  # ensure string
         self.keyword = keyword
         self.text = text
         self.file_type = file_type
         self.file_id = file_id
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Filter for %s>" % self.chat_id
 
-    def __eq__(self, other):
+    async def __eq__(self, other):
         return bool(
             isinstance(other, CustomFilters)
             and self.chat_id == other.chat_id
@@ -133,7 +133,7 @@ class Buttons(BASE):
     url = Column(UnicodeText, nullable=False)
     same_line = Column(Boolean, default=False)
 
-    def __init__(self, chat_id, keyword, name, url, same_line=False):
+    async def __init__(self, chat_id, keyword, name, url, same_line=False):
         self.chat_id = str(chat_id)
         self.keyword = keyword
         self.name = name
@@ -149,14 +149,14 @@ BUTTON_LOCK = threading.RLock()
 CHAT_FILTERS = {}
 
 
-def get_all_filters():
+async def get_all_filters():
     try:
         return SESSION.query(CustomFilters).all()
     finally:
         SESSION.close()
 
 
-def add_filter(
+async def add_filter(
     chat_id,
     keyword,
     reply,
@@ -212,7 +212,7 @@ def add_filter(
         add_note_button_to_db(chat_id, keyword, b_name, url, same_line)
 
 
-def new_add_filter(chat_id, keyword, reply_text, file_type, file_id, buttons):
+async def new_add_filter(chat_id, keyword, reply_text, file_type, file_id, buttons):
     global CHAT_FILTERS
 
     if buttons is None:
@@ -260,7 +260,7 @@ def new_add_filter(chat_id, keyword, reply_text, file_type, file_id, buttons):
         add_note_button_to_db(chat_id, keyword, b_name, url, same_line)
 
 
-def remove_filter(chat_id, keyword):
+async def remove_filter(chat_id, keyword):
     global CHAT_FILTERS
     with CUST_FILT_LOCK:
         filt = SESSION.query(CustomFilters).get((str(chat_id), keyword))
@@ -285,11 +285,11 @@ def remove_filter(chat_id, keyword):
         return False
 
 
-def get_chat_triggers(chat_id):
+async def get_chat_triggers(chat_id):
     return CHAT_FILTERS.get(str(chat_id), set())
 
 
-def get_chat_filters(chat_id):
+async def get_chat_filters(chat_id):
     try:
         return (
             SESSION.query(CustomFilters)
@@ -302,21 +302,21 @@ def get_chat_filters(chat_id):
         SESSION.close()
 
 
-def get_filter(chat_id, keyword):
+async def get_filter(chat_id, keyword):
     try:
         return SESSION.query(CustomFilters).get((str(chat_id), keyword))
     finally:
         SESSION.close()
 
 
-def add_note_button_to_db(chat_id, keyword, b_name, url, same_line):
+async def add_note_button_to_db(chat_id, keyword, b_name, url, same_line):
     with BUTTON_LOCK:
         button = Buttons(chat_id, keyword, b_name, url, same_line)
         SESSION.add(button)
         SESSION.commit()
 
 
-def get_buttons(chat_id, keyword):
+async def get_buttons(chat_id, keyword):
     try:
         return (
             SESSION.query(Buttons)
@@ -328,21 +328,21 @@ def get_buttons(chat_id, keyword):
         SESSION.close()
 
 
-def num_filters():
+async def num_filters():
     try:
         return SESSION.query(CustomFilters).count()
     finally:
         SESSION.close()
 
 
-def num_chats():
+async def num_chats():
     try:
         return SESSION.query(func.count(distinct(CustomFilters.chat_id))).scalar()
     finally:
         SESSION.close()
 
 
-def __load_chat_filters():
+async def __load_chat_filters():
     global CHAT_FILTERS
     try:
         chats = SESSION.query(CustomFilters.chat_id).distinct().all()
@@ -363,7 +363,7 @@ def __load_chat_filters():
 
 
 # ONLY USE FOR MIGRATE OLD FILTERS TO NEW FILTERS
-def __migrate_filters():
+async def __migrate_filters():
     try:
         all_filters = SESSION.query(CustomFilters).distinct().all()
         for x in all_filters:
@@ -399,7 +399,7 @@ def __migrate_filters():
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with CUST_FILT_LOCK:
         chat_filters = (
             SESSION.query(CustomFilters)

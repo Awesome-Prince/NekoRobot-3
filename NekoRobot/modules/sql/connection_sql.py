@@ -37,11 +37,11 @@ class ChatAccessConnectionSettings(BASE):
     chat_id = Column(String(14), primary_key=True)
     allow_connect_to_chat = Column(Boolean, default=True)
 
-    def __init__(self, chat_id, allow_connect_to_chat):
+    async def __init__(self, chat_id, allow_connect_to_chat):
         self.chat_id = str(chat_id)
         self.allow_connect_to_chat = str(allow_connect_to_chat)
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Chat access settings ({}) is {}>".format(
             self.chat_id, self.allow_connect_to_chat
         )
@@ -52,7 +52,7 @@ class Connection(BASE):
     user_id = Column(BigInteger, primary_key=True)
     chat_id = Column(String(14))
 
-    def __init__(self, user_id, chat_id):
+    async def __init__(self, user_id, chat_id):
         self.user_id = user_id
         self.chat_id = str(chat_id)  # Ensure String
 
@@ -64,13 +64,13 @@ class ConnectionHistory(BASE):
     chat_name = Column(UnicodeText)
     conn_time = Column(BigInteger)
 
-    def __init__(self, user_id, chat_id, chat_name, conn_time):
+    async def __init__(self, user_id, chat_id, chat_name, conn_time):
         self.user_id = user_id
         self.chat_id = str(chat_id)
         self.chat_name = str(chat_name)
         self.conn_time = int(conn_time)
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<connection user {} history {}>".format(self.user_id, self.chat_id)
 
 
@@ -85,7 +85,7 @@ CONNECTION_HISTORY_LOCK = threading.RLock()
 HISTORY_CONNECT = {}
 
 
-def allow_connect_to_chat(chat_id: Union[str, int]) -> bool:
+async def allow_connect_to_chat(chat_id: Union[str, int]) -> bool:
     try:
         chat_setting = SESSION.query(ChatAccessConnectionSettings).get(str(chat_id))
         if chat_setting:
@@ -95,7 +95,7 @@ def allow_connect_to_chat(chat_id: Union[str, int]) -> bool:
         SESSION.close()
 
 
-def set_allow_connect_to_chat(chat_id: Union[int, str], setting: bool):
+async def set_allow_connect_to_chat(chat_id: Union[int, str], setting: bool):
     with CHAT_ACCESS_LOCK:
         chat_setting = SESSION.query(ChatAccessConnectionSettings).get(str(chat_id))
         if not chat_setting:
@@ -106,7 +106,7 @@ def set_allow_connect_to_chat(chat_id: Union[int, str], setting: bool):
         SESSION.commit()
 
 
-def connect(user_id, chat_id):
+async def connect(user_id, chat_id):
     with CONNECTION_INSERTION_LOCK:
         prev = SESSION.query(Connection).get((int(user_id)))
         if prev:
@@ -117,21 +117,21 @@ def connect(user_id, chat_id):
         return True
 
 
-def get_connected_chat(user_id):
+async def get_connected_chat(user_id):
     try:
         return SESSION.query(Connection).get((int(user_id)))
     finally:
         SESSION.close()
 
 
-def curr_connection(chat_id):
+async def curr_connection(chat_id):
     try:
         return SESSION.query(Connection).get((str(chat_id)))
     finally:
         SESSION.close()
 
 
-def disconnect(user_id):
+async def disconnect(user_id):
     with CONNECTION_INSERTION_LOCK:
         disconnect = SESSION.query(Connection).get((int(user_id)))
         if disconnect:
@@ -143,7 +143,7 @@ def disconnect(user_id):
             return False
 
 
-def add_history_conn(user_id, chat_id, chat_name):
+async def add_history_conn(user_id, chat_id, chat_name):
     global HISTORY_CONNECT
     with CONNECTION_HISTORY_LOCK:
         conn_time = int(time.time())
@@ -190,13 +190,13 @@ def add_history_conn(user_id, chat_id, chat_name):
         }
 
 
-def get_history_conn(user_id):
+async def get_history_conn(user_id):
     if not HISTORY_CONNECT.get(int(user_id)):
         HISTORY_CONNECT[int(user_id)] = {}
     return HISTORY_CONNECT[int(user_id)]
 
 
-def clear_history_conn(user_id):
+async def clear_history_conn(user_id):
     global HISTORY_CONNECT
     todel = list(HISTORY_CONNECT[int(user_id)])
     for x in todel:
@@ -209,7 +209,7 @@ def clear_history_conn(user_id):
     return True
 
 
-def __load_user_history():
+async def __load_user_history():
     global HISTORY_CONNECT
     try:
         qall = SESSION.query(ConnectionHistory).all()

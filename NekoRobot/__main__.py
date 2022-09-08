@@ -84,7 +84,7 @@ from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
 from NekoRobot.modules.helper_funcs.misc import paginate_modules
 
 
-def get_readable_time(seconds: int) -> str:
+async def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
     time_list = []
@@ -221,7 +221,7 @@ for module_name in ALL_MODULES:
 
 
 # do not async
-def send_help(chat_id, text, keyboard=None):
+async def send_help(chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     NEKO_PTB.bot.send_message(
@@ -233,14 +233,14 @@ def send_help(chat_id, text, keyboard=None):
     )
 
 
-def test(update: Update):
+async def test(update: Update):
     # pprint(eval(str(update)))
     # update.effective_message.reply_text("Hola tester! _I_ *have* `markdown`", parse_mode=ParseMode.MARKDOWN)
     update.effective_message.reply_text("This person edited a message")
     print(update.effective_message)
 
 
-def start(update: Update, context: CallbackContext):
+async def start(update: Update, context: CallbackContext):
     args = context.args
     uptime = get_readable_time((time.time() - StartTime))
     if update.effective_chat.type == "private":
@@ -313,7 +313,7 @@ def start(update: Update, context: CallbackContext):
         )
 
 
-def error_handler(update: Update, context: CallbackContext):
+async def error_handler(update: Update, context: CallbackContext):
     """Log the error and send a telegram message to notify the developer."""
     # Log the error before we do anything else, so we can see it even if something breaks.
     LOGGER.error(msg="Exception while handling an update:", exc_info=context.error)
@@ -335,7 +335,7 @@ def error_handler(update: Update, context: CallbackContext):
 
 
 # for test purposes
-def error_callback(_, context: CallbackContext):
+async def error_callback(_, context: CallbackContext):
     try:
         raise context.error
     except (BadRequest):
@@ -355,7 +355,7 @@ def error_callback(_, context: CallbackContext):
         # handle all other telegram related errors
 
 
-def help_button(update: Update, context: CallbackContext) -> None:
+async def help_button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     mod_match = re.match(r"help_module\((.+?)\)", query.data)
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
@@ -422,7 +422,7 @@ def help_button(update: Update, context: CallbackContext) -> None:
         # query.message.delete()
 
 
-def neko_callback_data(update: Update, context: CallbackContext) -> None:
+async def neko_callback_data(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     uptime = get_readable_time((time.time() - StartTime))
     if query.data == "neko_":
@@ -451,7 +451,7 @@ def neko_callback_data(update: Update, context: CallbackContext) -> None:
         )
 
 
-def get_help(update: Update, context: CallbackContext) -> None:
+async def get_help(update: Update, context: CallbackContext) -> None:
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(None, 1)
 
@@ -491,7 +491,7 @@ def get_help(update: Update, context: CallbackContext) -> None:
         send_help(chat.id, HELP_STRINGS)
 
 
-def send_settings(context: CallbackContext, chat_id, user_id, user=False):
+async def send_settings(context: CallbackContext, chat_id, user_id, user=False):
     if user:
         if USER_SETTINGS:
             settings = "\n\n".join(
@@ -530,7 +530,7 @@ def send_settings(context: CallbackContext, chat_id, user_id, user=False):
         )
 
 
-def settings_button(update: Update, context: CallbackContext) -> None:
+async def settings_button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
     user = update.effective_user
     bot = context.bot
@@ -607,7 +607,7 @@ def settings_button(update: Update, context: CallbackContext) -> None:
             LOGGER.exception("Exception in settings buttons. %s", str(query.data))
 
 
-def get_settings(update: Update, context: CallbackContext) -> None:
+async def get_settings(update: Update, context: CallbackContext) -> None:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
@@ -636,7 +636,7 @@ def get_settings(update: Update, context: CallbackContext) -> None:
         text = "Click here to check your settings."
 
 
-def donate(update: Update, context: CallbackContext) -> None:
+async def donate(update: Update, context: CallbackContext) -> None:
     user = update.effective_message.from_user
     chat = update.effective_chat  # type: Optional[Chat]
     bot = context.bot
@@ -683,7 +683,7 @@ def donate(update: Update, context: CallbackContext) -> None:
             )
 
 
-def migrate_chats(update: Update):
+async def migrate_chats(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     if msg.migrate_to_chat_id:
         old_chat = update.effective_chat.id
@@ -701,7 +701,7 @@ def migrate_chats(update: Update):
     LOGGER.info("Successfully migrated!")
 
 
-def main():
+async def main():
     test_handler = CommandHandler("test", test, run_async=True)
     start_handler = CommandHandler("start", start, run_async=True)
 

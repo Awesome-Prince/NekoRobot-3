@@ -8,7 +8,7 @@ bold_ul = lambda x: f"**--{x}:**-- "
 mono = lambda x: f"`{x}`{n}"
 
 
-def section(
+async def section(
     title: str,
     body: dict,
     indent: int = 2,

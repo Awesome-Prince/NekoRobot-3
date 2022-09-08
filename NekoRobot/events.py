@@ -28,7 +28,7 @@ from telethon import events
 from NekoRobot import tbot
 
 
-def register(**args):
+async def register(**args):
     """Registers a new message."""
     pattern = args.get("pattern", None)
 
@@ -39,51 +39,51 @@ def register(**args):
 
     args["pattern"] = pattern.replace("^/", r_pattern, 1)
 
-    def decorator(func):
+    async def decorator(func):
         tbot.add_event_handler(func, events.NewMessage(**args))
         return func
 
     return decorator
 
 
-def chataction(**args):
+async def chataction(**args):
     """Registers chat actions."""
 
-    def decorator(func):
+    async def decorator(func):
         tbot.add_event_handler(func, events.ChatAction(**args))
         return func
 
     return decorator
 
 
-def userupdate(**args):
+async def userupdate(**args):
     """Registers user updates."""
 
-    def decorator(func):
+    async def decorator(func):
         tbot.add_event_handler(func, events.UserUpdate(**args))
         return func
 
     return decorator
 
 
-def inlinequery(**args):
+async def inlinequery(**args):
     """Registers inline query."""
     pattern = args.get("pattern", None)
 
     if pattern is not None and not pattern.startswith("(?i)"):
         args["pattern"] = "(?i)" + pattern
 
-    def decorator(func):
+    async def decorator(func):
         tbot.add_event_handler(func, events.InlineQuery(**args))
         return func
 
     return decorator
 
 
-def callbackquery(**args):
+async def callbackquery(**args):
     """Registers inline query."""
 
-    def decorator(func):
+    async def decorator(func):
         tbot.add_event_handler(func, events.CallbackQuery(**args))
         return func
 

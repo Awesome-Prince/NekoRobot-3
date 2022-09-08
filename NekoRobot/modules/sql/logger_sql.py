@@ -10,11 +10,11 @@ class LoggerSettings(BASE):
     chat_id = Column(String(14), primary_key=True)
     setting = Column(Boolean, default=False, nullable=False)
 
-    def __init__(self, chat_id, disabled):
+    async def __init__(self, chat_id, disabled):
         self.chat_id = str(chat_id)
         self.setting = disabled
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<Chat log setting {} ({})>".format(self.chat_id, self.setting)
 
 
@@ -24,7 +24,7 @@ LOG_SETTING_LOCK = threading.RLock()
 LOGSTAT_LIST = set()
 
 
-def enable_chat_log(chat_id):
+async def enable_chat_log(chat_id):
     with LOG_SETTING_LOCK:
         chat = SESSION.query(LoggerSettings).get(str(chat_id))
         if not chat:
@@ -36,7 +36,7 @@ def enable_chat_log(chat_id):
             LOGSTAT_LIST.remove(str(chat_id))
 
 
-def disable_chat_log(chat_id):
+async def disable_chat_log(chat_id):
     with LOG_SETTING_LOCK:
         chat = SESSION.query(LoggerSettings).get(str(chat_id))
         if not chat:
@@ -48,11 +48,11 @@ def disable_chat_log(chat_id):
         LOGSTAT_LIST.add(str(chat_id))
 
 
-def does_chat_log(chat_id):
+async def does_chat_log(chat_id):
     return str(chat_id) not in LOGSTAT_LIST
 
 
-def __load_chat_log_stat_list():
+async def __load_chat_log_stat_list():
     global LOGSTAT_LIST
     try:
         LOGSTAT_LIST = {
@@ -62,7 +62,7 @@ def __load_chat_log_stat_list():
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with LOG_SETTING_LOCK:
         chat = SESSION.query(LoggerSettings).get(str(old_chat_id))
         if chat:

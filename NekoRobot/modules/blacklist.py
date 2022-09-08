@@ -27,7 +27,7 @@ BLACKLIST_GROUP = -3
 @nekocmd(command="blacklist", pass_args=True, admin_ok=True)
 @u_admin
 @typing_action
-def blacklist(update, context):
+async def blacklist(update, context):
     chat = update.effective_chat
     user = update.effective_user
     args = context.args
@@ -72,7 +72,7 @@ def blacklist(update, context):
 @nekocmd(command="addblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
-def add_blacklist(update, context):
+async def add_blacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
     user = update.effective_user
@@ -127,7 +127,7 @@ def add_blacklist(update, context):
 @nekocmd(command="unblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
-def unblacklist(update, context):
+async def unblacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
     user = update.effective_user
@@ -209,7 +209,7 @@ def unblacklist(update, context):
 @loggable
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @typing_action
-def blacklist_mode(update, context):  # sourcery no-metrics
+async def blacklist_mode(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     user = update.effective_user
     msg = update.effective_message
@@ -331,7 +331,7 @@ Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.
     return ""
 
 
-def findall(p, s):
+async def findall(p, s):
     i = s.find(p)
     while i != -1:
         yield i
@@ -346,7 +346,7 @@ def findall(p, s):
     group=BLACKLIST_GROUP,
 )
 @user_not_admin
-def del_blacklist(update, context):  # sourcery no-metrics
+async def del_blacklist(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     message = update.effective_message
     user = update.effective_user
@@ -435,23 +435,23 @@ def del_blacklist(update, context):  # sourcery no-metrics
             break
 
 
-def __import_data__(chat_id, data):
+async def __import_data__(chat_id, data):
     # set chat blacklist
     blacklist = data.get("blacklist", {})
     for trigger in blacklist:
         sql.add_to_blacklist(chat_id, trigger)
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     blacklisted = sql.num_blacklist_chat_filters(chat_id)
     return "There are {} blacklisted words.".format(blacklisted)
 
 
-def __stats__():
+async def __stats__():
     return "• {} blacklist triggers, across {} chats.".format(
         sql.num_blacklist_filters(), sql.num_blacklist_filter_chats()
     )
@@ -462,5 +462,5 @@ __mod_name__ = "Blacklists"
 from NekoRobot.modules.language import gs
 
 
-def get_help(chat):
+async def get_help(chat):
     return gs(chat, "blacklist_help")

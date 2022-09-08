@@ -79,7 +79,7 @@ ENUM_FUNC_MAP = {
 
 
 # Do not async
-def get(update, context, notename, show_none=True, no_format=False):
+async def get(update, context, notename, show_none=True, no_format=False):
     bot = context.bot
     chat_id = update.effective_message.chat.id
     note_chat_id = update.effective_chat.id
@@ -243,7 +243,7 @@ def get(update, context, notename, show_none=True, no_format=False):
 
 
 @connection_status
-def cmd_get(update: Update, context: CallbackContext):
+async def cmd_get(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     if len(args) >= 2 and args[1].lower() == "noformat":
         get(update, context, args[0].lower(), show_none=True, no_format=True)
@@ -254,7 +254,7 @@ def cmd_get(update: Update, context: CallbackContext):
 
 
 @connection_status
-def hash_get(update: Update, context: CallbackContext):
+async def hash_get(update: Update, context: CallbackContext):
     message = update.effective_message.text
     fst_word = message.split()[0]
     no_hash = fst_word[1:].lower()
@@ -262,7 +262,7 @@ def hash_get(update: Update, context: CallbackContext):
 
 
 @connection_status
-def slash_get(update: Update, context: CallbackContext):
+async def slash_get(update: Update, context: CallbackContext):
     message, chat_id = update.effective_message.text, update.effective_chat.id
     no_slash = message[1:]
     note_list = sql.get_all_chat_notes(chat_id)
@@ -277,7 +277,7 @@ def slash_get(update: Update, context: CallbackContext):
 
 @user_admin
 @connection_status
-def save(update: Update, context: CallbackContext):
+async def save(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     msg = update.effective_message  # type: Optional[Message]
 
@@ -316,7 +316,7 @@ def save(update: Update, context: CallbackContext):
 
 @user_admin
 @connection_status
-def clear(update: Update, context: CallbackContext):
+async def clear(update: Update, context: CallbackContext):
     args = context.args
     chat_id = update.effective_chat.id
     if len(args) >= 1:
@@ -328,7 +328,7 @@ def clear(update: Update, context: CallbackContext):
             update.effective_message.reply_text("That's not a note in my database!")
 
 
-def clearall(update: Update, context: CallbackContext):
+async def clearall(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
     member = chat.get_member(user.id)
@@ -354,7 +354,7 @@ def clearall(update: Update, context: CallbackContext):
         )
 
 
-def clearall_btn(update: Update, context: CallbackContext):
+async def clearall_btn(update: Update, context: CallbackContext):
     query = update.callback_query
     chat = update.effective_chat
     message = update.effective_message
@@ -386,7 +386,7 @@ def clearall_btn(update: Update, context: CallbackContext):
 
 
 @connection_status
-def list_notes(update: Update, context: CallbackContext):
+async def list_notes(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     note_list = sql.get_all_chat_notes(chat_id)
     notes = len(note_list) + 1
@@ -411,7 +411,7 @@ def list_notes(update: Update, context: CallbackContext):
         update.effective_message.reply_text(msg, parse_mode=ParseMode.MARKDOWN)
 
 
-def __import_data__(chat_id, data):
+async def __import_data__(chat_id, data):
     failures = []
     for notename, notedata in data.get("extra", {}).items():
         match = FILE_MATCHER.match(notedata)
@@ -518,15 +518,15 @@ def __import_data__(chat_id, data):
             )
 
 
-def __stats__():
+async def __stats__():
     return f"• {sql.num_notes()} notes, across {sql.num_chats()} chats."
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     notes = sql.get_all_chat_notes(chat_id)
     return f"There are `{len(notes)}` notes in this chat."
 

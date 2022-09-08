@@ -300,7 +300,7 @@ timeout = httpx.Timeout(40)
 http = httpx.AsyncClient(http2=True, timeout=timeout)
 
 
-async def get_entity(client, entity):
+asydef get_entity(client, entity):
     entity_client = client
     if not isinstance(entity, Chat):
         try:

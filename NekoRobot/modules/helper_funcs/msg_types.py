@@ -17,7 +17,7 @@ class Types(IntEnum):
     VIDEO = 7
 
 
-def get_note_type(msg: Message):
+async def get_note_type(msg: Message):
     data_type = None
     content = None
     text = ""
@@ -84,7 +84,7 @@ def get_note_type(msg: Message):
 
 
 # note: add own args?
-def get_welcome_type(msg: Message):
+async def get_welcome_type(msg: Message):
     data_type = None
     content = None
     text = ""
@@ -165,7 +165,7 @@ def get_welcome_type(msg: Message):
     return text, data_type, content, buttons
 
 
-def get_filter_type(msg: Message):
+async def get_filter_type(msg: Message):
 
     if not msg.reply_to_message and msg.text and len(msg.text.split()) >= 3:
         content = None

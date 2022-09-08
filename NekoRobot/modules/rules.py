@@ -43,13 +43,13 @@ from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.helper_funcs.string_handling import markdown_parser
 
 
-def get_rules(update: Update, context: CallbackContext):
+async def get_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     send_rules(update, chat_id)
 
 
 # Do not async - not from a handler
-def send_rules(update, chat_id, from_pm=False):
+async def send_rules(update, chat_id, from_pm=False):
     bot = NEKO_PTB.bot
     user = update.effective_user  # type: Optional[User]
     try:
@@ -99,7 +99,7 @@ def send_rules(update, chat_id, from_pm=False):
 
 
 @user_admin
-def set_rules(update: Update, context: CallbackContext):
+async def set_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     msg = update.effective_message  # type: Optional[Message]
     raw_text = msg.text
@@ -116,27 +116,27 @@ def set_rules(update: Update, context: CallbackContext):
 
 
 @user_admin
-def clear_rules(update: Update, context: CallbackContext):
+async def clear_rules(update: Update, context: CallbackContext):
     chat_id = update.effective_chat.id
     sql.set_rules(chat_id, "")
     update.effective_message.reply_text("Successfully cleared rules!")
 
 
-def __stats__():
+async def __stats__():
     return f"• {sql.num_chats()} chats have rules set."
 
 
-def __import_data__(chat_id, data):
+async def __import_data__(chat_id, data):
     # set chat rules
     rules = data.get("info", {}).get("rules", "")
     sql.set_rules(chat_id, rules)
 
 
-def __migrate__(old_chat_id, new_chat_id):
+async def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(chat_id, user_id):
+async def __chat_settings__(chat_id, user_id):
     return f"This chat has had it's rules set: `{bool(sql.get_rules(chat_id))}`"
 
 

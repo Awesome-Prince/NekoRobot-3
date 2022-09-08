@@ -41,10 +41,10 @@ class FloodControl(BASE):
     count = Column(BigInteger, default=DEF_COUNT)
     limit = Column(BigInteger, default=DEF_LIMIT)
 
-    def __init__(self, chat_id):
+    async def __init__(self, chat_id):
         self.chat_id = str(chat_id)  # ensure string
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<flood control for %s>" % self.chat_id
 
 
@@ -54,12 +54,12 @@ class FloodSettings(BASE):
     flood_type = Column(BigInteger, default=1)
     value = Column(UnicodeText, default="0")
 
-    def __init__(self, chat_id, flood_type=1, value="0"):
+    async def __init__(self, chat_id, flood_type=1, value="0"):
         self.chat_id = str(chat_id)
         self.flood_type = flood_type
         self.value = value
 
-    def __repr__(self):
+    async def __repr__(self):
         return "<{} will executing {} for flood.>".format(self.chat_id, self.flood_type)
 
 
@@ -72,7 +72,7 @@ INSERTION_FLOOD_SETTINGS_LOCK = threading.RLock()
 CHAT_FLOOD = {}
 
 
-def set_flood(chat_id, amount):
+async def set_flood(chat_id, amount):
     with INSERTION_FLOOD_LOCK:
         flood = SESSION.query(FloodControl).get(str(chat_id))
         if not flood:
@@ -87,7 +87,7 @@ def set_flood(chat_id, amount):
         SESSION.commit()
 
 
-def update_flood(chat_id: str, user_id) -> bool:
+async def update_flood(chat_id: str, user_id) -> bool:
     if str(chat_id) in CHAT_FLOOD:
         curr_user_id, count, limit = CHAT_FLOOD.get(str(chat_id), DEF_OBJ)
 
@@ -108,11 +108,11 @@ def update_flood(chat_id: str, user_id) -> bool:
         return False
 
 
-def get_flood_limit(chat_id):
+async def get_flood_limit(chat_id):
     return CHAT_FLOOD.get(str(chat_id), DEF_OBJ)[2]
 
 
-def set_flood_strength(chat_id, flood_type, value):
+async def set_flood_strength(chat_id, flood_type, value):
     # for flood_type
     # 1 = ban
     # 2 = kick
@@ -133,7 +133,7 @@ def set_flood_strength(chat_id, flood_type, value):
         SESSION.commit()
 
 
-def get_flood_setting(chat_id):
+async def get_flood_setting(chat_id):
     try:
         setting = SESSION.query(FloodSettings).get(str(chat_id))
         if setting:
@@ -145,7 +145,7 @@ def get_flood_setting(chat_id):
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
+async def migrate_chat(old_chat_id, new_chat_id):
     with INSERTION_FLOOD_LOCK:
         flood = SESSION.query(FloodControl).get(str(old_chat_id))
         if flood:
@@ -156,7 +156,7 @@ def migrate_chat(old_chat_id, new_chat_id):
         SESSION.close()
 
 
-def __load_flood_settings():
+async def __load_flood_settings():
     global CHAT_FLOOD
     try:
         all_chats = SESSION.query(FloodControl).all()

@@ -8,7 +8,7 @@ from telegram import Update
 from telegram.ext import CallbackContext
 
 @nekocmd(command='hi', pass_args=True)
-def hello(update: Update, context: CallbackContext):
+async def hello(update: Update, context: CallbackContext):
     message = update.effective_message
     message.reply_text("hello")
 
@@ -29,7 +29,7 @@ from NekoRobot import pgram
 Neko_PYRO_Hello = filters.command("hi")
 
 @pgram.on_message(Neko_PYRO_Hello) & ~filters.edited & ~filters.bot)
-async def hmm(client, message):
+async async def hmm(client, message):
     j = "Hello there"
     await message.reply(j)
     
@@ -47,7 +47,7 @@ from NekoRobot import tbot
 from NekoRobot.events import register
 
 @register(pattern="^/hi$")
-async def hmm(event):
+async async def hmm(event):
     j = "Hello there"
     await event.reply(j)
     
@@ -65,7 +65,7 @@ from NekoRobot import NEKO_PTB
 from telegram import Update
 from telegram.ext import CallbackContext, CommandHandler
 
-def hi(update: Update, context: CallbackContext):
+async def hi(update: Update, context: CallbackContext):
     j = "hello"
     update.effective_message.reply_text(j)
 
