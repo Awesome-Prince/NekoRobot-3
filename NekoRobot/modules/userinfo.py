@@ -190,7 +190,7 @@ async def get_id(update: Update, context: CallbackContext):
         from_users=(TIGERS or []) + (SUDO_USERS or []) + (SUPPORT_USERS or []),
     ),
 )
-async async def group_info(event) -> None:
+async def group_info(event) -> None:
     chat = event.text.split(" ", 1)[1]
     try:
         entity = await event.client.get_entity(chat)
