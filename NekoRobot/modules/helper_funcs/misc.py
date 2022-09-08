@@ -30,13 +30,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 import contextlib
-from typing import Dict, List
 from asyncio import sleep
+from typing import Dict, List
+
+from telegram import Bot, InlineKeyboardButton
+from telegram.constants import MessageLimit, ParseMode
+from telegram.error import TelegramError
 
 from NekoRobot import NO_LOAD
-from telegram import Bot, InlineKeyboardButton
-from telegram.error import TelegramError
-from telegram.constants import ParseMode, MessageLimit
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
@@ -49,12 +50,14 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
     def __gt__(self, other):
         return self.text > other.text
 
+
 def delete(delmsg, timer):
     sleep(timer)
     try:
         delmsg.delete()
     except:
         return
+
 
 def split_message(msg: str) -> List[str]:
     if len(msg) < MessageLimit.TEXT_LENGTH:
@@ -74,7 +77,10 @@ def split_message(msg: str) -> List[str]:
 
     return result
 
-def paginate_modules(_: int, module_dict: Dict, prefix, chat=None) -> List[List[EqInlineKeyboardButton]]:
+
+def paginate_modules(
+    _: int, module_dict: Dict, prefix, chat=None
+) -> List[List[EqInlineKeyboardButton]]:
     modules = (
         sorted(
             [
@@ -97,17 +103,17 @@ def paginate_modules(_: int, module_dict: Dict, prefix, chat=None) -> List[List[
         )
     )
 
-
-    pairs = [list (a) for a in zip(modules[::3], modules[1::3], modules[2::3])]
+    pairs = [list(a) for a in zip(modules[::3], modules[1::3], modules[2::3])]
 
     round_num = len(modules) / 3
     calc = len(modules) - round(round_num)
     if calc in [1, 2]:
         pairs.append((modules[-1],))
     else:
-        pairs += [[EqInlineKeyboardButton("[► Back ◄]",  callback_data="neko_back")]]
+        pairs += [[EqInlineKeyboardButton("[► Back ◄]", callback_data="neko_back")]]
 
     return pairs
+
 
 async def send_to_list(
     bot: Bot, send_to: list, message: str, markdown=False, html=False
@@ -117,7 +123,9 @@ async def send_to_list(
     for user_id in set(send_to):
         with contextlib.suppress(TelegramError):
             if markdown:
-                await bot.send_message(user_id, message, parse_mode=ParseMode.MARKDOWN_V2)
+                await bot.send_message(
+                    user_id, message, parse_mode=ParseMode.MARKDOWN_V2
+                )
             elif html:
                 await bot.send_message(user_id, message, parse_mode=ParseMode.HTML)
             else:
