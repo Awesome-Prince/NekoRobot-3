@@ -28,16 +28,14 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-from enum import Enum
 import functools
+from enum import Enum
 
-from telegram import Update#, ParseMode
-from telegram import InlineKeyboardButton
-from telegram import InlineKeyboardMarkup
+from telegram import Update  # , ParseMode
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ParseMode
 
-from NekoRobot import DEV_USERS, SUDO_USERS, NEKO_PTB
-from .decorators import cutiepii_callback
+from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
 
 
 class AdminPerms(Enum):
@@ -61,7 +59,9 @@ anon_callback_messages = {}
 def user_admin(permission: AdminPerms):
     def wrapper(func):
         @functools.wraps(func)
-        async def awrapper(update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs):
+        async def awrapper(
+            update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs
+        ):
             nonlocal permission
             if update.effective_chat.type == "private":
                 return func(update, context, *args, **kwargs)
@@ -142,5 +142,3 @@ async def anon_callback_handler1(upd: Update):
             return cb[1](cb[0][0], cb[0][1])
     else:
         callback.answer("This isn't for ya")
-
- 
