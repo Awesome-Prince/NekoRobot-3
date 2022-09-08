@@ -39,7 +39,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ContextTypes
 import NekoRobot.modules.sql.connection_sql as sql
 from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.helper_funcs import admin_status
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
+from NekoRobot.modules.helper_funcs.alternate import send_message
 
 AdminPerms = admin_status.AdminPerms
 user_admin_check = admin_status.user_admin_check
@@ -47,7 +47,6 @@ user_admin = chat_status.user_admin
 
 
 @user_admin
-@typing_action
 async def allow_connections(update, context) -> str:
 
     chat = update.effective_chat
