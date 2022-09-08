@@ -54,6 +54,7 @@ from telegram.helpers import escape_markdown
 
 import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot import (
+    BOT_NAME,
     BOT_USERNAME,
     DONATION_LINK,
     HELP_IMG,
@@ -118,7 +119,7 @@ PM_START_TEXT = """
 buttons = [
     [
         InlineKeyboardButton(
-            text=f"Add {contextlib.bot.first_name} To Your Group",
+            text=f"Add {BOT_NAME} To Your Group",
             url=f"https://telegram.dog/{BOT_USERNAME}?startgroup=true",
         )
     ],
