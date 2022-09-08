@@ -29,7 +29,8 @@ from time import perf_counter
 
 from cachetools import TTLCache
 from pyrogram import filters
-from telegram import Chat, ChatMember, ParseMode, Update, User
+from telegram import Chat, ChatMember, Update, User
+from telegram.constants import ParseMode
 from telegram.ext import CallbackContext
 
 from NekoRobot import (
