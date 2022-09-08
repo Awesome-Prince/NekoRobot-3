@@ -23,13 +23,23 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-from NekoRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
-from NekoRobot import LOGGER, NEKO_PTB as app
+from typing import List, Optional
 
-from typing import Optional, List
-
-from telegram.ext import Application, CallbackQueryHandler, CommandHandler, InlineQueryHandler, MessageHandler, filters
+from telegram.ext import (
+    Application,
+    CallbackQueryHandler,
+    CommandHandler,
+    InlineQueryHandler,
+    MessageHandler,
+)
 from telegram.ext.filters import BaseFilter
+
+from NekoRobot import LOGGER
+from NekoRobot import NEKO_PTB as app
+from NekoRobot.modules.disable import (
+    DisableAbleCommandHandler,
+    DisableAbleMessageHandler,
+)
 
 
 class Neko_TG_Handler:
@@ -146,7 +156,7 @@ class Neko_TG_Handler:
     def inlinequery(
         self,
         pattern: Optional[str] = None,
-#        run_async: bool = True,
+        #        run_async: bool = True,
         pass_user_data: bool = True,
         pass_chat_data: bool = True,
         chat_types: List[str] = None,
