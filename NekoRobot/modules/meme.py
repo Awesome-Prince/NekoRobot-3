@@ -373,7 +373,9 @@ async def weebify(update: Update, context: CallbackContext):
         string = "  ".join(args).lower()
 
     if not string:
-        message.reply_text("Usage is `/weebify <text>`", parse_mode=ParseMode.MARKDOWN_V2)
+        message.reply_text(
+            "Usage is `/weebify <text>`", parse_mode=ParseMode.MARKDOWN_V2
+        )
         return
 
     for normiecharacter in string:
