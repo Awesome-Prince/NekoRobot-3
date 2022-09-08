@@ -408,9 +408,7 @@ __help__ = """
 """
 
 IMPORT_HANDLER = CommandHandler("import", import_data, block=False)
-EXPORT_HANDLER = CommandHandler(
-    "export", export_data, pass_chat_data=True, block=False
-)
+EXPORT_HANDLER = CommandHandler("export", export_data, pass_chat_data=True, block=False)
 
 NEKO_PTB.add_handler(IMPORT_HANDLER)
 NEKO_PTB.add_handler(EXPORT_HANDLER)

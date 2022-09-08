@@ -143,9 +143,7 @@ PAT_HANDLER = MessageHandler(Filters.regex("(?i)Neko pat"), pat, block=False)
 HUG_HANDLER = MessageHandler(Filters.regex("(?i)Neko hug"), hug, block=False)
 SLAP_HANDLER = MessageHandler(Filters.regex("(?i)Neko slap"), slap, block=False)
 CUTE_HANDLER = MessageHandler(Filters.regex("(?i)Neko cute"), cute, block=False)
-SLEEP_HANDLER = MessageHandler(
-    Filters.regex("(Neko sleep|sleep)"), sleep, block=False
-)
+SLEEP_HANDLER = MessageHandler(Filters.regex("(Neko sleep|sleep)"), sleep, block=False)
 
 NEKO_PTB.add_handler(KISS_HANDLER)
 NEKO_PTB.add_handler(PAT_HANDLER)

@@ -646,9 +646,7 @@ TIGER_HANDLER = CommandHandler(("addtiger", "addcrank"), addtiger, block=False)
 WHITELIST_HANDLER = CommandHandler(
     ("addwhitelist", "adddrank"), addwhitelist, block=False
 )
-UNSUDO_HANDLER = CommandHandler(
-    ("removesudo", "removearank"), removesudo, block=False
-)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removearank"), removesudo, block=False)
 UNSUPPORT_HANDLER = CommandHandler(
     ("removesupport", "removebrank"), removesupport, block=False
 )

@@ -1134,9 +1134,7 @@ ADMINLIST_HANDLER = DisableAbleCommandHandler(
     ["admins", "adminlist"], adminlist, block=False
 )
 
-PIN_HANDLER = CommandHandler(
-    "pin", pin, filters=Filters.chat_type.groups, block=False
-)
+PIN_HANDLER = CommandHandler("pin", pin, filters=Filters.chat_type.groups, block=False)
 UNPIN_HANDLER = CommandHandler(
     "unpin", unpin, filters=Filters.chat_type.groups, block=False
 )
@@ -1147,15 +1145,9 @@ PINNED_HANDLER = CommandHandler(
 INVITE_HANDLER = DisableAbleCommandHandler("invitelink", invite, block=False)
 
 PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, block=False)
-FULLPROMOTE_HANDLER = DisableAbleCommandHandler(
-    "fullpromote", fullpromote, block=False
-)
-LOW_PROMOTE_HANDLER = DisableAbleCommandHandler(
-    "lowpromote", lowpromote, block=False
-)
-MID_PROMOTE_HANDLER = DisableAbleCommandHandler(
-    "midpromote", midpromote, block=False
-)
+FULLPROMOTE_HANDLER = DisableAbleCommandHandler("fullpromote", fullpromote, block=False)
+LOW_PROMOTE_HANDLER = DisableAbleCommandHandler("lowpromote", lowpromote, block=False)
+MID_PROMOTE_HANDLER = DisableAbleCommandHandler("midpromote", midpromote, block=False)
 DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, block=False)
 
 SET_TITLE_HANDLER = CommandHandler("title", set_title, block=False)
