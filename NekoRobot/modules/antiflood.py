@@ -32,7 +32,6 @@ from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
     CommandHandler,
-    filters,
     MessageHandler,
 )
 from telegram.helpers import mention_html

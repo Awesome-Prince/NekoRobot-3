@@ -34,7 +34,7 @@ from telegram import (
     User,
 )
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, CommandHandler, filters
+from telegram.ext import CallbackContext, CommandHandler
 from telegram.helpers import escape_markdown
 
 import NekoRobot.modules.sql.rules_sql as sql
