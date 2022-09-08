@@ -1,7 +1,6 @@
 import random
 
 import requests
-from telegram.ext import filters
 
 from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import MessageHandler
