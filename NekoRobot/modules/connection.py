@@ -256,8 +256,8 @@ async def connect_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
                 )
 
                 try:
-                    sql.add_history_conn(user.id, str(chat.id, chat_name)
-                    await context.bot.send_message(
+                    sql.add_history_conn(user.id, str(chat.id), chat_name)
+                    context.bot.send_message(
                         update.effective_message.from_user.id,
                         "You are connected to *{}*. \nUse `/helpconnect` to check available commands.".format(
                             chat_name
