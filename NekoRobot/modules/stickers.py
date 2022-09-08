@@ -570,7 +570,7 @@ Credit = "This Plugin Made by Kittu (@A_viyu), if you're using this code in your
 
 
 @Neko(pattern="^/mmf ?(.*)")
-async async def handler(event):
+async def handler(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:
@@ -599,7 +599,7 @@ async async def handler(event):
 # Maybe replyed to suit the needs of this module
 
 
-async async def drawText(image_path, text):
+async def drawText(image_path, text):
     img = Image.open(image_path)
     os.remove(image_path)
     i_width, i_height = img.size
