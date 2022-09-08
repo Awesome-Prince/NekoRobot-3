@@ -7,10 +7,11 @@ from html import escape
 import requests
 from bs4 import BeautifulSoup as bs
 from PIL import Image, ImageDraw, ImageFont
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.constants import ParseMode
 from telegram.error import TelegramError
 from telegram.ext import CallbackContext
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 from NekoRobot import NEKO_PTB
 from NekoRobot import tbot as bot
