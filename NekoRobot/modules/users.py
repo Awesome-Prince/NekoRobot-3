@@ -3,7 +3,7 @@ from time import sleep
 
 from telegram import TelegramError, Update
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CallbackContext, CommandHandler, filters, MessageHandler
+from telegram.ext import CallbackContext, CommandHandler, MessageHandler
 
 import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot import DEV_USERS, LOGGER, NEKO_PTB, OWNER_ID
