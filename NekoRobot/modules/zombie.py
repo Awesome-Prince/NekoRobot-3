@@ -73,7 +73,7 @@ async async def is_administrator(user_id: int, message):
 
 
 @tbot.on(events.NewMessage(pattern=f"^[!/]zombies ?(.*)"))
-async async def zombies(event):
+async def zombies(event):
     """For .zombies command, list all the zombies in a chat."""
 
     con = event.pattern_match.group(1).lower()
