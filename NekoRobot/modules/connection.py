@@ -28,22 +28,17 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-import time
 import re
+import time
 
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton, Update, Bot
 from telegram.error import BadRequest, Forbidden
-from telegram.ext import (
-    CommandHandler,
-    CallbackQueryHandler,
-    ContextTypes
-)
+from telegram.ext import CallbackQueryHandler, CommandHandler, ContextTypes
 
 import NekoRobot.modules.sql.connection_sql as sql
-from NekoRobot import NEKO_PTB, SUDO_USERS, DEV_USERS
+from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.helper_funcs import admin_status
-
 from NekoRobot.modules.helper_funcs.alternate import send_message
 
 AdminPerms = admin_status.AdminPerms
@@ -95,7 +90,6 @@ async def allow_connections(update, context) -> str:
         )
 
 
-
 async def connection_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     chat = update.effective_chat
@@ -119,8 +113,9 @@ async def connection_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     send_message(update.effective_message, message, parse_mode="markdown")
 
 
-
-async def connect_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # sourcery no-metrics
+async def connect_chat(
+    update: Update, context: ContextTypes.DEFAULT_TYPE
+) -> None:  # sourcery no-metrics
 
     chat = update.effective_chat
     user = update.effective_user
@@ -157,7 +152,9 @@ async def connect_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
                     update.effective_message.from_user.id, connect_chat
                 ):
                     conn_chat = await NEKO_PTB.bot.getChat(
-                        await connected(context.bot, update, chat, user.id, need_admin=False)
+                        await connected(
+                            context.bot, update, chat, user.id, need_admin=False
+                        )
                     )
                     chat_name = conn_chat.title
                     send_message(
@@ -190,7 +187,9 @@ async def connect_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
             conn = await connected(context.bot, update, chat, user.id, need_admin=False)
             if conn:
                 connectedchat = await CUTIEPII_PTB.bot.getChat(conn)
-                text = f"You are currently connected to *{connectedchat.title}* (`{conn}`)"
+                text = (
+                    f"You are currently connected to *{connectedchat.title}* (`{conn}`)"
+                )
                 buttons.append(
                     InlineKeyboardButton(
                         text="🔌 Disconnect", callback_data="connect_disconnect"
@@ -347,7 +346,7 @@ CONN_HELP = """
 
 async def help_connect_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
-    args = context.args
+    context.args
 
     if update.effective_message.chat.type != "private":
         send_message(update.effective_message, "PM me with that command to get help.")
@@ -376,11 +375,11 @@ async def connect_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         isallow = sql.allow_connect_to_chat(target_chat)
 
         if (isadmin) or (isallow and ismember) or (user.id in SUDO_USERS):
-            if connection_status := sql.connect(
-                query.from_user.id, target_chat
-            ):
+            if connection_status := sql.connect(query.from_user.id, target_chat):
                 conn_chat = await NEKO_PTB.bot.getChat(
-                    await connected(context.bot, update, chat, user.id, need_admin=False)
+                    await connected(
+                        context.bot, update, chat, user.id, need_admin=False
+                    )
                 )
                 chat_name = conn_chat.title
                 await query.message.edit_text(
@@ -414,17 +413,13 @@ async def connect_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         connect_chat(update, context)
 
 
-
 NEKO_PTB.add_handler(CommandHandler("connect", connect_chat))
 NEKO_PTB.add_handler(CommandHandler("connection", connection_chat, block=False))
 NEKO_PTB.add_handler(CommandHandler("disconnect", disconnect_chat, block=False))
-NEKO_PTB.add_handler(CommandHandler(
-    "allowconnect", allow_connections, block=False
-))
-NEKO_PTB.add_handler(CommandHandler(
-    "helpconnect", help_connect_chat, block=False
-))
-NEKO_PTB.add_handler(CallbackQueryHandler(
-    connect_button, pattern=r"connect", block=False))
+NEKO_PTB.add_handler(CommandHandler("allowconnect", allow_connections, block=False))
+NEKO_PTB.add_handler(CommandHandler("helpconnect", help_connect_chat, block=False))
+NEKO_PTB.add_handler(
+    CallbackQueryHandler(connect_button, pattern=r"connect", block=False)
+)
 
 __mod_name__ = "Connection"
