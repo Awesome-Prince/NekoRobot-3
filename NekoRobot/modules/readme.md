@@ -29,7 +29,7 @@ from NekoRobot import pgram
 Neko_PYRO_Hello = filters.command("hi")
 
 @pgram.on_message(Neko_PYRO_Hello) & ~filters.edited & ~filters.bot)
-async async def hmm(client, message):
+async def hmm(client, message):
     j = "Hello there"
     await message.reply(j)
     
@@ -47,7 +47,7 @@ from NekoRobot import tbot
 from NekoRobot.events import register
 
 @register(pattern="^/hi$")
-async async def hmm(event):
+async def hmm(event):
     j = "Hello there"
     await event.reply(j)
     

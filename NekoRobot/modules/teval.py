@@ -10,7 +10,7 @@ from NekoRobot import tbot as client
 
 
 @client.on(events.NewMessage(from_users=[5362971543], pattern="^/te ?(.*)"))
-async async def eval(event):
+async def eval(event):
     if event.fwd_from:
         return
     cmd = "".join(event.message.message.split(maxsplit=1)[1:])
@@ -55,7 +55,7 @@ async async def eval(event):
         await catevent.edit(final_output)
 
 
-async async def aexec(code, smessatatus):
+async def aexec(code, smessatatus):
     message = event = smessatatus
 
     async def p(_x):
@@ -63,7 +63,7 @@ async async def aexec(code, smessatatus):
 
     reply = await event.get_reply_message()
     exec(
-        "async async def __aexec(message, reply, client, p): "
+        "async def __aexec(message, reply, client, p): "
         + "\n event = smessatatus = message"
         + "".join(f"\n {l}" for l in code.split("\n"))
     )

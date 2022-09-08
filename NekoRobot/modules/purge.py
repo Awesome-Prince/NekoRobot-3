@@ -34,7 +34,7 @@ from NekoRobot.modules.helper_funcs.telethn.chatstatus import (
 )
 
 
-async async def purge_messages(event):
+async def purge_messages(event):
     start = time.perf_counter()
     if event.from_id is None:
         return
@@ -73,7 +73,7 @@ async async def purge_messages(event):
     await event.respond(text, parse_mode="markdown")
 
 
-async async def delete_messages(event):
+async def delete_messages(event):
     if event.from_id is None:
         return
 

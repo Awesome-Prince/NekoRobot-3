@@ -68,7 +68,7 @@ openhehe = ChatBannedRights(
 )
 
 
-async async def is_register_admin(chat, user):
+async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
             (
@@ -80,7 +80,7 @@ async async def is_register_admin(chat, user):
         return True
 
 
-async async def can_change_info(message):
+async def can_change_info(message):
     result = await tbot(
         functions.channels.GetParticipantRequest(
             channel=message.chat_id,
@@ -94,7 +94,7 @@ async async def can_change_info(message):
 
 
 @register(pattern="^/(nimode|Nightmode|NightMode) ?(.*)")
-async async def profanity(event):
+async def profanity(event):
     if event.fwd_from:
         return
     if event.is_private:
@@ -135,7 +135,7 @@ async async def profanity(event):
         return
 
 
-async async def job_close():
+async def job_close():
     chats = get_all_chat_id()
     if len(chats) == 0:
         return
@@ -160,7 +160,7 @@ scheduler.add_job(job_close, trigger="cron", hour=23, minute=59)
 scheduler.start()
 
 
-async async def job_open():
+async def job_open():
     chats = get_all_chat_id()
     if len(chats) == 0:
         return

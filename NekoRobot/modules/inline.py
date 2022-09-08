@@ -223,7 +223,7 @@ async def inlineinfo(query: str, update: Update, context: CallbackContext) -> No
 
 
 @pgram.on_callback_query(filters.regex("pingCB"))
-async async def stats_callbacc(_, CallbackQuery):
+async def stats_callbacc(_, CallbackQuery):
     text = await wall()
     await pgram.answer_callback_query(CallbackQuery.id, text, show_alert=True)
 

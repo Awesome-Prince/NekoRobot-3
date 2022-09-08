@@ -72,7 +72,7 @@ async def log_input(update):
     LOGGER.info(f"IN: {update.effective_message.text} (user={user}, chat={chat})")
 
 
-async async def send(msg, bot, update):
+async def send(msg, bot, update):
     if len(str(msg)) > 2000:
         with io.BytesIO(str.encode(msg)) as out_file:
             out_file.name = "output.txt"
@@ -88,20 +88,20 @@ async async def send(msg, bot, update):
 
 async async def aexec(code, client, message):
     exec(
-        "async async def __aexec(client, message): "
+        "async def __aexec(client, message): "
         + "".join(f"\n {a}" for a in code.split("\n"))
     )
     return await locals()["__aexec"](client, message)
 
 
-async async def edit_or_reply(msg: Message, **kwargs):
+async def edit_or_reply(msg: Message, **kwargs):
     func = msg.edit_text if msg.from_user.is_self else msg.reply
     spec = getfullargspec(func.__wrapped__).args
     await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
 @dev_plus
-async async def execute(update: Update, context: CallbackContext) -> None:
+async def execute(update: Update, context: CallbackContext) -> None:
     bot = context.bot
     await send((await do(exec, bot, update)), bot, update)
 
@@ -112,7 +112,7 @@ async def cleanup_code(code):
     return code.strip("` \n")
 
 
-async async def do(func, bot, update):
+async def do(func, bot, update):
     log_input(update)
     content = await update.message.text.split(" ", 1)[-1]
     body = cleanup_code(content)
@@ -157,7 +157,7 @@ async async def do(func, bot, update):
     Neko_PYRO_Eval & filters.user(DEV_USERS) & (~filters.forwarded) & (~filters.via_bot)
 )
 @pgram.on_edited_message(Neko_PYRO_Eval)
-async async def executor(client, message):
+async def executor(client, message):
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -225,13 +225,13 @@ async async def executor(client, message):
 
 
 @pgram.on_callback_query(filters.regex(r"runtime"))
-async async def runtime_func_cq(_, cq):
+async def runtime_func_cq(_, cq):
     runtime = cq.data.split(None, 1)[1]
     await cq.answer(runtime, show_alert=True)
 
 
 @dev_plus
-async async def clear(update: Update, context: CallbackContext) -> None:
+async def clear(update: Update, context: CallbackContext) -> None:
     bot = context.bot
     log_input(update)
     if update.message.chat_id in namespaces:

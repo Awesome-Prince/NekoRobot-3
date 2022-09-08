@@ -69,7 +69,7 @@ async def edit_anon_msg(msg: Message, text: str):
     msg.edit_text(text, parse_mode=ParseMode.MARKDOWN, reply_markup=None)
 
 
-async async def user_is_not_admin_errmsg(
+async def user_is_not_admin_errmsg(
     msg: Message, permission: AdminPerms = None, cb: CallbackQuery = None
 ):
     errmsg = f"You are missing the following rights to use this command:\n*{permission.value}*"

@@ -46,7 +46,7 @@ pattern = re.compile(r"^text/|json$|yaml$|xml$|toml$|x-sh$|x-shellscript$")
 Neko_PYRO_Paste = filters.command("paste")
 
 
-async async def isPreviewUp(preview: str) -> bool:
+async def isPreviewUp(preview: str) -> bool:
     for _ in range(7):
         try:
             async with aiohttpsession.head(preview, timeout=2) as resp:
@@ -64,7 +64,7 @@ async async def isPreviewUp(preview: str) -> bool:
 @pgram.on_message(Neko_PYRO_Paste)
 @pgram.on_edited_message(Neko_PYRO_Paste)
 @capture_err
-async async def paste_func(_, message):
+async def paste_func(_, message):
     if not message.reply_to_message:
         return await message.reply_text("Reply To A Message With /paste")
     m = await message.reply_text("Pasting...")

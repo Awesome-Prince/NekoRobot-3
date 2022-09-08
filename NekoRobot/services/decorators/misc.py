@@ -27,7 +27,7 @@ from time import time
 
 def exec_time(func):
     @wraps(func)
-    async async def _time_it(*args, **kwargs):
+    async def _time_it(*args, **kwargs):
         t1 = time()
         try:
             return await func(*args, **kwargs)

@@ -23,7 +23,7 @@ GIF_ID = "CgACAgQAAx0CSVUvGgAC7KpfWxMrgGyQs-GUUJgt-TSO8cOIDgACaAgAAlZD0VHT3Zynpr
 
 
 @register(pattern="^/truth ?(.*)")
-async async def _(td):
+async def _(td):
     try:
         resp = requests.get("https://api.safone.tech/truth").json()
         results = f"{resp['truth']}"
@@ -33,7 +33,7 @@ async async def _(td):
 
 
 @register(pattern="^/dare ?(.*)")
-async async def _(dr):
+async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/dare").json()
         results = f"{resp['dare']}"
@@ -43,7 +43,7 @@ async async def _(dr):
 
 
 @register(pattern="^/fact ?(.*)")
-async async def _(dr):
+async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/fact").json()
         results = f"{resp['fact']}"
@@ -53,7 +53,7 @@ async async def _(dr):
 
 
 @register(pattern="^/quotes ?(.*)")
-async async def _(dr):
+async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/quote").json()
         results = f"{resp['quote']}"
@@ -63,7 +63,7 @@ async async def _(dr):
 
 
 @register(pattern="^/joke ?(.*)")
-async async def _(dr):
+async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/joke").json()
         results = f"{resp['joke']}"
@@ -73,7 +73,7 @@ async async def _(dr):
 
 
 @register(pattern="^/bully ?(.*)")
-async async def _(dr):
+async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/bully").json()
         results = f"{resp['bully']}"
@@ -83,7 +83,7 @@ async async def _(dr):
 
 
 @register(pattern="^/advice ?(.*)")
-async async def _(dr):
+async def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/advice").json()
         results = f"{resp['advice']}"

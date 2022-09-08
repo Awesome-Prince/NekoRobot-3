@@ -61,7 +61,7 @@ UNBAN_RIGHTS = ChatBannedRights(
 OFFICERS = [OWNER_ID] + DEV_USERS + SUDO_USERS + SUPPORT_USERS
 
 # Check if user has admin rights
-async async def is_administrator(user_id: int, message):
+async def is_administrator(user_id: int, message):
     admin = False
     async for user in tbot.iter_participants(
         message.chat_id, filter=ChannelParticipantsAdmins

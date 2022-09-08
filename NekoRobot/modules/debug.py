@@ -32,7 +32,7 @@ async def debug(update: Update, context: CallbackContext):
 
 
 @tbot.on(events.NewMessage(pattern="[/!?.,].*"))
-async async def i_do_nothing_yes(event):
+async def i_do_nothing_yes(event):
     global DEBUG_MODE
     if DEBUG_MODE:
         print(f"-{event.from_id} ({event.chat_id}) : {event.text}")

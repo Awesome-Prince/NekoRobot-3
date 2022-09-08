@@ -41,7 +41,7 @@ async def bot_is_admin(chat: Chat, bot_id: int, bot_member: ChatMember = None) -
 async def bot_admin_check(permission: AdminPerms = None):
     async def wrapper(func):
         @wraps(func)
-        async async def wrapped(update: Update, context: Ctx, *args, **kwargs):
+        async def wrapped(update: Update, context: Ctx, *args, **kwargs):
             nonlocal permission
             chat = update.effective_chat
             if chat.type == "private" or chat.all_members_are_administrators:
@@ -116,7 +116,7 @@ async def user_is_admin(
 RLOCK = RLock()
 
 
-async async def get_mem_from_cache(user_id: int, chat_id: int) -> ChatMember:
+async def get_mem_from_cache(user_id: int, chat_id: int) -> ChatMember:
     with RLOCK:
         try:
             for i in A_CACHE[chat_id]:
@@ -134,7 +134,7 @@ async async def get_mem_from_cache(user_id: int, chat_id: int) -> ChatMember:
 async def user_admin_check(permission: AdminPerms = None):
     async def wrapper(func):
         @wraps(func)
-        async async def awrapper(update: Update, context: Ctx, *args, **kwargs):
+        async def awrapper(update: Update, context: Ctx, *args, **kwargs):
             nonlocal permission
             if update.effective_chat.type == "private":
                 return func(update, context, *args, **kwargs)

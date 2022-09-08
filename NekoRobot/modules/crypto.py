@@ -42,7 +42,7 @@ async def section(
 
 @pgram.on_message(filters.command("crypto"))
 @capture_err
-async async def crypto(_, message):
+async def crypto(_, message):
     if len(message.command) < 2:
         return await message.reply("/crypto `[currency]`")
 
