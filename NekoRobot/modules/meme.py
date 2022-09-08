@@ -3,7 +3,8 @@ import random
 import time
 
 import requests
-from telegram import ChatPermissions, ParseMode, Update
+from telegram import ChatPermissions, Update
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters
 
