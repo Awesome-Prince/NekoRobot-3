@@ -82,11 +82,15 @@ SpamChecker = AntiSpam()
 MessageHandlerChecker = AntiSpam()
 
 
-class CustomCommandHandler(tg.CommandHandler):
-    def __init__(self, command, callback, block=False, **kwargs):
-        if "admin_ok" in kwargs:
-            del kwargs["admin_ok"]
+class CustomCommandHandler(CommandHandler):
+    def __init__(self, command, callback, admin_ok=False, allow_edit=False, **kwargs):
         super().__init__(command, callback, **kwargs)
+
+        if allow_edit is False:
+            self.filters &= ~(
+                Filters.update.edited_message | Filters.update.edited_channel_post
+            )
+
 
     def check_update(self, update: object) -> any:
         if not isinstance(update, Update) or not update.effective_message:
