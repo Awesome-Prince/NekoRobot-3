@@ -28,7 +28,7 @@ import sre_constants
 import regex
 import telegram
 from telegram import Update
-from telegram.ext import CallbackContext, filters
+from telegram.ext import CallbackContext
 
 from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleMessageHandler
