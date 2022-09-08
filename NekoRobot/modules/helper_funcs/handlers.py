@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from pyrate_limiter import Duration, Limiter, MemoryListBucket, RequestRate
 from telegram import Update
-from telegram.ext import CommandHandler, filters
+from telegram.ext import CommandHandler
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
 from NekoRobot import (
