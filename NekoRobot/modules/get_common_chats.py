@@ -27,7 +27,7 @@ import os
 from time import sleep
 
 from telegram import Update
-from telegram.error import BadRequest, RetryAfter, Forbidden
+from telegram.error import BadRequest, Forbidden, RetryAfter
 from telegram.ext import CallbackContext, CommandHandler, Filters
 
 from NekoRobot import NEKO_PTB, OWNER_ID

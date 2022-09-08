@@ -34,7 +34,7 @@ import nekos
 import requests
 from PIL import Image
 from telegram import Update
-from telegram.error import BadRequest, RetryAfter, Forbidden
+from telegram.error import BadRequest, Forbidden, RetryAfter
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.helpers import mention_html
 

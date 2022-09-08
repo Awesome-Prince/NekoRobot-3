@@ -33,7 +33,7 @@ from io import BytesIO
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, MessageEntity, Update
 from telegram.constants import ParseMode
-from telegram.error import BadRequest, TelegramError, Forbidden
+from telegram.error import BadRequest, Forbidden, TelegramError
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 from telegram.helpers import mention_html, mention_markdown
 
