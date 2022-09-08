@@ -333,8 +333,7 @@ DEV_USERS = list(DEV_USERS)
 WHITELIST_USERS = list(WHITELIST_USERS)
 SUPPORT_USERS = list(SUPPORT_USERS)
 TIGERS = list(TIGERS)
-ELEVATED_USERS_FILE = os.path.join(os.getcwd(),
-                                   "NekoRobot/elevated_users.json")
+ELEVATED_USERS_FILE = os.path.join(os.getcwd(), "NekoRobot/elevated_users.json")
 
 # Load at end to ensure all prev variables have been set
 from NekoRobot.modules.helper_funcs.handlers import CustomCommandHandler
