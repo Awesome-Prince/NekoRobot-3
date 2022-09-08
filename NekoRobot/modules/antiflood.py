@@ -35,7 +35,7 @@ from telegram.ext import (
     Filters,
     MessageHandler,
 )
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 from NekoRobot import NEKO_PTB, TIGERS, WHITELIST_USERS
 from NekoRobot.modules.connection import connected

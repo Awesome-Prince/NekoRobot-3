@@ -21,7 +21,7 @@ from telegram.ext import (
     Filters,
     MessageHandler,
 )
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.chatbot_sql as sql
 from NekoRobot import NEKO_PTB

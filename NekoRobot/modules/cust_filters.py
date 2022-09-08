@@ -37,7 +37,7 @@ from telegram import (
 )
 from telegram.error import BadRequest
 from telegram.ext import DispatcherHandlerStop, Filters
-from telegram.utils.helpers import escape_markdown, mention_html
+from telegram.helpers import escape_markdown, mention_html
 
 from NekoRobot import LOGGER as log
 from NekoRobot import NEKO_PTB, SUDO_USERS

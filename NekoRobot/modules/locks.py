@@ -30,7 +30,7 @@ from telegram import Chat, ChatPermissions, Message, MessageEntity, TelegramErro
 from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.locks_sql as sql
 from NekoRobot import LOGGER, NEKO_PTB, SUDO_USERS

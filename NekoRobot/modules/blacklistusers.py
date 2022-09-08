@@ -5,7 +5,7 @@ from telegram import Update
 from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
 from NekoRobot import (

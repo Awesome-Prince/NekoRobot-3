@@ -40,7 +40,7 @@ from telegram import (
 )
 from telegram.error import BadRequest, TelegramError, Unauthorized
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
-from telegram.utils.helpers import mention_html, mention_markdown
+from telegram.helpers import mention_html, mention_markdown
 
 import NekoRobot.modules.sql.feds_sql as sql
 from NekoRobot import (

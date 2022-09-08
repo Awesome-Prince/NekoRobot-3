@@ -31,7 +31,7 @@ from typing import Optional
 from telegram import TelegramError, Update
 from telegram.constants import ParseMode
 from telegram.ext import CallbackContext, CommandHandler
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 from NekoRobot import (
     DEV_USERS,

@@ -28,7 +28,7 @@ import html
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CallbackQueryHandler
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.approve_sql as sql
 from NekoRobot import NEKO_PTB, SUDO_USERS

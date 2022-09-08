@@ -2,7 +2,7 @@ import html
 
 from telegram import Update
 from telegram.ext import CallbackContext
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.logger_sql as sql
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms

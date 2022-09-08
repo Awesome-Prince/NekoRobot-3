@@ -4,7 +4,7 @@ from typing import Optional
 from telegram import Chat, ChatPermissions, Message, ParseMode, Update, User
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
-from telegram.utils.helpers import mention_html, mention_markdown
+from telegram.helpers import mention_html, mention_markdown
 
 import NekoRobot.modules.sql.blsticker_sql as sql
 from NekoRobot import LOGGER, NEKO_PTB

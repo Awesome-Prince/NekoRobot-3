@@ -43,7 +43,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 if is_module_loaded(FILENAME):
     from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
     from telegram.error import BadRequest, Unauthorized
-    from telegram.utils.helpers import escape_markdown
+    from telegram.helpers import escape_markdown
 
     from NekoRobot import GBAN_LOGS, LOGGER
     from NekoRobot.modules.helper_funcs.chat_status import is_user_admin

@@ -36,7 +36,7 @@ from PIL import Image
 from telegram import Update
 from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.ext import CallbackContext, CommandHandler
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.nsfw_sql as sql
 from NekoRobot import NEKO_PTB

@@ -21,7 +21,7 @@ from telegram import (
 )
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot import (
