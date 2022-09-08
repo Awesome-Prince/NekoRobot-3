@@ -45,7 +45,9 @@ AdminPerms = admin_status.AdminPerms
 user_admin_check = admin_status.user_admin_check
 
 
-@user_admin_check(AdminPerms.CAN_CHANGE_INFO)
+@user_admin
+
+@typing_action
 async def allow_connections(update, context) -> str:
 
     chat = update.effective_chat
