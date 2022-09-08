@@ -88,7 +88,7 @@ class CustomCommandHandler(CommandHandler):
 
         if allow_edit is False:
             self.filters &= ~(
-                filters.update.edited_message | filters.update.edited_channel_post
+                filters.Update.edited_message | filters.Update.edited_channel_post
             )
 
     def check_update(self, update: object) -> any:
