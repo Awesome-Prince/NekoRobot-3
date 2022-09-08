@@ -1,16 +1,22 @@
 """
 BSD 2-Clause License
+
 Copyright (C) 2017-2019, Paul Larsen
-Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince]
-Copyright (c) 2022-2023,Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (C) 2021-2022, Awesome-RJ, [ https://github.com/Awesome-RJ ]
+Copyright (c) 2021-2022, Yūki • Black Knights Union, [ https://github.com/Awesome-RJ/CutiepiiRobot ]
+
 All rights reserved.
+
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
+
 1. Redistributions of source code must retain the above copyright notice, this
    list of conditions and the following disclaimer.
+
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
+
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -22,18 +28,16 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-
-import functools
 from enum import Enum
+import functools
 
-from telegram import Update
+from telegram import Update#, ParseMode
+from telegram import InlineKeyboardButton
+from telegram import InlineKeyboardMarkup
 from telegram.constants import ParseMode
-from telegram.ext import CallbackContext
-from telegram.inline.inlinekeyboardbutton import InlineKeyboardButton
-from telegram.inline.inlinekeyboardmarkup import InlineKeyboardMarkup
 
-from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
-from NekoRobot.modules.helper_funcs.decorators import nekocallback
+from NekoRobot import DEV_USERS, SUDO_USERS, NEKO_PTB
+from .decorators import cutiepii_callback
 
 
 class AdminPerms(Enum):
@@ -46,25 +50,23 @@ class AdminPerms(Enum):
 
 
 class ChatStatus(Enum):
-    CREATOR = "creator"
-    ADMIN = "administrator"
+    OWNER = "creator"
+    ADMINISTRATOR = "administrator"
 
 
 anon_callbacks = {}
 anon_callback_messages = {}
 
 
-async def user_admin(permission: AdminPerms):
-    async def wrapper(func):
+def user_admin(permission: AdminPerms):
+    def wrapper(func):
         @functools.wraps(func)
-        async def awrapper(update: Update, context: CallbackContext, *args, **kwargs):
+        async def awrapper(update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs):
             nonlocal permission
             if update.effective_chat.type == "private":
                 return func(update, context, *args, **kwargs)
             message = update.effective_message
-            is_anon = bool(update.effective_message.sender_chat)
-
-            if is_anon:
+            if is_anon := update.effective_message.sender_chat:
                 callback_id = (
                     f"anoncb/{message.chat.id}/{message.message_id}/{permission.value}"
                 )
@@ -73,7 +75,7 @@ async def user_admin(permission: AdminPerms):
                     func,
                 )
                 anon_callback_messages[(message.chat.id, message.message_id)] = (
-                    message.reply_text(
+                    await message.reply_text(
                         "Seems like you're anonymous, click the button below to prove your identity",
                         reply_markup=InlineKeyboardMarkup(
                             [
@@ -86,11 +88,12 @@ async def user_admin(permission: AdminPerms):
                         ),
                     )
                 ).message_id
-                # send message with callback f'anoncb{callback_id}'
             else:
                 user_id = message.from_user.id
                 chat_id = message.chat.id
-                mem = context.bot.get_chat_member(chat_id=chat_id, user_id=user_id)
+                mem = await context.bot.get_chat_member(
+                    chat_id=chat_id, user_id=user_id
+                )
                 if (
                     getattr(mem, permission.value) is True
                     or mem.status == "creator"
@@ -98,7 +101,7 @@ async def user_admin(permission: AdminPerms):
                 ):
                     return func(update, context, *args, **kwargs)
                 else:
-                    return message.reply_text(
+                    return await message.reply_text(
                         f"You lack the permission: `{permission.name}`",
                         parse_mode=ParseMode.MARKDOWN_V2,
                     )
@@ -108,8 +111,8 @@ async def user_admin(permission: AdminPerms):
     return wrapper
 
 
-@nekocallback(pattern="anoncb")
-async def anon_callback_handler1(upd: Update, _: CallbackContext):
+@neko_callback(pattern="anoncb")
+async def anon_callback_handler1(upd: Update):
     callback = upd.callback_query
     perm = callback.data.split("/")[3]
     chat_id = int(callback.data.split("/")[1])
@@ -119,12 +122,12 @@ async def anon_callback_handler1(upd: Update, _: CallbackContext):
     except BaseException as e:
         callback.answer(f"Error: {e}", show_alert=True)
         return
-    if mem.status not in [ChatStatus.ADMIN.value, ChatStatus.CREATOR.value]:
+    if mem.status not in [ChatStatus.ADMINISTRATOR.value, ChatStatus.OWNER.value]:
         callback.answer("You're aren't admin.")
-        NEKO_PTB.bot.delete_message(
+        await NEKO_PTB.bot.delete_message(
             chat_id, anon_callback_messages.pop((chat_id, message_id), None)
         )
-        NEKO_PTB.bot.send_message(
+        await NEKO_PTB.bot.send_message(
             chat_id, "You lack the permissions required for this command"
         )
     elif (
@@ -132,11 +135,12 @@ async def anon_callback_handler1(upd: Update, _: CallbackContext):
         or mem.status == "creator"
         or mem.user.id in DEV_USERS
     ):
-        cb = anon_callbacks.pop((chat_id, message_id), None)
-        if cb:
+        if cb := anon_callbacks.pop((chat_id, message_id), None):
             message_id = anon_callback_messages.pop((chat_id, message_id), None)
             if message_id is not None:
-                NEKO_PTB.bot.delete_message(chat_id, message_id)
+                await NEKO_PTB.bot.delete_message(chat_id, message_id)
             return cb[1](cb[0][0], cb[0][1])
     else:
         callback.answer("This isn't for ya")
+
+ 
