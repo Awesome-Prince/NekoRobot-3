@@ -79,7 +79,7 @@ async def FullName(user: User):
 
 
 @pgram.on_message(filters.command("whois"))
-async async def whois(client, message):
+async def whois(client, message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
         get_user = message.from_user.id
