@@ -7,12 +7,7 @@ from html import escape
 import requests
 from bs4 import BeautifulSoup as bs
 from PIL import Image, ImageDraw, ImageFont
-from telegram import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    ParseMode,
-    Update,
-)
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.error import TelegramError
 from telegram.ext import CallbackContext
 from telegram.utils.helpers import mention_html
