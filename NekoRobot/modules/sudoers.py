@@ -35,7 +35,7 @@ from NekoRobot import StartTime
 # Stats Module
 
 
-async async def bot_sys_stats():
+async def bot_sys_stats():
     bot_uptime = int(time.time() - StartTime)
     cpu = psutil.cpu_percent()
     mem = psutil.virtual_memory().percent
