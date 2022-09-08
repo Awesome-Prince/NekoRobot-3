@@ -129,7 +129,7 @@ if is_module_loaded(FILENAME):
                 )
 
     @user_admin
-    @typing_action
+    
     def disable(update, context):
         chat = update.effective_chat  # type: Optional[Chat]
         user = update.effective_user
@@ -174,7 +174,7 @@ if is_module_loaded(FILENAME):
             send_message(update.effective_message, "What should I disable?")
 
     @user_admin
-    @typing_action
+    
     def enable(update, context):
         chat = update.effective_chat  # type: Optional[Chat]
         user = update.effective_user
@@ -219,7 +219,7 @@ if is_module_loaded(FILENAME):
             send_message(update.effective_message, "What should I enable?")
 
     @user_admin
-    @typing_action
+    
     def list_cmds(update, context):
         if DISABLE_CMDS + DISABLE_OTHER:
             result = "".join(
@@ -243,7 +243,7 @@ if is_module_loaded(FILENAME):
         result = "".join(" - `{}`\n".format(escape_markdown(cmd)) for cmd in disabled)
         return "The following commands are currently restricted:\n{}".format(result)
 
-    @typing_action
+    
     def commands(update, context):
         chat = update.effective_chat
         user = update.effective_user
