@@ -28,12 +28,7 @@ from html import escape
 from typing import Optional
 
 import telegram
-from telegram import (
-    Chat,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-)
+from telegram import Chat, InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import DispatcherHandlerStop, Filters
