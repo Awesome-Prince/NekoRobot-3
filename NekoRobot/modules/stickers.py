@@ -11,9 +11,9 @@ from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     ParseMode,
-    TelegramError,
     Update,
 )
+from telegram.error import TelegramError
 from telegram.ext import CallbackContext
 from telegram.utils.helpers import mention_html
 
