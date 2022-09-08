@@ -27,7 +27,6 @@ from enum import Enum
 from time import perf_counter
 
 from cachetools import TTLCache
-from telegram.constants import ParseMode
 from telegram import (
     CallbackQuery,
     InlineKeyboardButton,
@@ -35,6 +34,7 @@ from telegram import (
     Message,
     Update,
 )
+from telegram.constants import ParseMode
 
 from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
 
