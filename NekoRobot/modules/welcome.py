@@ -8,9 +8,9 @@ from telegram import (
     ChatPermissions,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    ParseMode,
     Update,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import (
     CallbackContext,
@@ -18,7 +18,7 @@ from telegram.ext import (
     CommandHandler,
     MessageHandler,
 )
-from telegram.utils.helpers import escape_markdown, mention_html, mention_markdown
+from telegram.helpers import escape_markdown, mention_html, mention_markdown
 
 import NekoRobot.modules.sql.welcome_sql as sql
 from NekoRobot import (
