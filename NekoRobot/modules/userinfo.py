@@ -11,13 +11,13 @@ from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     MessageEntity,
-    ParseMode,
     Update,
 )
 from telegram import __version__ as ptbver
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
-from telegram.utils.helpers import escape_markdown, mention_html
+from telegram.helpers import escape_markdown, mention_html
 from telethon import events
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.types import ChannelParticipantsAdmins
