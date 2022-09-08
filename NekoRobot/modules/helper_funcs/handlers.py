@@ -29,7 +29,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-import telegram.ext as tg
 from pyrate_limiter import Duration, Limiter, MemoryListBucket, RequestRate
 from telegram import Update
 
@@ -90,7 +89,6 @@ class CustomCommandHandler(CommandHandler):
             self.filters &= ~(
                 Filters.update.edited_message | Filters.update.edited_channel_post
             )
-
 
     def check_update(self, update: object) -> any:
         if not isinstance(update, Update) or not update.effective_message:
