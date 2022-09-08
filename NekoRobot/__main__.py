@@ -41,7 +41,8 @@ from sys import argv
 from typing import Optional
 
 from pyrogram import idle
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.constants import ParseMode
 from telegram.error import (
     BadRequest,
     ChatMigrated,
