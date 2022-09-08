@@ -34,10 +34,10 @@ from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message,
-    ParseMode,
     Update,
     User,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import (
     CallbackContext,
@@ -45,7 +45,7 @@ from telegram.ext import (
     CommandHandler,
     MessageHandler,
 )
-from telegram.utils.helpers import mention_html
+from telegram.helpers import mention_html
 
 from NekoRobot import NEKO_PTB, TIGERS, WHITELIST_USERS
 from NekoRobot.modules.disable import DisableAbleCommandHandler
