@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from pyrate_limiter import Duration, Limiter, MemoryListBucket, RequestRate
 from telegram import Update
-from telegram.ext import CommandHandler, Filters
+from telegram.ext import CommandHandler, filters
 
 import NekoRobot.modules.sql.blacklistusers_sql as sql
 from NekoRobot import (
@@ -88,7 +88,7 @@ class CustomCommandHandler(CommandHandler):
 
         if allow_edit is False:
             self.filters &= ~(
-                Filters.update.edited_message | Filters.update.edited_channel_post
+                filters.update.edited_message | filters.update.edited_channel_post
             )
 
     def check_update(self, update: object) -> any:
