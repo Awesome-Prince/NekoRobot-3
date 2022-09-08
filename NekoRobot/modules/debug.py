@@ -64,10 +64,10 @@ async def logs(update: Update, context: CallbackContext):
         context.bot.send_document(document=f, filename=f.name, chat_id=user.id)
 
 
-LOG_HANDLER = CommandHandler("logs", logs, run_async=True)
+LOG_HANDLER = CommandHandler("logs", logs, block=False)
 NEKO_PTB.add_handler(LOG_HANDLER)
 
-DEBUG_HANDLER = CommandHandler("debug", debug, run_async=True)
+DEBUG_HANDLER = CommandHandler("debug", debug, block=False)
 NEKO_PTB.add_handler(DEBUG_HANDLER)
 
 __mod_name__ = "Debug"

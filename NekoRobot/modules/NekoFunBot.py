@@ -137,14 +137,14 @@ async def sleep(update, context):
         msg.reply_video(sleepme)
 
 
-KISS_HANDLER = MessageHandler(Filters.regex("(?i)Neko kiss"), kiss, run_async=True)
-BLUSH_HANDLER = MessageHandler(Filters.regex("(?i)Neko blush"), blush, run_async=True)
-PAT_HANDLER = MessageHandler(Filters.regex("(?i)Neko pat"), pat, run_async=True)
-HUG_HANDLER = MessageHandler(Filters.regex("(?i)Neko hug"), hug, run_async=True)
-SLAP_HANDLER = MessageHandler(Filters.regex("(?i)Neko slap"), slap, run_async=True)
-CUTE_HANDLER = MessageHandler(Filters.regex("(?i)Neko cute"), cute, run_async=True)
+KISS_HANDLER = MessageHandler(Filters.regex("(?i)Neko kiss"), kiss, block=False)
+BLUSH_HANDLER = MessageHandler(Filters.regex("(?i)Neko blush"), blush, block=False)
+PAT_HANDLER = MessageHandler(Filters.regex("(?i)Neko pat"), pat, block=False)
+HUG_HANDLER = MessageHandler(Filters.regex("(?i)Neko hug"), hug, block=False)
+SLAP_HANDLER = MessageHandler(Filters.regex("(?i)Neko slap"), slap, block=False)
+CUTE_HANDLER = MessageHandler(Filters.regex("(?i)Neko cute"), cute, block=False)
 SLEEP_HANDLER = MessageHandler(
-    Filters.regex("(Neko sleep|sleep)"), sleep, run_async=True
+    Filters.regex("(Neko sleep|sleep)"), sleep, block=False
 )
 
 NEKO_PTB.add_handler(KISS_HANDLER)

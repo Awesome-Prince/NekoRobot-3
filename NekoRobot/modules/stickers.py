@@ -721,13 +721,13 @@ __help__ = """
 """
 
 __mod_name__ = "Stickers"
-STICKERID_HANDLER = DisableAbleCommandHandler("stickerid", stickerid, run_async=True)
-GETSTICKER_HANDLER = DisableAbleCommandHandler("getsticker", getsticker, run_async=True)
-KANG_HANDLER = DisableAbleCommandHandler(["kang", "steal"], kang, run_async=True)
+STICKERID_HANDLER = DisableAbleCommandHandler("stickerid", stickerid, block=False)
+GETSTICKER_HANDLER = DisableAbleCommandHandler("getsticker", getsticker, block=False)
+KANG_HANDLER = DisableAbleCommandHandler(["kang", "steal"], kang, block=False)
 DELKANG_HANDLER = DisableAbleCommandHandler(
-    ["delsticker", "delkang"], delsticker, run_async=True
+    ["delsticker", "delkang"], delsticker, block=False
 )
-STICKERS_HANDLER = DisableAbleCommandHandler("stickers", cb_sticker, run_async=True)
+STICKERS_HANDLER = DisableAbleCommandHandler("stickers", cb_sticker, block=False)
 
 NEKO_PTB.add_handler(STICKERS_HANDLER)
 NEKO_PTB.add_handler(STICKERID_HANDLER)

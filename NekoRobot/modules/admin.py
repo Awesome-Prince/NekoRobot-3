@@ -1115,52 +1115,52 @@ __help__ = """
 """
 
 SET_DESC_HANDLER = CommandHandler(
-    "setdesc", set_desc, filters=Filters.chat_type.groups, run_async=True
+    "setdesc", set_desc, filters=Filters.chat_type.groups, block=False
 )
 SET_STICKER_HANDLER = CommandHandler(
-    "setsticker", set_sticker, filters=Filters.chat_type.groups, run_async=True
+    "setsticker", set_sticker, filters=Filters.chat_type.groups, block=False
 )
 SETCHATPIC_HANDLER = CommandHandler(
-    "setgpic", setchatpic, filters=Filters.chat_type.groups, run_async=True
+    "setgpic", setchatpic, filters=Filters.chat_type.groups, block=False
 )
 RMCHATPIC_HANDLER = CommandHandler(
-    "delgpic", rmchatpic, filters=Filters.chat_type.groups, run_async=True
+    "delgpic", rmchatpic, filters=Filters.chat_type.groups, block=False
 )
 SETCHAT_TITLE_HANDLER = CommandHandler(
-    "setgtitle", setchat_title, filters=Filters.chat_type.groups, run_async=True
+    "setgtitle", setchat_title, filters=Filters.chat_type.groups, block=False
 )
 
 ADMINLIST_HANDLER = DisableAbleCommandHandler(
-    ["admins", "adminlist"], adminlist, run_async=True
+    ["admins", "adminlist"], adminlist, block=False
 )
 
 PIN_HANDLER = CommandHandler(
-    "pin", pin, filters=Filters.chat_type.groups, run_async=True
+    "pin", pin, filters=Filters.chat_type.groups, block=False
 )
 UNPIN_HANDLER = CommandHandler(
-    "unpin", unpin, filters=Filters.chat_type.groups, run_async=True
+    "unpin", unpin, filters=Filters.chat_type.groups, block=False
 )
 PINNED_HANDLER = CommandHandler(
-    "pinned", pinned, filters=Filters.chat_type.groups, run_async=True
+    "pinned", pinned, filters=Filters.chat_type.groups, block=False
 )
 
-INVITE_HANDLER = DisableAbleCommandHandler("invitelink", invite, run_async=True)
+INVITE_HANDLER = DisableAbleCommandHandler("invitelink", invite, block=False)
 
-PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, run_async=True)
+PROMOTE_HANDLER = DisableAbleCommandHandler("promote", promote, block=False)
 FULLPROMOTE_HANDLER = DisableAbleCommandHandler(
-    "fullpromote", fullpromote, run_async=True
+    "fullpromote", fullpromote, block=False
 )
 LOW_PROMOTE_HANDLER = DisableAbleCommandHandler(
-    "lowpromote", lowpromote, run_async=True
+    "lowpromote", lowpromote, block=False
 )
 MID_PROMOTE_HANDLER = DisableAbleCommandHandler(
-    "midpromote", midpromote, run_async=True
+    "midpromote", midpromote, block=False
 )
-DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, run_async=True)
+DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, block=False)
 
-SET_TITLE_HANDLER = CommandHandler("title", set_title, run_async=True)
+SET_TITLE_HANDLER = CommandHandler("title", set_title, block=False)
 ADMIN_REFRESH_HANDLER = CommandHandler(
-    "admincache", refresh_admin, filters=Filters.chat_type.groups, run_async=True
+    "admincache", refresh_admin, filters=Filters.chat_type.groups, block=False
 )
 
 NEKO_PTB.add_handler(SET_DESC_HANDLER)

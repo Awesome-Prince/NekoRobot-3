@@ -166,7 +166,7 @@ SED_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"s([{}]).*?\1.*".format("".join(DELIMITERS))),
     sed,
     friendly="sed",
-    run_async=True,
+    block=False,
 )
 
 NEKO_PTB.add_handler(SED_HANDLER)

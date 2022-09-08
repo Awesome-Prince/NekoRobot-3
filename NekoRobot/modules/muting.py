@@ -269,9 +269,9 @@ __help__ = """
  • `/unmute <userhandle>`*:* unmutes a user. Can also be used as a reply, muting the replied to user.
 """
 
-MUTE_HANDLER = CommandHandler("mute", mute, run_async=True)
-UNMUTE_HANDLER = CommandHandler("unmute", unmute, run_async=True)
-TEMPMUTE_HANDLER = CommandHandler(["tmute", "tempmute"], temp_mute, run_async=True)
+MUTE_HANDLER = CommandHandler("mute", mute, block=False)
+UNMUTE_HANDLER = CommandHandler("unmute", unmute, block=False)
+TEMPMUTE_HANDLER = CommandHandler(["tmute", "tempmute"], temp_mute, block=False)
 
 NEKO_PTB.add_handler(MUTE_HANDLER)
 NEKO_PTB.add_handler(UNMUTE_HANDLER)

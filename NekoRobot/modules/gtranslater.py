@@ -87,9 +87,9 @@ eg: `/tl ja//en`: translates from Japanese to English.
 • [List of supported languages for translation](https://telegra.ph/Lang-Codes-03-19-3)
 """
 
-TRANSLATE_HANDLER = DisableAbleCommandHandler(["tr", "tl"], translate, run_async=True)
+TRANSLATE_HANDLER = DisableAbleCommandHandler(["tr", "tl"], translate, block=False)
 TRANSLATE_LANG_HANDLER = DisableAbleCommandHandler(
-    ["lang", "languages"], languages, run_async=True
+    ["lang", "languages"], languages, block=False
 )
 
 NEKO_PTB.add_handler(TRANSLATE_HANDLER)

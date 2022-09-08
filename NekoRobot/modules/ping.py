@@ -128,8 +128,8 @@ async def pingall(update: Update, context: CallbackContext):
     )
 
 
-PING_HANDLER = DisableAbleCommandHandler("ping", ping, run_async=True)
-PINGALL_HANDLER = DisableAbleCommandHandler("pingall", pingall, run_async=True)
+PING_HANDLER = DisableAbleCommandHandler("ping", ping, block=False)
+PINGALL_HANDLER = DisableAbleCommandHandler("pingall", pingall, block=False)
 
 NEKO_PTB.add_handler(PING_HANDLER)
 NEKO_PTB.add_handler(PINGALL_HANDLER)

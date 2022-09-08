@@ -302,5 +302,5 @@ async def chatmemberupdates(update: Update, context: CallbackContext) -> Optiona
 
 
 NEKO_PTB.add_handler(
-    ChatMemberHandler(chatmemberupdates, ChatMemberHandler.CHAT_MEMBER, run_async=True)
+    ChatMemberHandler(chatmemberupdates, ChatMemberHandler.CHAT_MEMBER, block=False)
 )

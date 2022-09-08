@@ -1075,42 +1075,42 @@ user joined chat, user left chat.
 """
 
 NEW_MEM_HANDLER = MessageHandler(
-    Filters.status_update.new_chat_members, new_member, run_async=True
+    Filters.status_update.new_chat_members, new_member, block=False
 )
 LEFT_MEM_HANDLER = MessageHandler(
-    Filters.status_update.left_chat_member, left_member, run_async=True
+    Filters.status_update.left_chat_member, left_member, block=False
 )
 WELC_PREF_HANDLER = CommandHandler(
-    "welcome", welcome, filters=Filters.chat_type.groups, run_async=True
+    "welcome", welcome, filters=Filters.chat_type.groups, block=False
 )
 GOODBYE_PREF_HANDLER = CommandHandler(
-    "goodbye", goodbye, filters=Filters.chat_type.groups, run_async=True
+    "goodbye", goodbye, filters=Filters.chat_type.groups, block=False
 )
 SET_WELCOME = CommandHandler(
-    "setwelcome", set_welcome, filters=Filters.chat_type.groups, run_async=True
+    "setwelcome", set_welcome, filters=Filters.chat_type.groups, block=False
 )
 SET_GOODBYE = CommandHandler(
-    "setgoodbye", set_goodbye, filters=Filters.chat_type.groups, run_async=True
+    "setgoodbye", set_goodbye, filters=Filters.chat_type.groups, block=False
 )
 RESET_WELCOME = CommandHandler(
-    "resetwelcome", reset_welcome, filters=Filters.chat_type.groups, run_async=True
+    "resetwelcome", reset_welcome, filters=Filters.chat_type.groups, block=False
 )
 RESET_GOODBYE = CommandHandler(
-    "resetgoodbye", reset_goodbye, filters=Filters.chat_type.groups, run_async=True
+    "resetgoodbye", reset_goodbye, filters=Filters.chat_type.groups, block=False
 )
 WELCOMEMUTE_HANDLER = CommandHandler(
-    "welcomemute", welcomemute, filters=Filters.chat_type.groups, run_async=True
+    "welcomemute", welcomemute, filters=Filters.chat_type.groups, block=False
 )
 CLEAN_SERVICE_HANDLER = CommandHandler(
-    "cleanservice", cleanservice, filters=Filters.chat_type.groups, run_async=True
+    "cleanservice", cleanservice, filters=Filters.chat_type.groups, block=False
 )
 CLEAN_WELCOME = CommandHandler(
-    "cleanwelcome", clean_welcome, filters=Filters.chat_type.groups, run_async=True
+    "cleanwelcome", clean_welcome, filters=Filters.chat_type.groups, block=False
 )
-WELCOME_HELP = CommandHandler("welcomehelp", welcome_help, run_async=True)
-WELCOME_MUTE_HELP = CommandHandler("welcomemutehelp", welcome_mute_help, run_async=True)
+WELCOME_HELP = CommandHandler("welcomehelp", welcome_help, block=False)
+WELCOME_MUTE_HELP = CommandHandler("welcomemutehelp", welcome_mute_help, block=False)
 BUTTON_VERIFY_HANDLER = CallbackQueryHandler(
-    user_button, pattern=r"user_join_", run_async=True
+    user_button, pattern=r"user_join_", block=False
 )
 
 NEKO_PTB.add_handler(NEW_MEM_HANDLER)

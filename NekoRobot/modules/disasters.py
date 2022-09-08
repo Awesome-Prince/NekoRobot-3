@@ -640,34 +640,34 @@ Group admins/group owners do not need these commands.
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler(("addsudo", "addarank"), addsudo, run_async=True)
-SUPPORT_HANDLER = CommandHandler(("addsupport", "addbrank"), addsupport, run_async=True)
-TIGER_HANDLER = CommandHandler(("addtiger", "addcrank"), addtiger, run_async=True)
+SUDO_HANDLER = CommandHandler(("addsudo", "addarank"), addsudo, block=False)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "addbrank"), addsupport, block=False)
+TIGER_HANDLER = CommandHandler(("addtiger", "addcrank"), addtiger, block=False)
 WHITELIST_HANDLER = CommandHandler(
-    ("addwhitelist", "adddrank"), addwhitelist, run_async=True
+    ("addwhitelist", "adddrank"), addwhitelist, block=False
 )
 UNSUDO_HANDLER = CommandHandler(
-    ("removesudo", "removearank"), removesudo, run_async=True
+    ("removesudo", "removearank"), removesudo, block=False
 )
 UNSUPPORT_HANDLER = CommandHandler(
-    ("removesupport", "removebrank"), removesupport, run_async=True
+    ("removesupport", "removebrank"), removesupport, block=False
 )
 UNTIGER_HANDLER = CommandHandler(
-    ("removetiger", "removecrank"), removetiger, run_async=True
+    ("removetiger", "removecrank"), removetiger, block=False
 )
 UNWHITELIST_HANDLER = CommandHandler(
-    ("removewhitelist", "removedrank"), removewhitelist, run_async=True
+    ("removewhitelist", "removedrank"), removewhitelist, block=False
 )
 
 WHITELISTLIST_HANDLER = CommandHandler(
-    ["whitelistlist", "dranks"], whitelistlist, run_async=True
+    ["whitelistlist", "dranks"], whitelistlist, block=False
 )
-TIGERLIST_HANDLER = CommandHandler(["tigers", "cranks"], tigerlist, run_async=True)
+TIGERLIST_HANDLER = CommandHandler(["tigers", "cranks"], tigerlist, block=False)
 SUPPORTLIST_HANDLER = CommandHandler(
-    ["supportlist", "branks"], supportlist, run_async=True
+    ["supportlist", "branks"], supportlist, block=False
 )
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "aranks"], sudolist, run_async=True)
-DEVLIST_HANDLER = CommandHandler(["devlist", "sranks"], devlist, run_async=True)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "aranks"], sudolist, block=False)
+DEVLIST_HANDLER = CommandHandler(["devlist", "sranks"], devlist, block=False)
 
 NEKO_PTB.add_handler(SUDO_HANDLER)
 NEKO_PTB.add_handler(SUPPORT_HANDLER)

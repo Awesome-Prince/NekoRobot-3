@@ -297,16 +297,16 @@ __help__ = """
    • If in group, toggles that groups's status.
 """
 
-SETTING_HANDLER = CommandHandler("reports", report_setting, run_async=True)
+SETTING_HANDLER = CommandHandler("reports", report_setting, block=False)
 REPORT_HANDLER = CommandHandler(
-    "report", report, filters=Filters.chat_type.groups, run_async=True
+    "report", report, filters=Filters.chat_type.groups, block=False
 )
 ADMIN_REPORT_HANDLER = MessageHandler(
-    Filters.regex(r"(?i)@admin(s)?"), report, run_async=True
+    Filters.regex(r"(?i)@admin(s)?"), report, block=False
 )
 
 REPORT_BUTTON_USER_HANDLER = CallbackQueryHandler(
-    buttons, pattern=r"report_", run_async=True
+    buttons, pattern=r"report_", block=False
 )
 NEKO_PTB.add_handler(REPORT_BUTTON_USER_HANDLER)
 

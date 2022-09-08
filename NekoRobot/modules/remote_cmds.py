@@ -538,19 +538,19 @@ async def runmute(update: Update, context: CallbackContext):
 
 
 RBAN_HANDLER = CommandHandler(
-    "rban", rban, filters=CustomFilters.sudo_filter, run_async=True
+    "rban", rban, filters=CustomFilters.sudo_filter, block=False
 )
 RUNBAN_HANDLER = CommandHandler(
-    "runban", runban, filters=CustomFilters.sudo_filter, run_async=True
+    "runban", runban, filters=CustomFilters.sudo_filter, block=False
 )
 RKICK_HANDLER = CommandHandler(
-    "rpunch", rkick, filters=CustomFilters.sudo_filter, run_async=True
+    "rpunch", rkick, filters=CustomFilters.sudo_filter, block=False
 )
 RMUTE_HANDLER = CommandHandler(
-    "rmute", rmute, filters=CustomFilters.sudo_filter, run_async=True
+    "rmute", rmute, filters=CustomFilters.sudo_filter, block=False
 )
 RUNMUTE_HANDLER = CommandHandler(
-    "runmute", runmute, filters=CustomFilters.sudo_filter, run_async=True
+    "runmute", runmute, filters=CustomFilters.sudo_filter, block=False
 )
 
 NEKO_PTB.add_handler(RBAN_HANDLER)

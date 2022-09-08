@@ -66,7 +66,7 @@ async def shell(update: Update, context: CallbackContext):
         message.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
 
 
-SHELL_HANDLER = CommandHandler(["sh"], shell, run_async=True)
+SHELL_HANDLER = CommandHandler(["sh"], shell, block=False)
 NEKO_PTB.add_handler(SHELL_HANDLER)
 __mod_name__ = "Shell"
 __command_list__ = ["sh"]

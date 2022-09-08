@@ -560,16 +560,16 @@ A button can be added to a note by using standard markdown link syntax - the lin
 
 __mod_name__ = "Notes"
 
-GET_HANDLER = CommandHandler("get", cmd_get, run_async=True)
-HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get, run_async=True)
-SLASH_GET_HANDLER = MessageHandler(Filters.regex(r"^/\d+$"), slash_get, run_async=True)
-SAVE_HANDLER = CommandHandler("save", save, run_async=True)
-DELETE_HANDLER = CommandHandler("clear", clear, run_async=True)
+GET_HANDLER = CommandHandler("get", cmd_get, block=False)
+HASH_GET_HANDLER = MessageHandler(Filters.regex(r"^#[^\s]+"), hash_get, block=False)
+SLASH_GET_HANDLER = MessageHandler(Filters.regex(r"^/\d+$"), slash_get, block=False)
+SAVE_HANDLER = CommandHandler("save", save, block=False)
+DELETE_HANDLER = CommandHandler("clear", clear, block=False)
 
-LIST_HANDLER = DisableAbleCommandHandler(["notes", "saved"], list_notes, run_async=True)
+LIST_HANDLER = DisableAbleCommandHandler(["notes", "saved"], list_notes, block=False)
 
-CLEARALL = DisableAbleCommandHandler("removeallnotes", clearall, run_async=True)
-CLEARALL_BTN = CallbackQueryHandler(clearall_btn, pattern=r"notes_.*", run_async=True)
+CLEARALL = DisableAbleCommandHandler("removeallnotes", clearall, block=False)
+CLEARALL_BTN = CallbackQueryHandler(clearall_btn, pattern=r"notes_.*", block=False)
 
 NEKO_PTB.add_handler(GET_HANDLER)
 NEKO_PTB.add_handler(SAVE_HANDLER)

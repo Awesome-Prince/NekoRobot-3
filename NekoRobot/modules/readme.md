@@ -69,7 +69,7 @@ async def hi(update: Update, context: CallbackContext):
     j = "hello"
     update.effective_message.reply_text(j)
 
-HANDLER = CommandHandler("hi", hi, run_async=True)
+HANDLER = CommandHandler("hi", hi, block=False)
 NEKO_PTB.add_handler(HANDLER)
 
 __handlers__ = [ HANDLER, ]

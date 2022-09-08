@@ -420,31 +420,31 @@ __help__ = """
  🔹 `/hitler` *:* Quote a message and type this command to make a caption of hitler
 """
 
-SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize, run_async=True)
-RUNS_HANDLER = DisableAbleCommandHandler("runs", runs, run_async=True)
-SLAP_HANDLER = DisableAbleCommandHandler("slap", slap, run_async=True)
-PAT_HANDLER = DisableAbleCommandHandler("pat", pat, run_async=True)
-ROLL_HANDLER = DisableAbleCommandHandler("roll", roll, run_async=True)
-TOSS_HANDLER = DisableAbleCommandHandler("toss", toss, run_async=True)
-SHRUG_HANDLER = DisableAbleCommandHandler("shrug", shrug, run_async=True)
-BLUETEXT_HANDLER = DisableAbleCommandHandler("bluetext", bluetext, run_async=True)
-RLG_HANDLER = DisableAbleCommandHandler("rlg", rlg, run_async=True)
-DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide, run_async=True)
-EIGHTBALL_HANDLER = DisableAbleCommandHandler("8ball", eightball, run_async=True)
-TABLE_HANDLER = DisableAbleCommandHandler("table", table, run_async=True)
-SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, run_async=True)
-WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify, run_async=True)
+SANITIZE_HANDLER = DisableAbleCommandHandler("sanitize", sanitize, block=False)
+RUNS_HANDLER = DisableAbleCommandHandler("runs", runs, block=False)
+SLAP_HANDLER = DisableAbleCommandHandler("slap", slap, block=False)
+PAT_HANDLER = DisableAbleCommandHandler("pat", pat, block=False)
+ROLL_HANDLER = DisableAbleCommandHandler("roll", roll, block=False)
+TOSS_HANDLER = DisableAbleCommandHandler("toss", toss, block=False)
+SHRUG_HANDLER = DisableAbleCommandHandler("shrug", shrug, block=False)
+BLUETEXT_HANDLER = DisableAbleCommandHandler("bluetext", bluetext, block=False)
+RLG_HANDLER = DisableAbleCommandHandler("rlg", rlg, block=False)
+DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide, block=False)
+EIGHTBALL_HANDLER = DisableAbleCommandHandler("8ball", eightball, block=False)
+TABLE_HANDLER = DisableAbleCommandHandler("table", table, block=False)
+SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, block=False)
+WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify, block=False)
 GDMORNING_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"(?i)(gm|good morning)"),
     goodmorning,
     friendly="goodmorning",
-    run_async=True,
+    block=False,
 )
 GDNIGHT_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"(?i)(gn|good night)"),
     goodnight,
     friendly="goodnight",
-    run_async=True,
+    block=False,
 )
 
 NEKO_PTB.add_handler(WEEBIFY_HANDLER)

@@ -511,17 +511,17 @@ Note:
 __mod_name__ = "Stickers Blacklist"
 
 BLACKLIST_STICKER_HANDLER = DisableAbleCommandHandler(
-    "blsticker", blackliststicker, admin_ok=True, run_async=True
+    "blsticker", blackliststicker, admin_ok=True, block=False
 )
 ADDBLACKLIST_STICKER_HANDLER = DisableAbleCommandHandler(
-    "addblsticker", add_blackliststicker, run_async=True
+    "addblsticker", add_blackliststicker, block=False
 )
 UNBLACKLIST_STICKER_HANDLER = CommandHandler(
-    ["unblsticker", "rmblsticker"], unblackliststicker, run_async=True
+    ["unblsticker", "rmblsticker"], unblackliststicker, block=False
 )
-BLACKLISTMODE_HANDLER = CommandHandler("blstickermode", blacklist_mode, run_async=True)
+BLACKLISTMODE_HANDLER = CommandHandler("blstickermode", blacklist_mode, block=False)
 BLACKLIST_STICKER_DEL_HANDLER = MessageHandler(
-    Filters.sticker & Filters.chat_type.groups, del_blackliststicker, run_async=True
+    Filters.sticker & Filters.chat_type.groups, del_blackliststicker, block=False
 )
 
 NEKO_PTB.add_handler(BLACKLIST_STICKER_HANDLER)

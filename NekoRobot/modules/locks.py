@@ -610,13 +610,13 @@ __mod_name__ = "Locks"
 
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
 LOCK_HANDLER = CommandHandler(
-    "lock", lock, pass_args=True, run_async=True
+    "lock", lock, pass_args=True, block=False
 )  # , filters=Filters.chat_type.groups)
 UNLOCK_HANDLER = CommandHandler(
-    "unlock", unlock, pass_args=True, run_async=True
+    "unlock", unlock, pass_args=True, block=False
 )  # , filters=Filters.chat_type.groups)
 LOCKED_HANDLER = CommandHandler(
-    "locks", list_locks, run_async=True
+    "locks", list_locks, block=False
 )  # , filters=Filters.chat_type.groups)
 
 NEKO_PTB.add_handler(LOCK_HANDLER)

@@ -37,7 +37,7 @@ async def send(update, context):
     send_message(update.effective_message, creply)
 
 
-ADD_CCHAT_HANDLER = DisableAbleCommandHandler("snd", send, run_async=True)
+ADD_CCHAT_HANDLER = DisableAbleCommandHandler("snd", send, block=False)
 NEKO_PTB.add_handler(ADD_CCHAT_HANDLER)
 __command_list__ = ["snd"]
 __handlers__ = [ADD_CCHAT_HANDLER]

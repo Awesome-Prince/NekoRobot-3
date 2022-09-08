@@ -165,15 +165,15 @@ async def __migrate__(old_chat_id, new_chat_id):
 BROADCAST_HANDLER = CommandHandler(
     ["broadcastall", "broadcastusers", "broadcastgroups"],
     broadcast,
-    run_async=True,
+    block=False,
 )
 USER_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, log_user, run_async=True
+    Filters.all & Filters.chat_type.groups, log_user, block=False
 )
 CHAT_CHECKER_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, chat_checker, run_async=True
+    Filters.all & Filters.chat_type.groups, chat_checker, block=False
 )
-CHATLIST_HANDLER = CommandHandler("groups", chats, run_async=True)
+CHATLIST_HANDLER = CommandHandler("groups", chats, block=False)
 
 NEKO_PTB.add_handler(USER_HANDLER, USERS_GROUP)
 NEKO_PTB.add_handler(BROADCAST_HANDLER)

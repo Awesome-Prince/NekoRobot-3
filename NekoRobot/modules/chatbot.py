@@ -164,17 +164,17 @@ __help__ = """
 __mod_name__ = "ChatBot"
 
 
-CHATBOTK_HANDLER = CommandHandler("chatbot", kuki, run_async=True)
-ADD_CHAT_HANDLER = CallbackQueryHandler(kukiadd, pattern=r"add_chat", run_async=True)
-RM_CHAT_HANDLER = CallbackQueryHandler(kukirm, pattern=r"rm_chat", run_async=True)
+CHATBOTK_HANDLER = CommandHandler("chatbot", kuki, block=False)
+ADD_CHAT_HANDLER = CallbackQueryHandler(kukiadd, pattern=r"add_chat", block=False)
+RM_CHAT_HANDLER = CallbackQueryHandler(kukirm, pattern=r"rm_chat", block=False)
 CHATBOT_HANDLER = MessageHandler(
     Filters.text
     & (~Filters.regex(r"^#[^\s]+") & ~Filters.regex(r"^!") & ~Filters.regex(r"^\/")),
     chatbot,
-    run_async=True,
+    block=False,
 )
 LIST_ALL_CHATS_HANDLER = CommandHandler(
-    "allchats", list_all_chats, filters=CustomFilters.dev_filter, run_async=True
+    "allchats", list_all_chats, filters=CustomFilters.dev_filter, block=False
 )
 
 NEKO_PTB.add_handler(ADD_CHAT_HANDLER)

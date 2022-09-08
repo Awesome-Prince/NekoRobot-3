@@ -64,7 +64,7 @@ if is_module_loaded(FILENAME):
     ADMIN_CMDS = []
 
     class DisableAbleCommandHandler(CommandHandler):
-        def __init__(self, command, callback, run_async=True, admin_ok=False, **kwargs):
+        def __init__(self, command, callback, block=False, admin_ok=False, **kwargs):
             super().__init__(command, callback, run_async=run_async, **kwargs)
             self.admin_ok = admin_ok
             if isinstance(command, string_types):
@@ -116,7 +116,7 @@ if is_module_loaded(FILENAME):
                         return False
 
     class DisableAbleMessageHandler(MessageHandler):
-        def __init__(self, pattern, callback, run_async=True, friendly="", **kwargs):
+        def __init__(self, pattern, callback, block=False, friendly="", **kwargs):
             super().__init__(pattern, callback, run_async=run_async, **kwargs)
             DISABLE_OTHER.append(friendly or pattern)
             self.friendly = friendly or pattern
@@ -293,16 +293,16 @@ It'll also allow you to autodelete them, stopping people from bluetexting.
     """
 
     DISABLE_HANDLER = CommandHandler(
-        "disable", disable, run_async=True
+        "disable", disable, block=False
     )  # , filters=Filters.chat_type.groups)
     ENABLE_HANDLER = CommandHandler(
-        "enable", enable, run_async=True
+        "enable", enable, block=False
     )  # , filters=Filters.chat_type.groups)
     COMMANDS_HANDLER = CommandHandler(
-        ["cmds", "disabled"], commands, run_async=True
+        ["cmds", "disabled"], commands, block=False
     )  # , filters=Filters.chat_type.groups)
     TOGGLE_HANDLER = CommandHandler(
-        "listcmds", list_cmds, run_async=True
+        "listcmds", list_cmds, block=False
     )  # , filters=Filters.chat_type.groups)
 
     NEKO_PTB.add_handler(DISABLE_HANDLER)
