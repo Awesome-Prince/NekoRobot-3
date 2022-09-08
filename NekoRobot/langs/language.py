@@ -23,13 +23,13 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+import yaml
 import os
 from typing import Dict
 
-import yaml
-
 
 class Language:
+
     def __init__(self) -> None:
         self.languages: Dict = {}
         self.reload_strings()
@@ -45,12 +45,11 @@ class Language:
             return en_string
 
     def reload_strings(self) -> None:
-        for filename in os.listdir(r"./NekoRobot/language"):
+        for filename in os.listdir(r"./NekoRobot/langs"):
             if filename.endswith(".yaml"):
                 language_name = filename[:-5]
                 self.languages[language_name] = yaml.safe_load(
-                    open(f"./NekoRobot/language/{filename}", encoding="utf8")
-                )
+                    open(f"./NekoRobot/langs/{filename}", encoding="utf8"))
 
     def get_languages(self) -> Dict:
         return {
