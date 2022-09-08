@@ -5,7 +5,8 @@ import textwrap
 import bs4
 import jikanpy
 import requests
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.constants import ParseMode
 from telegram.ext import CallbackContext, CallbackQueryHandler
 
 from NekoRobot import DEV_USERS, NEKO_PTB, OWNER_ID, SUDO_USERS
