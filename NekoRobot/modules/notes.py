@@ -36,13 +36,12 @@ from telegram import (
     Message,
     Update,
 )
-from telegram.error import BadRequest
 from telegram.constants import ParseMode
+from telegram.error import BadRequest
 from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
     CommandHandler,
-    filters,
     MessageHandler,
 )
 from telegram.helpers import escape_markdown, mention_markdown
