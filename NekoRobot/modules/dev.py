@@ -28,7 +28,8 @@ import subprocess
 import sys
 from time import sleep
 
-from telegram import TelegramError, Update
+from telegram import Update
+from telegram.error import TelegramError
 from telegram.ext import CallbackContext, CommandHandler
 
 from NekoRobot import NEKO_PTB
