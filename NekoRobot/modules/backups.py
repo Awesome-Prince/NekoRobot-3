@@ -28,7 +28,8 @@ import os
 import time
 from io import BytesIO
 
-from telegram import Message, ParseMode
+from telegram import Message
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler
 

@@ -8,8 +8,8 @@ from telegram import (
     InlineKeyboardMarkup,
     InlineQueryResultArticle,
     InputTextMessageContent,
-    ParseMode,
 )
+from telegram.constants import ParseMode
 from telegram.error import TelegramError
 
 from NekoRobot import NO_LOAD

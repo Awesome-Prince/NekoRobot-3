@@ -25,7 +25,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import html
 
-from telegram import Chat, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
+from telegram import Chat, InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.constants import ParseMode
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import (
     CallbackContext,

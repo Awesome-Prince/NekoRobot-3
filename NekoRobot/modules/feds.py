@@ -35,9 +35,9 @@ from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     MessageEntity,
-    ParseMode,
     Update,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest, TelegramError, Unauthorized
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 from telegram.helpers import mention_html, mention_markdown

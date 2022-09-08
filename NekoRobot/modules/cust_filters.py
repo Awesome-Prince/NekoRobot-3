@@ -33,8 +33,8 @@ from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message,
-    ParseMode,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import DispatcherHandlerStop, Filters
 from telegram.helpers import escape_markdown, mention_html

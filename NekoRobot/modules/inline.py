@@ -15,10 +15,10 @@ from telegram import (
     InlineQueryResultArticle,
     InlineQueryResultPhoto,
     InputTextMessageContent,
-    ParseMode,
     Update,
     __version__,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext
 from telegram.helpers import mention_html
