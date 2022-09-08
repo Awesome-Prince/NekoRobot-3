@@ -33,9 +33,9 @@ from telegram import (
     InlineKeyboardMarkup,
     Update,
 )
+from telegram.constants import ParseMode
 from telegram.ext import CallbackContext as Ctx
 from telegram.ext import CallbackQueryHandler as CBHandler
-from telegram.constants import ParseMode
 
 from NekoRobot import NEKO_PTB
 
