@@ -65,7 +65,7 @@ if is_module_loaded(FILENAME):
 
     class DisableAbleCommandHandler(CommandHandler):
         def __init__(self, command, callback, block=False, admin_ok=False, **kwargs):
-            super().__init__(command, callback, run_async=run_async, **kwargs)
+            super().__init__(command, callback, block=False, **kwargs)
             self.admin_ok = admin_ok
             if isinstance(command, string_types):
                 DISABLE_CMDS.append(command)
@@ -117,7 +117,7 @@ if is_module_loaded(FILENAME):
 
     class DisableAbleMessageHandler(MessageHandler):
         def __init__(self, pattern, callback, block=False, friendly="", **kwargs):
-            super().__init__(pattern, callback, run_async=run_async, **kwargs)
+            super().__init__(pattern, callback, block-False, **kwargs)
             DISABLE_OTHER.append(friendly or pattern)
             self.friendly = friendly or pattern
 
