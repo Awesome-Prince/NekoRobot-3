@@ -1,8 +1,8 @@
 # Module to blacklist users and prevent them from using commands by @TheRealPhoenix
 import html
 
-from telegram.constants import ParseMode
 from telegram import Update
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html

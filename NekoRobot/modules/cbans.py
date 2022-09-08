@@ -1,8 +1,8 @@
 import html
 from typing import Optional
 
-from telegram.constants import ParseMode
 from telegram import Update
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters
 from telegram.utils.helpers import mention_html
