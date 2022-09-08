@@ -13,7 +13,7 @@ IBM_WATSON_CRED_URL = ""
 TEMP_DOWNLOAD_DIRECTORY = "./"
 
 
-async async def is_register_admin(chat, user):
+async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
             (
@@ -26,7 +26,7 @@ async async def is_register_admin(chat, user):
 
 
 @register(pattern="^/tts (.*)")
-async async def _(event):
+async def _(event):
     if event.fwd_from:
         return
     if event.is_group:
@@ -79,7 +79,7 @@ async async def _(event):
 
 
 @register(pattern="^/stt$")
-async async def _(event):
+async def _(event):
     if event.fwd_from:
         return
     if event.is_group:
