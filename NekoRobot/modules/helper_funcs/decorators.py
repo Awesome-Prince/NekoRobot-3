@@ -23,184 +23,154 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
-from typing import List, Optional, Union
+from NekoRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
+from NekoRobot import LOGGER, NEKO_PTB as app
 
-from telegram.ext import (
-    CallbackQueryHandler,
-    CommandHandler,
-    InlineQueryHandler,
-    MessageHandler,
-)
+from typing import Optional, List
+
+from telegram.ext import Application, CallbackQueryHandler, CommandHandler, InlineQueryHandler, MessageHandler, filters
 from telegram.ext.filters import BaseFilter
 
-from NekoRobot import LOGGER
-from NekoRobot import NEKO_PTB as d
-from NekoRobot.modules.disable import (
-    DisableAbleCommandHandler,
-    DisableAbleMessageHandler,
-)
 
+class Neko_TG_Handler:
+    def __init__(self, app):
+        self.app: Application = app
 
-class NekoTelegramHandler:
-    async def __init__(self, d):
-        self._NEKO_PTB = d
-
-    async def command(
+    def command(
         self,
         command: str,
         filters: Optional[BaseFilter] = None,
         admin_ok: bool = False,
-        pass_args: bool = False,
         pass_chat_data: bool = False,
         run_async: bool = True,
         can_disable: bool = True,
-        group: Optional[Union[int]] = 40,
+        group: Optional[int] = 40,
     ):
-        async def _command(func):
+        def _command(func):
             try:
                 if can_disable:
-                    self._NEKO_PTB.add_handler(
+                    self.app.add_handler(
                         DisableAbleCommandHandler(
                             command,
                             func,
                             filters=filters,
-                            run_async=run_async,
-                            pass_args=pass_args,
                             admin_ok=admin_ok,
                         ),
                         group,
                     )
                 else:
-                    self._NEKO_PTB.add_handler(
+                    self.app.add_handler(
                         CommandHandler(
                             command,
                             func,
                             filters=filters,
-                            run_async=run_async,
-                            pass_args=pass_args,
                         ),
                         group,
                     )
                 LOGGER.debug(
-                    f"[NEKOCMD] Loaded handler {command} for function {func.__name__} in group {group}"
+                    f"[NEKO CMD] Loaded handler {command} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
-                    self._NEKO_PTB.add_handler(
+                    self.app.add_handler(
                         DisableAbleCommandHandler(
                             command,
                             func,
                             filters=filters,
-                            run_async=run_async,
-                            pass_args=pass_args,
                             admin_ok=admin_ok,
                             pass_chat_data=pass_chat_data,
                         )
                     )
                 else:
-                    self._NEKO_PTB.add_handler(
+                    self.app.add_handler(
                         CommandHandler(
                             command,
                             func,
                             filters=filters,
-                            run_async=run_async,
-                            pass_args=pass_args,
                             pass_chat_data=pass_chat_data,
                         )
                     )
                 LOGGER.debug(
-                    f"[NEKOCMD] Loaded handler {command} for function {func.__name__}"
+                    f"[NEKO CMD] Loaded handler {command} for function {func.__name__}"
                 )
 
             return func
 
         return _command
 
-    async def message(
+    def message(
         self,
-        pattern: Optional[str] = None,
+        pattern: Optional[BaseFilter] = None,
         can_disable: bool = True,
-        run_async: bool = True,
-        group: Optional[Union[int]] = 60,
+        block: bool = True,
+        group: Optional[int] = 60,
         friendly=None,
     ):
-        async def _message(func):
+        def _message(func):
             try:
                 if can_disable:
-                    self._NEKO_PTB.add_handler(
-                        DisableAbleMessageHandler(
-                            pattern, func, friendly=friendly, run_async=run_async
-                        ),
+                    self.app.add_handler(
+                        DisableAbleMessageHandler(pattern, func, friendly=friendly),
                         group,
                     )
                 else:
-                    self._NEKO_PTB.add_handler(
-                        MessageHandler(pattern, func, run_async=run_async), group
-                    )
+                    self.app.add_handler(MessageHandler(pattern, func), group)
                 LOGGER.debug(
-                    f"[NEKOMSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
+                    f"[NEKO MSG] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
-                    self._NEKO_PTB.add_handler(
-                        DisableAbleMessageHandler(
-                            pattern, func, friendly=friendly, run_async=run_async
-                        )
+                    self.app.add_handler(
+                        DisableAbleMessageHandler(pattern, func, friendly=friendly)
                     )
                 else:
-                    self._NEKO_PTB.add_handler(
-                        MessageHandler(pattern, func, run_async=run_async)
-                    )
+                    self.app.add_handler(MessageHandler(pattern, func))
                 LOGGER.debug(
-                    f"[NEKOMSG] Loaded filter pattern {pattern} for function {func.__name__}"
+                    f"[NEKO MSG] Loaded filter pattern {pattern} for function {func.__name__}"
                 )
 
             return func
 
         return _message
 
-    async def callbackquery(self, pattern: str = None, run_async: bool = True):
-        async def _callbackquery(func):
-            self._NEKO_PTB.add_handler(
-                CallbackQueryHandler(
-                    pattern=pattern, callback=func, run_async=run_async
-                )
-            )
+    def callbackquery(self, pattern: str = None):
+        def _callbackquery(func):
+            self.app.add_handler(CallbackQueryHandler(pattern=pattern, callback=func))
             LOGGER.debug(
-                f"[NEKOCALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
+                f"[NEKO CALLBACK] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
             )
             return func
 
         return _callbackquery
 
-    async def inlinequery(
+    def inlinequery(
         self,
         pattern: Optional[str] = None,
-        run_async: bool = True,
+#        run_async: bool = True,
         pass_user_data: bool = True,
         pass_chat_data: bool = True,
         chat_types: List[str] = None,
     ):
-        async def _inlinequery(func):
-            self._NEKO_PTB.add_handler(
+        def _inlinequery(func):
+            self.app.add_handler(
                 InlineQueryHandler(
                     pattern=pattern,
                     callback=func,
-                    run_async=run_async,
-                    pass_user_data=pass_user_data,
-                    pass_chat_data=pass_chat_data,
+                    # pass_user_data=pass_user_data,
+                    # pass_chat_data=pass_chat_data,
                     chat_types=chat_types,
                 )
             )
             LOGGER.debug(
-                f"[NEKOINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
+                f"[NEKO INLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES "
+                f"USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
             )
             return func
 
         return _inlinequery
 
 
-nekocmd = NekoTelegramHandler(d).command
-nekomsg = NekoTelegramHandler(d).message
-nekocallback = NekoTelegramHandler(d).callbackquery
-nekoinline = NekoTelegramHandler(d).inlinequery
+neko_cmd = Neko_TG_Handler(app).command
+neko_msg = Neko_TG_Handler(app).message
+neko_callback = Neko_TG_Handler(app).callbackquery
+neko_inline = Neko_TG_Handler(app).inlinequery
