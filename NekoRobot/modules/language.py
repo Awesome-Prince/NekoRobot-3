@@ -95,10 +95,10 @@ async def lang_button(update: Update, _) -> None:
     )
 
 
-SETLANG_HANDLER = (CommandHandler("language", set_lang, block=False))
-SETLANG_BUTTON_HANDLER = (CallbackQueryHandler(
+SETLANG_HANDLER = CommandHandler("language", set_lang, block=False)
+SETLANG_BUTTON_HANDLER = CallbackQueryHandler(
     lang_button, pattern=r"setLang_", block=False
-))
+)
 
 NEKO_PTB.add_handler(SETLANG_HANDLER)
 NEKO_PTB.add_handler(SETLANG_BUTTON_HANDLER)
