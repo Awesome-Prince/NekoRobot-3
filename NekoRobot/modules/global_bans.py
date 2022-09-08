@@ -5,7 +5,7 @@ from io import BytesIO
 
 from telegram import Update
 from telegram.constants import ParseMode
-from telegram.error import BadRequest, TelegramError, Unauthorized
+from telegram.error import BadRequest, TelegramError, Forbidden
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
 from telegram.helpers import mention_html
 
@@ -450,7 +450,7 @@ async def enforce_gban(update: Update, context: CallbackContext):
         restrict_permission = update.effective_chat.get_member(
             bot.id
         ).can_restrict_members
-    except Unauthorized:
+    except Forbidden:
         return
     if sql.does_chat_gban(update.effective_chat.id) and restrict_permission:
         user = update.effective_user

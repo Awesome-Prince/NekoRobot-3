@@ -408,7 +408,7 @@ async def set_about_me(update: Update, context: CallbackContext):
     message = update.effective_message
     user_id = message.from_user.id
     if user_id in [777000, 1087968824]:
-        message.reply_text("Error! Unauthorized")
+        message.reply_text("Error! Forbidden")
         return
     bot = context.bot
     if message.reply_to_message:

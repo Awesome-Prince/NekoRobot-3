@@ -2,7 +2,7 @@ from io import BytesIO
 from time import sleep
 
 from telegram import TelegramError, Update
-from telegram.error import BadRequest, Unauthorized
+from telegram.error import BadRequest, Forbidden
 from telegram.ext import CallbackContext, CommandHandler, MessageHandler
 
 import NekoRobot.modules.sql.users_sql as sql
@@ -141,7 +141,7 @@ async def chat_checker(update: Update, context: CallbackContext):
     try:
         if update.effective_message.chat.get_member(bot.id).can_send_messages is False:
             bot.leaveChat(update.effective_message.chat.id)
-    except Unauthorized:
+    except Forbidden:
         pass
 
 

@@ -1,7 +1,7 @@
 from time import sleep
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.error import BadRequest, Unauthorized
+from telegram.error import BadRequest, Forbidden
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 
 import NekoRobot.modules.sql.global_bans_sql as gban_sql
@@ -39,7 +39,7 @@ async def get_invalid_chats(
         await sleep(0.1)
         try:
             bot.get_chat(cid, timeout=60)
-        except (BadRequest, Unauthorized):
+        except (BadRequest, Forbidden):
             kicked_chats += 1
             chat_list.append(cid)
         except:

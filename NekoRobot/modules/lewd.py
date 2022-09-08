@@ -34,7 +34,7 @@ import nekos
 import requests
 from PIL import Image
 from telegram import Update
-from telegram.error import BadRequest, RetryAfter, Unauthorized
+from telegram.error import BadRequest, RetryAfter, Forbidden
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.helpers import mention_html
 
@@ -93,7 +93,7 @@ async def list_nsfw_chats(update: Update, context: CallbackContext):
             x = context.bot.get_chat(int(*chat))
             name = x.title or x.first_name
             text += f"• <code>{name}</code>\n"
-        except (BadRequest, Unauthorized):
+        except (BadRequest, Forbidden):
             sql.rem_nsfw(*chat)
         except RetryAfter as e:
             await sleep(e.retry_after)

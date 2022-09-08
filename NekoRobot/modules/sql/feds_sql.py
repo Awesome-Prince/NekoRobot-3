@@ -26,7 +26,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import threading
 
 from sqlalchemy import BigInteger, Boolean, Column, String, UnicodeText
-from telegram.error import BadRequest, Unauthorized
+from telegram.error import BadRequest, Forbidden
 
 from NekoRobot import NEKO_PTB
 from NekoRobot.modules.sql import BASE, SESSION
@@ -714,7 +714,7 @@ async def get_fed_log(fed_id):
         except BadRequest:
             set_fed_log(fed_id, None)
             return False
-        except Unauthorized:
+        except Forbidden:
             set_fed_log(fed_id, None)
             return False
         return fed_setting.get("flog")

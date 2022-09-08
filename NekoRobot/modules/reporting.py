@@ -27,7 +27,7 @@ import html
 
 from telegram import Chat, InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
-from telegram.error import BadRequest, Unauthorized
+from telegram.error import BadRequest, Forbidden
 from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
@@ -214,7 +214,7 @@ async def report(update: Update, context: CallbackContext) -> str:
                             ):  # If user is giving a reason, send his message too
                                 message.forward(admin.user.id)
 
-                except Unauthorized:
+                except Forbidden:
                     pass
                 except BadRequest as excp:  # TODO: cleanup exceptions
                     LOGGER.exception("Exception while reporting user")

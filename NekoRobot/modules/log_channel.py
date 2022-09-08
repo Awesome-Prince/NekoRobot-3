@@ -43,7 +43,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 if is_module_loaded(FILENAME):
     from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
     from telegram.constant import ParseMode
-    from telegram.error import BadRequest, Unauthorized
+    from telegram.error import BadRequest, Forbidden
     from telegram.helpers import escape_markdown
 
     from NekoRobot import GBAN_LOGS, LOGGER
@@ -174,7 +174,7 @@ if is_module_loaded(FILENAME):
                     message.forward_from_chat.id,
                     f"This channel has been set as the log channel for {chat.title or chat.first_name}.",
                 )
-            except Unauthorized as excp:
+            except Forbidden as excp:
                 if excp.message == "Forbidden: bot is not a member of the channel chat":
                     bot.send_message(chat.id, "Successfully set log channel!")
                 else:

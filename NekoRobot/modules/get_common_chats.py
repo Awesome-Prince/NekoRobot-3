@@ -27,7 +27,7 @@ import os
 from time import sleep
 
 from telegram import Update
-from telegram.error import BadRequest, RetryAfter, Unauthorized
+from telegram.error import BadRequest, RetryAfter, Forbidden
 from telegram.ext import CallbackContext, CommandHandler, Filters
 
 from NekoRobot import NEKO_PTB, OWNER_ID
@@ -55,7 +55,7 @@ async def get_user_common_chats(update: Update, context: CallbackContext):
             text += f"• <code>{chat_name}</code>\n"
         except BadRequest:
             pass
-        except Unauthorized:
+        except Forbidden:
             pass
         except RetryAfter as e:
             await sleep(e.retry_after)

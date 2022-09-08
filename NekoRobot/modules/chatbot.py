@@ -13,7 +13,7 @@ from telegram import (
     User,
 )
 from telegram.constants import ParseMode
-from telegram.error import BadRequest, RetryAfter, Unauthorized
+from telegram.error import BadRequest, RetryAfter, Forbidden
 from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
@@ -147,7 +147,7 @@ async def list_all_chats(update: Update, context: CallbackContext):
             x = context.bot.get_chat(int(*chat))
             name = x.title or x.first_name
             text += f"• <code>{name}</code>\n"
-        except (BadRequest, Unauthorized):
+        except (BadRequest, Forbidden):
             sql.rem_kuki(*chat)
         except RetryAfter as e:
             await sleep(e.retry_after)
