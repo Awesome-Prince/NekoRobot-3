@@ -117,7 +117,7 @@ if is_module_loaded(FILENAME):
 
     class DisableAbleMessageHandler(MessageHandler):
         def __init__(self, pattern, callback, block=False, friendly="", **kwargs):
-            super().__init__(pattern, callback, block-False, **kwargs)
+            super().__init__(pattern, callback, block - False, **kwargs)
             DISABLE_OTHER.append(friendly or pattern)
             self.friendly = friendly or pattern
 
