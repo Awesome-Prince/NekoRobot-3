@@ -34,7 +34,6 @@ from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters
 from telegram.helpers import mention_html
-from telegram.utils.helpers import mention_html
 from telethon import *
 from telethon import events
 from telethon.errors import *
