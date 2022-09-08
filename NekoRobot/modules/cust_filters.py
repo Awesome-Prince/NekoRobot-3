@@ -44,7 +44,7 @@ from NekoRobot import NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
-from NekoRobot.modules.helper_funcs.decorators import nekocallback, nekocmd, nekomsg
+from NekoRobot.modules.helper_funcs.decorators import neko_callback, neko_cmd, neko_msg
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.filters import CustomFilters
 from NekoRobot.modules.helper_funcs.misc import build_keyboard_parser
@@ -73,7 +73,7 @@ ENUM_FUNC_MAP = {
 
 
 @typing_action
-@nekocmd(command="filters", admin_ok=True)
+@neko_cmd(command="filters", admin_ok=True)
 async def list_handlers(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -120,7 +120,7 @@ async def list_handlers(update, context):
 
 
 # NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
-@nekocmd(command="filter", run_async=False)
+@neko_cmd(command="filter", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
 async def filters(update, context):  # sourcery no-metrics
@@ -244,7 +244,7 @@ async def filters(update, context):  # sourcery no-metrics
 
 
 # NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
-@nekocmd(command="stop", run_async=False)
+@neko_cmd(command="stop", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 @typing_action
 async def stop_filter(update, context):
@@ -285,7 +285,7 @@ async def stop_filter(update, context):
     )
 
 
-@nekomsg((CustomFilters.has_text & ~Filters.update.edited_message))
+@neko_msg((CustomFilters.has_text & ~Filters.update.edited_message))
 async def reply_filter(update, context):  # sourcery no-metrics
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
@@ -474,7 +474,7 @@ async def reply_filter(update, context):  # sourcery no-metrics
             break
 
 
-@nekocmd(command="removeallfilters", filters=Filters.chat_type.groups)
+@neko_cmd(command="removeallfilters", filters=Filters.chat_type.groups)
 async def rmall_filters(update, _):
     chat = update.effective_chat
     user = update.effective_user
@@ -501,7 +501,7 @@ async def rmall_filters(update, _):
         )
 
 
-@nekocallback(pattern=r"filters_.*")
+@neko_callback(pattern=r"filters_.*")
 async def rmall_callback(update, _):
     query = update.callback_query
     chat = update.effective_chat

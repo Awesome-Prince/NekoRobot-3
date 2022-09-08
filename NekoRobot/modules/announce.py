@@ -7,11 +7,11 @@ from telegram.helpers import mention_html
 import NekoRobot.modules.sql.logger_sql as sql
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms
 from NekoRobot.modules.helper_funcs.anonymous import user_admin as u_admin
-from NekoRobot.modules.helper_funcs.decorators import nekocmd
+from NekoRobot.modules.helper_funcs.decorators import neko_cmd
 from NekoRobot.modules.log_channel import loggable
 
 
-@nekocmd(command="announce", pass_args=True)
+@neko_cmd(command="announce", pass_args=True)
 @u_admin(AdminPerms.CAN_CHANGE_INFO)
 @loggable
 def announcestat(update: Update, context: CallbackContext) -> str:

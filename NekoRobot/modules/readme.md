@@ -3,11 +3,11 @@
 ## Advanced: Decorators
 ```python3
 
-from NekoRobot.modules.helper_funcs.decorators import nekocmd
+from NekoRobot.modules.helper_funcs.decorators import neko_cmd
 from telegram import Update
 from telegram.ext import CallbackContext
 
-@nekocmd(command='hi', pass_args=True)
+@neko_cmd(command='hi', pass_args=True)
 async def hello(update: Update, context: CallbackContext):
     message = update.effective_message
     message.reply_text("hello")

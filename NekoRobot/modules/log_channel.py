@@ -29,7 +29,7 @@ from functools import wraps
 from telegram.ext import CallbackContext
 
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
-from NekoRobot.modules.helper_funcs.decorators import nekocallback, nekocmd
+from NekoRobot.modules.helper_funcs.decorators import neko_callback, neko_cmd
 from NekoRobot.modules.helper_funcs.misc import is_module_loaded
 from NekoRobot.modules.language import gs
 
@@ -128,7 +128,7 @@ if is_module_loaded(FILENAME):
                     + "\n\nFormatting has been disabled due to an unexpected error.",
                 )
 
-    @nekocmd(command="logchannel")
+    @neko_cmd(command="logchannel")
     @u_admin
     async def logging(update: Update, context: CallbackContext):
         bot = context.bot
@@ -147,7 +147,7 @@ if is_module_loaded(FILENAME):
         else:
             message.reply_text("No log channel has been set for this group!")
 
-    @nekocmd(command="setlog")
+    @neko_cmd(command="setlog")
     @user_admin(AdminPerms.CAN_CHANGE_INFO)
     async def setlog(update: Update, context: CallbackContext):
         bot = context.bot
@@ -189,7 +189,7 @@ if is_module_loaded(FILENAME):
                 " - forward the /setlog to the group\n"
             )
 
-    @nekocmd(command="unsetlog")
+    @neko_cmd(command="unsetlog")
     @user_admin(AdminPerms.CAN_CHANGE_INFO)
     async def unsetlog(update: Update, context: CallbackContext):
         bot = context.bot
@@ -242,7 +242,7 @@ else:
         return func
 
 
-@nekocmd("logsettings")
+@neko_cmd("logsettings")
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
 async def log_settings(update: Update, _: CallbackContext):
     chat = update.effective_chat
@@ -271,7 +271,7 @@ async def log_settings(update: Update, _: CallbackContext):
 from NekoRobot.modules.sql import log_channel_sql as sql
 
 
-@nekocallback(pattern=r"log_tog_.*")
+@neko_callback(pattern=r"log_tog_.*")
 async def log_setting_callback(update: Update, context: CallbackContext):
     cb = update.callback_query
     user = cb.from_user

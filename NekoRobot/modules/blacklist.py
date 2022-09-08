@@ -12,7 +12,7 @@ from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_not_admin
-from NekoRobot.modules.helper_funcs.decorators import nekocmd, nekomsg
+from NekoRobot.modules.helper_funcs.decorators import neko_cmd, neko_msg
 from NekoRobot.modules.helper_funcs.extraction import extract_text
 from NekoRobot.modules.helper_funcs.misc import split_message
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
@@ -23,7 +23,7 @@ from NekoRobot.modules.warns import warn
 BLACKLIST_GROUP = -3
 
 
-@nekocmd(command="blacklist", pass_args=True, admin_ok=True)
+@neko_cmd(command="blacklist", pass_args=True, admin_ok=True)
 @u_admin
 @typing_action
 async def blacklist(update, context):
@@ -68,7 +68,7 @@ async def blacklist(update, context):
         send_message(update.effective_message, text, parse_mode=ParseMode.HTML)
 
 
-@nekocmd(command="addblacklist", pass_args=True)
+@neko_cmd(command="addblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
 async def add_blacklist(update, context):
@@ -123,7 +123,7 @@ async def add_blacklist(update, context):
         )
 
 
-@nekocmd(command="unblacklist", pass_args=True)
+@neko_cmd(command="unblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
 @typing_action
 async def unblacklist(update, context):
@@ -204,7 +204,7 @@ async def unblacklist(update, context):
         )
 
 
-@nekocmd(command="blacklistmode", pass_args=True)
+@neko_cmd(command="blacklistmode", pass_args=True)
 @loggable
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
 @typing_action
@@ -337,7 +337,7 @@ async def findall(p, s):
         i = s.find(p, i + 1)
 
 
-@nekomsg(
+@neko_msg(
     (
         (Filters.text | Filters.command | Filters.sticker | Filters.photo)
         & Filters.chat_type.groups

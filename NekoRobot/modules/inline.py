@@ -35,7 +35,7 @@ from NekoRobot import (
     pgram,
     sw,
 )
-from NekoRobot.modules.helper_funcs.decorators import nekoinline
+from NekoRobot.modules.helper_funcs.decorators import neko_inline
 from NekoRobot.modules.helper_funcs.miku_misc import article
 from NekoRobot.modules.sudoers import bot_sys_stats as wall
 
@@ -46,7 +46,7 @@ async def remove_prefix(text, prefix):
     return text
 
 
-@nekoinline()
+@neko_inline()
 async def inlinequery(update: Update, _) -> None:
     """
     Main InlineQueryHandler callback.

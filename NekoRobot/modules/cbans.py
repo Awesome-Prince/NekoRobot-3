@@ -25,13 +25,13 @@ from NekoRobot.modules.helper_funcs.chat_status import (
     is_user_ban_protected,
     is_user_in_chat,
 )
-from NekoRobot.modules.helper_funcs.decorators import nekocmd
+from NekoRobot.modules.helper_funcs.decorators import neko_cmd
 from NekoRobot.modules.helper_funcs.extraction import extract_user_and_text
 from NekoRobot.modules.helper_funcs.string_handling import extract_time
 from NekoRobot.modules.log_channel import gloggable, loggable
 
 
-@nekocmd(command="cban", pass_args=True)
+@neko_cmd(command="cban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
@@ -150,7 +150,7 @@ async def cban(
     return ""
 
 
-@nekocmd(command="tcban", pass_args=True)
+@neko_cmd(command="tcban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
@@ -239,7 +239,7 @@ async def temp_ban(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@nekocmd(command="kick", pass_args=True)
+@neko_cmd(command="kick", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
@@ -297,7 +297,7 @@ async def kick(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@nekocmd(command="kickme", pass_args=True, filters=Filters.chat_type.groups)
+@neko_cmd(command="kickme", pass_args=True, filters=Filters.chat_type.groups)
 @bot_admin
 @can_restrict
 async def kickme(update: Update, context: CallbackContext):
@@ -313,7 +313,7 @@ async def kickme(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Huh? I can't :/")
 
 
-@nekocmd(command="uncban", pass_args=True)
+@neko_cmd(command="uncban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
@@ -394,7 +394,7 @@ async def uncban(update: Update, context: CallbackContext) -> Optional[str]:
     return log
 
 
-@nekocmd(command="selfunban", pass_args=True)
+@neko_cmd(command="selfunban", pass_args=True)
 @connection_status
 @bot_admin
 @can_restrict
