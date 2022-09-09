@@ -433,13 +433,13 @@ TABLE_HANDLER = DisableAbleCommandHandler("table", table, block=False)
 SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, block=False)
 WEEBIFY_HANDLER = DisableAbleCommandHandler("weebify", weebify, block=False)
 GDMORNING_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"(?i)(gm|good morning)"),
+    filter.regex(r"(?i)(gm|good morning)"),
     goodmorning,
     friendly="goodmorning",
     block=False,
 )
 GDNIGHT_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"(?i)(gn|good night)"),
+    filter.regex(r"(?i)(gn|good night)"),
     goodnight,
     friendly="goodnight",
     block=False,

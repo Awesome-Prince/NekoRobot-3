@@ -31,7 +31,7 @@ from NekoRobot.modules.helper_funcs.msg_types import Types
 from NekoRobot.modules.sql import BASE, SESSION
 
 
-class CustomFilters(BASE):
+class Customfilter(BASE):
     __tablename__ = "cust_filters"
     chat_id = Column(String(14), primary_key=True)
     keyword = Column(UnicodeText, primary_key=True, nullable=False)
@@ -92,13 +92,13 @@ class CustomFilters(BASE):
 
     async def __eq__(self, other):
         return bool(
-            isinstance(other, CustomFilters)
+            isinstance(other, Customfilter)
             and self.chat_id == other.chat_id
             and self.keyword == other.keyword
         )
 
 
-class NewCustomFilters(BASE):
+class NewCustomfilter(BASE):
     __tablename__ = "cust_filters_new"
     chat_id = Column(String(14), primary_key=True)
     keyword = Column(UnicodeText, primary_key=True, nullable=False)
@@ -118,7 +118,7 @@ class NewCustomFilters(BASE):
 
     async def __eq__(self, other):
         return bool(
-            isinstance(other, CustomFilters)
+            isinstance(other, Customfilter)
             and self.chat_id == other.chat_id
             and self.keyword == other.keyword
         )
@@ -141,7 +141,7 @@ class Buttons(BASE):
         self.same_line = same_line
 
 
-CustomFilters.__table__.create(checkfirst=True)
+Customfilter.__table__.create(checkfirst=True)
 Buttons.__table__.create(checkfirst=True)
 
 CUST_FILT_LOCK = threading.RLock()
@@ -151,7 +151,7 @@ CHAT_FILTERS = {}
 
 async def get_all_filters():
     try:
-        return SESSION.query(CustomFilters).all()
+        return SESSION.query(Customfilter).all()
     finally:
         SESSION.close()
 
@@ -174,7 +174,7 @@ async def add_filter(
         buttons = []
 
     with CUST_FILT_LOCK:
-        prev = SESSION.query(CustomFilters).get((str(chat_id), keyword))
+        prev = SESSION.query(Customfilter).get((str(chat_id), keyword))
         if prev:
             with BUTTON_LOCK:
                 prev_buttons = (
@@ -186,7 +186,7 @@ async def add_filter(
                     SESSION.delete(btn)
             SESSION.delete(prev)
 
-        filt = CustomFilters(
+        filt = Customfilter(
             str(chat_id),
             keyword,
             reply,
@@ -219,7 +219,7 @@ async def new_add_filter(chat_id, keyword, reply_text, file_type, file_id, butto
         buttons = []
 
     with CUST_FILT_LOCK:
-        prev = SESSION.query(CustomFilters).get((str(chat_id), keyword))
+        prev = SESSION.query(Customfilter).get((str(chat_id), keyword))
         if prev:
             with BUTTON_LOCK:
                 prev_buttons = (
@@ -231,7 +231,7 @@ async def new_add_filter(chat_id, keyword, reply_text, file_type, file_id, butto
                     SESSION.delete(btn)
             SESSION.delete(prev)
 
-        filt = CustomFilters(
+        filt = Customfilter(
             str(chat_id),
             keyword,
             reply="there is should be a new reply",
@@ -263,7 +263,7 @@ async def new_add_filter(chat_id, keyword, reply_text, file_type, file_id, butto
 async def remove_filter(chat_id, keyword):
     global CHAT_FILTERS
     with CUST_FILT_LOCK:
-        filt = SESSION.query(CustomFilters).get((str(chat_id), keyword))
+        filt = SESSION.query(Customfilter).get((str(chat_id), keyword))
         if filt:
             if keyword in CHAT_FILTERS.get(str(chat_id), []):  # Sanity check
                 CHAT_FILTERS.get(str(chat_id), []).remove(keyword)
@@ -292,10 +292,10 @@ async def get_chat_triggers(chat_id):
 async def get_chat_filters(chat_id):
     try:
         return (
-            SESSION.query(CustomFilters)
-            .filter(CustomFilters.chat_id == str(chat_id))
-            .order_by(func.length(CustomFilters.keyword).desc())
-            .order_by(CustomFilters.keyword.asc())
+            SESSION.query(Customfilter)
+            .filter(Customfilter.chat_id == str(chat_id))
+            .order_by(func.length(Customfilter.keyword).desc())
+            .order_by(Customfilter.keyword.asc())
             .all()
         )
     finally:
@@ -304,7 +304,7 @@ async def get_chat_filters(chat_id):
 
 async def get_filter(chat_id, keyword):
     try:
-        return SESSION.query(CustomFilters).get((str(chat_id), keyword))
+        return SESSION.query(Customfilter).get((str(chat_id), keyword))
     finally:
         SESSION.close()
 
@@ -330,14 +330,14 @@ async def get_buttons(chat_id, keyword):
 
 async def num_filters():
     try:
-        return SESSION.query(CustomFilters).count()
+        return SESSION.query(Customfilter).count()
     finally:
         SESSION.close()
 
 
 async def num_chats():
     try:
-        return SESSION.query(func.count(distinct(CustomFilters.chat_id))).scalar()
+        return SESSION.query(func.count(distinct(Customfilter.chat_id))).scalar()
     finally:
         SESSION.close()
 
@@ -345,11 +345,11 @@ async def num_chats():
 async def __load_chat_filters():
     global CHAT_FILTERS
     try:
-        chats = SESSION.query(CustomFilters.chat_id).distinct().all()
+        chats = SESSION.query(Customfilter.chat_id).distinct().all()
         for (chat_id,) in chats:  # remove tuple by ( ,)
             CHAT_FILTERS[chat_id] = []
 
-        all_filters = SESSION.query(CustomFilters).all()
+        all_filters = SESSION.query(Customfilter).all()
         for x in all_filters:
             CHAT_FILTERS[x.chat_id] += [x.keyword]
 
@@ -365,7 +365,7 @@ async def __load_chat_filters():
 # ONLY USE FOR MIGRATE OLD FILTERS TO NEW FILTERS
 async def __migrate_filters():
     try:
-        all_filters = SESSION.query(CustomFilters).distinct().all()
+        all_filters = SESSION.query(Customfilter).distinct().all()
         for x in all_filters:
             if x.is_document:
                 file_type = Types.DOCUMENT
@@ -384,11 +384,11 @@ async def __migrate_filters():
 
             print(str(x.chat_id), x.keyword, x.reply, file_type.value)
             if file_type == Types.TEXT:
-                filt = CustomFilters(
+                filt = Customfilter(
                     str(x.chat_id), x.keyword, x.reply, file_type.value, None
                 )
             else:
-                filt = CustomFilters(
+                filt = Customfilter(
                     str(x.chat_id), x.keyword, None, file_type.value, x.reply
                 )
 
@@ -402,8 +402,8 @@ async def __migrate_filters():
 async def migrate_chat(old_chat_id, new_chat_id):
     with CUST_FILT_LOCK:
         chat_filters = (
-            SESSION.query(CustomFilters)
-            .filter(CustomFilters.chat_id == str(old_chat_id))
+            SESSION.query(Customfilter)
+            .filter(Customfilter.chat_id == str(old_chat_id))
             .all()
         )
         for filt in chat_filters:

@@ -334,7 +334,7 @@ async def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
 CONN_HELP = """
  Actions are available with connected groups:
 ➛ View and edit Notes
-➛ View and edit Filters.
+➛ View and edit filter.
 ➛ Get invite link of chat.
 ➛ Set and control AntiFlood settings. 
 ➛ Set and control Blacklist settings.

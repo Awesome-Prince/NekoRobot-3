@@ -61,7 +61,7 @@ from NekoRobot.modules.helper_funcs.extraction import (
     extract_user,
     extract_user_and_text,
 )
-from NekoRobot.modules.helper_funcs.filters import CustomFilters
+from NekoRobot.modules.helper_funcs.filters import Customfilter
 from NekoRobot.modules.helper_funcs.misc import split_message
 from NekoRobot.modules.helper_funcs.string_handling import split_quotes
 from NekoRobot.modules.log_channel import loggable
@@ -566,44 +566,44 @@ be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is
 __mod_name__ = "Warns"
 
 WARN_HANDLER = CommandHandler(
-    ["warn", "dwarn"], warn_user, filters=Filters.chat_type.groups, block=False
+    ["warn", "dwarn"], warn_user, filters=filter.chat_type.groups, block=False
 )
 RESET_WARN_HANDLER = CommandHandler(
     ["resetwarn", "resetwarns"],
     reset_warns,
-    filters=Filters.chat_type.groups,
+    filters=filter.chat_type.groups,
     block=False,
 )
 CALLBACK_QUERY_HANDLER = CallbackQueryHandler(button, pattern=r"rm_warn", block=False)
 MYWARNS_HANDLER = DisableAbleCommandHandler(
-    "warns", warns, filters=Filters.chat_type.groups, block=False
+    "warns", warns, filters=filter.chat_type.groups, block=False
 )
 ADD_WARN_HANDLER = CommandHandler(
-    "addwarn", add_warn_filter, filters=Filters.chat_type.groups, block=False
+    "addwarn", add_warn_filter, filters=filter.chat_type.groups, block=False
 )
 REMOVE_WARN_HANDLER = CommandHandler(
-    "rmwarn", rmwarn_cmd, filters=Filters.chat_type.groups, block=False
+    "rmwarn", rmwarn_cmd, filters=filter.chat_type.groups, block=False
 )
 RM_WARN_HANDLER = CommandHandler(
     ["nowarn", "stopwarn"],
     remove_warn_filter,
-    filters=Filters.chat_type.groups,
+    filters=filter.chat_type.groups,
     block=False,
 )
 LIST_WARN_HANDLER = DisableAbleCommandHandler(
     ["warnlist", "warnfilters"],
     list_warn_filters,
-    filters=Filters.chat_type.groups,
+    filters=filter.chat_type.groups,
     block=False,
 )
 WARN_FILTER_HANDLER = MessageHandler(
-    CustomFilters.has_text & Filters.chat_type.groups, reply_filter, block=False
+    Customfilter.has_text & filter.chat_type.groups, reply_filter, block=False
 )
 WARN_LIMIT_HANDLER = CommandHandler(
-    "warnlimit", set_warn_limit, filters=Filters.chat_type.groups, block=False
+    "warnlimit", set_warn_limit, filters=filter.chat_type.groups, block=False
 )
 WARN_STRENGTH_HANDLER = CommandHandler(
-    "strongwarn", set_warn_strength, filters=Filters.chat_type.groups, block=False
+    "strongwarn", set_warn_strength, filters=filter.chat_type.groups, block=False
 )
 
 NEKO_PTB.add_handler(WARN_HANDLER)

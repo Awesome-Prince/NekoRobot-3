@@ -34,7 +34,7 @@ from telegram.ext import MessageFilter
 from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS
 
 
-class CustomFilters:
+class Customfilter:
     class _Supporters(MessageFilter):
         async def filter(self, message: Message):
             return bool(message.from_user and message.from_user.id in SUPPORT_USERS)
@@ -56,7 +56,7 @@ class CustomFilters:
     class _MimeType(MessageFilter):
         async def __init__(self, mimetype):
             self.mime_type = mimetype
-            self.name = "CustomFilters.mime_type({})".format(self.mime_type)
+            self.name = "Customfilter.mime_type({})".format(self.mime_type)
 
         async def filter(self, message: Message):
             return bool(

@@ -439,21 +439,21 @@ will result in restricting that user.
 __mod_name__ = "Anti-Flood"
 
 FLOOD_BAN_HANDLER = MessageHandler(
-    Filters.all & ~Filters.status_update & Filters.chat_type.groups,
+    filter.all & ~filter.status_update & filter.chat_type.groups,
     check_flood,
     block=False,
 )
 SET_FLOOD_HANDLER = CommandHandler(
-    "setflood", set_flood, filters=Filters.chat_type.groups, block=False
+    "setflood", set_flood, filters=filter.chat_type.groups, block=False
 )
 SET_FLOOD_MODE_HANDLER = CommandHandler(
     "setfloodmode", set_flood_mode, pass_args=True, block=False
-)  # , filters=Filters.chat_type.groups)
+)  # , filters=filter.chat_type.groups)
 FLOOD_QUERY_HANDLER = CallbackQueryHandler(
     flood_button, pattern=r"unmute_flooder", block=False
 )
 FLOOD_HANDLER = CommandHandler(
-    "flood", flood, filters=Filters.chat_type.groups, block=False
+    "flood", flood, filters=filter.chat_type.groups, block=False
 )
 
 NEKO_PTB.add_handler(FLOOD_BAN_HANDLER, FLOOD_GROUP)

@@ -299,10 +299,10 @@ __help__ = """
 
 SETTING_HANDLER = CommandHandler("reports", report_setting, block=False)
 REPORT_HANDLER = CommandHandler(
-    "report", report, filters=Filters.chat_type.groups, block=False
+    "report", report, filters=filter.chat_type.groups, block=False
 )
 ADMIN_REPORT_HANDLER = MessageHandler(
-    Filters.regex(r"(?i)@admin(s)?"), report, block=False
+    filter.regex(r"(?i)@admin(s)?"), report, block=False
 )
 
 REPORT_BUTTON_USER_HANDLER = CallbackQueryHandler(

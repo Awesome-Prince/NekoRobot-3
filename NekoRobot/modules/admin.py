@@ -1115,31 +1115,31 @@ __help__ = """
 """
 
 SET_DESC_HANDLER = CommandHandler(
-    "setdesc", set_desc, filters=Filters.chat_type.groups, block=False
+    "setdesc", set_desc, filters=filter.chat_type.groups, block=False
 )
 SET_STICKER_HANDLER = CommandHandler(
-    "setsticker", set_sticker, filters=Filters.chat_type.groups, block=False
+    "setsticker", set_sticker, filters=filter.chat_type.groups, block=False
 )
 SETCHATPIC_HANDLER = CommandHandler(
-    "setgpic", setchatpic, filters=Filters.chat_type.groups, block=False
+    "setgpic", setchatpic, filters=filter.chat_type.groups, block=False
 )
 RMCHATPIC_HANDLER = CommandHandler(
-    "delgpic", rmchatpic, filters=Filters.chat_type.groups, block=False
+    "delgpic", rmchatpic, filters=filter.chat_type.groups, block=False
 )
 SETCHAT_TITLE_HANDLER = CommandHandler(
-    "setgtitle", setchat_title, filters=Filters.chat_type.groups, block=False
+    "setgtitle", setchat_title, filters=filter.chat_type.groups, block=False
 )
 
 ADMINLIST_HANDLER = DisableAbleCommandHandler(
     ["admins", "adminlist"], adminlist, block=False
 )
 
-PIN_HANDLER = CommandHandler("pin", pin, filters=Filters.chat_type.groups, block=False)
+PIN_HANDLER = CommandHandler("pin", pin, filters=filter.chat_type.groups, block=False)
 UNPIN_HANDLER = CommandHandler(
-    "unpin", unpin, filters=Filters.chat_type.groups, block=False
+    "unpin", unpin, filters=filter.chat_type.groups, block=False
 )
 PINNED_HANDLER = CommandHandler(
-    "pinned", pinned, filters=Filters.chat_type.groups, block=False
+    "pinned", pinned, filters=filter.chat_type.groups, block=False
 )
 
 INVITE_HANDLER = DisableAbleCommandHandler("invitelink", invite, block=False)
@@ -1152,7 +1152,7 @@ DEMOTE_HANDLER = DisableAbleCommandHandler("demote", demote, block=False)
 
 SET_TITLE_HANDLER = CommandHandler("title", set_title, block=False)
 ADMIN_REFRESH_HANDLER = CommandHandler(
-    "admincache", refresh_admin, filters=Filters.chat_type.groups, block=False
+    "admincache", refresh_admin, filters=filter.chat_type.groups, block=False
 )
 
 NEKO_PTB.add_handler(SET_DESC_HANDLER)

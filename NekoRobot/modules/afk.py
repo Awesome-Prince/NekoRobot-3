@@ -141,13 +141,13 @@ async def check_afk(update, context, user_id, fst_name, userc_id):
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, block=False)
 AFK_REGEX_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk"
+    filter.regex(r"^(?i)brb(.*)$"), afk, friendly="afk"
 )
 NO_AFK_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, no_longer_afk, block=False
+    filter.all & filter.chat_type.groups, no_longer_afk, block=False
 )
 AFK_REPLY_HANDLER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, reply_afk, block=False
+    filter.all & filter.chat_type.groups, reply_afk, block=False
 )
 
 NEKO_PTB.add_handler(AFK_HANDLER, AFK_GROUP)

@@ -49,19 +49,19 @@ from NekoRobot.modules.log_channel import loggable
 ad = AlphabetDetector()
 
 LOCK_TYPES = {
-    "audio": Filters.audio,
-    "voice": Filters.voice,
-    "document": Filters.document,
-    "video": Filters.video,
-    "contact": Filters.contact,
-    "photo": Filters.photo,
-    "url": Filters.entity(MessageEntity.URL)
-    | Filters.caption_entity(MessageEntity.URL),
-    "bots": Filters.status_update.new_chat_members,
-    "forward": Filters.forwarded,
-    "game": Filters.game,
-    "location": Filters.location,
-    "egame": Filters.dice,
+    "audio": filter.audio,
+    "voice": filter.voice,
+    "document": filter.document,
+    "video": filter.video,
+    "contact": filter.contact,
+    "photo": filter.photo,
+    "url": filter.entity(MessageEntity.URL)
+    | filter.caption_entity(MessageEntity.URL),
+    "bots": filter.status_update.new_chat_members,
+    "forward": filter.forwarded,
+    "game": filter.game,
+    "location": filter.location,
+    "egame": filter.dice,
     "rtl": "rtl",
     "button": "button",
     "inline": "inline",
@@ -602,13 +602,13 @@ __mod_name__ = "Locks"
 LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
 LOCK_HANDLER = CommandHandler(
     "lock", lock, pass_args=True, block=False
-)  # , filters=Filters.chat_type.groups)
+)  # , filters=filter.chat_type.groups)
 UNLOCK_HANDLER = CommandHandler(
     "unlock", unlock, pass_args=True, block=False
-)  # , filters=Filters.chat_type.groups)
+)  # , filters=filter.chat_type.groups)
 LOCKED_HANDLER = CommandHandler(
     "locks", list_locks, block=False
-)  # , filters=Filters.chat_type.groups)
+)  # , filters=filter.chat_type.groups)
 
 NEKO_PTB.add_handler(LOCK_HANDLER)
 NEKO_PTB.add_handler(UNLOCK_HANDLER)
@@ -616,5 +616,5 @@ NEKO_PTB.add_handler(LOCKTYPES_HANDLER)
 NEKO_PTB.add_handler(LOCKED_HANDLER)
 
 NEKO_PTB.add_handler(
-    MessageHandler(Filters.all & Filters.chat_type.groups, del_lockables), PERM_GROUP
+    MessageHandler(filter.all & filter.chat_type.groups, del_lockables), PERM_GROUP
 )

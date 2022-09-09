@@ -71,7 +71,7 @@ async def get_user_common_chats(update: Update, context: CallbackContext):
 
 
 COMMON_CHATS_HANDLER = CommandHandler(
-    "getchats", get_user_common_chats, filters=Filters.user(OWNER_ID), block=False
+    "getchats", get_user_common_chats, filters=filter.user(OWNER_ID), block=False
 )
 
 NEKO_PTB.add_handler(COMMON_CHATS_HANDLER)

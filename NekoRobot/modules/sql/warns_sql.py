@@ -51,7 +51,7 @@ class Warns(BASE):
         )
 
 
-class WarnFilters(BASE):
+class Warnfilter(BASE):
     __tablename__ = "warn_filters"
     chat_id = Column(String(14), primary_key=True)
     keyword = Column(UnicodeText, primary_key=True, nullable=False)
@@ -67,7 +67,7 @@ class WarnFilters(BASE):
 
     async def __eq__(self, other):
         return bool(
-            isinstance(other, WarnFilters)
+            isinstance(other, Warnfilter)
             and self.chat_id == other.chat_id
             and self.keyword == other.keyword
         )
@@ -89,7 +89,7 @@ class WarnSettings(BASE):
 
 
 Warns.__table__.create(checkfirst=True)
-WarnFilters.__table__.create(checkfirst=True)
+Warnfilter.__table__.create(checkfirst=True)
 WarnSettings.__table__.create(checkfirst=True)
 
 WARN_INSERTION_LOCK = threading.RLock()
@@ -162,7 +162,7 @@ async def get_warns(user_id, chat_id):
 
 async def add_warn_filter(chat_id, keyword, reply):
     with WARN_FILTER_INSERTION_LOCK:
-        warn_filt = WarnFilters(str(chat_id), keyword, reply)
+        warn_filt = Warnfilter(str(chat_id), keyword, reply)
 
         if keyword not in WARN_FILTERS.get(str(chat_id), []):
             WARN_FILTERS[str(chat_id)] = sorted(
@@ -176,7 +176,7 @@ async def add_warn_filter(chat_id, keyword, reply):
 
 async def remove_warn_filter(chat_id, keyword):
     with WARN_FILTER_INSERTION_LOCK:
-        warn_filt = SESSION.query(WarnFilters).get((str(chat_id), keyword))
+        warn_filt = SESSION.query(Warnfilter).get((str(chat_id), keyword))
         if warn_filt:
             if keyword in WARN_FILTERS.get(str(chat_id), []):  # sanity check
                 WARN_FILTERS.get(str(chat_id), []).remove(keyword)
@@ -195,7 +195,7 @@ async def get_chat_warn_triggers(chat_id):
 async def get_chat_warn_filters(chat_id):
     try:
         return (
-            SESSION.query(WarnFilters).filter(WarnFilters.chat_id == str(chat_id)).all()
+            SESSION.query(Warnfilter).filter(Warnfilter.chat_id == str(chat_id)).all()
         )
     finally:
         SESSION.close()
@@ -203,7 +203,7 @@ async def get_chat_warn_filters(chat_id):
 
 async def get_warn_filter(chat_id, keyword):
     try:
-        return SESSION.query(WarnFilters).get((str(chat_id), keyword))
+        return SESSION.query(Warnfilter).get((str(chat_id), keyword))
     finally:
         SESSION.close()
 
@@ -260,7 +260,7 @@ async def num_warn_chats():
 
 async def num_warn_filters():
     try:
-        return SESSION.query(WarnFilters).count()
+        return SESSION.query(Warnfilter).count()
     finally:
         SESSION.close()
 
@@ -268,8 +268,8 @@ async def num_warn_filters():
 async def num_warn_chat_filters(chat_id):
     try:
         return (
-            SESSION.query(WarnFilters.chat_id)
-            .filter(WarnFilters.chat_id == str(chat_id))
+            SESSION.query(Warnfilter.chat_id)
+            .filter(Warnfilter.chat_id == str(chat_id))
             .count()
         )
     finally:
@@ -278,7 +278,7 @@ async def num_warn_chat_filters(chat_id):
 
 async def num_warn_filter_chats():
     try:
-        return SESSION.query(func.count(distinct(WarnFilters.chat_id))).scalar()
+        return SESSION.query(func.count(distinct(Warnfilter.chat_id))).scalar()
     finally:
         SESSION.close()
 
@@ -286,11 +286,11 @@ async def num_warn_filter_chats():
 async def __load_chat_warn_filters():
     global WARN_FILTERS
     try:
-        chats = SESSION.query(WarnFilters.chat_id).distinct().all()
+        chats = SESSION.query(Warnfilter.chat_id).distinct().all()
         for (chat_id,) in chats:  # remove tuple by ( ,)
             WARN_FILTERS[chat_id] = []
 
-        all_filters = SESSION.query(WarnFilters).all()
+        all_filters = SESSION.query(Warnfilter).all()
         for x in all_filters:
             WARN_FILTERS[x.chat_id] += [x.keyword]
 
@@ -314,8 +314,8 @@ async def migrate_chat(old_chat_id, new_chat_id):
 
     with WARN_FILTER_INSERTION_LOCK:
         chat_filters = (
-            SESSION.query(WarnFilters)
-            .filter(WarnFilters.chat_id == str(old_chat_id))
+            SESSION.query(Warnfilter)
+            .filter(Warnfilter.chat_id == str(old_chat_id))
             .all()
         )
         for filt in chat_filters:

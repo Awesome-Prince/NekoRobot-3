@@ -549,11 +549,11 @@ UNGBAN_HANDLER = CommandHandler("ungban", ungban, block=False)
 GBAN_LIST = CommandHandler("gbanlist", gbanlist, block=False)
 
 GBAN_STATUS = CommandHandler(
-    "antispam", gbanstat, filters=Filters.chat_type.groups, block=False
+    "antispam", gbanstat, filters=filter.chat_type.groups, block=False
 )
 
 GBAN_ENFORCER = MessageHandler(
-    Filters.all & Filters.chat_type.groups, enforce_gban, block=False
+    filter.all & filter.chat_type.groups, enforce_gban, block=False
 )
 
 NEKO_PTB.add_handler(GBAN_HANDLER)

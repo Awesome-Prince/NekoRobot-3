@@ -31,7 +31,7 @@ import telegram
 from telegram import Chat, InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram.constants import ParseMode
 from telegram.error import BadRequest
-from telegram.ext import DispatcherHandlerStop, Filters
+from telegram.ext import DispatcherHandlerStop, filter
 from telegram.helpers import escape_markdown, mention_html
 
 from NekoRobot import LOGGER as log
@@ -41,7 +41,7 @@ from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.decorators import neko_callback, neko_cmd, neko_msg
 from NekoRobot.modules.helper_funcs.extraction import extract_text
-from NekoRobot.modules.helper_funcs.filters import CustomFilters
+from NekoRobot.modules.helper_funcs.filters import Customfilter
 from NekoRobot.modules.helper_funcs.misc import build_keyboard_parser
 from NekoRobot.modules.helper_funcs.msg_types import get_filter_type
 from NekoRobot.modules.helper_funcs.string_handling import (
@@ -84,7 +84,7 @@ async def list_handlers(update, context):
             filter_list = "*local filters:*\n"
         else:
             chat_name = chat.title
-            filter_list = "*Filters in {}*:\n"
+            filter_list = "*filter in {}*:\n"
 
     all_handlers = sql.get_chat_triggers(chat_id)
 
@@ -277,7 +277,7 @@ async def stop_filter(update, context):
     )
 
 
-@neko_msg((CustomFilters.has_text & ~Filters.update.edited_message))
+@neko_msg((Customfilter.has_text & ~filter.update.edited_message))
 async def reply_filter(update, context):  # sourcery no-metrics
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
@@ -466,7 +466,7 @@ async def reply_filter(update, context):  # sourcery no-metrics
             break
 
 
-@neko_cmd(command="removeallfilters", filters=Filters.chat_type.groups)
+@neko_cmd(command="removeallfilters", filters=filter.chat_type.groups)
 async def rmall_filters(update, _):
     chat = update.effective_chat
     user = update.effective_user
@@ -602,7 +602,7 @@ Separate diff replies by `%%%` to get random replies
 *Chat creator only:*
 • /removeallfilters*:* Remove all chat filters at once.
 
-*Note*: Filters also support markdown formatters like: {first}, {last} etc.. and buttons.
+*Note*: filter also support markdown formatters like: {first}, {last} etc.. and buttons.
 Check /markdownhelp to know more!
 """
-__mod_name__ = "Filters"
+__mod_name__ = "filter"

@@ -1069,37 +1069,37 @@ user joined chat, user left chat.
 """
 
 NEW_MEM_HANDLER = MessageHandler(
-    Filters.status_update.new_chat_members, new_member, block=False
+    filter.status_update.new_chat_members, new_member, block=False
 )
 LEFT_MEM_HANDLER = MessageHandler(
-    Filters.status_update.left_chat_member, left_member, block=False
+    filter.status_update.left_chat_member, left_member, block=False
 )
 WELC_PREF_HANDLER = CommandHandler(
-    "welcome", welcome, filters=Filters.chat_type.groups, block=False
+    "welcome", welcome, filters=filter.chat_type.groups, block=False
 )
 GOODBYE_PREF_HANDLER = CommandHandler(
-    "goodbye", goodbye, filters=Filters.chat_type.groups, block=False
+    "goodbye", goodbye, filters=filter.chat_type.groups, block=False
 )
 SET_WELCOME = CommandHandler(
-    "setwelcome", set_welcome, filters=Filters.chat_type.groups, block=False
+    "setwelcome", set_welcome, filters=filter.chat_type.groups, block=False
 )
 SET_GOODBYE = CommandHandler(
-    "setgoodbye", set_goodbye, filters=Filters.chat_type.groups, block=False
+    "setgoodbye", set_goodbye, filters=filter.chat_type.groups, block=False
 )
 RESET_WELCOME = CommandHandler(
-    "resetwelcome", reset_welcome, filters=Filters.chat_type.groups, block=False
+    "resetwelcome", reset_welcome, filters=filter.chat_type.groups, block=False
 )
 RESET_GOODBYE = CommandHandler(
-    "resetgoodbye", reset_goodbye, filters=Filters.chat_type.groups, block=False
+    "resetgoodbye", reset_goodbye, filters=filter.chat_type.groups, block=False
 )
 WELCOMEMUTE_HANDLER = CommandHandler(
-    "welcomemute", welcomemute, filters=Filters.chat_type.groups, block=False
+    "welcomemute", welcomemute, filters=filter.chat_type.groups, block=False
 )
 CLEAN_SERVICE_HANDLER = CommandHandler(
-    "cleanservice", cleanservice, filters=Filters.chat_type.groups, block=False
+    "cleanservice", cleanservice, filters=filter.chat_type.groups, block=False
 )
 CLEAN_WELCOME = CommandHandler(
-    "cleanwelcome", clean_welcome, filters=Filters.chat_type.groups, block=False
+    "cleanwelcome", clean_welcome, filters=filter.chat_type.groups, block=False
 )
 WELCOME_HELP = CommandHandler("welcomehelp", welcome_help, block=False)
 WELCOME_MUTE_HELP = CommandHandler("welcomemutehelp", welcome_mute_help, block=False)

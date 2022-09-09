@@ -25,7 +25,7 @@ from telegram.helpers import mention_html
 import NekoRobot.modules.sql.chatbot_sql as sql
 from NekoRobot import NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
-from NekoRobot.modules.helper_funcs.filters import CustomFilters
+from NekoRobot.modules.helper_funcs.filters import Customfilter
 from NekoRobot.modules.log_channel import gloggable
 
 
@@ -167,13 +167,13 @@ CHATBOTK_HANDLER = CommandHandler("chatbot", kuki, block=False)
 ADD_CHAT_HANDLER = CallbackQueryHandler(kukiadd, pattern=r"add_chat", block=False)
 RM_CHAT_HANDLER = CallbackQueryHandler(kukirm, pattern=r"rm_chat", block=False)
 CHATBOT_HANDLER = MessageHandler(
-    Filters.text
-    & (~Filters.regex(r"^#[^\s]+") & ~Filters.regex(r"^!") & ~Filters.regex(r"^\/")),
+    filter.text
+    & (~filter.regex(r"^#[^\s]+") & ~filter.regex(r"^!") & ~filter.regex(r"^\/")),
     chatbot,
     block=False,
 )
 LIST_ALL_CHATS_HANDLER = CommandHandler(
-    "allchats", list_all_chats, filters=CustomFilters.dev_filter, block=False
+    "allchats", list_all_chats, filters=Customfilter.dev_filter, block=False
 )
 
 NEKO_PTB.add_handler(ADD_CHAT_HANDLER)

@@ -294,16 +294,16 @@ It'll also allow you to autodelete them, stopping people from bluetexting.
 
     DISABLE_HANDLER = CommandHandler(
         "disable", disable, block=False
-    )  # , filters=Filters.chat_type.groups)
+    )  # , filters=filter.chat_type.groups)
     ENABLE_HANDLER = CommandHandler(
         "enable", enable, block=False
-    )  # , filters=Filters.chat_type.groups)
+    )  # , filters=filter.chat_type.groups)
     COMMANDS_HANDLER = CommandHandler(
         ["cmds", "disabled"], commands, block=False
-    )  # , filters=Filters.chat_type.groups)
+    )  # , filters=filter.chat_type.groups)
     TOGGLE_HANDLER = CommandHandler(
         "listcmds", list_cmds, block=False
-    )  # , filters=Filters.chat_type.groups)
+    )  # , filters=filter.chat_type.groups)
 
     NEKO_PTB.add_handler(DISABLE_HANDLER)
     NEKO_PTB.add_handler(ENABLE_HANDLER)

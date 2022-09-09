@@ -297,7 +297,7 @@ async def kick(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
-@neko_cmd(command="kickme", pass_args=True, filters=Filters.chat_type.groups)
+@neko_cmd(command="kickme", pass_args=True, filters=filter.chat_type.groups)
 @bot_admin
 @can_restrict
 async def kickme(update: Update, context: CallbackContext):

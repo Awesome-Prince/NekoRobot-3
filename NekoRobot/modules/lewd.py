@@ -41,7 +41,7 @@ from telegram.helpers import mention_html
 import NekoRobot.modules.sql.nsfw_sql as sql
 from NekoRobot import NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
-from NekoRobot.modules.helper_funcs.filters import CustomFilters
+from NekoRobot.modules.helper_funcs.filters import Customfilter
 from NekoRobot.modules.log_channel import gloggable
 
 
@@ -649,7 +649,7 @@ async def dva(update, context):
 ADD_NSFW_HANDLER = CommandHandler("addnsfw", add_nsfw, block=False)
 REMOVE_NSFW_HANDLER = CommandHandler("rmnsfw", rem_nsfw, block=False)
 LIST_NSFW_CHATS_HANDLER = CommandHandler(
-    "nsfwchats", list_nsfw_chats, filters=CustomFilters.dev_filter, block=False
+    "nsfwchats", list_nsfw_chats, filters=Customfilter.dev_filter, block=False
 )
 LEWDKEMO_HANDLER = CommandHandler("lewdkemo", lewdkemo, block=False)
 NEKO_HANDLER = CommandHandler("neko", neko, block=False)

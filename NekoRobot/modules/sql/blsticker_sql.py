@@ -30,7 +30,7 @@ from sqlalchemy import BigInteger, Column, String, UnicodeText, distinct, func
 from NekoRobot.modules.sql import BASE, SESSION
 
 
-class StickersFilters(BASE):
+class Stickersfilter(BASE):
     __tablename__ = "blacklist_stickers"
     chat_id = Column(String(14), primary_key=True)
     trigger = Column(UnicodeText, primary_key=True, nullable=False)
@@ -44,7 +44,7 @@ class StickersFilters(BASE):
 
     async def __eq__(self, other):
         return bool(
-            isinstance(other, StickersFilters)
+            isinstance(other, Stickersfilter)
             and self.chat_id == other.chat_id
             and self.trigger == other.trigger
         )
@@ -67,7 +67,7 @@ class StickerSettings(BASE):
         )
 
 
-StickersFilters.__table__.create(checkfirst=True)
+Stickersfilter.__table__.create(checkfirst=True)
 StickerSettings.__table__.create(checkfirst=True)
 
 STICKERS_FILTER_INSERTION_LOCK = threading.RLock()
@@ -79,7 +79,7 @@ CHAT_BLSTICK_BLACKLISTS = {}
 
 async def add_to_stickers(chat_id, trigger):
     with STICKERS_FILTER_INSERTION_LOCK:
-        stickers_filt = StickersFilters(str(chat_id), trigger)
+        stickers_filt = Stickersfilter(str(chat_id), trigger)
 
         SESSION.merge(stickers_filt)  # merge to avoid duplicate key issues
         SESSION.commit()
@@ -92,7 +92,7 @@ async def add_to_stickers(chat_id, trigger):
 
 async def rm_from_stickers(chat_id, trigger):
     with STICKERS_FILTER_INSERTION_LOCK:
-        stickers_filt = SESSION.query(StickersFilters).get((str(chat_id), trigger))
+        stickers_filt = SESSION.query(Stickersfilter).get((str(chat_id), trigger))
         if stickers_filt:
             if trigger in CHAT_STICKERS.get(str(chat_id), set()):  # sanity check
                 CHAT_STICKERS.get(str(chat_id), set()).remove(trigger)
@@ -111,7 +111,7 @@ async def get_chat_stickers(chat_id):
 
 async def num_stickers_filters():
     try:
-        return SESSION.query(StickersFilters).count()
+        return SESSION.query(Stickersfilter).count()
     finally:
         SESSION.close()
 
@@ -119,8 +119,8 @@ async def num_stickers_filters():
 async def num_stickers_chat_filters(chat_id):
     try:
         return (
-            SESSION.query(StickersFilters.chat_id)
-            .filter(StickersFilters.chat_id == str(chat_id))
+            SESSION.query(Stickersfilter.chat_id)
+            .filter(Stickersfilter.chat_id == str(chat_id))
             .count()
         )
     finally:
@@ -129,7 +129,7 @@ async def num_stickers_chat_filters(chat_id):
 
 async def num_stickers_filter_chats():
     try:
-        return SESSION.query(func.count(distinct(StickersFilters.chat_id))).scalar()
+        return SESSION.query(func.count(distinct(Stickersfilter.chat_id))).scalar()
     finally:
         SESSION.close()
 
@@ -178,11 +178,11 @@ async def get_blacklist_setting(chat_id):
 async def __load_CHAT_STICKERS():
     global CHAT_STICKERS
     try:
-        chats = SESSION.query(StickersFilters.chat_id).distinct().all()
+        chats = SESSION.query(Stickersfilter.chat_id).distinct().all()
         for (chat_id,) in chats:  # remove tuple by ( ,)
             CHAT_STICKERS[chat_id] = []
 
-        all_filters = SESSION.query(StickersFilters).all()
+        all_filters = SESSION.query(Stickersfilter).all()
         for x in all_filters:
             CHAT_STICKERS[x.chat_id] += [x.trigger]
 
@@ -209,8 +209,8 @@ async def __load_chat_stickerset_blacklists():
 async def migrate_chat(old_chat_id, new_chat_id):
     with STICKERS_FILTER_INSERTION_LOCK:
         chat_filters = (
-            SESSION.query(StickersFilters)
-            .filter(StickersFilters.chat_id == str(old_chat_id))
+            SESSION.query(Stickersfilter)
+            .filter(Stickersfilter.chat_id == str(old_chat_id))
             .all()
         )
         for filt in chat_filters:

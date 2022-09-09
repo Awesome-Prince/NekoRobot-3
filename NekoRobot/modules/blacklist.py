@@ -336,8 +336,8 @@ async def findall(p, s):
 
 @neko_msg(
     (
-        (Filters.text | Filters.command | Filters.sticker | Filters.photo)
-        & Filters.chat_type.groups
+        (filter.text | filter.command | filter.sticker | filter.photo)
+        & filter.chat_type.groups
     ),
     group=BLACKLIST_GROUP,
 )

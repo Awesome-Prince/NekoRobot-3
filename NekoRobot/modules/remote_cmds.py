@@ -35,7 +35,7 @@ from NekoRobot.modules.helper_funcs.chat_status import (
     is_user_in_chat,
 )
 from NekoRobot.modules.helper_funcs.extraction import extract_user_and_text
-from NekoRobot.modules.helper_funcs.filters import CustomFilters
+from NekoRobot.modules.helper_funcs.filters import Customfilter
 
 RBAN_ERRORS = {
     "User is an administrator of the chat",
@@ -538,19 +538,19 @@ async def runmute(update: Update, context: CallbackContext):
 
 
 RBAN_HANDLER = CommandHandler(
-    "rban", rban, filters=CustomFilters.sudo_filter, block=False
+    "rban", rban, filters=Customfilter.sudo_filter, block=False
 )
 RUNBAN_HANDLER = CommandHandler(
-    "runban", runban, filters=CustomFilters.sudo_filter, block=False
+    "runban", runban, filters=Customfilter.sudo_filter, block=False
 )
 RKICK_HANDLER = CommandHandler(
-    "rpunch", rkick, filters=CustomFilters.sudo_filter, block=False
+    "rpunch", rkick, filters=Customfilter.sudo_filter, block=False
 )
 RMUTE_HANDLER = CommandHandler(
-    "rmute", rmute, filters=CustomFilters.sudo_filter, block=False
+    "rmute", rmute, filters=Customfilter.sudo_filter, block=False
 )
 RUNMUTE_HANDLER = CommandHandler(
-    "runmute", runmute, filters=CustomFilters.sudo_filter, block=False
+    "runmute", runmute, filters=Customfilter.sudo_filter, block=False
 )
 
 NEKO_PTB.add_handler(RBAN_HANDLER)
