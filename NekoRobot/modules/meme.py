@@ -23,7 +23,7 @@ GIF_ID = "CgACAgQAAx0CSVUvGgAC7KpfWxMrgGyQs-GUUJgt-TSO8cOIDgACaAgAAlZD0VHT3Zynpr
 
 
 @register(pattern="^/truth ?(.*)")
-async def _(td):
+def _(td):
     try:
         resp = requests.get("https://api.safone.tech/truth").json()
         results = f"{resp['truth']}"
@@ -33,7 +33,7 @@ async def _(td):
 
 
 @register(pattern="^/dare ?(.*)")
-async def _(dr):
+def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/dare").json()
         results = f"{resp['dare']}"
@@ -43,7 +43,7 @@ async def _(dr):
 
 
 @register(pattern="^/fact ?(.*)")
-async def _(dr):
+def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/fact").json()
         results = f"{resp['fact']}"
@@ -53,7 +53,7 @@ async def _(dr):
 
 
 @register(pattern="^/quotes ?(.*)")
-async def _(dr):
+def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/quote").json()
         results = f"{resp['quote']}"
@@ -63,7 +63,7 @@ async def _(dr):
 
 
 @register(pattern="^/joke ?(.*)")
-async def _(dr):
+def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/joke").json()
         results = f"{resp['joke']}"
@@ -73,7 +73,7 @@ async def _(dr):
 
 
 @register(pattern="^/bully ?(.*)")
-async def _(dr):
+def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/bully").json()
         results = f"{resp['bully']}"
@@ -83,7 +83,7 @@ async def _(dr):
 
 
 @register(pattern="^/advice ?(.*)")
-async def _(dr):
+def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/advice").json()
         results = f"{resp['advice']}"
@@ -92,11 +92,11 @@ async def _(dr):
         await dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
-async def runs(update: Update, context: CallbackContext):
+def runs(update: Update, context: CallbackContext):
     update.effective_message.reply_text(random.choice(fun_strings.RUN_STRINGS))
 
 
-async def sanitize(update: Update, context: CallbackContext):
+def sanitize(update: Update, context: CallbackContext):
     message = update.effective_message
     name = (
         message.reply_to_message.from_user.first_name
@@ -111,7 +111,7 @@ async def sanitize(update: Update, context: CallbackContext):
     reply_animation(GIF_ID, caption=f"*Sanitizes {name}*")
 
 
-async def sanitize(update: Update, context: CallbackContext):
+def sanitize(update: Update, context: CallbackContext):
     message = update.effective_message
     name = (
         message.reply_to_message.from_user.first_name
@@ -126,7 +126,7 @@ async def sanitize(update: Update, context: CallbackContext):
     reply_animation(random.choice(fun_strings.GIFS), caption=f"*Sanitizes {name}*")
 
 
-async def slap(update: Update, context: CallbackContext):
+def slap(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
     chat = update.effective_chat
