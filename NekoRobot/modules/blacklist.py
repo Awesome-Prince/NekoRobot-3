@@ -26,7 +26,7 @@ BLACKLIST_GROUP = -3
 
 @neko_cmd(command="blacklist", pass_args=True, admin_ok=True)
 @u_admin
-@typing_action
+
 async def blacklist(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -71,7 +71,7 @@ async def blacklist(update, context):
 
 @neko_cmd(command="addblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
-@typing_action
+
 async def add_blacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -126,7 +126,7 @@ async def add_blacklist(update, context):
 
 @neko_cmd(command="unblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
-@typing_action
+
 async def unblacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -208,7 +208,7 @@ async def unblacklist(update, context):
 @neko_cmd(command="blacklistmode", pass_args=True)
 @loggable
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
-@typing_action
+
 async def blacklist_mode(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     user = update.effective_user

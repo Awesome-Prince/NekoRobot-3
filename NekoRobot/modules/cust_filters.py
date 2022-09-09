@@ -67,7 +67,7 @@ ENUM_FUNC_MAP = {
 }
 
 
-@typing_action
+
 @neko_cmd(command="filters", admin_ok=True)
 async def list_handlers(update, context):
     chat = update.effective_chat
@@ -117,7 +117,7 @@ async def list_handlers(update, context):
 # NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @neko_cmd(command="filter", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
-@typing_action
+
 async def filters(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     user = update.effective_user
@@ -241,7 +241,7 @@ async def filters(update, context):  # sourcery no-metrics
 # NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @neko_cmd(command="stop", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
-@typing_action
+
 async def stop_filter(update, context):
     chat = update.effective_chat
     user = update.effective_user

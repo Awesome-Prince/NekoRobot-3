@@ -46,13 +46,13 @@ import NekoRobot.modules.sql.rules_sql as rulessql
 from NekoRobot import JOIN_LOGGER, LOGGER, NEKO_PTB, OWNER_ID
 from NekoRobot.__main__ import DATA_IMPORT
 from NekoRobot.modules.connection import connected
-from NekoRobot.modules.helper_funcs.alternate import typing_action
+
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 from NekoRobot.modules.sql import disable_sql as disabledsql
 
 
 @user_admin
-@typing_action
+
 async def import_data(update, context):
     msg = update.effective_message
     chat = update.effective_chat

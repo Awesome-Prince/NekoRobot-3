@@ -164,7 +164,7 @@ async def locktypes(update, context):
 
 @user_admin
 @loggable
-@typing_action
+
 async def lock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
@@ -271,7 +271,7 @@ async def lock(update, context) -> str:
 
 @user_admin
 @loggable
-@typing_action
+
 async def unlock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
@@ -512,7 +512,7 @@ async def build_lock_message(chat_id):
 
 
 @user_admin
-@typing_action
+
 async def list_locks(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user
