@@ -32,7 +32,8 @@ import functools
 from enum import Enum
 
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-from telegram.constants import ContextTypes, ParseMode
+from telegram.constants import ParseMode
+from telegram.ext import ContextTypes
 
 from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
 
