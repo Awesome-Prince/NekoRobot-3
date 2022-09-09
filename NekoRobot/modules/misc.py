@@ -32,7 +32,7 @@ from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import user_admin
 
 MARKDOWN_HELP = f"""
-Markdown is a very powerful formatting tool supported by telegram. {NEKO_PTB.bot.first_name} has some enhancements, to make sure that \
+Markdown is a very powerful formatting tool supported by telegram. {context.bot.username} has some enhancements, to make sure that \
 saved messages are correctly parsed, and to allow you to create buttons.
 
 • <code>_italic_</code>: wrapping text with '_' will produce italic text
