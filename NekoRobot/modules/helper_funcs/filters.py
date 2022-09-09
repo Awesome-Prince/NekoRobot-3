@@ -3,7 +3,7 @@ BSD 2-Clause License
 
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince ]
-Copyright (c) 2022-2023,Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (c) 2022-2023, Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
 
 All rights reserved.
 
@@ -29,7 +29,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 from telegram import Message
-from telegram.ext import MessageFilter
+from telegram.ext.filters import MessageFilter
 
 from NekoRobot import DEV_USERS, SUDO_USERS, SUPPORT_USERS
 
