@@ -55,8 +55,7 @@ LOCK_TYPES = {
     "video": filter.video,
     "contact": filter.contact,
     "photo": filter.photo,
-    "url": filter.entity(MessageEntity.URL)
-    | filter.caption_entity(MessageEntity.URL),
+    "url": filter.entity(MessageEntity.URL) | filter.caption_entity(MessageEntity.URL),
     "bots": filter.status_update.new_chat_members,
     "forward": filter.forwarded,
     "game": filter.game,
