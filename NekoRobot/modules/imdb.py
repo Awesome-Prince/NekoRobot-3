@@ -34,7 +34,7 @@ async def is_register_admin(chat, user):
 
 
 @register(pattern="^/imdb (.*)")
- def imdb(e):
+def imdb(e):
     if e.is_group:
         if not (await is_register_admin(e.input_chat, e.message.sender_id)):
             await event.reply(
