@@ -1,7 +1,7 @@
 future
 envparse==0.2.0
 multicolorcaptcha
-umongo==3.0.0
+umongo==3.1.0
 faker
 ffmpeg
 humanize
