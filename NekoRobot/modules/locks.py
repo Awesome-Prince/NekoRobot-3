@@ -36,7 +36,7 @@ import NekoRobot.modules.sql.locks_sql as sql
 from NekoRobot import LOGGER, NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.disable import DisableAbleCommandHandler
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
+from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.chat_status import (
     can_delete,
     is_bot_admin,
@@ -164,7 +164,6 @@ async def locktypes(update, context):
 
 @user_admin
 @loggable
-
 async def lock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
@@ -271,7 +270,6 @@ async def lock(update, context) -> str:
 
 @user_admin
 @loggable
-
 async def unlock(update, context) -> str:
     args = context.args
     chat = update.effective_chat
@@ -512,7 +510,6 @@ async def build_lock_message(chat_id):
 
 
 @user_admin
-
 async def list_locks(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user

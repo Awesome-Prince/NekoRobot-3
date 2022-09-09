@@ -9,7 +9,7 @@ from telegram.helpers import mention_html
 import NekoRobot.modules.sql.blacklist_sql as sql
 from NekoRobot import NEKO_PTB
 from NekoRobot.modules.connection import connected
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
+from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_admin as u_admin
 from NekoRobot.modules.helper_funcs.chat_status import user_not_admin
@@ -26,7 +26,6 @@ BLACKLIST_GROUP = -3
 
 @neko_cmd(command="blacklist", pass_args=True, admin_ok=True)
 @u_admin
-
 async def blacklist(update, context):
     chat = update.effective_chat
     user = update.effective_user
@@ -71,7 +70,6 @@ async def blacklist(update, context):
 
 @neko_cmd(command="addblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
-
 async def add_blacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -126,7 +124,6 @@ async def add_blacklist(update, context):
 
 @neko_cmd(command="unblacklist", pass_args=True)
 @user_admin(AdminPerms.CAN_DELETE_MESSAGES)
-
 async def unblacklist(update, context):
     msg = update.effective_message
     chat = update.effective_chat
@@ -208,7 +205,6 @@ async def unblacklist(update, context):
 @neko_cmd(command="blacklistmode", pass_args=True)
 @loggable
 @user_admin(AdminPerms.CAN_RESTRICT_MEMBERS)
-
 async def blacklist_mode(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     user = update.effective_user

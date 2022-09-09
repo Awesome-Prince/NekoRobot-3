@@ -16,7 +16,6 @@ from NekoRobot.modules.disable import (
     DisableAbleCommandHandler,
     DisableAbleMessageHandler,
 )
-
 from NekoRobot.modules.helper_funcs.chat_status import is_user_admin
 from NekoRobot.modules.helper_funcs.extraction import extract_user
 
@@ -390,12 +389,10 @@ async def weebify(update: Update, context: CallbackContext):
         message.reply_text(string)
 
 
-
 async def goodnight(update, context):
     message = update.effective_message
     reply = random.choice(fun.GDNIGHT)
     message.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
-
 
 
 async def goodmorning(update, context):

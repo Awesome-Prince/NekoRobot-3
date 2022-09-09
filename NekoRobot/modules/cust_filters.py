@@ -37,7 +37,7 @@ from telegram.helpers import escape_markdown, mention_html
 from NekoRobot import LOGGER as log
 from NekoRobot import NEKO_PTB, SUDO_USERS
 from NekoRobot.modules.connection import connected
-from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
+from NekoRobot.modules.helper_funcs.alternate import send_message
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms, user_admin
 from NekoRobot.modules.helper_funcs.decorators import neko_callback, neko_cmd, neko_msg
 from NekoRobot.modules.helper_funcs.extraction import extract_text
@@ -65,7 +65,6 @@ ENUM_FUNC_MAP = {
     sql.Types.VIDEO.value: NEKO_PTB.bot.send_video,
     # sql.Types.VIDEO_NOTE.value: NEKO_PTB.bot.send_video_note
 }
-
 
 
 @neko_cmd(command="filters", admin_ok=True)
@@ -117,7 +116,6 @@ async def list_handlers(update, context):
 # NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @neko_cmd(command="filter", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
-
 async def filters(update, context):  # sourcery no-metrics
     chat = update.effective_chat
     user = update.effective_user
@@ -241,7 +239,6 @@ async def filters(update, context):  # sourcery no-metrics
 # NOT ASYNC BECAUSE NEKO_PTB HANDLER RAISED
 @neko_cmd(command="stop", run_async=False)
 @user_admin(AdminPerms.CAN_CHANGE_INFO)
-
 async def stop_filter(update, context):
     chat = update.effective_chat
     user = update.effective_user
