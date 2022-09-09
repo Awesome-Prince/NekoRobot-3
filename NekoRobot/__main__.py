@@ -38,7 +38,7 @@ import re
 import time
 import traceback
 from typing import Optional
-
+import aiohttp
 from pyrogram import idle
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
