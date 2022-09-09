@@ -17,6 +17,7 @@ from telegram.helpers import escape_markdown, mention_html, mention_markdown
 
 import NekoRobot.modules.sql.welcome_sql as sql
 from NekoRobot import (
+    BOT_USERNAME,
     DEV_USERS,
     LOGGER,
     NEKO_PTB,
@@ -993,7 +994,7 @@ WELC_HELP_TXT = (
     "Welcome messages also support markdown, so you can make any elements bold/italic/code/links. "
     "Buttons are also supported, so you can make your welcomes look awesome with some nice intro "
     "buttons.\n"
-    f"To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{NEKO_PTB.bot.username}?start=group_id)`. "
+    f"To create a button linking to your rules, use this: `[Rules](buttonurl://t.me/{BOT_USERNAME}?start=group_id)`. "
     "Simply replace `group_id` with your group's id, which can be obtained via /id, and you're good to "
     "go. Note that group ids are usually preceded by a `-` sign; this is required, so please don't "
     "remove it.\n"
