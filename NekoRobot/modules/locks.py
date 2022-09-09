@@ -26,9 +26,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import html
 
 from alphabet_detector import AlphabetDetector
-from telegram import Chat, ChatPermissions, Message, MessageEntity, TelegramError
+from telegram import Chat, ChatPermissions, Message, MessageEntity
 from telegram.constants import ParseMode
-from telegram.error import BadRequest
+from telegram.error import BadRequest, TelegramError
 from telegram.ext import CommandHandler, MessageHandler
 from telegram.helpers import mention_html
 

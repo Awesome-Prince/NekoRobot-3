@@ -33,7 +33,8 @@ from urllib.error import HTTPError, URLError
 
 import requests
 from bs4 import BeautifulSoup
-from telegram import InputMediaPhoto, TelegramError, Update
+from telegram import InputMediaPhoto, Update
+from telegram.error import TelegramError
 from telegram.ext import CallbackContext
 
 from NekoRobot import NEKO_PTB

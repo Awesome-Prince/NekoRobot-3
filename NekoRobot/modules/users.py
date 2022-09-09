@@ -1,8 +1,8 @@
 from io import BytesIO
 from time import sleep
 
-from telegram import TelegramError, Update
-from telegram.error import BadRequest, Forbidden
+from telegram import Update
+from telegram.error import BadRequest, Forbidden, TelegramError
 from telegram.ext import CallbackContext, CommandHandler, MessageHandler
 
 import NekoRobot.modules.sql.users_sql as sql
