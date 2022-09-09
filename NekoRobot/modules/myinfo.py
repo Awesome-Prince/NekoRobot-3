@@ -60,7 +60,7 @@ def proboyx(event):
 
 
 @tbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"information")))
-    def callback_query_handler(event):
+def callback_query_handler(event):
     try:
         boy = event.sender_id
         PRO = await tbot.get_entity(boy)
