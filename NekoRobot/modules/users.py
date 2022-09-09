@@ -168,10 +168,10 @@ BROADCAST_HANDLER = CommandHandler(
     block=False,
 )
 USER_HANDLER = MessageHandler(
-    filters.ALL & filters.ChatType.groups, log_user, block=False
+    filters.ALL & filters.ChatType._Groups, log_user, block=False
 )
 CHAT_CHECKER_HANDLER = MessageHandler(
-    filters.ALL & filters.ChatType.groups, chat_checker, block=False
+    filters.ALL & filters.ChatType._Groups, chat_checker, block=False
 )
 CHATLIST_HANDLER = CommandHandler("groups", chats, block=False)
 
