@@ -47,7 +47,9 @@ Powered By:- @Programmer_Network
 
     BUTTON = [
         [
-            Button.url("📢 Repository", "https://github.com/Awesome-Prince/NekoRobot-3.git"),
+            Button.url(
+                "📢 Repository", "https://github.com/Awesome-Prince/NekoRobot-3.git"
+            ),
             Button.url("💻 Collaborators", "https://telegra.ph/Neko-X-05-23"),
         ]
     ]
