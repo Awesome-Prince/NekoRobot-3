@@ -31,9 +31,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 import functools
 from enum import Enum
 
-from telegram import Update  # , ParseMode
+from telegram import Update
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.constants import ParseMode
+from telegram.constants import ParseMode, ContextTypes
 
 from NekoRobot import DEV_USERS, NEKO_PTB, SUDO_USERS
 
