@@ -3,7 +3,7 @@ from time import sleep
 
 from telegram import Update
 from telegram.error import BadRequest, Forbidden, TelegramError
-from telegram.ext import CallbackContext, CommandHandler, MessageHandler
+from telegram.ext import CallbackContext, CommandHandler, MessageHandler, filters
 
 import NekoRobot.modules.sql.users_sql as sql
 from NekoRobot import DEV_USERS, LOGGER, NEKO_PTB, OWNER_ID
@@ -168,10 +168,10 @@ BROADCAST_HANDLER = CommandHandler(
     block=False,
 )
 USER_HANDLER = MessageHandler(
-    filter.all & filter.chat_type.groups, log_user, block=False
+    filters.all & filters.chat_type.groups, log_user, block=False
 )
 CHAT_CHECKER_HANDLER = MessageHandler(
-    filter.all & filter.chat_type.groups, chat_checker, block=False
+    filters.all & filters.chat_type.groups, chat_checker, block=False
 )
 CHATLIST_HANDLER = CommandHandler("groups", chats, block=False)
 
