@@ -42,7 +42,7 @@ FILENAME = __name__.rsplit(".", 1)[-1]
 
 if is_module_loaded(FILENAME):
     from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
-    from telegram.constant import ParseMode
+    from telegram.constants import ParseMode
     from telegram.error import BadRequest, Forbidden
     from telegram.helpers import escape_markdown
 
