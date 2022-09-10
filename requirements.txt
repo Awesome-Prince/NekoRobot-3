@@ -10,7 +10,7 @@ secureme==0.0.4
 cowpy
 motor==3.0.0
 PyDictionary==2.0.1
-GitPython==3.1.27
+pygithub>=1.55
 emoji==1.6.3
 pretty-errors==1.2.25
 lxml==4.9.1
@@ -78,7 +78,7 @@ opencv-python-headless
 countryinfo==0.1.2
 python-rapidjson==1.8
 pytimeparse
-markdown2
+markdown2==2.4.3
 tgcrypto==1.2.3
 pycryptodome
 base58
