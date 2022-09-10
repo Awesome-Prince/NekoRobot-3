@@ -24,20 +24,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
 import os
-
 from time import sleep
+
+from telegram import Update
+from telegram.constants import ParseMode
+from telegram.error import BadRequest, Forbidden, RetryAfter
+from telegram.ext import CommandHandler, ContextTypes
+
 from NekoRobot import NEKO_PTB
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from NekoRobot.modules.helper_funcs.extraction import extract_user
 from NekoRobot.modules.sql.users_sql import get_user_com_chats
 
-from telegram import Update
-from telegram.constants import ParseMode
-from telegram.error import BadRequest, RetryAfter, Forbidden
-from telegram.ext import ContextTypes, CommandHandler
 
 @dev_plus
-async def get_user_common_chats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def get_user_common_chats(
+    update: Update, context: ContextTypes.DEFAULT_TYPE
+) -> None:
     bot, args = context.bot, context.args
     msg = update.effective_message
     user = extract_user(msg, args)
