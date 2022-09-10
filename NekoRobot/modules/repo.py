@@ -21,36 +21,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from telethon import Button
+import github
 
-from NekoRobot import tbot
-from NekoRobot.events import register
-
-PHOTO = "https://telegra.ph/file/70061cba45ee824dad6f6.jpg"
+from pyrogram import filters
+from NekoRobot import pgram
 
 
-@register(pattern=("/repo"))
-async def awake(event):
-    NEKO = """
-We Are So Happy To Announce That We Have Public Our NekoRobot Repo. ✨🥀
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-「@NekoX_Bot」
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-Here is the Repo Deploy your Own NekoRobot.
-⚜️Repo ➤ https://github.com/Awesome-Prince/NekoRobot-3.git
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-🔰 Thanks for your support 
-It's Fully stable Repo so you can deploy and make own Bot.
-──────────────────
-Powered By:- @Programmer_Network
-"""
+@pgram.on_edited_message(filters.command("repo"))
+async def give_repo(m):
+    g = github.Github()
+    repo = g.get_repo("Awesome-Prince/NekoRobot-3")
+    list_of_users = "".join(
+        f"*{count}.* [{i.login}](https://github.com/{i.login})\n"
+        for count, i in enumerate(repo.get_contributors(), start=1)
+    )
 
-    BUTTON = [
-        [
-            Button.url(
-                "📢 Repository", "https://github.com/Awesome-Prince/NekoRobot-3.git"
-            ),
-            Button.url("💻 Collaborators", "https://telegra.ph/Neko-X-05-23"),
-        ]
-    ]
-    await tbot.send_file(event.chat_id, PHOTO, caption=NEKO, buttons=BUTTON)
+    text = f"""[Github](https://github.com/Awesome-Prince/NekoRobot-3.git) | [Support Chat](https://t.me/ProgrammerSupport)
+```----------------
+| Contributors |
+----------------```
+{list_of_users}"""
+    await m.reply(text, disable_web_page_preview=False)
+
+
+__mod_name__ = "Repository"
