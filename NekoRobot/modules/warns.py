@@ -29,7 +29,7 @@ import NekoRobot.modules.sql.rules_sql as rules_sql
 
 from typing import Optional
 
-from NekoRobot import BAN_STICKER, DEV_USERS, OWNER_ID, SUDO_USERS, WHITELIST_USERS, NEKO_PTB
+from NekoRobot import BAN_STICKER, BOT_USERNAME, DEV_USERS, OWNER_ID, SUDO_USERS, WHITELIST_USERS, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 
 from NekoRobot.modules.helper_funcs.extraction import (
