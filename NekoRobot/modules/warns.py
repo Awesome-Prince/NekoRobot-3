@@ -385,7 +385,7 @@ async def dwarn(
             await message.reply_to_message.delete()
         await message.reply_text(reply,
                                  reply_markup=InlineKeyboardMarkup(keyboard),
-                                 parse_mode=ParseMode.HTML,
+                                 parse_mode = ParseMode.HTML,
                                  quote=False)
     return log_reason
 
