@@ -177,7 +177,8 @@ async def warn(
         )
 
     try:
-        await message.reply_text(reply, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode=ParseMode.HTML)
+        await message.reply_text(reply, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode=ParseMode.HTML,
+        )
     except BadRequest as excp:
         if excp.message == "Reply message not found":
             # Do not reply
@@ -278,7 +279,8 @@ async def swarn(
     try:
         if dels and message.reply_to_message:
             await message.reply_to_message.delete()
-        await message.reply_text(reply, InlineKeyboardMarkup(keyboard), parse_mode=ParseMode.HTML)
+        await message.reply_text(reply, InlineKeyboardMarkup(keyboard), parse_mode=ParseMode.HTML,
+        )
         await message.delete()
     except BadRequest as excp:
         if excp.message != "Reply message not found":
@@ -376,7 +378,8 @@ async def dwarn(
     try:
         if message.reply_to_message:
             await message.reply_to_message.delete()
-        await message.reply_text(reply, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode=ParseMode.HTML)
+        await message.reply_text(reply, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode=ParseMode.HTML,
+        )
     except BadRequest as excp:
         if excp.message != "Reply message not found":
             raise
@@ -417,7 +420,8 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
                                                                 user_member.user.id)
         await update.effective_message.edit_text(
             "User has already has no warns.".format(mention_html(user.id, user.first_name)),
-            parse_mode=ParseMode.HTML)
+            parse_mode=ParseMode.HTML,
+            )
             return ""
 
 
@@ -652,13 +656,15 @@ async def list_warn_filters(update: Update, context: ContextTypes.DEFAULT_TYPE) 
     for keyword in all_handlers:
         entry = f" - {html.escape(keyword)}\n"
         if len(entry) + len(filter_list) > MAX_MESSAGE_LENGTH:
-            await update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML)
+            await update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML,
+            )
             filter_list = entry
         else:
             filter_list += entry
 
     if filter_list != CURRENT_WARNING_FILTER_STRING:
-        await update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML)
+        await update.effective_message.reply_text(filter_list, parse_mode=ParseMode.HTML,
+        )
 
 
 @loggable
