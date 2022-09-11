@@ -426,15 +426,15 @@ async def replied_user(draw, tot, text, maxlength, title):
 def q(event):
     if event.fwd_from:
         return
-    reply = await event.get_reply_message()
+    reply = event.get_reply_message()
     msg = reply.message
-    repliedreply = await reply.get_reply_message()
+    repliedreply = reply.get_reply_message()
     user = (
         await event.client.get_entity(reply.forward.sender)
         if reply.fwd_from
         else reply.sender
     )
-    res, canvas = await process(msg, user, event.client, reply, repliedreply)
+    res, canvas = process(msg, user, event.client, reply, repliedreply)
     if not res:
         return
     canvas.save("sticker.webp")
