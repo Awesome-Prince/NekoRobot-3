@@ -23,35 +23,34 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+import ast
+import asyncio
 import contextlib
 import html
-import asyncio
-import ast
-import NekoRobot.modules.sql.locks_sql as sql
 
-from telegram import MessageEntity, ChatPermissions, Update
+from alphabet_detector import AlphabetDetector
+from telegram import ChatPermissions, MessageEntity, Update
 from telegram.constants import ParseMode
 from telegram.error import BadRequest, TelegramError
-from telegram.ext import filters, CommandHandler, MessageHandler
-from telegram.ext import ContextTypes
+from telegram.ext import CommandHandler, ContextTypes, MessageHandler, filters
 from telegram.helpers import mention_html
-from alphabet_detector import AlphabetDetector
 
-from NekoRobot.modules.helper_funcs.chat_status import connection_status
+import NekoRobot.modules.sql.locks_sql as sql
+from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
-from NekoRobot.modules.sql.approve_sql import is_approved
-from NekoRobot import NEKO_PTB, LOGGER
-from NekoRobot.modules.log_channel import loggable
-from NekoRobot.modules.helper_funcs.alternate import send_message
-from NekoRobot.modules.helper_funcs.anonymous import user_admin
 from NekoRobot.modules.helper_funcs.admin_status import (
-    user_admin_check,
-    bot_admin_check,
     AdminPerms,
+    bot_admin_check,
     bot_is_admin,
+    user_admin_check,
     user_is_admin,
     user_not_admin_check,
 )
+from NekoRobot.modules.helper_funcs.alternate import send_message
+from NekoRobot.modules.helper_funcs.anonymous import user_admin
+from NekoRobot.modules.helper_funcs.chat_status import connection_status
+from NekoRobot.modules.log_channel import loggable
+from NekoRobot.modules.sql.approve_sql import is_approved
 
 ad = AlphabetDetector()
 
@@ -62,8 +61,7 @@ LOCK_TYPES = {
     "video": filters.VIDEO,
     "contact": filters.CONTACT,
     "photo": filters.PHOTO,
-    "url": filters.Entity(MessageEntity.URL)
-    | filters.CaptionEntity(MessageEntity.URL),
+    "url": filters.Entity(MessageEntity.URL) | filters.CaptionEntity(MessageEntity.URL),
     "bots": filters.StatusUpdate.NEW_CHAT_MEMBERS,
     "forward": filters.FORWARDED & (~filters.IS_AUTOMATIC_FORWARD),
     "game": filters.GAME,
@@ -72,16 +70,16 @@ LOCK_TYPES = {
     "rtl": "rtl",
     "button": "button",
     "inline": "inline",
-    "apk" : filters.Document.MimeType("application/vnd.android.package-archive"),
-    "doc" : filters.Document.MimeType("application/msword"),
-    "exe" : filters.Document.MimeType("application/x-ms-dos-executable"),
-    "gif" : filters.Document.MimeType("video/mp4"),
-    "jpg" : filters.Document.MimeType("image/jpeg"),
-    "mp3" : filters.Document.MimeType("audio/mpeg"),
-    "pdf" : filters.Document.MimeType("application/pdf"),
-    "txt" : filters.Document.MimeType("text/plain"),
-    "xml" : filters.Document.MimeType("application/xml"),
-    "zip" : filters.Document.MimeType("application/zip"),
+    "apk": filters.Document.MimeType("application/vnd.android.package-archive"),
+    "doc": filters.Document.MimeType("application/msword"),
+    "exe": filters.Document.MimeType("application/x-ms-dos-executable"),
+    "gif": filters.Document.MimeType("video/mp4"),
+    "jpg": filters.Document.MimeType("image/jpeg"),
+    "mp3": filters.Document.MimeType("audio/mpeg"),
+    "pdf": filters.Document.MimeType("application/pdf"),
+    "txt": filters.Document.MimeType("text/plain"),
+    "xml": filters.Document.MimeType("application/xml"),
+    "zip": filters.Document.MimeType("application/zip"),
 }
 
 LOCK_CHAT_RESTRICTION = {
@@ -148,7 +146,6 @@ async def restr_members(
             )
 
 
-
 # NOT ASYNC
 async def unrestr_members(
     bot, chat_id, members, messages=True, media=True, other=True, previews=True
@@ -173,6 +170,7 @@ async def locktypes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         )
     )
 
+
 @connection_status
 @bot_admin_check()
 @user_admin_check(AdminPerms.CAN_CHANGE_INFO)
@@ -186,7 +184,7 @@ async def lock(update, context) -> str:  # sourcery no-metrics
             ltype = args[0].lower()
             if ltype == "anonchannel":
                 text = "`anonchannel` is not a lock, please use `/antichannel on` to restrict channels"
-                send_message(update.effective_message, text, parse_mode = "markdown")
+                send_message(update.effective_message, text, parse_mode="markdown")
             elif ltype in LOCK_TYPES:
 
                 text = f"Locked {ltype} for non-admins!"
@@ -194,7 +192,6 @@ async def lock(update, context) -> str:  # sourcery no-metrics
                 send_message(update.effective_message, text, parse_mode="markdown")
 
                 return f"<b>{html.escape(chat.title)}:</b>\n#LOCK\n<b>Admin:</b> {mention_html(user.id, user.first_name)}\nLocked <code>{ltype}</code>."
-
 
             if ltype in LOCK_CHAT_RESTRICTION:
                 text = f"Locked {ltype} for all non-admins!"
@@ -238,13 +235,12 @@ def unlock(update, context) -> str:  # sourcery no-metrics
             ltype = args[0].lower()
             if ltype == "anonchannel":
                 text = "`anonchannel` is not a lock, please use `/antichannel on` to restrict channels"
-                send_message(update.effective_message, text, parse_mode = "markdown")
+                send_message(update.effective_message, text, parse_mode="markdown")
             elif ltype in LOCK_TYPES:
                 text = f"Unlocked {ltype} for everyone!"
                 sql.update_lock(chat.id, ltype, locked=False)
                 send_message(update.effective_message, text, parse_mode="markdown")
                 return f"<b>{html.escape(chat.title)}:</b>\n#UNLOCK\n<b>Admin:</b> {mention_html(user.id, user.first_name)}\nUnlocked <code>{ltype}</code>."
-
 
             if ltype in UNLOCK_CHAT_RESTRICTION:
                 text = f"Unlocked {ltype} for everyone!"
@@ -274,7 +270,9 @@ def unlock(update, context) -> str:  # sourcery no-metrics
 
 
 @user_not_admin_check
-async def del_lockables(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:  # sourcery no-metrics
+async def del_lockables(
+    update: Update, context: ContextTypes.DEFAULT_TYPE
+) -> None:  # sourcery no-metrics
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
     user = message.sender_chat or update.effective_user
@@ -282,7 +280,9 @@ async def del_lockables(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
         return
     for lockable, filter in LOCK_TYPES.items():
         if lockable == "rtl":
-            if sql.is_locked(chat.id, lockable) and bot_is_admin(chat, AdminPerms.CAN_DELETE_MESSAGES):
+            if sql.is_locked(chat.id, lockable) and bot_is_admin(
+                chat, AdminPerms.CAN_DELETE_MESSAGES
+            ):
                 if message.caption:
                     check = ad.detect_alphabet(f"{message.caption}")
                     if "ARABIC" in check:
@@ -380,11 +380,48 @@ async def build_lock_message(chat_id):
     permslist = []
     if locks:
         res += "*" + "These are the current locks in this Chat:" + "*"
-        locklist.extend((f"sticker = `{locks.sticker}`", f"audio = `{locks.audio}`", f"voice = `{locks.voice}`", f"document = `{locks.document}`", f"video = `{locks.video}`", f"contact = `{locks.contact}`", f"photo = `{locks.photo}`", f"gif = `{locks.gif}`", f"url = `{locks.url}`", f"bots = `{locks.bots}`", f"forward = `{locks.forward}`", f"game = `{locks.game}`", f"location = `{locks.location}`", f"rtl = `{locks.rtl}`", f"button = `{locks.button}`", f"egame = `{locks.egame}`", f"inline = `{locks.inline}`", "apk = f`{locks.apk}`", "doc = f`{locks.doc}`", "exe = f`{locks.exe}`", "jpg = f`{locks.jpg}`", "mp3 = f`{locks.mp3}`", "pdf = f`{locks.pdf}`", "txt = f`{locks.txt}`", "xml = f`{locks.xml}`", "zip = f`{locks.zip}`"))
+        locklist.extend(
+            (
+                f"sticker = `{locks.sticker}`",
+                f"audio = `{locks.audio}`",
+                f"voice = `{locks.voice}`",
+                f"document = `{locks.document}`",
+                f"video = `{locks.video}`",
+                f"contact = `{locks.contact}`",
+                f"photo = `{locks.photo}`",
+                f"gif = `{locks.gif}`",
+                f"url = `{locks.url}`",
+                f"bots = `{locks.bots}`",
+                f"forward = `{locks.forward}`",
+                f"game = `{locks.game}`",
+                f"location = `{locks.location}`",
+                f"rtl = `{locks.rtl}`",
+                f"button = `{locks.button}`",
+                f"egame = `{locks.egame}`",
+                f"inline = `{locks.inline}`",
+                "apk = f`{locks.apk}`",
+                "doc = f`{locks.doc}`",
+                "exe = f`{locks.exe}`",
+                "jpg = f`{locks.jpg}`",
+                "mp3 = f`{locks.mp3}`",
+                "pdf = f`{locks.pdf}`",
+                "txt = f`{locks.txt}`",
+                "xml = f`{locks.xml}`",
+                "zip = f`{locks.zip}`",
+            )
+        )
 
     permissions = await NEKO_PTB.bot.get_chat(chat_id).permissions
-    permslist = [f"messages = `{permissions.can_send_messages}`", f"media = `{permissions.can_send_media_messages}`", f"poll = `{permissions.can_send_polls}`", f"other = `{permissions.can_send_other_messages}`", f"previews = `{permissions.can_add_web_page_previews}`", f"info = `{permissions.can_change_info}`", f"invite = `{permissions.can_invite_users}`", f"pin = `{permissions.can_pin_messages}`"]
-
+    permslist = [
+        f"messages = `{permissions.can_send_messages}`",
+        f"media = `{permissions.can_send_media_messages}`",
+        f"poll = `{permissions.can_send_polls}`",
+        f"other = `{permissions.can_send_other_messages}`",
+        f"previews = `{permissions.can_add_web_page_previews}`",
+        f"info = `{permissions.can_change_info}`",
+        f"invite = `{permissions.can_invite_users}`",
+        f"pin = `{permissions.can_pin_messages}`",
+    ]
 
     if locklist:
         # Ordering lock list
@@ -400,7 +437,6 @@ async def build_lock_message(chat_id):
 
 @connection_status
 @user_admin_check(AdminPerms.CAN_CHANGE_INFO)
-
 def list_locks(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user
@@ -461,7 +497,6 @@ def __chat_settings__(chat_id, user_id):
     return asyncio.get_running_loop().run_until_complete(build_lock_message(chat_id))
 
 
-
 __help__ = """
 Do stickers annoy you? or want to avoid people sharing links? or pictures? \
 You're in the right place!
@@ -488,4 +523,6 @@ NEKO_PTB.add_handler(DisableAbleCommandHandler("locktypes", locktypes))
 NEKO_PTB.add_handler(CommandHandler("lock", lock))  # , filters=Filters.group)
 NEKO_PTB.add_handler(CommandHandler("unlock", unlock))  # , filters=Filters.group)
 NEKO_PTB.add_handler(CommandHandler("locks", list_locks))  # , filters=Filters.group)
-NEKO_PTB.add_handler(MessageHandler(filters.ALL & filters.ChatType.GROUPS, del_lockables), PERM_GROUP)
+NEKO_PTB.add_handler(
+    MessageHandler(filters.ALL & filters.ChatType.GROUPS, del_lockables), PERM_GROUP
+)
