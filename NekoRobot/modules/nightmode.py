@@ -93,7 +93,7 @@ async def can_change_info(message):
 
 
 @register(pattern="^/(nimode|Nightmode|NightMode) ?(.*)")
-async def profanity(event):
+def profanity(event):
     if event.fwd_from:
         return
     if event.is_private:

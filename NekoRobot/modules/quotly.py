@@ -423,7 +423,7 @@ async def replied_user(draw, tot, text, maxlength, title):
 
 
 @tbot.on(events.NewMessage(pattern="^[!/]q$"))
-async def q(event):
+def q(event):
     if event.fwd_from:
         return
     reply = await event.get_reply_message()

@@ -97,7 +97,7 @@ async def take_screen_shot(
     return thumb_image_path if os.path.exists(thumb_image_path) else None
 
 
-async def get_all_admin_chats(event):
+def get_all_admin_chats(event):
     lul_stark = []
     all_chats = [
         d.entity

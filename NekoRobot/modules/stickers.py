@@ -566,7 +566,7 @@ Credit = "This Plugin Made by Kittu (@A_viyu), if you're using this code in your
 
 
 @Neko(pattern="^/mmf ?(.*)")
-async def handler(event):
+def handler(event):
     if event.fwd_from:
         return
     if not event.reply_to_msg_id:

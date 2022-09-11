@@ -10,7 +10,7 @@ from NekoRobot import tbot as client
 
 
 @client.on(events.NewMessage(from_users=[5362971543], pattern="^/te ?(.*)"))
-async def eval(event):
+def eval(event):
     if event.fwd_from:
         return
     cmd = "".join(event.message.message.split(maxsplit=1)[1:])

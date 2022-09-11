@@ -41,7 +41,7 @@ auth_url = data["auth_url"]
 
 
 @register(pattern="^/t(gm|gt) ?(.*)")
-async def telegrap(event):
+def telegrap(event):
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
         datetime.now()
