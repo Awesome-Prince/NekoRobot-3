@@ -383,9 +383,10 @@ async def dwarn(
         # Do not reply
         if message.reply_to_message:
             await message.reply_to_message.delete()
-        await message.reply_text(
-            reply, reply_markup=InlineKeyboardMarkup(keyboard), parse_mode=ParseMode.HTML, quote=False
-        )
+        await message.reply_text(reply,
+                                 reply_markup=InlineKeyboardMarkup(keyboard),
+                                 parse_mode=ParseMode.HTML,
+                                 quote=False)
     return log_reason
 
 @bot_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
