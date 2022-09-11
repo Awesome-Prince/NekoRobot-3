@@ -402,7 +402,6 @@ async def build_lock_message(chat_id):
 @user_admin_check(AdminPerms.CAN_CHANGE_INFO)
 
 def list_locks(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-async def list_locks(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user
 
