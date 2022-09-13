@@ -100,9 +100,7 @@ def cute(update, context):
     r = requests.get(url)
     e = r.json()
     cuteme = e["results"][0]["url"]
-    msg.reply_photo(
-        cuteme, caption=f"Thank UwU {name}-Kun  *smiles and hides ^~^*"
-    )
+    msg.reply_photo(cuteme, caption=f"Thank UwU {name}-Kun  *smiles and hides ^~^*")
 
 
 def sleep(update, context):

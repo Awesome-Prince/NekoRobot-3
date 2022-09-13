@@ -122,7 +122,6 @@ def addsudo(update: Update, context: CallbackContext) -> str:
         )
     )
 
-
     log_message = (
         f"#SUDO\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
@@ -180,7 +179,6 @@ def addsupport(
         f"{rt}\n{user_member.first_name} was added as a B Rank Hunter!"
     )
 
-
     log_message = (
         f"#SUPPORT\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
@@ -234,7 +232,6 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
     update.effective_message.reply_text(
         f"{rt}\nSuccessfully promoted {user_member.first_name} to a D Rank Hunter!"
     )
-
 
     log_message = (
         f"#WHITELIST\n"
@@ -294,7 +291,6 @@ def addtiger(update: Update, context: CallbackContext) -> str:
     update.effective_message.reply_text(
         f"{rt}\nSuccessfully promoted {user_member.first_name} to a C Rank Hunter!"
     )
-
 
     log_message = (
         f"#TIGER\n"

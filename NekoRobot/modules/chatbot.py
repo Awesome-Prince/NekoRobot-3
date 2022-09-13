@@ -39,7 +39,7 @@ def kukirm(update: Update, context: CallbackContext) -> str:
         user_id = match[1]
         chat: Optional[Chat] = update.effective_chat
         if is_kuki := sql.rem_kuki(chat.id):
-            is_kuki = sql.rem_kuki(user_id)
+            sql.rem_kuki(user_id)
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"AI_DISABLED\n"
@@ -50,7 +50,6 @@ def kukirm(update: Update, context: CallbackContext) -> str:
                 f"Hey Darling Neko Chatbot disable by {mention_html(user.id, user.first_name)}.",
                 parse_mode=ParseMode.HTML,
             )
-
 
     return ""
 
@@ -64,7 +63,7 @@ def kukiadd(update: Update, context: CallbackContext) -> str:
         user_id = match[1]
         chat: Optional[Chat] = update.effective_chat
         if is_kuki := sql.set_kuki(chat.id):
-            is_kuki = sql.set_kuki(user_id)
+            sql.set_kuki(user_id)
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"AI_ENABLE\n"
@@ -75,7 +74,6 @@ def kukiadd(update: Update, context: CallbackContext) -> str:
                 f"Hey Darling Neko Chatbot enable by {mention_html(user.id, user.first_name)}.",
                 parse_mode=ParseMode.HTML,
             )
-
 
     return ""
 

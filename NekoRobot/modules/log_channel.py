@@ -45,12 +45,12 @@ if is_module_loaded(FILENAME):
     def loggable(func):
         @wraps(func)
         def log_action(
-                update: Update,
-                context: CallbackContext,
-                job_queue: JobQueue = None,
-                *args,
-                **kwargs,
-            ):
+            update: Update,
+            context: CallbackContext,
+            job_queue: JobQueue = None,
+            *args,
+            **kwargs,
+        ):
             result = (
                 func(update, context, job_queue, *args, **kwargs)
                 if job_queue

@@ -557,11 +557,7 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
 
 @bot.on(events.NewMessage(pattern="/middemote(?: |$)(.*)"))
 async def middemote(dmod):
-    if (
-        dmod.is_group
-        and not await can_promote_users(message=dmod)
-        or not dmod.is_group
-    ):
+    if dmod.is_group and not await can_promote_users(message=dmod) or not dmod.is_group:
         return
     user = await get_user_from_event(dmod)
     if not dmod.is_group:
@@ -596,11 +592,7 @@ async def middemote(dmod):
 
 @bot.on(events.NewMessage(pattern="/lowdemote(?: |$)(.*)"))
 async def lowdemote(dmod):
-    if (
-        dmod.is_group
-        and not await can_promote_users(message=dmod)
-        or not dmod.is_group
-    ):
+    if dmod.is_group and not await can_promote_users(message=dmod) or not dmod.is_group:
         return
     user = await get_user_from_event(dmod)
     if not dmod.is_group:
@@ -817,7 +809,6 @@ def pin(update, context):
                 raise
         return f"<b>{html.escape(chat.title)}:</b>\n#PINNED\n<b>Admin:</b> {mention_html(user.id, user.first_name)}"
 
-
     return ""
 
 
@@ -945,12 +936,9 @@ def adminlist(update, context):
             name = "{}".format(
                 mention_html(
                     user.id,
-                    html.escape(
-                        f"{user.first_name} " + ((user.last_name or ""))
-                    ),
+                    html.escape(f"{user.first_name} " + ((user.last_name or ""))),
                 )
             )
-
 
         if user.is_bot:
             administrators.remove(admin)
@@ -981,9 +969,7 @@ def adminlist(update, context):
             name = "{}".format(
                 mention_html(
                     user.id,
-                    html.escape(
-                        f"{user.first_name} " + ((user.last_name or ""))
-                    ),
+                    html.escape(f"{user.first_name} " + ((user.last_name or ""))),
                 )
             )
 

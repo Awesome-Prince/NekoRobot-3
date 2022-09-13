@@ -144,8 +144,7 @@ def get(update, context, notename, show_none=True, no_format=False):
                 text = text.format(
                     first=escape_markdown(message.from_user.first_name),
                     last=escape_markdown(
-                        message.from_user.last_name
-                        or message.from_user.first_name
+                        message.from_user.last_name or message.from_user.first_name
                     ),
                     fullname=escape_markdown(
                         " ".join(

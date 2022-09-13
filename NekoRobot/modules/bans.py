@@ -499,7 +499,6 @@ def banme(update: Update, context: CallbackContext):
         update.effective_message.reply_text("Yes, you're right! get out! Baka..")
         return f"<b>{html.escape(chat.title)}:</b>\n#BANME\n<b>User:</b> {mention_html(user.id, user.first_name)}\n<b>ID:</b> <code>{user_id}</code>"
 
-
     else:
         update.effective_message.reply_text("Huh? I can't :/")
 

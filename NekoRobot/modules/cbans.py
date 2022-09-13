@@ -356,7 +356,6 @@ def uncban(update: Update, context: CallbackContext) -> Optional[str]:
         parse_mode=ParseMode.HTML,
     )
 
-
     log = (
         f"<b>{html.escape(chat.title)}:</b>\n"
         f"#UNBANNED\n"

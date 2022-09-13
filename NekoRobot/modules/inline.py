@@ -205,7 +205,6 @@ def inlineinfo(query: str, update: Update, context: CallbackContext) -> None:
         ]
     )
 
-
     results = [
         InlineQueryResultArticle(
             id=str(uuid4()),
@@ -249,7 +248,6 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
             ]
         ]
     )
-
 
     results: list = [
         InlineQueryResultPhoto(
@@ -339,7 +337,6 @@ def spb(query: str, update: Update, context: CallbackContext) -> None:
             ]
         ]
     )
-
 
     a = "the entity was not found"
     results = [

@@ -120,7 +120,9 @@ if is_module_loaded(FILENAME):
             if disable_cmd in set(DISABLE_CMDS + DISABLE_OTHER):
                 sql.disable_command(chat.id, disable_cmd)
                 if conn:
-                    text = f"Disabled the use of `{disable_cmd}` command in *{chat_name}*!"
+                    text = (
+                        f"Disabled the use of `{disable_cmd}` command in *{chat_name}*!"
+                    )
                 else:
                     text = f"Disabled the use of `{disable_cmd}` command!"
                 send_message(
@@ -163,7 +165,9 @@ if is_module_loaded(FILENAME):
 
             if sql.enable_command(chat.id, enable_cmd):
                 if conn:
-                    text = f"Enabled the use of `{enable_cmd}` command in *{chat_name}*!"
+                    text = (
+                        f"Enabled the use of `{enable_cmd}` command in *{chat_name}*!"
+                    )
                 else:
                     text = f"Enabled the use of `{enable_cmd}` command!"
                 send_message(
@@ -185,7 +189,6 @@ if is_module_loaded(FILENAME):
                 f" - `{escape_markdown(str(cmd))}`\n"
                 for cmd in set(DISABLE_CMDS + DISABLE_OTHER)
             )
-
 
             update.effective_message.reply_text(
                 f"The following commands are toggleable:\n{result}",

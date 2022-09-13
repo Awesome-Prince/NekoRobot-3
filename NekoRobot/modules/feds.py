@@ -171,11 +171,7 @@ def del_fed(update: Update, context: CallbackContext):
                         callback_data=f"rmfed_{fed_id}",
                     )
                 ],
-                [
-                    InlineKeyboardButton(
-                        text="Cancel", callback_data="rmfed_cancel"
-                    )
-                ],
+                [InlineKeyboardButton(text="Cancel", callback_data="rmfed_cancel")],
             ]
         ),
     )
@@ -279,7 +275,6 @@ def join_fed(update: Update, context: CallbackContext):
                     f'Chat *{chat.title}* has joined the federation *{getfed["fname"]}*',
                     parse_mode="markdown",
                 )
-
 
         message.reply_text(f'This group has joined the federation: {getfed["fname"]}!')
 

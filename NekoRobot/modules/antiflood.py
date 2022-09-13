@@ -102,13 +102,9 @@ def check_flood(update, context) -> str:
             )
             execstrings = f"Muted for {getvalue}"
             tag = "TMUTE"
-        send_message(
-            update.effective_message, f"Beep Boop! Boop Beep!\n{execstrings}!"
-        )
-
+        send_message(update.effective_message, f"Beep Boop! Boop Beep!\n{execstrings}!")
 
         return f"<b>{tag}:</b>\n#{html.escape(chat.title)}\n<b>User:</b> {mention_html(user.id, html.escape(user.first_name))}\nFlooded the group."
-
 
     except BadRequest:
         msg.reply_text(
@@ -173,7 +169,9 @@ def set_flood(update, context) -> str:
         if val in ["off", "no", "0"]:
             sql.set_flood(chat_id, 0)
             if conn:
-                text = message.reply_text(f"Antiflood has been disabled in {chat_name}.")
+                text = message.reply_text(
+                    f"Antiflood has been disabled in {chat_name}."
+                )
             else:
                 text = message.reply_text("Antiflood has been disabled.")
 
@@ -182,11 +180,12 @@ def set_flood(update, context) -> str:
             if amount <= 0:
                 sql.set_flood(chat_id, 0)
                 if conn:
-                    text = message.reply_text(f"Antiflood has been disabled in {chat_name}.")
+                    text = message.reply_text(
+                        f"Antiflood has been disabled in {chat_name}."
+                    )
                 else:
                     text = message.reply_text("Antiflood has been disabled.")
                 return f"<b>{html.escape(chat_name)}:</b>\n#SETFLOOD\n<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\nDisable antiflood."
-
 
             elif amount <= 3:
                 send_message(
@@ -208,7 +207,6 @@ def set_flood(update, context) -> str:
                     )
 
                 return f"<b>{html.escape(chat_name)}:</b>\n#SETFLOOD\n<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\nSet antiflood to <code>{amount}</code>."
-
 
         else:
             message.reply_text("Invalid argument please use a number, 'off' or 'no'")
@@ -244,9 +242,7 @@ def flood(update, context):
     limit = sql.get_flood_limit(chat_id)
     if limit == 0:
         text = (
-            msg.reply_text(
-                f"I'm not enforcing any flood control in {chat_name}!"
-            )
+            msg.reply_text(f"I'm not enforcing any flood control in {chat_name}!")
             if conn
             else msg.reply_text("I'm not enforcing any flood control here!")
         )

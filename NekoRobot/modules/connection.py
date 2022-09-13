@@ -182,11 +182,11 @@ def connect_chat(update, context):
                 ]
             else:
                 buttons = []
-            if conn := connected(
-                context.bot, update, chat, user.id, need_admin=False
-            ):
+            if conn := connected(context.bot, update, chat, user.id, need_admin=False):
                 connectedchat = NEKO_PTB.bot.getChat(conn)
-                text = f"You are currently connected to *{connectedchat.title}* (`{conn}`)"
+                text = (
+                    f"You are currently connected to *{connectedchat.title}* (`{conn}`)"
+                )
                 buttons.append(
                     InlineKeyboardButton(
                         text="🔌 Disconnect",
@@ -381,9 +381,7 @@ def connect_button(update, context):
         isallow = sql.allow_connect_to_chat(target_chat)
 
         if (isadmin) or (isallow and ismember) or (user.id in DRAGONS):
-            if connection_status := sql.connect(
-                query.from_user.id, target_chat
-            ):
+            if connection_status := sql.connect(query.from_user.id, target_chat):
                 conn_chat = NEKO_PTB.bot.getChat(
                     connected(context.bot, update, chat, user.id, need_admin=False),
                 )

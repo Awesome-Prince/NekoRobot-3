@@ -51,7 +51,6 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
     if not user_id:
         return "You don't seem to be referring to a user or the ID specified is incorrect.."
 
-
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
@@ -140,11 +139,11 @@ def unmute(update: Update, context: CallbackContext) -> str:
         )
 
     elif (
-            member.can_send_messages
-            and member.can_send_media_messages
-            and member.can_send_other_messages
-            and member.can_add_web_page_previews
-        ):
+        member.can_send_messages
+        and member.can_send_media_messages
+        and member.can_send_other_messages
+        and member.can_add_web_page_previews
+    ):
         message.reply_text("This user already has the right to speak.")
     else:
         chat_permissions = ChatPermissions(

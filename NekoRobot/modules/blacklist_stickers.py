@@ -82,11 +82,7 @@ def add_blackliststicker(update: Update, context: CallbackContext):
     if len(words) > 1:
         text = words[1].replace("https://t.me/addstickers/", "")
         to_blacklist = list(
-            {
-                trigger.strip()
-                for trigger in text.split("\n")
-                if trigger.strip()
-            }
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
         )
 
         added = 0
@@ -101,7 +97,6 @@ def add_blackliststicker(update: Update, context: CallbackContext):
                     f"Sticker `{trigger}` can not be found!",
                     parse_mode="markdown",
                 )
-
 
         if added == 0:
             return
@@ -136,7 +131,6 @@ def add_blackliststicker(update: Update, context: CallbackContext):
                 f"Sticker `{trigger}` can not be found!",
                 parse_mode="markdown",
             )
-
 
         if added == 0:
             return
@@ -175,11 +169,7 @@ def unblackliststicker(update: Update, context: CallbackContext):
     if len(words) > 1:
         text = words[1].replace("https://t.me/addstickers/", "")
         to_unblacklist = list(
-            {
-                trigger.strip()
-                for trigger in text.split("\n")
-                if trigger.strip()
-            }
+            {trigger.strip() for trigger in text.split("\n") if trigger.strip()}
         )
 
         successful = 0
@@ -207,7 +197,6 @@ def unblackliststicker(update: Update, context: CallbackContext):
                 f"Sticker <code>{successful}</code> deleted from blacklist in <b>{html.escape(chat_name)}</b>!",
                 parse_mode=ParseMode.HTML,
             )
-
 
         elif not successful:
             send_message(
@@ -317,7 +306,9 @@ def blacklist_mode(update: Update, context: CallbackContext):
             text = f"Blacklist sticker mode changed, users will be `{settypeblacklist}` at *{chat_name}*!"
 
         else:
-            text = f"Blacklist sticker mode changed, users will be `{settypeblacklist}`!"
+            text = (
+                f"Blacklist sticker mode changed, users will be `{settypeblacklist}`!"
+            )
         send_message(update.effective_message, text, parse_mode="markdown")
         return f"<b>{html.escape(chat.title)}:</b>\n<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\nChanged sticker blacklist mode. users will be {settypeblacklist}."
 

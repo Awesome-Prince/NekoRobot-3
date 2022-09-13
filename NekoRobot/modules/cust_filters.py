@@ -380,7 +380,9 @@ def reply_filter(update, context):
                                     get_exception(excp, filt, chat),
                                 )
                             except BadRequest as excp:
-                                LOGGER.exception(f"Failed to send message: {excp.message}")
+                                LOGGER.exception(
+                                    f"Failed to send message: {excp.message}"
+                                )
                 else:
                     ENUM_FUNC_MAP[filt.file_type](
                         chat.id,

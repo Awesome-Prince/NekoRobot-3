@@ -90,7 +90,6 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         message.reply_text("*notices user*")
         return f"#UNBLACKLIST\n<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n<b>User:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
 
-
     else:
         message.reply_text("I am not ignoring them at all though!")
         return ""

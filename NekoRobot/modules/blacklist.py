@@ -58,10 +58,7 @@ def blacklist(update, context):
 
     split_text = split_message(filter_list)
     for text in split_text:
-        if (
-            filter_list
-            == f"Current blacklisted words in <b>{chat_name}</b>:\n"
-        ):
+        if filter_list == f"Current blacklisted words in <b>{chat_name}</b>:\n":
             send_message(
                 update.effective_message,
                 f"No blacklisted words in <b>{chat_name}</b>!",
@@ -108,14 +105,12 @@ def add_blacklist(update, context):
                 parse_mode=ParseMode.HTML,
             )
 
-
         else:
             send_message(
                 update.effective_message,
                 f"Added blacklist trigger: <code>{len(to_blacklist)}</code> in <b>{chat_name}</b>!",
                 parse_mode=ParseMode.HTML,
             )
-
 
     else:
         send_message(
@@ -175,7 +170,6 @@ def unblacklist(update, context):
                 f"Removed <code>{successful}</code> from blacklist in <b>{chat_name}</b>!",
                 parse_mode=ParseMode.HTML,
             )
-
 
         elif not successful:
             send_message(
