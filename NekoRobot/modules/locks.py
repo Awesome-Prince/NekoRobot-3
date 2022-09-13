@@ -39,7 +39,7 @@ from telegram.ext import CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html
 
 import NekoRobot.modules.sql.locks_sql as sql
-from NekoRobot import DRAGONS, LOGGER, NEKO_PTB
+from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.connection import connected
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.alternate import send_message, typing_action
@@ -126,8 +126,6 @@ def restr_members(
     bot, chat_id, members, messages=False, media=False, other=False, previews=False
 ):
     for mem in members:
-        if mem.user in DRAGONS:
-            pass
         try:
             bot.restrict_chat_member(
                 chat_id,

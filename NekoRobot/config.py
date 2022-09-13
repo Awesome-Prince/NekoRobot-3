@@ -4,7 +4,7 @@ import os
 
 
 def get_user_list(config, key):
-    with open("{}/NekoRobot/{}".format(os.getcwd(), config), "r") as json_file:
+    with open(f"{os.getcwd()}/NekoRobot/{config}", "r") as json_file:
         return json.load(json_file)[key]
 
 
@@ -84,7 +84,7 @@ import os
 
 
 def get_user_list(config, key):
-    with open("{}/KURUMIBOT/{}".format(os.getcwd(), config), "r") as json_file:
+    with open(f"{os.getcwd()}/KURUMIBOT/{config}", "r") as json_file:
         return json.load(json_file)[key]
 
 

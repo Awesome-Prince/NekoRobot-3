@@ -35,13 +35,11 @@ from NekoRobot.modules.log_channel import gloggable
 def kukirm(update: Update, context: CallbackContext) -> str:
     query: Optional[CallbackQuery] = update.callback_query
     user: Optional[User] = update.effective_user
-    match = re.match(r"rm_chat\((.+?)\)", query.data)
-    if match:
-        user_id = match.group(1)
+    if match := re.match(r"rm_chat\((.+?)\)", query.data):
+        user_id = match[1]
         chat: Optional[Chat] = update.effective_chat
-        is_kuki = sql.rem_kuki(chat.id)
-        if is_kuki:
-            is_kuki = sql.rem_kuki(user_id)
+        if is_kuki := sql.rem_kuki(chat.id):
+            sql.rem_kuki(user_id)
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"AI_DISABLED\n"
@@ -49,9 +47,7 @@ def kukirm(update: Update, context: CallbackContext) -> str:
             )
         else:
             update.effective_message.edit_text(
-                "Hey Darling Neko Chatbot disable by {}.".format(
-                    mention_html(user.id, user.first_name)
-                ),
+                f"Hey Darling Neko Chatbot disable by {mention_html(user.id, user.first_name)}.",
                 parse_mode=ParseMode.HTML,
             )
 
@@ -63,13 +59,11 @@ def kukirm(update: Update, context: CallbackContext) -> str:
 def kukiadd(update: Update, context: CallbackContext) -> str:
     query: Optional[CallbackQuery] = update.callback_query
     user: Optional[User] = update.effective_user
-    match = re.match(r"add_chat\((.+?)\)", query.data)
-    if match:
-        user_id = match.group(1)
+    if match := re.match(r"add_chat\((.+?)\)", query.data):
+        user_id = match[1]
         chat: Optional[Chat] = update.effective_chat
-        is_kuki = sql.set_kuki(chat.id)
-        if is_kuki:
-            is_kuki = sql.set_kuki(user_id)
+        if is_kuki := sql.set_kuki(chat.id):
+            sql.set_kuki(user_id)
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"AI_ENABLE\n"
@@ -77,9 +71,7 @@ def kukiadd(update: Update, context: CallbackContext) -> str:
             )
         else:
             update.effective_message.edit_text(
-                "Hey Darling Neko Chatbot enable by {}.".format(
-                    mention_html(user.id, user.first_name)
-                ),
+                f"Hey Darling Neko Chatbot enable by {mention_html(user.id, user.first_name)}.",
                 parse_mode=ParseMode.HTML,
             )
 

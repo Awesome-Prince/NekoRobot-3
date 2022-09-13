@@ -39,7 +39,7 @@ def afk(update: Update, context: CallbackContext):
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text("{} is now away!{}".format(fname, notice))
+        update.effective_message.reply_text(f"{fname} is now away!{notice}")
     except BadRequest:
         pass
 
@@ -51,8 +51,7 @@ def no_longer_afk(update: Update, context: CallbackContext):
     if not user:  # ignore channels
         return
 
-    res = sql.rm_afk(user.id)
-    if res:
+    if res := sql.rm_afk(user.id):
         if message.new_chat_members:  # dont say msg
             return
         firstname = update.effective_user.first_name
@@ -110,7 +109,7 @@ def reply_afk(update: Update, context: CallbackContext):
             try:
                 chat = bot.get_chat(user_id)
             except BadRequest:
-                print("Error: Could not fetch userid {} for AFK module".format(user_id))
+                print(f"Error: Could not fetch userid {user_id} for AFK module")
                 return
             fst_name = chat.first_name
 
@@ -128,12 +127,11 @@ def check_afk(update, context, user_id, fst_name, userc_id):
         if int(userc_id) == int(user_id):
             return
         if not user.reason:
-            res = "{} is afk".format(fst_name)
+            res = f"{fst_name} is afk"
             update.effective_message.reply_text(res)
         else:
-            res = "{} is afk.\nReason: <code>{}</code>".format(
-                html.escape(fst_name), html.escape(user.reason)
-            )
+            res = f"{html.escape(fst_name)} is afk.\nReason: <code>{html.escape(user.reason)}</code>"
+
             update.effective_message.reply_text(res, parse_mode="html")
 
 
