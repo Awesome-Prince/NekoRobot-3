@@ -268,12 +268,12 @@ def start(update: Update, context: CallbackContext):
 
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
-                chat = NEKO_PTB.bot.getChat(match.group(1))
+                chat = NEKO_PTB.bot.getChat(match[1])
 
                 if is_user_admin(chat, update.effective_user.id):
-                    send_settings(match.group(1), update.effective_user.id, False)
+                    send_settings(match[1], update.effective_user.id, False)
                 else:
-                    send_settings(match.group(1), update.effective_user.id, True)
+                    send_settings(match[1], update.effective_user.id, True)
 
             elif args[0][1:].isdigit() and "rules" in IMPORTED:
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
@@ -478,7 +478,7 @@ def get_help(update: Update, context: CallbackContext) -> None:
 
     if len(args) >= 2 and any(args[1].lower() == x for x in HELPABLE):
         module = args[1].lower()
-        text = f" 〔 *{HELPABLE[module].__mod_name__}* 〕\n" + HELPABLE[module].__help__
+        text = f" 〔 *{HELPABLE[module].__mod_name__}* 〕\n{HELPABLE[module].__help__}"
 
         send_help(
             chat.id,
@@ -544,9 +544,12 @@ def settings_button(update: Update, context: CallbackContext) -> None:
             chat_id = mod_match[1]
             module = mod_match[2]
             chat = bot.get_chat(chat_id)
-            text = "*{}* has the following settings for the *{}* module:\n\n".format(
-                escape_markdown(chat.title), CHAT_SETTINGS[module].__mod_name__
-            ) + CHAT_SETTINGS[module].__chat_settings__(chat_id, user.id)
+            text = f"*{escape_markdown(chat.title)}* has the following settings for the *{CHAT_SETTINGS[module].__mod_name__}* module:\n\n" + CHAT_SETTINGS[
+                module
+            ].__chat_settings__(
+                chat_id, user.id
+            )
+
             try:
                 keyboard = CHAT_SETTINGS[module].__chat_settings_buttons__(
                     chat_id, user.id
@@ -638,9 +641,7 @@ def get_settings(update: Update, context: CallbackContext) -> None:
 
 
 def donate(update: Update, context: CallbackContext) -> None:
-    user = update.effective_message.from_user
     chat = update.effective_chat  # type: Optional[Chat]
-    bot = context.bot
     if chat.type == "private":
         update.effective_message.reply_text(
             DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
@@ -653,6 +654,8 @@ def donate(update: Update, context: CallbackContext) -> None:
             )
 
     else:
+        user = update.effective_message.from_user
+        bot = context.bot
         try:
             bot.send_message(
                 user.id,
@@ -755,11 +758,11 @@ def main():
             allowed_updates=Update.ALL_TYPES,
         )
 
-    if len(argv) not in (1, 3, 4):
-        tbot.disconnect()
-    else:
+    if len(argv) in {1, 3, 4}:
         tbot.run_until_disconnected()
 
+    else:
+        tbot.disconnect()
     updater.idle()
 
 
@@ -770,7 +773,7 @@ except BaseException:
     sys.exit(1)
 
 if __name__ == "__main__":
-    LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
+    LOGGER.info(f"Successfully loaded modules: {str(ALL_MODULES)}")
     tbot.start(bot_token=TOKEN)
     pgram.start()
     main()

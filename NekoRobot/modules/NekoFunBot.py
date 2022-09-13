@@ -47,64 +47,50 @@ def pat(update, context):
 
 def hug(update, context):
     msg = update.effective_message
+    url = "https://nekos.best/api/v2/hug"
+    r = requests.get(url)
+    e = r.json()
+    hugme = e["results"][0]["url"]
     if msg.reply_to_message:
-        url = "https://nekos.best/api/v2/hug"
-        r = requests.get(url)
-        e = r.json()
-        hugme = e["results"][0]["url"]
         msg = update.effective_message
         name1 = msg.from_user.first_name
         name2 = msg.reply_to_message.from_user.first_name
-        msg.reply_video(hugme, caption="*{} hugs {}*".format(name1, name2))
+        msg.reply_video(hugme, caption=f"*{name1} hugs {name2}*")
     else:
-        url = "https://nekos.best/api/v2/hug"
-        r = requests.get(url)
-        e = r.json()
-        hugme = e["results"][0]["url"]
         msg = update.effective_message
         msg.reply_video(hugme, caption="*Hugs u with all my love*~")
 
 
 def slap(update, context):
     msg = update.effective_message
+    url = "https://nekos.best/api/v2/slap"
+    r = requests.get(url)
+    e = r.json()
+    slapme = e["results"][0]["url"]
     if msg.reply_to_message:
-        url = "https://nekos.best/api/v2/slap"
-        r = requests.get(url)
-        e = r.json()
-        slapme = e["results"][0]["url"]
         msg = update.effective_message
         name1 = msg.from_user.first_name
         name2 = msg.reply_to_message.from_user.first_name
-        msg.reply_video(slapme, caption="*{} slaps {}*".format(name1, name2))
+        msg.reply_video(slapme, caption=f"*{name1} slaps {name2}*")
     else:
-        url = "https://nekos.best/api/v2/slap"
-        r = requests.get(url)
-        e = r.json()
-        slapme = e["results"][0]["url"]
         msg = update.effective_message
         msg.reply_video(slapme, caption="Here... Take this from me.")
 
 
 def blush(update, context):
     msg = update.effective_message
+    url = "https://nekos.best/api/v2/blush"
+    r = requests.get(url)
+    e = r.json()
+    blushme = e["results"][0]["url"]
     if msg.reply_to_message:
-        url = "https://nekos.best/api/v2/blush"
-        r = requests.get(url)
-        e = r.json()
-        blushme = e["results"][0]["url"]
         msg = update.effective_message
         name1 = msg.from_user.first_name
         name2 = msg.reply_to_message.from_user.first_name
-        msg.reply_video(
-            blushme, caption="*{} blushes by seeing {}*~".format(name1, name2)
-        )
+        msg.reply_video(blushme, caption=f"*{name1} blushes by seeing {name2}*~")
     else:
-        url = "https://nekos.best/api/v2/blush"
-        r = requests.get(url)
-        e = r.json()
-        blushme = e["results"][0]["url"]
         msg = update.effective_message
-        msg.reply_video(blushme, caption="*Oh {}~kun I Luv You*~".format(name1))
+        msg.reply_video(blushme, caption=f"*Oh {name1}~kun I Luv You*~")
 
 
 def cute(update, context):
@@ -115,7 +101,7 @@ def cute(update, context):
     e = r.json()
     cuteme = e["results"][0]["url"]
     msg.reply_photo(
-        cuteme, caption="Thank UwU {}-Kun  *smiles and hides ^~^*".format(name)
+        cuteme, caption=f"Thank UwU {name}-Kun  *smiles and hides ^~^*"
     )
 
 

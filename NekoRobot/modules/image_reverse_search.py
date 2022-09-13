@@ -54,8 +54,7 @@ def reverse(update: Update, context: CallbackContext):
     rtmid = msg.message_id
     imagename = "okgoogle.png"
 
-    reply = msg.reply_to_message
-    if reply:
+    if reply := msg.reply_to_message:
         if reply.sticker:
             file_id = reply.sticker.file_id
         elif reply.photo:
@@ -75,7 +74,7 @@ def reverse(update: Update, context: CallbackContext):
                 lim = 2
         else:
             lim = 2
-    elif args and not reply:
+    elif args:
         splatargs = msg.text.split(" ")
         if len(splatargs) == 3:
             img_link = splatargs[1]
@@ -135,7 +134,7 @@ def reverse(update: Update, context: CallbackContext):
             return
 
         os.remove(imagename)
-        match = ParseSauce(fetchUrl + "&hl=en")
+        match = ParseSauce(f"{fetchUrl}&hl=en")
         guess = match["best_guess"]
         if match["override"] and match["override"] != "":
             imgspage = match["override"]
@@ -189,8 +188,7 @@ def grs(update: Update, context: CallbackContext):
     rtmid = msg.message_id
     imagename = "okgoogle.png"
 
-    reply = msg.reply_to_message
-    if reply:
+    if reply := msg.reply_to_message:
         if reply.sticker:
             file_id = reply.sticker.file_id
         elif reply.photo:
@@ -210,7 +208,7 @@ def grs(update: Update, context: CallbackContext):
                 lim = 2
         else:
             lim = 2
-    elif args and not reply:
+    elif args:
         splatargs = msg.text.split(" ")
         if len(splatargs) == 3:
             img_link = splatargs[1]
@@ -270,7 +268,7 @@ def grs(update: Update, context: CallbackContext):
             return
 
         os.remove(imagename)
-        match = ParseSauce(fetchUrl + "&hl=en")
+        match = ParseSauce(f"{fetchUrl}&hl=en")
         guess = match["best_guess"]
         if match["override"] and match["override"] != "":
             imgspage = match["override"]
@@ -324,8 +322,7 @@ def gg(update: Update, context: CallbackContext):
     rtmid = msg.message_id
     imagename = "okgoogle.png"
 
-    reply = msg.reply_to_message
-    if reply:
+    if reply := msg.reply_to_message:
         if reply.sticker:
             file_id = reply.sticker.file_id
         elif reply.photo:
@@ -345,7 +342,7 @@ def gg(update: Update, context: CallbackContext):
                 lim = 2
         else:
             lim = 2
-    elif args and not reply:
+    elif args:
         splatargs = msg.text.split(" ")
         if len(splatargs) == 3:
             img_link = splatargs[1]
@@ -405,7 +402,7 @@ def gg(update: Update, context: CallbackContext):
             return
 
         os.remove(imagename)
-        match = ParseSauce(fetchUrl + "&hl=en")
+        match = ParseSauce(f"{fetchUrl}&hl=en")
         guess = match["best_guess"]
         if match["override"] and match["override"] != "":
             imgspage = match["override"]

@@ -53,7 +53,7 @@ def load(update: Update, context: CallbackContext):
     )
 
     try:
-        imported_module = importlib.import_module("SungJinwooRobot.modules." + text)
+        imported_module = importlib.import_module(f"SungJinwooRobot.modules.{text}")
     except:
         load_messasge.edit_text("Does that module even exist?")
         return
@@ -61,7 +61,7 @@ def load(update: Update, context: CallbackContext):
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 
-    if not imported_module.__mod_name__.lower() in IMPORTED:
+    if imported_module.__mod_name__.lower() not in IMPORTED:
         IMPORTED[imported_module.__mod_name__.lower()] = imported_module
     else:
         load_messasge.edit_text("Module already loaded.")
@@ -71,13 +71,12 @@ def load(update: Update, context: CallbackContext):
         for handler in handlers:
             if not isinstance(handler, tuple):
                 NEKO_PTB.add_handler(handler)
+            elif isinstance(handler[0], collections.Callable):
+                callback, telethon_event = handler
+                tbot.add_event_handler(callback, telethon_event)
             else:
-                if isinstance(handler[0], collections.Callable):
-                    callback, telethon_event = handler
-                    tbot.add_event_handler(callback, telethon_event)
-                else:
-                    handler_name, priority = handler
-                    NEKO_PTB.add_handler(handler_name, priority)
+                handler_name, priority = handler
+                NEKO_PTB.add_handler(handler_name, priority)
     else:
         IMPORTED.pop(imported_module.__mod_name__.lower())
         load_messasge.edit_text("The module cannot be loaded.")
@@ -109,7 +108,8 @@ def load(update: Update, context: CallbackContext):
         USER_SETTINGS[imported_module.__mod_name__.lower()] = imported_module
 
     load_messasge.edit_text(
-        "Successfully loaded module : <b>{}</b>".format(text), parse_mode=ParseMode.HTML
+        f"Successfully loaded module : <b>{text}</b>",
+        parse_mode=ParseMode.HTML,
     )
 
 
@@ -122,7 +122,7 @@ def unload(update: Update, context: CallbackContext):
     )
 
     try:
-        imported_module = importlib.import_module("SungJinwooRobot.modules." + text)
+        imported_module = importlib.import_module(f"SungJinwooRobot.modules.{text}")
     except:
         unload_messasge.edit_text("Does that module even exist?")
         return
@@ -142,13 +142,12 @@ def unload(update: Update, context: CallbackContext):
                 return
             elif not isinstance(handler, tuple):
                 NEKO_PTB.remove_handler(handler)
+            elif isinstance(handler[0], collections.Callable):
+                callback, telethon_event = handler
+                tbot.remove_event_handler(callback, telethon_event)
             else:
-                if isinstance(handler[0], collections.Callable):
-                    callback, telethon_event = handler
-                    tbot.remove_event_handler(callback, telethon_event)
-                else:
-                    handler_name, priority = handler
-                    NEKO_PTB.remove_handler(handler_name, priority)
+                handler_name, priority = handler
+                NEKO_PTB.remove_handler(handler_name, priority)
     else:
         unload_messasge.edit_text("The module cannot be unloaded.")
         return

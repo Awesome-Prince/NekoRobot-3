@@ -283,7 +283,7 @@ async def lego(event):
         if os.path.exists(fname):
             os.remove(fname)
     except Exception:
-        await event.reply(f"Floodwait error")
+        await event.reply("Floodwait error")
 
 
 __mod_name__ = "Logo"

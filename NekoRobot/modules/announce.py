@@ -26,34 +26,22 @@ def announcestat(update: Update, context: CallbackContext) -> str:
             update.effective_message.reply_text(
                 "I've enabled announcemets in this group. Now any admin actions in your group will be announced."
             )
-            logmsg = (
-                f"<b>{html.escape(chat.title)}:</b>\n"
-                f"#ANNOUNCE_TOGGLED\n"
-                f"Admin actions announcement has been <b>enabled</b>\n"
-                f"<b>Admin:</b> {mention_html(user.id, user.first_name) if not message.sender_chat else message.sender_chat.title}\n "
-            )
+            logmsg = f"<b>{html.escape(chat.title)}:</b>\n#ANNOUNCE_TOGGLED\nAdmin actions announcement has been <b>enabled</b>\n<b>Admin:</b> {message.sender_chat.title if message.sender_chat else mention_html(user.id, user.first_name)}\n "
+
             return logmsg
         elif args[0].lower() in ["off", "no", "false"]:
             sql.disable_chat_log(update.effective_chat.id)
             update.effective_message.reply_text(
                 "I've disabled announcemets in this group. Now admin actions in your group will not be announced."
             )
-            logmsg = (
-                f"<b>{html.escape(chat.title)}:</b>\n"
-                f"#ANNOUNCE_TOGGLED\n"
-                f"Admin actions announcement has been <b>disabled</b>\n"
-                f"<b>Admin:</b> {mention_html(user.id, user.first_name) if not message.sender_chat else message.sender_chat.title}\n "
-            )
+            logmsg = f"<b>{html.escape(chat.title)}:</b>\n#ANNOUNCE_TOGGLED\nAdmin actions announcement has been <b>disabled</b>\n<b>Admin:</b> {message.sender_chat.title if message.sender_chat else mention_html(user.id, user.first_name)}\n "
+
             return logmsg
     else:
         update.effective_message.reply_text(
-            "Give me some arguments to choose a setting! on/off, yes/no!\n\n"
-            "Your current setting is: {}\n"
-            "When True, any admin actions in your group will be announced."
-            "When False, admin actions in your group will not be announced.".format(
-                sql.does_chat_log(update.effective_chat.id)
-            )
+            f"Give me some arguments to choose a setting! on/off, yes/no!\n\nYour current setting is: {sql.does_chat_log(update.effective_chat.id)}\nWhen True, any admin actions in your group will be announced.When False, admin actions in your group will not be announced."
         )
+
         return ""
 
 
