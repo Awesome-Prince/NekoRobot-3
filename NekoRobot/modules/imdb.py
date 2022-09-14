@@ -36,7 +36,7 @@ async def is_register_admin(chat, user):
 @register(pattern="^/imdb (.*)")
 def imdb(e):
     if e.is_group:
-        if not (await is_register_admin(e.input_chat, e.message.sender_id)):
+        if not (is_register_admin(e.input_chat, e.message.sender_id)):
             await event.reply(
                 " You are not admin. You can't use this command.. But you can use in my pm"
             )
