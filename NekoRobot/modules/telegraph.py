@@ -2,7 +2,7 @@
 BSD 2-Clause License
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince]
-Copyright (c) 2022-2023,Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (c) 2022-2023, Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -45,7 +45,7 @@ def telegrap(event):
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
         datetime.now()
-        reply_msg = await event.get_reply_message()
+        reply_msg = event.get_reply_message()
         input_str = event.pattern_match.group(1)
         if input_str == "gm":
             downloaded_file_name = await tbot.download_media(
