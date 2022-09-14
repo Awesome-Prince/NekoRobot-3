@@ -186,7 +186,7 @@ async def unban_user(
 @bot_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
 @user_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
 @loggable
-async def ban(
+def ban(
     update: Update, context: CallbackContext
 ) -> Optional[str]:  # sourcery no-metrics
     global delsilent
