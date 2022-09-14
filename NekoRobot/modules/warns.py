@@ -403,7 +403,8 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
         chat = update.effective_chat  # type: Optional[Chat]
         if not is_user_admin(update, int(user.id)):
             await query.answer(text="You are not authorized to remove this warn! Only administrators may remove warns.", show_alert=True)
-            return ""
+            return
+         
         if res := sql.remove_warn(user_id, chat.id):
             await update.effective_message.edit_text(
                 f"Warn removed by {mention_html(user.id, user.first_name)}." if not is_anon(user, chat) else "anon admin")
