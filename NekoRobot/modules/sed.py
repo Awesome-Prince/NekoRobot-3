@@ -28,7 +28,7 @@ import sre_constants
 import regex
 import telegram
 from telegram import Update
-from telegram.ext import CallbackContext
+from telegram.ext import CallbackContext, filters
 
 from NekoRobot import LOGGER, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleMessageHandler
@@ -161,7 +161,7 @@ If you want to use these characters, make sure you escape them!
 __mod_name__ = "Sed/Regex"
 
 SED_HANDLER = DisableAbleMessageHandler(
-    filter.regex(r"s([{}]).*?\1.*".format("".join(DELIMITERS))),
+    filters.Regex(r"s([{}]).*?\1.*".format("".join(DELIMITERS))),
     sed,
     friendly="sed",
     block=False,
