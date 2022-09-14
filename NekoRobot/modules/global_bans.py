@@ -544,17 +544,15 @@ Constantly help banning spammers off from your group automatically So, you wont 
 *Note:* Users can appeal spamwatch bans at @SpamwatchSupport
 """
 
-GBAN_HANDLER = CommandHandler("gban", gban, block=False)
-UNGBAN_HANDLER = CommandHandler("ungban", ungban, block=False)
-GBAN_LIST = CommandHandler("gbanlist", gbanlist, block=False)
+GBAN_HANDLER = CommandHandler("gban", gban)
+UNGBAN_HANDLER = CommandHandler("ungban", ungban)
+GBAN_LIST = CommandHandler("gbanlist", gbanlist)
 
 GBAN_STATUS = CommandHandler(
-    "antispam", gbanstat, filters=filter.chat_type.groups, block=False
-)
+    "antispam", gbanstat, filters=filters.ChatType.GROUPS)
 
 GBAN_ENFORCER = MessageHandler(
-    filter.all & filter.chat_type.groups, enforce_gban, block=False
-)
+    filters.ALL & filters.ChatType.GROUPS, enforce_gban)
 
 NEKO_PTB.add_handler(GBAN_HANDLER)
 NEKO_PTB.add_handler(UNGBAN_HANDLER)
