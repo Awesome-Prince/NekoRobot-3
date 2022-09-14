@@ -100,7 +100,7 @@ def check_message(_: ContextTypes, message):
         return True
     return bool(
         reply_msg
-        and reply_msg.from_user.id == BOT_ID
+        and reply_msg.from_user.id == 5555945923
         or message.chat.type == "private"
     )
 
