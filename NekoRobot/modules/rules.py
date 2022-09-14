@@ -29,10 +29,10 @@ from telegram import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message,
-    ParseMode,
     Update,
     User,
 )
+from telegram.constants import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.helpers import escape_markdown
@@ -49,7 +49,7 @@ async def get_rules(update: Update, context: CallbackContext):
 
 
 # Do not async - not from a handler
-async def send_rules(update, chat_id, from_pm=False):
+def send_rules(update, chat_id, from_pm=False):
     bot = NEKO_PTB.bot
     user = update.effective_user  # type: Optional[User]
     try:
