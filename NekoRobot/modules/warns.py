@@ -403,7 +403,6 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
         chat = update.effective_chat  # type: Optional[Chat]
         if not is_user_admin(update, int(user.id)):
             await query.answer(text="You are not authorized to remove this warn! Only administrators may remove warns.", show_alert=True)
-            return
          
         if res := sql.remove_warn(user_id, chat.id):
             await update.effective_message.edit_text(
@@ -421,8 +420,6 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
             "User has already has no warns.".format(mention_html(user.id, user.first_name)),
             parse_mode=ParseMode.HTML,
             )
-            return
-
 
 @bot_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
 @user_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
@@ -521,7 +518,6 @@ async def warn_user(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
             return swarn(chat.get_member(user_id).user, update, reason, message, dels, warner)
         else:
             await message.reply_text("NThat looks like an invalid User ID to me.")
-    return
 
 @bot_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
 @user_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
@@ -543,8 +539,7 @@ async def reset_warns(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
             f"<b>User:</b> {mention_html(warned.id, warned.first_name)}\n"
             f"<b>User ID:</b> <code>{warned.id}</code>"
         )
-    await message.reply_text("NNo user has been designated!")
-    return
+    await message.reply_text("No user has been designated!")
 
 async def warns(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     args = context.args
@@ -649,7 +644,6 @@ async def list_warn_filters(update: Update, context: ContextTypes.DEFAULT_TYPE) 
 
     if not all_handlers:
         await update.effective_message.reply_text("No warning filters are active here!")
-        return
 
     filter_list = CURRENT_WARNING_FILTER_STRING
     for keyword in all_handlers:
@@ -673,17 +667,17 @@ async def reply_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Op
     user: Optional[User] = update.effective_user
 
     if not user:  # Ignore channel
-        return
+        return ""
 
     if user.id == 777000:
-        return
+        return ""
     if is_approved(chat.id, user.id):
-        return
+        return ""
 
     chat_warn_filters = sql.get_chat_warn_triggers(chat.id)
     to_match = extract_text(message)
     if not to_match:
-        return
+        return ""
 
     for keyword in chat_warn_filters:
         pattern = r"( |^|[^\w])" + re.escape(keyword) + r"( |$|[^\w])"
@@ -691,7 +685,6 @@ async def reply_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Op
             user: Optional[User] = update.effective_user
             warn_filter = sql.get_warn_filter(chat.id, keyword)
             return await warn(user, update, warn_filter.reply, message)
-    return
 
 @user_admin_check(AdminPerms.CAN_CHANGE_INFO)
 @loggable
@@ -719,8 +712,6 @@ async def set_warn_limit(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         limit, _ = sql.get_warn_setting(chat.id)
 
         await msg.reply_text(f"The current warn limit is {limit}")
-    return
-
 
 @user_admin_check(AdminPerms.CAN_CHANGE_INFO)
 async def set_warn_strength(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -763,8 +754,6 @@ async def set_warn_strength(update: Update, context: ContextTypes.DEFAULT_TYPE) 
                 "Warns are currently set to *Ban* users when they exceed the limits.",
                 parse_mode=ParseMode.MARKDOWN_V2,
             )
-    return
-
 
 def __stats__():
     return (
