@@ -576,7 +576,7 @@ async def warns(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.effective_message.reply_text("This user doesn't have any warns!")
 
 @bot_admin_check(AdminPerms.CAN_RESTRICT_MEMBERS)
-# CUTIEPII_PTB handler stop - do not async
+# NEKO_PTB handler stop - do not async
 @user_admin_check(AdminPerms.CAN_CHANGE_INFO)
 async def add_warn_filter(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat: Optional[Chat] = update.effective_chat

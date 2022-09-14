@@ -99,8 +99,8 @@ async def connection_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     conn = await connected(context.bot, update, chat, user.id, need_admin=True)
 
     if conn:
-        chat = await CUTIEPII_PTB.bot.getChat(conn)
-        chat_name = await CUTIEPII_PTB.bot.getChat(conn).title
+        chat = await NEKO_PTB.bot.getChat(conn)
+        chat_name = await NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type != "private":
             return
@@ -187,7 +187,7 @@ async def connect_chat(
                 buttons = []
             conn = await connected(context.bot, update, chat, user.id, need_admin=False)
             if conn:
-                connectedchat = await CUTIEPII_PTB.bot.getChat(conn)
+                connectedchat = await NEKO_PTB.bot.getChat(conn)
                 text = (
                     f"You are currently connected to *{connectedchat.title}* (`{conn}`)"
                 )
