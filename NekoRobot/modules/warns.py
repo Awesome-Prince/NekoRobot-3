@@ -2,7 +2,7 @@
 BSD 2-Clause License
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince]
-Copyright (c) 2022-2023,Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (c) 2022-2023, Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -406,9 +406,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
             return ""
         if res := sql.remove_warn(user_id, chat.id):
             await update.effective_message.edit_text(
-                f"Warn removed by {mention_html(user.id, user.first_name)}." if not is_anon(user, chat) else "anon admin"),
-                parse_mode=ParseMode.HTML,
-            )
+                f"Warn removed by {mention_html(user.id, user.first_name)}." if not is_anon(user, chat) else "anon admin")
 
             user_member = await chat.get_member(user_id)
             return "<b>{}:</b>" \
