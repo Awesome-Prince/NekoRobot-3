@@ -311,7 +311,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
                                     text="🚑 Support", url=f"https://telegram.dog/{SUPPORT_CHAT}"
                                 ),
                                 InlineKeyboardButton(
-                                    text="📢 Updates", url="https://telegram.dog/Black_Knights_Union"
+                                    text="📢 Updates", url="https://telegram.dog/Programmer_Updates"
                                 ),
                             ]
                         ],
