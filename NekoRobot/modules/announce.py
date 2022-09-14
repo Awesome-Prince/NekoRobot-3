@@ -1,17 +1,17 @@
 import html
 
 from telegram import Update
-from telegram.ext import CallbackContext
+from telegram.ext import CallbackContext, filters
 from telegram.helpers import mention_html
 
 import NekoRobot.modules.sql.logger_sql as sql
+from NekoRobot import NEKO_PTB
 from NekoRobot.modules.helper_funcs.anonymous import AdminPerms
 from NekoRobot.modules.helper_funcs.anonymous import user_admin as u_admin
 from NekoRobot.modules.helper_funcs.decorators import neko_cmd
 from NekoRobot.modules.log_channel import loggable
 
 
-@neko_cmd(command="announce", pass_args=True)
 @u_admin(AdminPerms.CAN_CHANGE_INFO)
 @loggable
 def announcestat(update: Update, context: CallbackContext) -> str:
@@ -59,3 +59,5 @@ def announcestat(update: Update, context: CallbackContext) -> str:
 
 def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
+
+NEKO_PTB.add_handler(DisableAbleCommandHandler("announce", announcestat, filters=filters.ChatType.GROUPS))
