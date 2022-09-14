@@ -1,191 +1,158 @@
-import html
-import json
+"""
+BSD 2-Clause License
+Copyright (C) 2017-2019, Paul Larsen
+Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince]
+Copyright (c) 2022-2023,Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+"""
+
 import re
+import requests
 from time import sleep
 
-import requests
-from telegram import (
-    CallbackQuery,
-    Chat,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Update,
-    User,
+
+from NekoRobot import NEKO_PTB, DEV_USERS
+from NekoRobot.modules.helper_funcs.chat_status import (
+    is_user_admin,
 )
+from NekoRobot.modules.helper_funcs.anonymous import user_admin
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
-from telegram.error import BadRequest, Forbidden, RetryAfter
 from telegram.ext import (
-    CallbackContext,
-    CallbackQueryHandler,
-    CommandHandler,
-    MessageHandler,
+    ContextTypes, CallbackQueryHandler,
+    CommandHandler, filters, MessageHandler,
 )
-from telegram.helpers import mention_html
 
-import NekoRobot.modules.sql.chatbot_sql as sql
-from NekoRobot import NEKO_PTB
-from NekoRobot.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
-from NekoRobot.modules.helper_funcs.filters import Customfilter
-from NekoRobot.modules.log_channel import gloggable
-
-
-@user_admin_no_reply
-@gloggable
-async def kukirm(update: Update, context: CallbackContext) -> str:
-    query: Optional[CallbackQuery] = update.callback_query
-    user: Optional[User] = update.effective_user
-    match = re.match(r"rm_chat\((.+?)\)", query.data)
-    if match:
-        user_id = match.group(1)
-        chat: Optional[Chat] = update.effective_chat
-        is_kuki = sql.rem_kuki(chat.id)
-        if is_kuki:
-            is_kuki = sql.rem_kuki(user_id)
-            return (
-                f"<b>{html.escape(chat.title)}:</b>\n"
-                f"AI_DISABLED\n"
-                f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-            )
-        else:
-            update.effective_message.edit_text(
-                "Hey Darling Neko Chatbot disable by {}.".format(
-                    mention_html(user.id, user.first_name)
-                ),
-                parse_mode=ParseMode.HTML,
-            )
-
-    return ""
-
-
-@user_admin_no_reply
-@gloggable
-async def kukiadd(update: Update, context: CallbackContext) -> str:
-    query: Optional[CallbackQuery] = update.callback_query
-    user: Optional[User] = update.effective_user
-    match = re.match(r"add_chat\((.+?)\)", query.data)
-    if match:
-        user_id = match.group(1)
-        chat: Optional[Chat] = update.effective_chat
-        is_kuki = sql.set_kuki(chat.id)
-        if is_kuki:
-            is_kuki = sql.set_kuki(user_id)
-            return (
-                f"<b>{html.escape(chat.title)}:</b>\n"
-                f"AI_ENABLE\n"
-                f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-            )
-        else:
-            update.effective_message.edit_text(
-                "Hey Darling Neko Chatbot enable by {}.".format(
-                    mention_html(user.id, user.first_name)
-                ),
-                parse_mode=ParseMode.HTML,
-            )
-
-    return ""
+CHATBOT_ENABLED_CHATS = []
 
 
 @user_admin
-@gloggable
-async def kuki(update: Update, context: CallbackContext):
-    update.effective_user
-    message = update.effective_message
-    msg = "Choose an option"
-    keyboard = InlineKeyboardMarkup(
+async def chatbot_toggle(update: Update):
+    keyboard = [
         [
-            [InlineKeyboardButton(text="Enable", callback_data="add_chat({})")],
-            [InlineKeyboardButton(text="Disable", callback_data="rm_chat({})")],
-        ]
-    )
-    message.reply_text(
-        msg,
-        reply_markup=keyboard,
-        parse_mode=ParseMode.HTML,
-    )
+            InlineKeyboardButton("Enable", callback_data="chatbot_enable"),
+            InlineKeyboardButton("Disable", callback_data="chatbot_disable"),
+        ],
+    ]
+
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.effective_message.reply_text("Choose an option:", reply_markup=reply_markup)
 
 
-async def kuki_message(context: CallbackContext, message):
-    reply_message = message.reply_to_message
-    if message.text.lower() == "kuki":
-        return True
-    if reply_message:
-        if reply_message.from_user.id == context.bot.get_me().id:
-            return True
+async def chatbot_handle_callq(update: Update):
+    query = update.callback_query
+    user = update.effective_user
+    chat = update.effective_chat
+    action = query.data.split("_")[1]
+
+    if not await is_user_admin(update, user.id):
+        return await query.answer("This is not for you.")
+
+    if action == "delete":
+        await query.message.delete()
+
+    elif action == "enable":
+        if chat.id in CHATBOT_ENABLED_CHATS:
+            return await query.answer("Chatbot is already enabled")
+        CHATBOT_ENABLED_CHATS.append(chat.id)
+        await query.answer("Chatbot enabled")
+        await query.message.delete()
+
+    elif action == "disable":
+        if chat.id not in CHATBOT_ENABLED_CHATS:
+            return await query.answer("Chatbot is already disabled")
+        CHATBOT_ENABLED_CHATS.remove(chat.id)
+        await query.answer("Chatbot disabled")
+        await query.message.delete()
+
     else:
-        return False
+        await query.answer()
 
 
-async def chatbot(update: Update, context: CallbackContext):
-    message = update.effective_message
+def chatbot_response(query: str) -> str:
+    data = requests.get(
+        f"https://www.kukiapi.xyz/api/apikey=5349869477-KUKIhU1ygu8mm0/Cutiepii/@Awesome_RJ/message={query}"
+    )
+    return data.json()["reply"]
+
+
+def check_message(_: ContextTypes, message):
+    reply_msg = message.reply_to_message
+    text = message.text
+    if re.search("[.|\n]{0,}"+context.bot.first_name+"[.|\n]{0,}", text, flags=re.IGNORECASE):
+        return True
+    return bool(
+        reply_msg
+        and reply_msg.from_user.id == BOT_ID
+        or message.chat.type == "private"
+    )
+
+
+async def chatbot(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    msg = update.effective_message
     chat_id = update.effective_chat.id
+    is_chat = chat_id in CHATBOT_ENABLED_CHATS
     bot = context.bot
-    is_kuki = sql.is_kuki(chat_id)
-    if not is_kuki:
+    if not is_chat:
         return
-
-    if message.text and not message.document:
-        if not kuki_message(context, message):
+    if msg.text and not msg.document:
+        if not check_message(context, msg):
             return
-        Message = message.text
-        bot.send_chat_action(chat_id, action="typing")
-        kukiurl = requests.get(
-            f"https://kukiapi.xyz/api/apikey=5281955434-KUKIyq4NCB2Ca8/himawari/@nekoarsh/message={Message}"
+        # lower the text to ensure text replace checks
+        query = msg.text.lower()
+        botname = bot.first_name.lower()
+        if botname in query:
+            query = query.replace(botname, "bot.name")
+        await bot.sendChatAction(chat_id, action="typing")
+        user_id = update.message.from_user.id
+        response = chatbot_response(query, user_id)
+        if "Aco" in response:
+            response = response.replace("Aco", bot.first_name)
+        if "bot.name" in response:
+            response = response.replace("bot.name", bot.first_name)
+        sleep(0.3)
+        await msg.reply_text(response
+#    , timeout=60
         )
 
-        Kuki = json.loads(kukiurl.text)
-        kuki = Kuki["reply"]
-        await sleep(0.3)
-        message.reply_text(kuki, timeout=60)
+
+async def list_chatbot_chats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    text = "<b>AI-Enabled Chats</b>\n"
+    for chat in CHATBOT_ENABLED_CHATS:
+        x = await context.bot.get_chat(chat)
+        name = x.title or x.first_name
+        text += f"➛ <code>{name}</code>\n"
+    await update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
-async def list_all_chats(update: Update, context: CallbackContext):
-    chats = sql.get_all_kuki_chats()
-    text = "<b>Neko Enabled Chats</b>\n"
-    for chat in chats:
-        try:
-            x = context.bot.get_chat(int(*chat))
-            name = x.title or x.first_name
-            text += f"• <code>{name}</code>\n"
-        except (BadRequest, Forbidden):
-            sql.rem_kuki(*chat)
-        except RetryAfter as e:
-            await sleep(e.retry_after)
-    update.effective_message.reply_text(text, parse_mode="HTML")
-
-
-__help__ = """
-*Admins only Commands*:
-  • `/Chatbot`*:* Shows chatbot control panel
-  
-*Powered By @Programmer_Network*
+__help__ = f"""
+Chatbot utilizes the Brainshop's API and allows {context.bot.first_name} to talk and provides a more interactive group chat experience.
+*Commands:*
+*Admins only:*
+➛ /chatbot*:* Shows chatbot control panel
 """
 
-__mod_name__ = "ChatBot"
+NEKO_PTB.add_handler(CommandHandler("chatbot", chatbot_toggle, block=False))
+NEKO_PTB.add_handler(CallbackQueryHandler(chatbot_handle_callq, pattern=r"chatbot_", block=False))
+NEKO_PTB.add_handler(MessageHandler(filters.TEXT & (~filters.Regex(r"^#[^\s]+") & ~filters.Regex(r"^!") & ~filters.Regex(r"^\/")), chatbot, block=False))
+NEKO_PTB.add_handler(CommandHandler("listaichats", list_chatbot_chats, filters=filters.User(DEV_USERS), block=False))
 
-
-CHATBOTK_HANDLER = CommandHandler("chatbot", kuki, block=False)
-ADD_CHAT_HANDLER = CallbackQueryHandler(kukiadd, pattern=r"add_chat", block=False)
-RM_CHAT_HANDLER = CallbackQueryHandler(kukirm, pattern=r"rm_chat", block=False)
-CHATBOT_HANDLER = MessageHandler(
-    filter.text
-    & (~filter.regex(r"^#[^\s]+") & ~filter.regex(r"^!") & ~filter.regex(r"^\/")),
-    chatbot,
-    block=False,
-)
-LIST_ALL_CHATS_HANDLER = CommandHandler(
-    "allchats", list_all_chats, filters=Customfilter.dev_filter, block=False
-)
-
-NEKO_PTB.add_handler(ADD_CHAT_HANDLER)
-NEKO_PTB.add_handler(CHATBOTK_HANDLER)
-NEKO_PTB.add_handler(RM_CHAT_HANDLER)
-NEKO_PTB.add_handler(LIST_ALL_CHATS_HANDLER)
-NEKO_PTB.add_handler(CHATBOT_HANDLER)
-
-__handlers__ = [
-    ADD_CHAT_HANDLER,
-    CHATBOTK_HANDLER,
-    RM_CHAT_HANDLER,
-    LIST_ALL_CHATS_HANDLER,
-    CHATBOT_HANDLER,
-]
+__mod_name__ = "Chatbot"
+__command_list__ = ["chatbot", "listaichats"]
