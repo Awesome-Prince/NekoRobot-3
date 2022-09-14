@@ -48,7 +48,7 @@ def telegrap(event):
         reply_msg = event.get_reply_message()
         input_str = event.pattern_match.group(1)
         if input_str == "gm":
-            downloaded_file_name = await tbot.download_media(
+            downloaded_file_name = tbot.download_media(
                 reply_msg, TMP_DOWNLOAD_DIRECTORY
             )
             datetime.now()
@@ -91,7 +91,7 @@ def telegrap(event):
                     pass
                 else:
                     await tbot.send_message(event.chat_id, "Not Supported Format Text!")
-                downloaded_file_name = await tbot.download_media(
+                downloaded_file_name = tbot.download_media(
                     reply_msg, TMP_DOWNLOAD_DIRECTORY
                 )
                 m_list = None
