@@ -2,7 +2,7 @@
 BSD 2-Clause License
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince]
-Copyright (c) 2022-2023,Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (c) 2022-2023, Programmer Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -154,13 +154,13 @@ __help__ = """
 __mod_name__ = "Rules"
 
 GET_RULES_HANDLER = CommandHandler(
-    "rules", get_rules, filters=filter.chat_type.groups, block=False
+    "rules", get_rules, filters=filters.ChatType.GROUPS, block=False
 )
 SET_RULES_HANDLER = CommandHandler(
-    "setrules", set_rules, filters=filter.chat_type.groups, block=False
+    "setrules", set_rules, filters=filters.ChatType.GROUPS
 )
 RESET_RULES_HANDLER = CommandHandler(
-    "clearrules", clear_rules, filters=filter.chat_type.groups, block=False
+    "clearrules", clear_rules, filters=filters.ChatType.GROUPS
 )
 
 NEKO_PTB.add_handler(GET_RULES_HANDLER)
