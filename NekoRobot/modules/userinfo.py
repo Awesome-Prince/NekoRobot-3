@@ -221,7 +221,7 @@ def group_info(event) -> None:
     for x in totallist:
         msg += f"\n• [{x.id}](tg://user?id={x.id})"
     msg += f"\n\n**Description**:\n`{ch_full.full_chat.about}`"
-    await event.reply(msg)
+     event.reply(msg)
 
 
 async def gifid(update: Update, context: CallbackContext):

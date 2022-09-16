@@ -87,19 +87,19 @@ async def download_youtube_audio(url: str):
 async def music(_, message):
     global is_downloading
     if len(message.command) != 2:
-        return await message.reply_text("/ytmusic needs a link as argument")
+        return  message.reply_text("/ytmusic needs a link as argument")
     url = message.text.split(None, 1)[1]
     if is_downloading:
-        return await message.reply_text(
+        return  message.reply_text(
             "Another download is in progress, try again after sometime."
         )
     is_downloading = True
-    m = await message.reply_text(f"Downloading {url}", disable_web_page_preview=True)
+    m =  message.reply_text(f"Downloading {url}", disable_web_page_preview=True)
     try:
         loop = get_running_loop()
-        music = await loop.run_in_executor(None, partial(download_youtube_audio, url))
+        music =  loop.run_in_executor(None, partial(download_youtube_audio, url))
         if not music:
-            await m.edit("Too Long, Can't Download.")
+             m.edit("Too Long, Can't Download.")
         (
             title,
             performer,
@@ -109,15 +109,15 @@ async def music(_, message):
         ) = music
     except Exception as e:
         is_downloading = False
-        return await m.edit(str(e))
-    await message.reply_audio(
+        return  m.edit(str(e))
+     message.reply_audio(
         audio_file,
         duration=duration,
         performer=performer,
         title=title,
         thumb=thumbnail_file,
     )
-    await m.delete()
+     m.delete()
     os.remove(audio_file)
     os.remove(thumbnail_file)
     is_downloading = False
@@ -126,7 +126,7 @@ async def music(_, message):
 # Funtion To Download Song
 async def download_song(url):
     async with session.get(url) as resp:
-        song = await resp.read()
+        song =  resp.read()
     song = BytesIO(song)
     song.name = "a.mp3"
     return song
@@ -141,37 +141,37 @@ async def download_song(url):
 async def jssong(_, message):
     global is_downloading
     if len(message.command) < 2:
-        return await message.reply_text("/saavn requires an argument.")
+        return  message.reply_text("/saavn requires an argument.")
     if is_downloading:
-        return await message.reply_text(
+        return  message.reply_text(
             "Another download is in progress, try again after sometime."
         )
     is_downloading = True
     text = message.text.split(None, 1)[1]
-    m = await message.reply_text("Searching...")
+    m =  message.reply_text("Searching...")
     try:
-        songs = await arq.saavn(text)
+        songs =  arq.saavn(text)
         if not songs.ok:
-            await m.edit(songs.result)
+             m.edit(songs.result)
             is_downloading = False
             return
         sname = songs.result[0].song
         slink = songs.result[0].media_url
         ssingers = songs.result[0].singers
         sduration = songs.result[0].duration
-        await m.edit("Downloading")
-        song = await download_song(slink)
-        await m.edit("Uploading")
-        await message.reply_audio(
+         m.edit("Downloading")
+        song =  download_song(slink)
+         m.edit("Uploading")
+         message.reply_audio(
             audio=song,
             title=sname,
             performer=ssingers,
             duration=sduration,
         )
-        await m.delete()
+         m.delete()
     except Exception as e:
         is_downloading = False
-        return await m.edit(str(e))
+        return  m.edit(str(e))
     is_downloading = False
     song.close()
 
@@ -182,15 +182,15 @@ async def jssong(_, message):
 @pgram.on_message(filters.command("lyricz"))
 async def lyrics_func(_, message):
     if len(message.command) < 2:
-        return await message.reply_text("**Usage:**\n/lyrics [QUERY]")
-    m = await message.reply_text("**Searching**")
+        return  message.reply_text("**Usage:**\n/lyrics [QUERY]")
+    m =  message.reply_text("**Searching**")
     query = message.text.strip().split(None, 1)[1]
-    song = await arq.lyrics(query)
+    song =  arq.lyrics(query)
     lyrics = song.result
     if len(lyrics) < 4095:
-        return await m.edit(f"__{lyrics}__")
-    lyrics = await paste(lyrics)
-    await m.edit(f"**LYRICS_TOO_LONG:** [URL]({lyrics})")
+        return  m.edit(f"__{lyrics}__")
+    lyrics =  paste(lyrics)
+     m.edit(f"**LYRICS_TOO_LONG:** [URL]({lyrics})")
 
 
 __help__ = """

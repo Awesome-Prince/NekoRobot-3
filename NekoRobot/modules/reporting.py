@@ -60,15 +60,15 @@ async def report_setting(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         if len(args) >= 1:
             if args[0] in ("yes", "on"):
                 sql.set_user_setting(chat.id, True)
-                await msg.reply_text(
+                 msg.reply_text(
                     "Turned on reporting! You'll be notified whenever anyone reports something.",
                 )
 
             elif args[0] in ("no", "off"):
                 sql.set_user_setting(chat.id, False)
-                await msg.reply_text("Turned off reporting! You wont get any reports.")
+                 msg.reply_text("Turned off reporting! You wont get any reports.")
         else:
-            await msg.reply_text(
+             msg.reply_text(
                 f"Your current report preference is: `{sql.user_should_report(chat.id)}`",
                 parse_mode=ParseMode.MARKDOWN_V2,
             )
@@ -76,18 +76,18 @@ async def report_setting(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     elif len(args) >= 1:
         if args[0] in ("yes", "on"):
             sql.set_chat_setting(chat.id, True)
-            await msg.reply_text(
+             msg.reply_text(
                 "Turned on reporting! Admins who have turned on reports will be notified when /report "
                 "or @admin is called.",
             )
 
         elif args[0] in ("no", "off"):
             sql.set_chat_setting(chat.id, False)
-            await msg.reply_text(
+             msg.reply_text(
                 "Turned off reporting! No admins will be notified on /report or @admin.",
             )
     else:
-        await msg.reply_text(
+         msg.reply_text(
             f"This group's current setting is: `{sql.chat_should_report(chat.id)}`",
             parse_mode=ParseMode.MARKDOWN_V2,
         )
@@ -109,7 +109,7 @@ async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
         log_setting = logsql.get_chat_setting(chat.id)
 
     if message.sender_chat:
-        admin_list = await bot.getChatAdministrators(chat.id)
+        admin_list =  bot.getChatAdministrators(chat.id)
         reported = "Reported to admins."
         for admin in admin_list:
             if admin.user.is_bot:  # AI didnt take over yet
@@ -117,7 +117,7 @@ async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
             with contextlib.suppress(BadRequest):
                 reported += f"<a href=\"tg://user?id={admin.user.id}\">\u2063</a>"
                 LOGGER.exception("Exception while reporting user")
-        await message.reply_text(reported, parse_mode=ParseMode.HTML)
+         message.reply_text(reported, parse_mode=ParseMode.HTML)
 
     if chat and message.reply_to_message and sql.chat_should_report(chat.id):
         reported_user = message.reply_to_message.from_user
@@ -126,18 +126,18 @@ async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
         message = update.effective_message
 
         if not args:
-            await update.effective_message.reply_text("Add a reason for reporting first.")
+             update.effective_message.reply_text("Add a reason for reporting first.")
             return ""
 
         if user.id == reported_user.id:
-            await update.effective_message.reply_text("Uh yeah, Sure sure...maso much?")
+             update.effective_message.reply_text("Uh yeah, Sure sure...maso much?")
             return ""
 
         if user.id == bot.id:
-            await update.effective_message.reply_text("Nice try.")
+             update.effective_message.reply_text("Nice try.")
             return ""
 #        if reported_user.id in REPORT_IMMUNE_USERS:
-#            await update.effective_message.reply_text("Uh? You reporting a disaster?")
+#             update.effective_message.reply_text("Uh? You reporting a disaster?")
 #            return ""
 
         if chat.username and chat.type == Chat.SUPERGROUP:
@@ -193,7 +193,7 @@ async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
             if sql.user_should_report(admin.user.id):
                 try:
                     if chat.type != Chat.SUPERGROUP:
-                        await bot.send_message(
+                         bot.send_message(
                             admin.user.id, msg + link, parse_mode=ParseMode.HTML,
                         )
 
@@ -203,9 +203,9 @@ async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
                             if (
                                 len(message.text.split()) > 1
                             ):  # If user is giving a reason, send his message too
-                                await message.forward(admin.user.id)
+                                 message.forward(admin.user.id)
                     if not chat.username:
-                        await bot.send_message(
+                         bot.send_message(
                             admin.user.id, msg + link, parse_mode=ParseMode.HTML,
                         )
 
@@ -215,10 +215,10 @@ async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
                             if (
                                 len(message.text.split()) > 1
                             ):  # If user is giving a reason, send his message too
-                                await message.forward(admin.user.id)
+                                 message.forward(admin.user.id)
 
                     if chat.username and chat.type == Chat.SUPERGROUP:
-                        await bot.send_message(
+                         bot.send_message(
                             admin.user.id,
                             msg + link,
                             parse_mode=ParseMode.HTML,
@@ -231,7 +231,7 @@ async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str:
                             if (
                                 len(message.text.split()) > 1
                             ):  # If user is giving a reason, send his message too
-                                await message.forward(admin.user.id)
+                                 message.forward(admin.user.id)
 
                 except Forbidden:
                     pass
@@ -269,41 +269,41 @@ async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     splitter = query.data.replace("report_", "").split("=")
     if splitter[1] == "kick":
         try:
-            await bot.banChatMember(splitter[0], splitter[2])
-            await bot.unbanChatMember(splitter[0], splitter[2])
-            await query.answer("✅ Succesfully kicked")
+             bot.banChatMember(splitter[0], splitter[2])
+             bot.unbanChatMember(splitter[0], splitter[2])
+             query.answer("✅ Succesfully kicked")
             return ""
         except Exception as err:
-            await query.answer("🛑 Failed to kick")
-            await bot.sendMessage(
+             query.answer("🛑 Failed to kick")
+             bot.sendMessage(
                 text=f"Error: {err}",
                 chat_id=query.message.chat_id,
                 parse_mode=ParseMode.HTML,
             )
     elif splitter[1] == "banned":
         try:
-            await bot.banChatMember(splitter[0], splitter[2])
-            await query.answer("✅  Succesfully Banned")
+             bot.banChatMember(splitter[0], splitter[2])
+             query.answer("✅  Succesfully Banned")
             return ""
         except Exception as err:
-            await bot.sendMessage(
+             bot.sendMessage(
                 text=f"Error: {err}",
                 chat_id=query.message.chat_id,
                 parse_mode=ParseMode.HTML,
             )
-            await query.answer("🛑 Failed to Ban")
+             query.answer("🛑 Failed to Ban")
     elif splitter[1] == "delete":
         try:
-            await bot.deleteMessage(splitter[0], splitter[3])
-            await query.answer("✅ Message Deleted")
+             bot.deleteMessage(splitter[0], splitter[3])
+             query.answer("✅ Message Deleted")
             return ""
         except Exception as err:
-            await bot.sendMessage(
+             bot.sendMessage(
                 text=f"Error: {err}",
                 chat_id=query.message.chat_id,
                 parse_mode=ParseMode.HTML,
             )
-            await query.answer("🛑 Failed to delete message!")
+             query.answer("🛑 Failed to delete message!")
 
 __help__ = """
 ➛ /report <reason>*:* reply to a message to report it to admins.

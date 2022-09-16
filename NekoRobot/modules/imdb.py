@@ -16,15 +16,15 @@ async def is_register_admin(chat, user):
 
         return isinstance(
             (
-                await tbot(functions.channels.GetParticipantRequest(chat, user))
+                 tbot(functions.channels.GetParticipantRequest(chat, user))
             ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
     if isinstance(chat, types.InputPeerChat):
 
-        ui = await tbot.get_peer_id(user)
+        ui =  tbot.get_peer_id(user)
         ps = (
-            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+             tbot(functions.messages.GetFullChatRequest(chat.chat_id))
         ).full_chat.participants.participants
         return isinstance(
             next((p for p in ps if p.user_id == ui), None),
@@ -37,7 +37,7 @@ async def is_register_admin(chat, user):
 def imdb(e):
     if e.is_group:
         if not (is_register_admin(e.input_chat, e.message.sender_id)):
-            await event.reply(
+             event.reply(
                 " You are not admin. You can't use this command.. But you can use in my pm"
             )
             return
@@ -107,7 +107,7 @@ def imdb(e):
                 mov_rating = r.strong["title"]
         else:
             mov_rating = "Not available"
-        await e.reply(
+         e.reply(
             "<a href=" + poster + ">&#8203;</a>"
             "<b>Title : </b><code>"
             + mov_title
@@ -133,4 +133,4 @@ def imdb(e):
             parse_mode="HTML",
         )
     except IndexError:
-        await e.reply("Please enter a valid movie name !")
+         e.reply("Please enter a valid movie name !")

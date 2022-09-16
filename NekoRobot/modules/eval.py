@@ -76,10 +76,10 @@ async def send(msg, bot, update):
     if len(str(msg)) > 2000:
         with io.BytesIO(str.encode(msg)) as out_file:
             out_file.name = "output.txt"
-            await bot.send_document(chat_id=update.effective_chat.id, document=out_file)
+             bot.send_document(chat_id=update.effective_chat.id, document=out_file)
     else:
         LOGGER.info(f"OUT: '{msg}'")
-        await bot.send_message(
+         bot.send_message(
             chat_id=update.effective_chat.id,
             text=f"`{msg}`",
             parse_mode=ParseMode.MARKDOWN_V2,
@@ -91,19 +91,19 @@ async def aexec(code, client, message):
         "async def __aexec(client, message): "
         + "".join(f"\n {a}" for a in code.split("\n"))
     )
-    return await locals()["__aexec"](client, message)
+    return  locals()["__aexec"](client, message)
 
 
 async def edit_or_reply(msg: Message, **kwargs):
     func = msg.edit_text if msg.from_user.is_self else msg.reply
     spec = getfullargspec(func.__wrapped__).args
-    await func(**{k: v for k, v in kwargs.items() if k in spec})
+     func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
 @dev_plus
 async def execute(update: Update, context: CallbackContext) -> None:
     bot = context.bot
-    await send((await do(exec, bot, update)), bot, update)
+     send(( do(exec, bot, update)), bot, update)
 
 
 async def cleanup_code(code):
@@ -114,7 +114,7 @@ async def cleanup_code(code):
 
 async def do(func, bot, update):
     log_input(update)
-    content = await update.message.text.split(" ", 1)[-1]
+    content =  update.message.text.split(" ", 1)[-1]
     body = cleanup_code(content)
     env = namespace_of(update.message.chat_id, update, bot)
     os.chdir(os.getcwd())
@@ -161,7 +161,7 @@ async def executor(client, message):
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
-        return await message.delete()
+        return  message.delete()
     t1 = time()
     old_stderr = sys.stderr
     old_stdout = sys.stdout
@@ -169,7 +169,7 @@ async def executor(client, message):
     redirected_error = sys.stderr = StringIO()
     stdout, stderr, exc = None, None, None
     try:
-        await aexec(cmd, client, message)
+         aexec(cmd, client, message)
     except Exception:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
@@ -201,13 +201,13 @@ async def executor(client, message):
                 ]
             ]
         )
-        await message.reply_document(
+         message.reply_document(
             document=filename,
             caption=f"**INPUT:**\n`{cmd[:980]}`\n\n**OUTPUT:**\n`Attached Document`",
             quote=False,
             reply_markup=keyboard,
         )
-        await message.delete()
+         message.delete()
         os.remove(filename)
     else:
         t2 = time()
@@ -221,13 +221,13 @@ async def executor(client, message):
                 ]
             ]
         )
-        await edit_or_reply(message, text=final_output, reply_markup=keyboard)
+         edit_or_reply(message, text=final_output, reply_markup=keyboard)
 
 
 @pgram.on_callback_query(filters.regex(r"runtime"))
 async def runtime_func_cq(_, cq):
     runtime = cq.data.split(None, 1)[1]
-    await cq.answer(runtime, show_alert=True)
+     cq.answer(runtime, show_alert=True)
 
 
 @dev_plus
@@ -236,7 +236,7 @@ async def clear(update: Update, context: CallbackContext) -> None:
     log_input(update)
     if update.message.chat_id in namespaces:
         del namespaces[update.message.chat_id]
-    await send("Cleared locals.", bot, update)
+     send("Cleared locals.", bot, update)
 
 
 NEKO_PTB.add_handler(CommandHandler(("x", "ex", "exe", "py"), execute, block=False))

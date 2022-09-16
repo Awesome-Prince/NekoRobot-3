@@ -100,7 +100,7 @@ async def user_is_not_admin_errmsg(
     errmsg = f"You are missing the following rights to use this command:\n*{permission.value}*"
     if cb:
         return cb.answer(errmsg, show_alert=True)
-    return await msg.reply_text(errmsg, parse_mode=ParseMode.MARKDOWN_V2)
+    return  msg.reply_text(errmsg, parse_mode=ParseMode.MARKDOWN_V2)
 
 
 async def button_expired_error(u: Update):

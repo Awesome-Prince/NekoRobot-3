@@ -50,7 +50,7 @@ async def rm_task(task_id=None):
 
 
 async def _get_tasks_text():
-    await rm_task()  # Clean completed tasks
+     rm_task()  # Clean completed tasks
     if not tasks:
         return f"{arrow('')} No pending task"
 

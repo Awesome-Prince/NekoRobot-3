@@ -60,7 +60,7 @@ def get_user(message: Message, text: str) -> [int, str, None]:
 
 async def is_admin(event, user):
     try:
-        sed = await event.client.get_permissions(event.chat_id, user)
+        sed =  event.client.get_permissions(event.chat_id, user)
         is_mod = bool(sed.is_admin)
     except:
         is_mod = False
@@ -110,7 +110,7 @@ def time_formatter(milliseconds: int) -> str:
 async def delete_or_pass(message):
     if message.from_user.id == 1141839926:
         return message
-    return await message.delete()
+    return  message.delete()
 
 
 def humanbytes(size):
@@ -147,18 +147,18 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
         )
         if file_name:
             try:
-                await message.edit(
+                 message.edit(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
                 )
             except FloodWait as e:
-                await asyncio.sleep(e.x)
+                 asyncio.sleep(e.x)
             except MessageNotModified:
                 pass
         else:
             try:
-                await message.edit("{}\n{}".format(type_of_ps, tmp))
+                 message.edit("{}\n{}".format(type_of_ps, tmp))
             except FloodWait as e:
-                await asyncio.sleep(e.x)
+                 asyncio.sleep(e.x)
             except MessageNotModified:
                 pass
 
@@ -187,23 +187,23 @@ async def iter_chats(client):
 async def fetch_audio(client, message):
     time.time()
     if not message.reply_to_message:
-        await message.reply("`Reply To A Video / Audio.`")
+         message.reply("`Reply To A Video / Audio.`")
         return
     warner_stark = message.reply_to_message
     if warner_stark.audio is None and warner_stark.video is None:
-        await message.reply("`Format Not Supported`")
+         message.reply("`Format Not Supported`")
         return
     if warner_stark.video:
-        lel = await message.reply("`Video Detected, Converting To Audio !`")
-        warner_bros = await message.reply_to_message.download()
+        lel =  message.reply("`Video Detected, Converting To Audio !`")
+        warner_bros =  message.reply_to_message.download()
         stark_cmd = f"ffmpeg -i {warner_bros} -map 0:a friday.mp3"
-        await runcmd(stark_cmd)
+         runcmd(stark_cmd)
         final_warner = "friday.mp3"
     elif warner_stark.audio:
-        lel = await edit_or_reply(message, "`Download Started !`")
-        final_warner = await message.reply_to_message.download()
-    await lel.edit("`Almost Done!`")
-    await lel.delete()
+        lel =  edit_or_reply(message, "`Download Started !`")
+        final_warner =  message.reply_to_message.download()
+     lel.edit("`Almost Done!`")
+     lel.delete()
     return final_warner
 
 
@@ -211,20 +211,20 @@ async def edit_or_reply(message, text, parse_mode="md"):
     if message.from_user.id:
         if message.reply_to_message:
             kk = message.reply_to_message.message_id
-            return await message.reply_text(
+            return  message.reply_text(
                 text, reply_to_message_id=kk, parse_mode=parse_mode
             )
-        return await message.reply_text(text, parse_mode=parse_mode)
-    return await message.edit(text, parse_mode=parse_mode)
+        return  message.reply_text(text, parse_mode=parse_mode)
+    return  message.edit(text, parse_mode=parse_mode)
 
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     """run command in terminal"""
     args = shlex.split(cmd)
-    process = await asyncio.create_subprocess_exec(
+    process =  asyncio.create_subprocess_exec(
         *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
-    stdout, stderr = await process.communicate()
+    stdout, stderr =  process.communicate()
     return (
         stdout.decode("utf-8", "replace").strip(),
         stderr.decode("utf-8", "replace").strip(),
@@ -245,27 +245,27 @@ async def convert_to_image(message, client) -> [None, str]:
     ):
         return None
     if message.reply_to_message.photo:
-        final_path = await message.reply_to_message.download()
+        final_path =  message.reply_to_message.download()
     elif message.reply_to_message.sticker:
         if message.reply_to_message.sticker.mime_type == "image/webp":
             final_path = "webp_to_png_s_proton.png"
-            path_s = await message.reply_to_message.download()
+            path_s =  message.reply_to_message.download()
             im = Image.open(path_s)
             im.save(final_path, "PNG")
         else:
-            path_s = await client.download_media(message.reply_to_message)
+            path_s =  client.download_media(message.reply_to_message)
             final_path = "lottie_proton.png"
             cmd = (
                 f"lottie_convert.py --frame 0 -if lottie -of png {path_s} {final_path}"
             )
-            await runcmd(cmd)
+             runcmd(cmd)
     elif message.reply_to_message.audio:
         thumb = message.reply_to_message.audio.thumbs[0].file_id
-        final_path = await client.download_media(thumb)
+        final_path =  client.download_media(thumb)
     elif message.reply_to_message.video or message.reply_to_message.animation:
         final_path = "fetched_thumb.png"
-        vid_path = await client.download_media(message.reply_to_message)
-        await runcmd(f"ffmpeg -i {vid_path} -filter:v scale=500:500 -an {final_path}")
+        vid_path =  client.download_media(message.reply_to_message)
+         runcmd(f"ffmpeg -i {vid_path} -filter:v scale=500:500 -an {final_path}")
     return final_path
 
 
@@ -312,20 +312,20 @@ async def get_administrators(chat: Chat) -> List[User]:
         return _get
     set(
         chat.id,
-        (member.user for member in await chat.get_member(filter="administrators")),
+        (member.user for member in  chat.get_member(filter="administrators")),
     )
 
-    return await get_administrators(chat)
+    return  get_administrators(chat)
 
 
 def admins_only(func: Callable) -> Coroutine:
     async def wrapper(client: Client, message: Message):
         if message.from_user.id == OWNER_ID:
-            return await func(client, message)
-        admins = await get_administrators(message.chat)
+            return  func(client, message)
+        admins =  get_administrators(message.chat)
         for admin in admins:
             if admin.id == message.from_user.id:
-                return await func(client, message)
+                return  func(client, message)
 
     return wrapper
 
@@ -335,7 +335,7 @@ def capture_err(func):
     @wraps(func)
     async def capture(client, message, *args, **kwargs):
         try:
-            return await func(client, message, *args, **kwargs)
+            return  func(client, message, *args, **kwargs)
         except Exception as err:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             errors = traceback.format_exception(
@@ -352,7 +352,7 @@ def capture_err(func):
                 ),
             )
             for x in error_feedback:
-                await pgram.send_message(SUPPORT_CHAT, x)
+                 pgram.send_message(SUPPORT_CHAT, x)
             raise err
 
     return capture
@@ -363,7 +363,7 @@ def capture_err(func):
 
 async def member_permissions(chat_id, user_id):
     perms = []
-    member = await pgram.get_chat_member(chat_id, user_id)
+    member =  pgram.get_chat_member(chat_id, user_id)
     if member.can_post_messages:
         perms.append("can_post_messages")
     if member.can_edit_messages:
@@ -385,7 +385,7 @@ async def member_permissions(chat_id, user_id):
 
 async def current_chat_permissions(chat_id):
     perms = []
-    perm = (await pgram.get_chat(chat_id)).permissions
+    perm = ( pgram.get_chat(chat_id)).permissions
     if perm.can_send_messages:
         perms.append("can_send_messages")
     if perm.can_send_media_messages:
@@ -445,9 +445,9 @@ def get_url(message_1: Message) -> Union[str, None]:
 async def fetch(url):
     async with aiohttp.ClientSession() as session, session.get(url) as resp:
         try:
-            data = await resp.json()
+            data =  resp.json()
         except Exception:
-            data = await resp.text()
+            data =  resp.text()
     return data
 
 

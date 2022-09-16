@@ -95,7 +95,7 @@ async def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True,
                     )
-                    await sleep(0.1)
+                     sleep(0.1)
                 except TelegramError:
                     failed += 1
         if to_user:
@@ -107,7 +107,7 @@ async def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True,
                     )
-                    await sleep(0.1)
+                     sleep(0.1)
                 except TelegramError:
                     failed_user += 1
         update.effective_message.reply_text(

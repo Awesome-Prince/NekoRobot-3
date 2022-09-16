@@ -44,7 +44,7 @@ async def section(
 @capture_err
 async def crypto(_, message):
     if len(message.command) < 2:
-        return await message.reply("/crypto `[currency]`")
+        return  message.reply("/crypto `[currency]`")
 
     currency = message.text.split(None, 1)[1].lower()
 
@@ -52,18 +52,18 @@ async def crypto(_, message):
         {"Available Currencies": "https://plotcryptoprice.herokuapp.com"},
     )
 
-    m = await message.reply("`Processing...`")
+    m =  message.reply("`Processing...`")
 
     try:
-        r = await requests.get(
+        r =  requests.get(
             "https://x.wazirx.com/wazirx-falcon/api/v2.0/crypto_rates",
             timeout=5,
         )
     except Exception:
-        return await m.edit("[ERROR]: Something went wrong.")
+        return  m.edit("[ERROR]: Something went wrong.")
 
     if currency not in r:
-        return await m.edit(
+        return  m.edit(
             "[ERROR]: INVALID CURRENCY",
             reply_markup=btn,
         )
@@ -71,4 +71,4 @@ async def crypto(_, message):
     body = {i.upper(): j for i, j in r.get(currency).items()}
 
     text = section(f"Current Crypto Rates For {currency.upper()}", body)
-    await m.edit(text, reply_markup=btn)
+     m.edit(text, reply_markup=btn)

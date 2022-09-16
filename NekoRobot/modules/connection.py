@@ -96,11 +96,11 @@ async def connection_chat(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     chat = update.effective_chat
     user = update.effective_user
 
-    conn = await connected(context.bot, update, chat, user.id, need_admin=True)
+    conn =  connected(context.bot, update, chat, user.id, need_admin=True)
 
     if conn:
-        chat = await NEKO_PTB.bot.getChat(conn)
-        chat_name = await NEKO_PTB.bot.getChat(conn).title
+        chat =  NEKO_PTB.bot.getChat(conn)
+        chat_name =  NEKO_PTB.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type != "private":
             return
@@ -126,15 +126,15 @@ async def connect_chat(
         if args and len(args) >= 1:
             try:
                 connect_chat = int(args[0])
-                getstatusadmin = await context.bot.get_chat_member(
+                getstatusadmin =  context.bot.get_chat_member(
                     connect_chat, update.effective_message.from_user.id
                 )
             except ValueError:
                 try:
                     connect_chat = str(args[0])
-                    get_chat = await context.bot.getChat(connect_chat)
+                    get_chat =  context.bot.getChat(connect_chat)
                     connect_chat = get_chat.id
-                    getstatusadmin = await context.bot.get_chat_member(
+                    getstatusadmin =  context.bot.get_chat_member(
                         connect_chat, update.effective_message.from_user.id
                     )
                 except BadRequest:
@@ -152,8 +152,8 @@ async def connect_chat(
                 if connection_status := sql.connect(
                     update.effective_message.from_user.id, connect_chat
                 ):
-                    conn_chat = await NEKO_PTB.bot.getChat(
-                        await connected(
+                    conn_chat =  NEKO_PTB.bot.getChat(
+                         connected(
                             context.bot, update, chat, user.id, need_admin=False
                         )
                     )
@@ -185,9 +185,9 @@ async def connect_chat(
                 ]
             else:
                 buttons = []
-            conn = await connected(context.bot, update, chat, user.id, need_admin=False)
+            conn =  connected(context.bot, update, chat, user.id, need_admin=False)
             if conn:
-                connectedchat = await NEKO_PTB.bot.getChat(conn)
+                connectedchat =  NEKO_PTB.bot.getChat(conn)
                 text = (
                     f"You are currently connected to *{connectedchat.title}* (`{conn}`)"
                 )
@@ -238,7 +238,7 @@ async def connect_chat(
             )
 
     else:
-        getstatusadmin = await context.bot.get_chat_member(
+        getstatusadmin =  context.bot.get_chat_member(
             chat.id, update.effective_message.from_user.id
         )
         isadmin = getstatusadmin.status in ("administrator", "creator")
@@ -248,7 +248,7 @@ async def connect_chat(
             if connection_status := sql.connect(
                 update.effective_message.from_user.id, chat.id
             ):
-                chat_name = await NEKO_PTB.bot.getChat(chat.id).title
+                chat_name =  NEKO_PTB.bot.getChat(chat.id).title
                 send_message(
                     update.effective_message,
                     f"Successfully connected to *{chat_name}*.",
@@ -295,7 +295,7 @@ async def connected(bot: Bot, update: Update, chat, user_id, need_admin=True):
     if chat.type == chat.PRIVATE and sql.get_connected_chat(user_id):
 
         conn_id = sql.get_connected_chat(user_id).chat_id
-        getstatusadmin = await bot.get_chat_member(
+        getstatusadmin =  bot.get_chat_member(
             conn_id, update.effective_message.from_user.id
         )
         isadmin = getstatusadmin.status in ("administrator", "creator")
@@ -368,7 +368,7 @@ async def connect_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     if connect_match:
         target_chat = connect_match[1]
-        getstatusadmin = await context.bot.get_chat_member(
+        getstatusadmin =  context.bot.get_chat_member(
             target_chat, query.from_user.id
         )
         isadmin = getstatusadmin.status in ("administrator", "creator")
@@ -377,13 +377,13 @@ async def connect_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
         if (isadmin) or (isallow and ismember) or (user.id in SUDO_USERS):
             if connection_status := sql.connect(query.from_user.id, target_chat):
-                conn_chat = await NEKO_PTB.bot.getChat(
-                    await connected(
+                conn_chat =  NEKO_PTB.bot.getChat(
+                     connected(
                         context.bot, update, chat, user.id, need_admin=False
                     )
                 )
                 chat_name = conn_chat.title
-                await query.message.edit_text(
+                 query.message.edit_text(
                     "Successfully connected to *{}*. \nUse `/helpconnect` to check available commands.".format(
                         chat_name
                     ),
@@ -391,25 +391,25 @@ async def connect_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                 )
                 sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
             else:
-                await query.message.edit_text("Connection failed!")
+                 query.message.edit_text("Connection failed!")
         else:
-            await context.bot.answer_callback_query(
+             context.bot.answer_callback_query(
                 query.id, "Connection to this chat is not allowed!", show_alert=True
             )
     elif disconnect_match:
         if disconnection_status := sql.disconnect(query.from_user.id):
-            sql.disconnected_chat = await query.message.edit_text(
+            sql.disconnected_chat =  query.message.edit_text(
                 "Disconnected from chat!"
             )
         else:
-            await context.bot.answer_callback_query(
+             context.bot.answer_callback_query(
                 query.id, "You're not connected!", show_alert=True
             )
     elif clear_match:
         sql.clear_history_conn(query.from_user.id)
-        await query.message.edit_text("History connected has been cleared!")
+         query.message.edit_text("History connected has been cleared!")
     elif connect_close:
-        await query.message.edit_text("Closed.\nTo open again, type /connect")
+         query.message.edit_text("Closed.\nTo open again, type /connect")
     else:
         connect_chat(update, context)
 

@@ -71,11 +71,11 @@ def capture_err(func):
 
         try:
 
-            return await func(client, message, *args, **kwargs)
+            return  func(client, message, *args, **kwargs)
 
         except ChatWriteForbidden:
 
-            await app.leave_chat(message.chat.id)
+             app.leave_chat(message.chat.id)
 
             return
 
@@ -100,7 +100,7 @@ def capture_err(func):
 
             for x in error_feedback:
 
-                await app.send_message(LOG_GROUP_ID, x)
+                 app.send_message(LOG_GROUP_ID, x)
 
             raise err
 

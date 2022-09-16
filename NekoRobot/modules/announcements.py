@@ -81,8 +81,8 @@ async def chatmemberupdates(
         title_change is not None and status_change is None
     ):  # extract title changes for admins
         oldtitle, newtitle = title_change
-        cause_name = await update.chat_member.from_user.mention_html()
-        member_name = await update.chat_member.new_chat_member.user.mention_html()
+        cause_name =  update.chat_member.from_user.mention_html()
+        member_name =  update.chat_member.new_chat_member.user.mention_html()
         if oldtitle != newtitle:
 
             if str(update.chat_member.from_user.id) == str(bot.id):  # bot action
@@ -90,7 +90,7 @@ async def chatmemberupdates(
 
             if oldtitle is None:
                 if do_announce(chat):
-                    await update.effective_chat.send_message(
+                     update.effective_chat.send_message(
                         f"{member_name}'s title was set by {cause_name}.\nold title: {oldtitle}\nnew title: '<code>{newtitle}</code>'",
                         parse_mode=ParseMode.HTML,
                     )
@@ -106,7 +106,7 @@ async def chatmemberupdates(
 
             if newtitle is None:
                 if do_announce(chat):
-                    await update.effective_chat.send_message(
+                     update.effective_chat.send_message(
                         f"{member_name}'s title was removed by {cause_name}.\nold title: '<code>{oldtitle}</code"
                         f">'\nnew title: {newtitle}",
                         parse_mode=ParseMode.HTML,
@@ -121,7 +121,7 @@ async def chatmemberupdates(
                 )
                 return log_message
             if do_announce(chat):
-                await update.effective_chat.send_message(
+                 update.effective_chat.send_message(
                     f"{member_name}'s title was changed by {cause_name}.\nold title: '<code>{oldtitle}</code"
                     f">'\nnew title: '<code>{newtitle}</code>'",
                     parse_mode=ParseMode.HTML,
@@ -144,13 +144,13 @@ async def chatmemberupdates(
         if str(update.chat_member.from_user.id) == str(bot.id):
             return ""  # we handle these in their respective modules same as before
 
-        cause_name = await update.chat_member.from_user.mention_html()
-        member_name = await update.chat_member.new_chat_member.user.mention_html()
+        cause_name =  update.chat_member.from_user.mention_html()
+        member_name =  update.chat_member.new_chat_member.user.mention_html()
 
         if oldstat == "administrator":
             if newstat == "member":
                 if do_announce(chat):
-                    await update.effective_chat.send_message(
+                     update.effective_chat.send_message(
                         f"{member_name} was demoted by {cause_name}.",
                         parse_mode=ParseMode.HTML,
                     )
@@ -168,7 +168,7 @@ async def chatmemberupdates(
 
             if newstat == "kicked":
                 if do_announce(chat):
-                    await update.effective_chat.send_message(
+                     update.effective_chat.send_message(
                         f"{member_name} was demoted and removed by {cause_name}.",
                         parse_mode=ParseMode.HTML,
                     )
@@ -202,7 +202,7 @@ async def chatmemberupdates(
                 oldtitle, newtitle = title_change
                 if oldtitle != newtitle:
                     if do_announce(chat):
-                        await update.effective_chat.send_message(
+                         update.effective_chat.send_message(
                             f"{member_name} was promoted by {cause_name} with the title <code>{newtitle}</code>.",
                             parse_mode=ParseMode.HTML,
                         )
@@ -221,7 +221,7 @@ async def chatmemberupdates(
 
             else:
                 if do_announce(chat):
-                    await update.effective_chat.send_message(
+                     update.effective_chat.send_message(
                         f"{member_name} was promoted by {cause_name}.",
                         parse_mode=ParseMode.HTML,
                     )
@@ -239,7 +239,7 @@ async def chatmemberupdates(
 
         if oldstat != "restricted" and newstat == "restricted":
             if do_announce(chat):
-                await update.effective_chat.send_message(
+                 update.effective_chat.send_message(
                     f"{member_name} was muted by {cause_name}.",
                     parse_mode=ParseMode.HTML,
                 )
@@ -257,7 +257,7 @@ async def chatmemberupdates(
 
         if oldstat == "restricted" and newstat != "restricted":
             if do_announce(chat):
-                await update.effective_chat.send_message(
+                 update.effective_chat.send_message(
                     f"{member_name} was unmuted by {cause_name}.",
                     parse_mode=ParseMode.HTML,
                 )
@@ -274,13 +274,13 @@ async def chatmemberupdates(
             return log_message
 
         if str(update.chat_member.from_user.id) == str(bot.id):
-            cause_name = await message.from_user.mention_html()
+            cause_name =  message.from_user.mention_html()
         else:
-            cause_name = await update.chat_member.from_user.mention_html()
+            cause_name =  update.chat_member.from_user.mention_html()
 
         if oldstat != "kicked" and newstat == "kicked":
             if do_announce(chat):
-                await update.effective_chat.send_message(
+                 update.effective_chat.send_message(
                     f"{member_name} was banned by {cause_name}.",
                     parse_mode=ParseMode.HTML,
                 )
@@ -298,7 +298,7 @@ async def chatmemberupdates(
 
         if oldstat == "kicked" and newstat != "kicked":
             if do_announce(chat):
-                await update.effective_chat.send_message(
+                 update.effective_chat.send_message(
                     f"{member_name} was unbanned by {cause_name}.",
                     parse_mode=ParseMode.HTML,
                 )
@@ -389,7 +389,7 @@ async def mychatmemberupdates(
                 f"<b>ID</b>: <code>{update.effective_user.id}</code>\n"
                 f"<b>Chat ID</b>: <code>{update.effective_chat.id}</code>"
             )
-            await context.bot.send_message(
+             context.bot.send_message(
                 OWNER_ID, new_group, parse_mode=ParseMode.HTML
             )
 

@@ -106,7 +106,7 @@ class InlineQueryResultAudio(InlineQueryResult):
         )
 
         message, entities = (
-            await utils.parse_text_entities(
+             utils.parse_text_entities(
                 client,
                 self.caption,
                 self.parse_mode,
@@ -122,10 +122,10 @@ class InlineQueryResultAudio(InlineQueryResult):
             thumb=thumb,
             content=audio,
             send_message=(
-                await self.input_message_content.write(client, self.reply_markup)
+                 self.input_message_content.write(client, self.reply_markup)
                 if self.input_message_content
                 else raw.types.InputBotInlineMessageMediaAuto(
-                    reply_markup=await self.reply_markup.write(client)
+                    reply_markup= self.reply_markup.write(client)
                     if self.reply_markup
                     else None,
                     message=message,
@@ -197,7 +197,7 @@ class InlineQueryResultCachedDocument(InlineQueryResult):
         document = get_input_file_from_file_id(self.file_id)
 
         message, entities = (
-            await utils.parse_text_entities(
+             utils.parse_text_entities(
                 client,
                 self.caption,
                 self.parse_mode,
@@ -212,10 +212,10 @@ class InlineQueryResultCachedDocument(InlineQueryResult):
             description=self.description,
             document=document,
             send_message=(
-                await self.input_message_content.write(client, self.reply_markup)
+                 self.input_message_content.write(client, self.reply_markup)
                 if self.input_message_content
                 else raw.types.InputBotInlineMessageMediaAuto(
-                    reply_markup=await self.reply_markup.write(client)
+                    reply_markup= self.reply_markup.write(client)
                     if self.reply_markup
                     else None,
                     message=message,

@@ -64,7 +64,7 @@ async def gitpull(update: Update, context: CallbackContext):
 
     for i in reversed(range(5)):
         sent_msg.edit_text(sent_msg_text + str(i + 1))
-        await sleep(1)
+         sleep(1)
 
     sent_msg.edit_text("Restarted.")
 

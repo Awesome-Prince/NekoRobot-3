@@ -27,9 +27,9 @@ def _(td):
     try:
         resp = requests.get("https://api.safone.tech/truth").json()
         results = f"{resp['truth']}"
-        return await td.reply(results)
+        return  td.reply(results)
     except Exception:
-        await td.reply(f"Error Report @{SUPPORT_CHAT}")
+         td.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
 @register(pattern="^/dare ?(.*)")
@@ -37,9 +37,9 @@ def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/dare").json()
         results = f"{resp['dare']}"
-        return await dr.reply(results)
+        return  dr.reply(results)
     except Exception:
-        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+         dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
 @register(pattern="^/fact ?(.*)")
@@ -47,9 +47,9 @@ def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/fact").json()
         results = f"{resp['fact']}"
-        return await dr.reply(results)
+        return  dr.reply(results)
     except Exception:
-        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+         dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
 @register(pattern="^/quotes ?(.*)")
@@ -57,9 +57,9 @@ def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/quote").json()
         results = f"{resp['quote']}"
-        return await dr.reply(results)
+        return  dr.reply(results)
     except Exception:
-        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+         dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
 @register(pattern="^/joke ?(.*)")
@@ -67,9 +67,9 @@ def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/joke").json()
         results = f"{resp['joke']}"
-        return await dr.reply(results)
+        return  dr.reply(results)
     except Exception:
-        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+         dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
 @register(pattern="^/bully ?(.*)")
@@ -77,9 +77,9 @@ def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/bully").json()
         results = f"{resp['bully']}"
-        return await dr.reply(results)
+        return  dr.reply(results)
     except Exception:
-        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+         dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
 @register(pattern="^/advice ?(.*)")
@@ -87,9 +87,9 @@ def _(dr):
     try:
         resp = requests.get("https://api.safone.tech/advice").json()
         results = f"{resp['advice']}"
-        return await dr.reply(results)
+        return  dr.reply(results)
     except Exception:
-        await dr.reply(f"Error Report @{SUPPORT_CHAT}")
+         dr.reply(f"Error Report @{SUPPORT_CHAT}")
 
 
 def runs(update: Update, context: CallbackContext):

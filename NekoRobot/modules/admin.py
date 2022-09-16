@@ -63,7 +63,7 @@ async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
             (
-                await bot(functions.channels.GetParticipantRequest(chat, user))
+                 bot(functions.channels.GetParticipantRequest(chat, user))
             ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
@@ -72,7 +72,7 @@ async def is_register_admin(chat, user):
 
 
 async def can_promote_users(message):
-    result = await bot(
+    result =  bot(
         functions.channels.GetParticipantRequest(
             channel=message.chat_id,
             user_id=message.sender_id,
@@ -85,7 +85,7 @@ async def can_promote_users(message):
 
 
 async def can_ban_users(message):
-    result = await bot(
+    result =  bot(
         functions.channels.GetParticipantRequest(
             channel=message.chat_id,
             user_id=message.sender_id,
@@ -102,9 +102,9 @@ async def get_users(show):
     if not show.is_group:
         return
     if show.is_group:
-        if not await is_register_admin(show.input_chat, show.sender_id):
+        if not  is_register_admin(show.input_chat, show.sender_id):
             return
-    info = await bot.get_entity(show.chat_id)
+    info =  bot.get_entity(show.chat_id)
     title = info.title if info.title else "this chat"
     mentions = "Users in {}: \n".format(title)
     async for user in bot.iter_participants(show.chat_id):
@@ -115,7 +115,7 @@ async def get_users(show):
     file = open("userslist.txt", "w+")
     file.write(mentions)
     file.close()
-    await bot.send_file(
+     bot.send_file(
         show.chat_id,
         "userslist.txt",
         caption="Users in {}".format(title),
@@ -580,15 +580,15 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
 @bot.on(events.NewMessage(pattern="/middemote(?: |$)(.*)"))
 async def middemote(dmod):
     if dmod.is_group:
-        if not await can_promote_users(message=dmod):
+        if not  can_promote_users(message=dmod):
             return
     else:
         return
 
-    user = await get_user_from_event(dmod)
+    user =  get_user_from_event(dmod)
     if dmod.is_group:
-        if not await is_register_admin(dmod.input_chat, user.id):
-            await dmod.reply("**Darling, i cant demote non-admin**")
+        if not  is_register_admin(dmod.input_chat, user.id):
+             dmod.reply("**Darling, i cant demote non-admin**")
             return
     else:
         return
@@ -609,28 +609,28 @@ async def middemote(dmod):
     )
     # Edit Admin Permission
     try:
-        await bot(EditAdminRequest(dmod.chat_id, user.id, newrights, "Admin"))
-        await dmod.reply("**Mid Demoted Successfully!**")
+         bot(EditAdminRequest(dmod.chat_id, user.id, newrights, "Admin"))
+         dmod.reply("**Mid Demoted Successfully!**")
 
     # If we catch BadRequestError from Telethon
     # Assume we don't have permission to demote
     except Exception:
-        await dmod.reply("**Failed to demote.**")
+         dmod.reply("**Failed to demote.**")
         return
 
 
 @bot.on(events.NewMessage(pattern="/lowdemote(?: |$)(.*)"))
 async def lowdemote(dmod):
     if dmod.is_group:
-        if not await can_promote_users(message=dmod):
+        if not  can_promote_users(message=dmod):
             return
     else:
         return
 
-    user = await get_user_from_event(dmod)
+    user =  get_user_from_event(dmod)
     if dmod.is_group:
-        if not await is_register_admin(dmod.input_chat, user.id):
-            await dmod.reply("**Darling, i cant demote non-admin**")
+        if not  is_register_admin(dmod.input_chat, user.id):
+             dmod.reply("**Darling, i cant demote non-admin**")
             return
     else:
         return
@@ -651,13 +651,13 @@ async def lowdemote(dmod):
     )
     # Edit Admin Permission
     try:
-        await bot(EditAdminRequest(dmod.chat_id, user.id, newrights, "Admin"))
-        await dmod.reply("**Demoted Successfully!**")
+         bot(EditAdminRequest(dmod.chat_id, user.id, newrights, "Admin"))
+         dmod.reply("**Demoted Successfully!**")
 
     # If we catch BadRequestError from Telethon
     # Assume we don't have permission to demote
     except Exception:
-        await dmod.reply("**Failed to demote.**")
+         dmod.reply("**Failed to demote.**")
         return
 
 

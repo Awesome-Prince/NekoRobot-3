@@ -16,14 +16,14 @@ def eval(event):
     cmd = "".join(event.message.message.split(maxsplit=1)[1:])
     if not cmd:
         return
-    catevent = await client.send_message(event.chat.id, "`Running ...`", reply_to=event)
+    catevent =  client.send_message(event.chat.id, "`Running ...`", reply_to=event)
     old_stderr = sys.stderr
     old_stdout = sys.stdout
     redirected_output = sys.stdout = io.StringIO()
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
     try:
-        await aexec(cmd, event)
+         aexec(cmd, event)
     except Exception:
         exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
@@ -44,7 +44,7 @@ def eval(event):
     if len(final_output) > MAX_MESSAGE_SIZE_LIMIT:
         with io.BytesIO(str.encode(final_output)) as out_file:
             out_file.name = "eval.text"
-            await client.send_file(
+             client.send_file(
                 event.chat_id,
                 out_file,
                 force_document=True,
@@ -52,7 +52,7 @@ def eval(event):
                 caption=cmd,
             )
     else:
-        await catevent.edit(final_output)
+         catevent.edit(final_output)
 
 
 async def aexec(code, smessatatus):
@@ -61,10 +61,10 @@ async def aexec(code, smessatatus):
     async def p(_x):
         return print(slitu.yaml_format(_x))
 
-    reply = await event.get_reply_message()
+    reply =  event.get_reply_message()
     exec(
         "async def __aexec(message, reply, client, p): "
         + "\n event = smessatatus = message"
         + "".join(f"\n {l}" for l in code.split("\n"))
     )
-    return await locals()["__aexec"](message, reply, client, p)
+    return  locals()["__aexec"](message, reply, client, p)

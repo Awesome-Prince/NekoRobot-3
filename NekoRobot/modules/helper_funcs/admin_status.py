@@ -86,7 +86,7 @@ async def bot_admin_check(permission: AdminPerms = None):
                 if getattr(bot_member, permission.value):
                     func(update, context, *args, **kwargs)
                     return
-                return await update.effective_message.reply_text(
+                return  update.effective_message.reply_text(
                     f"I can't perform this action due to missing permissions;\n"
                     f"Make sure i am an admin and {permission.name.lower().replace('is_', 'am ').replace('_', ' ')}!"
                 )
@@ -95,7 +95,7 @@ async def bot_admin_check(permission: AdminPerms = None):
                 bot_member.status == "administrator"
             ):  # if no perm is required, check for admin-ship only
                 return func(update, context, *args, **kwargs)
-            return await update.effective_message.reply_text(
+            return  update.effective_message.reply_text(
                 "I can't perform this action because I'm not admin!"
             )
 
@@ -149,7 +149,7 @@ async def get_mem_from_cache(user_id: int, chat_id: int) -> ChatMember:
                     return i
 
         except (KeyError, IndexError):
-            admins = await NEKO_PTB.bot.getChatAdministrators(chat_id)
+            admins =  NEKO_PTB.bot.getChatAdministrators(chat_id)
             A_CACHE[chat_id] = admins
             for i in admins:
                 if i.user.id == user_id:
@@ -173,7 +173,7 @@ async def user_admin_check(permission: AdminPerms = None):
                     func,
                 )
                 anon_callback_messages[(message.chat.id, message.message_id)] = (
-                    await message.reply_text(
+                     message.reply_text(
                         "Seems like you're anonymous, click the button below to prove your identity",
                         reply_markup=InlineKeyboardMarkup(
                             [
@@ -189,7 +189,7 @@ async def user_admin_check(permission: AdminPerms = None):
             else:
                 user_id = message.from_user.id
                 chat_id = message.chat.id
-                mem = await context.bot.get_chat_member(
+                mem =  context.bot.get_chat_member(
                     chat_id=chat_id, user_id=user_id
                 )
                 if (
@@ -199,7 +199,7 @@ async def user_admin_check(permission: AdminPerms = None):
                 ):
                     return func(update, context, *args, **kwargs)
                 else:
-                    return await message.reply_text(
+                    return  message.reply_text(
                         f"You lack the permission: `{permission.name}`",
                         parse_mode=ParseMode.MARKDOWN_V2,
                     )

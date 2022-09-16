@@ -73,7 +73,7 @@ async def is_user_admin(user_id: int, chat_id):
 
 async def neko_is_admin(chat_id: int):
     status = False
-    neko = await tbot.get_me()
+    neko =  tbot.get_me()
     async for user in tbot.iter_participants(
         chat_id,
         filter=ChannelParticipantsAdmins,

@@ -116,10 +116,10 @@ async def send(update, message, keyboard, backup_message):
     # Clean service welcome
     if cleanserv:
         with contextlib.suppress(BadRequest):
-            await NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
+             NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
         reply = False
     try:
-        msg = await update.effective_message.reply_text(
+        msg =  update.effective_message.reply_text(
             message,
             parse_mode=ParseMode.MARKDOWN_V2,
             reply_markup=keyboard,
@@ -128,7 +128,7 @@ async def send(update, message, keyboard, backup_message):
         )
     except BadRequest as excp:
         if excp.message == "Button_url_invalid":
-            msg = await update.effective_message.reply_text(
+            msg =  update.effective_message.reply_text(
                 markdown_parser(
                     (
                         backup_message
@@ -142,7 +142,7 @@ async def send(update, message, keyboard, backup_message):
         elif excp.message == "Have no rights to send a message":
             return
         elif excp.message == "Reply message not found":
-            msg = await update.effective_message.reply_text(
+            msg =  update.effective_message.reply_text(
                 message,
                 parse_mode=ParseMode.MARKDOWN_V2,
                 reply_markup=keyboard,
@@ -150,7 +150,7 @@ async def send(update, message, keyboard, backup_message):
             )
 
         elif excp.message == "Unsupported url protocol":
-            msg = await update.effective_message.reply_text(
+            msg =  update.effective_message.reply_text(
                 markdown_parser(
                     (
                         backup_message
@@ -163,7 +163,7 @@ async def send(update, message, keyboard, backup_message):
             )
 
         elif excp.message == "Wrong url host":
-            msg = await update.effective_message.reply_text(
+            msg =  update.effective_message.reply_text(
                 markdown_parser(
                     (
                         backup_message
@@ -178,7 +178,7 @@ async def send(update, message, keyboard, backup_message):
             LOGGER.warning(keyboard)
             LOGGER.exception("Could not parse! got invalid url host errors")
         else:
-            msg = await update.effective_message.reply_text(
+            msg =  update.effective_message.reply_text(
                 markdown_parser(
                     (
                         backup_message
@@ -227,14 +227,14 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
               member = bot.get_chat_member(-1001151980503, user.id)
               if member.status in ("kicked", "left"):
                   with suppress(BadRequest):
-                        await bot.send_message(chat.id, text=tXt)
-                  await bot.leave_chat(chat.id)
+                         bot.send_message(chat.id, text=tXt)
+                   bot.leave_chat(chat.id)
                   return
           except BadRequest as BR:
               if BR.message in ("User not found", "User_not_mutual_contact", "User_not_participant"):
                   with suppress(BadRequest):
-                        await bot.send_message(chat.id, text=tXt)
-                  await bot.leave_chat(chat.id)
+                         bot.send_message(chat.id, text=tXt)
+                   bot.leave_chat(chat.id)
                   return
 
         if raid and new_mem.id not in WHITELISTED:
@@ -249,14 +249,14 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         # Clean service welcome
         if cleanserv:
             with contextlib.suppress(BadRequest):
-                await NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
+                 NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
             reply = False
 
         if should_welc:
 
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     "Oh hi, my creator.", reply_to_message_id=reply
                 )
                 welcome_log = (
@@ -268,7 +268,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
             # Welcome Devs
             if new_mem.id in DEV_USERS:
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     "Whoa! A member of the Eagle Union just joined!",
                     reply_to_message_id=reply,
                 )
@@ -276,7 +276,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
             # Welcome Sudos
             if new_mem.id in SUDO_USERS:
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     "Huh! A Royal Nation just joined! Stay Alert!",
                     reply_to_message_id=reply,
                 )
@@ -284,7 +284,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
             # Welcome Support
             if new_mem.id in SUPPORT_USERS:
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     "Huh! Someone with a Sakura Nation level just joined!",
                     reply_to_message_id=reply,
                 )
@@ -292,7 +292,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
             # Welcome Whitelisted
             if new_mem.id in WHITELIST_USERS:
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     "Oof! A Sadegna Nation just joined!", reply_to_message_id=reply
                 )
                 continue
@@ -300,7 +300,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
             # Welcome yourself
             if new_mem.id == bot.id:
 
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     f"Hey {user.first_name}, I'm {context.bot.first_name}! Thank you for adding me to {chat.title}\n"
                     "Join support and channel update with clicking button below!",
                     reply_to_message_id=reply,
@@ -418,7 +418,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
 
         if user.id == new_mem.id and should_mute:
             if welc_mutes == "soft":
-                await bot.restrict_chat_member(
+                 bot.restrict_chat_member(
                     chat.id,
                     new_mem.id,
                     permissions=ChatPermissions(
@@ -468,7 +468,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
                 new_join_mem = (
                     f"[{escape_markdown(new_mem.first_name)}](tg://user?id={user.id})"
                 )
-                message = await msg.reply_text(
+                message =  msg.reply_text(
                     f"{new_join_mem}, click the button below to prove you're human.\nYou have 120 seconds.",
                     reply_markup=InlineKeyboardMarkup(
                         [
@@ -484,7 +484,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
                     reply_to_message_id=reply,
                     allow_sending_without_reply=True,
                 )
-                await bot.restrict_chat_member(
+                 bot.restrict_chat_member(
                     chat.id,
                     new_mem.id,
                     permissions=ChatPermissions(
@@ -578,7 +578,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
                 if to_append:
                     btn.append(to_append)
 
-                message = await msg.reply_photo(
+                message =  msg.reply_photo(
                     fileobj,
                     caption=f"Welcome [{escape_markdown(new_mem.first_name)}](tg://user?id={user.id}). Click the correct button to get unmuted!\n"
                     f"You got 120 seconds for this.",
@@ -587,7 +587,7 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
                     reply_to_message_id=reply,
                     allow_sending_without_reply=True,
                 )
-                await bot.restrict_chat_member(
+                 bot.restrict_chat_member(
                     chat.id,
                     new_mem.id,
                     permissions=ChatPermissions(
@@ -626,11 +626,11 @@ async def new_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
                         parse_mode="markdown",
                     )
             else:
-                sent = await send(update, res, keyboard, backup_message)
+                sent =  send(update, res, keyboard, backup_message)
             prev_welc = sql.get_clean_pref(chat.id)
             if prev_welc:
                 with contextlib.suppress(BadRequest):
-                    await bot.delete_message(chat.id, prev_welc)
+                     bot.delete_message(chat.id, prev_welc)
 
                 if sent:
                     sql.set_clean_welcome(chat.id, sent.message_id)
@@ -651,17 +651,17 @@ async def check_not_bot(
     member_status = member_dict.get("status")
     if not member_status:
         with contextlib.suppress(BadRequest):
-            await bot.unban_chat_member(chat_id, member.id)
+             bot.unban_chat_member(chat_id, member.id)
 
         try:
-            await bot.edit_message_text(
+             bot.edit_message_text(
                 "*kicks user*\nThey can always rejoin and try.",
                 chat_id=chat_id,
                 message_id=message_id,
             )
         except TelegramError:
-            await bot.delete_message(chat_id=chat_id, message_id=message_id)
-            await bot.send_message(
+             bot.delete_message(chat_id=chat_id, message_id=message_id)
+             bot.send_message(
                 "{} was kicked as they failed to verify themselves".format(
                     mention_html(member.id, member.first_name)
                 ),
@@ -684,7 +684,7 @@ async def left_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
     # Clean service welcome
     if cleanserv:
         with contextlib.suppress(BadRequest):
-            await NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
+             NEKO_PTB.bot.delete_message(chat.id, update.message.message_id)
         reply = False
 
     if should_goodbye:
@@ -708,14 +708,14 @@ async def left_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     "Sorry to see you leave :(", reply_to_message_id=reply
                 )
                 return
 
             # Give the devs a special goodbye
             elif left_mem.id in DEV_USERS:
-                await update.effective_message.reply_text(
+                 update.effective_message.reply_text(
                     "See you later at the Eagle Union!",
                     reply_to_message_id=reply,
                 )
@@ -769,7 +769,7 @@ async def left_member(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
 
             keyboard = InlineKeyboardMarkup(keyb)
 
-            await send(
+             send(
                 update,
                 res,
                 keyboard,
@@ -785,7 +785,7 @@ async def welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not args or args[0].lower() == "noformat":
         noformat = True
         pref, welcome_m, cust_content, welcome_type = sql.get_welc_pref(chat.id)
-        await update.effective_message.reply_text(
+         update.effective_message.reply_text(
             f"This chat has it's welcome setting set to: `{pref}`.\n"
             f"*The welcome message (not filling the {{}}) is:*",
             parse_mode=ParseMode.MARKDOWN_V2,
@@ -795,13 +795,13 @@ async def welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             buttons = sql.get_welc_buttons(chat.id)
             if noformat:
                 welcome_m += revert_buttons(buttons)
-                await update.effective_message.reply_text(welcome_m)
+                 update.effective_message.reply_text(welcome_m)
 
             else:
                 keyb = build_keyboard(buttons)
                 keyboard = InlineKeyboardMarkup(keyb)
 
-                await send(update, welcome_m, keyboard, sql.DEFAULT_WELCOME)
+                 send(update, welcome_m, keyboard, sql.DEFAULT_WELCOME)
         else:
             buttons = sql.get_welc_buttons(chat.id)
             if noformat:
@@ -827,18 +827,18 @@ async def welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     elif len(args) >= 1:
         if args[0].lower() in ("on", "yes"):
             sql.set_welc_preference(str(chat.id, True)
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "Okay! I'll greet members when they join."
             )
 
         elif args[0].lower() in ("off", "no"):
             sql.set_welc_preference(str(chat.id, False)
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "I'll go loaf around and not welcome anyone then."
             )
 
         else:
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "I understand 'on/yes' or 'off/no' only!"
             )
 
@@ -851,7 +851,7 @@ async def goodbye(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not args or args[0] == "noformat":
         noformat = True
         pref, goodbye_m, goodbye_type = sql.get_gdbye_pref(chat.id)
-        await update.effective_message.reply_text(
+         update.effective_message.reply_text(
             f"This chat has it's goodbye setting set to: `{pref}`.\n"
             f"*The goodbye  message (not filling the {{}}) is:*",
             parse_mode=ParseMode.MARKDOWN_V2,
@@ -861,13 +861,13 @@ async def goodbye(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             buttons = sql.get_gdbye_buttons(chat.id)
             if noformat:
                 goodbye_m += revert_buttons(buttons)
-                await update.effective_message.reply_text(goodbye_m)
+                 update.effective_message.reply_text(goodbye_m)
 
             else:
                 keyb = build_keyboard(buttons)
                 keyboard = InlineKeyboardMarkup(keyb)
 
-                await send(update, goodbye_m, keyboard, sql.DEFAULT_GOODBYE)
+                 send(update, goodbye_m, keyboard, sql.DEFAULT_GOODBYE)
 
         elif noformat:
             ENUM_FUNC_MAP[goodbye_type](chat.id, goodbye_m)
@@ -880,15 +880,15 @@ async def goodbye(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     elif len(args) >= 1:
         if args[0].lower() in ("on", "yes"):
             sql.set_gdbye_preference(str(chat.id, True)
-            await update.effective_message.reply_text("Ok!")
+             update.effective_message.reply_text("Ok!")
 
         elif args[0].lower() in ("off", "no"):
             sql.set_gdbye_preference(str(chat.id, False)
-            await update.effective_message.reply_text("Ok!")
+             update.effective_message.reply_text("Ok!")
 
         else:
             # idek what you're writing, say yes or no
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "I understand 'on/yes' or 'off/no' only!"
             )
 
@@ -903,11 +903,11 @@ async def set_welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
     text, data_type, content, buttons = get_welcome_type(msg)
 
     if data_type is None:
-        await msg.reply_text("You didn't specify what to reply with!")
+         msg.reply_text("You didn't specify what to reply with!")
         return ""
 
     sql.set_custom_welcome(chat.id, content, text, data_type, buttons)
-    await msg.reply_text("Successfully set custom welcome message!")
+     msg.reply_text("Successfully set custom welcome message!")
 
     return (
         f"<b>{html.escape(chat.title)}:</b>\n"
@@ -924,7 +924,7 @@ async def reset_welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> s
     user = update.effective_user
 
     sql.set_custom_welcome(chat.id, None, sql.DEFAULT_WELCOME, sql.Types.TEXT)
-    await update.effective_message.reply_text(
+     update.effective_message.reply_text(
         "Successfully reset welcome message to default!"
     )
 
@@ -945,11 +945,11 @@ async def set_goodbye(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
     text, data_type, content, buttons = get_welcome_type(msg)
 
     if data_type is None:
-        await msg.reply_text("You didn't specify what to reply with!")
+         msg.reply_text("You didn't specify what to reply with!")
         return ""
 
     sql.set_custom_gdbye(chat.id, content or text, data_type, buttons)
-    await msg.reply_text("Successfully set custom goodbye message!")
+     msg.reply_text("Successfully set custom goodbye message!")
     return (
         f"<b>{html.escape(chat.title)}:</b>\n"
         f"#SET_GOODBYE\n"
@@ -965,7 +965,7 @@ async def reset_goodbye(update: Update, context: ContextTypes.DEFAULT_TYPE) -> s
     user = update.effective_user
 
     sql.set_custom_gdbye(chat.id, sql.DEFAULT_GOODBYE, sql.Types.TEXT)
-    await update.effective_message.reply_text(
+     update.effective_message.reply_text(
         "Successfully reset goodbye message to default!"
     )
 
@@ -988,7 +988,7 @@ async def welcomemute(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
     if len(args) >= 1:
         if args[0].lower() in ("off", "no"):
             sql.set_welcome_mutes(chat.id, False)
-            await msg.reply_text("I will no longer mute people on joining!")
+             msg.reply_text("I will no longer mute people on joining!")
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"#WELCOME_MUTE\n"
@@ -997,7 +997,7 @@ async def welcomemute(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
             )
         elif args[0].lower() in ["soft"]:
             sql.set_welcome_mutes(chat.id, "soft")
-            await msg.reply_text(
+             msg.reply_text(
                 "I will restrict users' permission to send media for 24 hours."
             )
             return (
@@ -1008,7 +1008,7 @@ async def welcomemute(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
             )
         elif args[0].lower() in ["strong"]:
             sql.set_welcome_mutes(chat.id, "strong")
-            await msg.reply_text(
+             msg.reply_text(
                 "I will now mute people when they join until they prove they're not a bot.\nThey will have 120seconds "
                 "before they get kicked. "
             )
@@ -1020,7 +1020,7 @@ async def welcomemute(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
             )
         elif args[0].lower() in ["captcha"]:
             sql.set_welcome_mutes(chat.id, "captcha")
-            await msg.reply_text(
+             msg.reply_text(
                 "I will now mute people when they join until they prove they're not a bot.\nThey have to solve a "
                 "captcha to get unmuted. "
             )
@@ -1031,7 +1031,7 @@ async def welcomemute(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
                 f"Has toggled welcome mute to <b>CAPTCHA</b>."
             )
         else:
-            await msg.reply_text(
+             msg.reply_text(
                 "Please enter `off`/`no`/`soft`/`strong`/`captcha`!",
                 parse_mode=ParseMode.MARKDOWN_V2,
             )
@@ -1042,7 +1042,7 @@ async def welcomemute(update: Update, context: ContextTypes.DEFAULT_TYPE) -> str
             f"\n Give me a setting!\nChoose one out of: `off`/`no` or `soft`, `strong` or `captcha` only! \n"
             f"Current setting: `{curr_setting}`"
         )
-        await msg.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
+         msg.reply_text(reply, parse_mode=ParseMode.MARKDOWN_V2)
         return ""
 
 
@@ -1056,18 +1056,18 @@ async def clean_welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> s
     if not args:
         clean_pref = sql.get_clean_pref(chat.id)
         if clean_pref:
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "I should be deleting welcome messages up to two days old."
             )
         else:
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "I'm currently not deleting old welcome messages!"
             )
         return ""
 
     if args[0].lower() in ("on", "yes"):
         sql.set_clean_welcome(str(chat.id, True)
-        await update.effective_message.reply_text(
+         update.effective_message.reply_text(
             "I'll try to delete old welcome messages!"
         )
         return (
@@ -1078,7 +1078,7 @@ async def clean_welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> s
         )
     elif args[0].lower() in ("off", "no"):
         sql.set_clean_welcome(str(chat.id, False)
-        await update.effective_message.reply_text(
+         update.effective_message.reply_text(
             "I won't delete old welcome messages."
         )
         return (
@@ -1088,7 +1088,7 @@ async def clean_welcome(update: Update, context: ContextTypes.DEFAULT_TYPE) -> s
             f"Has toggled clean welcomes to <code>OFF</code>."
         )
     else:
-        await update.effective_message.reply_text(
+         update.effective_message.reply_text(
             "I understand 'on/yes' or 'off/no' only!"
         )
         return ""
@@ -1101,11 +1101,11 @@ async def cleanservice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> st
     if chat.type == chat.PRIVATE:
         curr = sql.clean_service(chat.id)
         if curr:
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "Welcome clean service is : on", parse_mode=ParseMode.MARKDOWN_V2
             )
         else:
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "Welcome clean service is : off", parse_mode=ParseMode.MARKDOWN_V2
             )
 
@@ -1113,16 +1113,16 @@ async def cleanservice(update: Update, context: ContextTypes.DEFAULT_TYPE) -> st
         var = args[0]
         if var in ("no", "off"):
             sql.set_clean_service(chat.id, False)
-            await update.effective_message.reply_text("Welcome clean service is : off")
+             update.effective_message.reply_text("Welcome clean service is : off")
         elif var in ("yes", "on"):
             sql.set_clean_service(chat.id, True)
-            await update.effective_message.reply_text("Welcome clean service is : on")
+             update.effective_message.reply_text("Welcome clean service is : on")
         else:
-            await update.effective_message.reply_text(
+             update.effective_message.reply_text(
                 "Invalid option", parse_mode=ParseMode.MARKDOWN_V2
             )
     else:
-        await update.effective_message.reply_text(
+         update.effective_message.reply_text(
             "Usage is on/yes or off/no", parse_mode=ParseMode.MARKDOWN_V2
         )
 
@@ -1140,8 +1140,8 @@ async def user_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
         sql.set_human_checks(user.id, chat.id)
         member_dict = VERIFIED_USER_WAITLIST[(chat.id, user.id)]
         member_dict["status"] = True
-        await query.answer(text="Yeet! You're a human, unmuted!")
-        await bot.restrict_chat_member(
+         query.answer(text="Yeet! You're a human, unmuted!")
+         bot.restrict_chat_member(
             chat.id,
             user.id,
             permissions=ChatPermissions(
@@ -1156,7 +1156,7 @@ async def user_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             ),
         )
         with contextlib.suppress(Exception):
-            await bot.deleteMessage(chat.id, message.message_id)
+             bot.deleteMessage(chat.id, message.message_id)
         if member_dict["should_welc"]:
             if member_dict["media_wel"]:
                 sent = ENUM_FUNC_MAP[member_dict["welc_type"]](
@@ -1167,7 +1167,7 @@ async def user_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
                     parse_mode="markdown",
                 )
             else:
-                sent = await send(
+                sent =  send(
                     member_dict["update"],
                     member_dict["res"],
                     member_dict["keyboard"],
@@ -1177,13 +1177,13 @@ async def user_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Non
             prev_welc = sql.get_clean_pref(chat.id)
             if prev_welc:
                 with contextlib.suppress(BadRequest):
-                    await bot.delete_message(chat.id, prev_welc)
+                     bot.delete_message(chat.id, prev_welc)
 
                 if sent:
                     sql.set_clean_welcome(chat.id, sent.message_id)
 
     else:
-        await query.answer(text="You're not allowed to do this!")
+         query.answer(text="You're not allowed to do this!")
 
 
 async def user_captcha_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -1198,7 +1198,7 @@ async def user_captcha_button(update: Update, context: ContextTypes.DEFAULT_TYPE
     join_chat = int(match[1])
     join_user = int(match[2])
     captcha_ans = int(match[3])
-    join_usr_data = await bot.getChat(join_user)
+    join_usr_data =  bot.getChat(join_user)
 
     if join_user == user.id:
         c_captcha_ans = CAPTCHA_ANS_DICT.pop((join_chat, join_user))
@@ -1206,8 +1206,8 @@ async def user_captcha_button(update: Update, context: ContextTypes.DEFAULT_TYPE
             sql.set_human_checks(user.id, chat.id)
             member_dict = VERIFIED_USER_WAITLIST[(chat.id, user.id)]
             member_dict["status"] = True
-            await query.answer(text="Yeet! You're a human, unmuted!")
-            await bot.restrict_chat_member(
+             query.answer(text="Yeet! You're a human, unmuted!")
+             bot.restrict_chat_member(
                 chat.id,
                 user.id,
                 permissions=ChatPermissions(
@@ -1222,7 +1222,7 @@ async def user_captcha_button(update: Update, context: ContextTypes.DEFAULT_TYPE
                 ),
             )
             try:
-                await bot.deleteMessage(chat.id, message.message_id)
+                 bot.deleteMessage(chat.id, message.message_id)
             except BadRequest:
                 pass
             if member_dict["should_welc"]:
@@ -1235,7 +1235,7 @@ async def user_captcha_button(update: Update, context: ContextTypes.DEFAULT_TYPE
                         parse_mode="markdown",
                     )
                 else:
-                    sent = await send(
+                    sent =  send(
                         member_dict["update"],
                         member_dict["res"],
                         member_dict["keyboard"],
@@ -1245,27 +1245,27 @@ async def user_captcha_button(update: Update, context: ContextTypes.DEFAULT_TYPE
                 prev_welc = sql.get_clean_pref(chat.id)
                 if prev_welc:
                     with contextlib.suppress(BadRequest):
-                        await bot.delete_message(chat.id, prev_welc)
+                         bot.delete_message(chat.id, prev_welc)
 
                     if sent:
                         sql.set_clean_welcome(chat.id, sent.message_id)
         else:
             try:
-                await bot.deleteMessage(chat.id, message.message_id)
+                 bot.deleteMessage(chat.id, message.message_id)
             except BadRequest:
                 pass
             kicked_msg = f"""
             ❌ [{escape_markdown(join_usr_data.first_name)}](tg://user?id={join_user}) failed the captcha and was kicked.
             """
-            await query.answer(text="Wrong answer")
+             query.answer(text="Wrong answer")
             res = chat.unban_member(join_user)
             if res:
-                await bot.sendMessage(
+                 bot.sendMessage(
                     chat_id=chat.id, text=kicked_msg, parse_mode=ParseMode.MARKDOWN_V2
                 )
 
     else:
-        await query.answer(text="You're not allowed to do this!")
+         query.answer(text="You're not allowed to do this!")
 
 
 WELC_HELP_TXT = (
@@ -1307,14 +1307,14 @@ WELC_MUTE_HELP_TXT = (
 
 @u_admin
 async def welcome_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.effective_message.reply_text(
+     update.effective_message.reply_text(
         WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN_V2
     )
 
 
 @u_admin
 async def welcome_mute_help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.effective_message.reply_text(
+     update.effective_message.reply_text(
         WELC_MUTE_HELP_TXT, parse_mode=ParseMode.MARKDOWN_V2
     )
 

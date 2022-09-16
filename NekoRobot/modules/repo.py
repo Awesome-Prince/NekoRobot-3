@@ -20,7 +20,7 @@ async def give_repo(m):
 | Contributors |
 ----------------```
 {list_of_users}"""
-    await m.reply(text, disable_web_page_preview=False)
+     m.reply(text, disable_web_page_preview=False)
 
 
 __mod_name__ = "Repository"

@@ -39,19 +39,19 @@ def purge_messages(event):
     if event.from_id is None:
         return
 
-    if not await user_is_admin(
+    if not  user_is_admin(
         user_id=event.sender_id, message=event
     ) and event.from_id not in [1087968824]:
-        await event.reply("Only Admins are allowed to use this command")
+         event.reply("Only Admins are allowed to use this command")
         return
 
-    if not await can_delete_messages(message=event):
-        await event.reply("Can't seem to purge the message")
+    if not  can_delete_messages(message=event):
+         event.reply("Can't seem to purge the message")
         return
 
-    reply_msg = await event.get_reply_message()
+    reply_msg =  event.get_reply_message()
     if not reply_msg:
-        await event.reply("Reply to a message to select where to start purging from.")
+         event.reply("Reply to a message to select where to start purging from.")
         return
     messages = []
     message_id = reply_msg.id
@@ -61,39 +61,39 @@ def purge_messages(event):
     for msg_id in range(message_id, delete_to + 1):
         messages.append(msg_id)
         if len(messages) == 100:
-            await event.client.delete_messages(event.chat_id, messages)
+             event.client.delete_messages(event.chat_id, messages)
             messages = []
 
     try:
-        await event.client.delete_messages(event.chat_id, messages)
+         event.client.delete_messages(event.chat_id, messages)
     except:
         pass
     time_ = time.perf_counter() - start
     text = f"Purged Successfully in {time_:0.2f} Second(s)"
-    await event.respond(text, parse_mode="markdown")
+     event.respond(text, parse_mode="markdown")
 
 
 def delete_messages(event):
     if event.from_id is None:
         return
 
-    if not await user_is_admin(
+    if not  user_is_admin(
         user_id=event.sender_id, message=event
     ) and event.from_id not in [1087968824]:
-        await event.reply("Only Admins are allowed to use this command")
+         event.reply("Only Admins are allowed to use this command")
         return
 
-    if not await can_delete_messages(message=event):
-        await event.reply("Can't seem to delete this?")
+    if not  can_delete_messages(message=event):
+         event.reply("Can't seem to delete this?")
         return
 
-    message = await event.get_reply_message()
+    message =  event.get_reply_message()
     if not message:
-        await event.reply("Whadya want to delete?")
+         event.reply("Whadya want to delete?")
         return
-    chat = await event.get_input_chat()
+    chat =  event.get_input_chat()
     del_message = [message, event.message]
-    await event.client.delete_messages(chat, del_message)
+     event.client.delete_messages(chat, del_message)
 
 
 __help__ = """

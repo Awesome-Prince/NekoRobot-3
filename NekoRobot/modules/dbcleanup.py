@@ -36,7 +36,7 @@ async def get_invalid_chats(
             progress += 5
 
         cid = chat.chat_id
-        await sleep(0.1)
+         sleep(0.1)
         try:
             bot.get_chat(cid, timeout=60)
         except (BadRequest, Forbidden):
@@ -54,7 +54,7 @@ async def get_invalid_chats(
         return kicked_chats
     else:
         for muted_chat in chat_list:
-            await sleep(0.1)
+             sleep(0.1)
             user_sql.rem_chat(muted_chat)
         return kicked_chats
 
@@ -69,7 +69,7 @@ async def get_invalid_gban(
 
     for user in banned:
         user_id = user["user_id"]
-        await sleep(0.1)
+         sleep(0.1)
         try:
             bot.get_chat(user_id)
         except BadRequest:
@@ -82,7 +82,7 @@ async def get_invalid_gban(
         return ungbanned_users
     else:
         for user_id in ungban_list:
-            await sleep(0.1)
+             sleep(0.1)
             gban_sql.ungban_user(user_id)
         return ungbanned_users
 

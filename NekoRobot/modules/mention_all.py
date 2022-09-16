@@ -49,11 +49,11 @@ spam_chats = []
 def all(event):
     chat_id = event.chat_id
     if event.is_private:
-        return await event.respond("This command Can Be Use In Groups And Channels/n")
+        return  event.respond("This command Can Be Use In Groups And Channels/n")
 
     is_admin = False
     try:
-        partici_ = await tbot(GetParticipantRequest(event.chat_id, event.sender_id))
+        partici_ =  tbot(GetParticipantRequest(event.chat_id, event.sender_id))
     except UserNotParticipantError:
         is_admin = False
     else:
@@ -62,22 +62,22 @@ def all(event):
         ):
             is_admin = True
     if not is_admin:
-        return await event.respond("Only admins can mention all!")
+        return  event.respond("Only admins can mention all!")
 
     if event.pattern_match.group(1) and event.is_reply:
-        return await event.respond("Give me one argument!")
+        return  event.respond("Give me one argument!")
     if event.pattern_match.group(1):
         mode = "text_on_cmd"
         msg = event.pattern_match.group(1)
     elif event.is_reply:
         mode = "text_on_reply"
-        msg = await event.get_reply_message()
+        msg =  event.get_reply_message()
         if msg is None:
-            return await event.respond(
+            return  event.respond(
                 "I Can't Mention Members For Older Messages! (messages which are sent before I'm added to group)"
             )
     else:
-        return await event.respond(
+        return  event.respond(
             "Reply To a Message Or Give Me Some Text To Mention Others"
         )
 
@@ -92,10 +92,10 @@ def all(event):
         if usrnum == 10:
             if mode == "text_on_cmd":
                 txt = f"{usrtxt}\n\n{msg}\n\nMeet Me Here🙈 @Besties_XD ✨🥀"
-                await tbot.send_message(chat_id, txt)
+                 tbot.send_message(chat_id, txt)
             elif mode == "text_on_reply":
-                await msg.reply(usrtxt)
-            await asyncio.sleep(2)
+                 msg.reply(usrtxt)
+             asyncio.sleep(2)
             usrnum = 0
             usrtxt = ""
     try:
@@ -107,12 +107,12 @@ def all(event):
 @tbot.on(events.NewMessage(pattern="^/cancel$"))
 def cancel_spam(event):
     if event.chat_id not in spam_chats:
-        return await event.respond("There Is No Proccess On Going")
+        return  event.respond("There Is No Proccess On Going")
     try:
         spam_chats.remove(event.chat_id)
     except:
         pass
-    return await event.respond("Mentioning Are Stopped")
+    return  event.respond("Mentioning Are Stopped")
 
 
 __mod_name__ = "Mention All"

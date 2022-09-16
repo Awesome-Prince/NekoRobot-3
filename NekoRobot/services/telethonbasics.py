@@ -6,7 +6,7 @@ from NekoRobot.utils.pluginhelper import runcmd
 
 
 async def convert_to_image(event, borg):
-    lmao = await event.get_reply_message()
+    lmao =  event.get_reply_message()
     if not (
         lmao.gif
         or lmao.audio
@@ -17,26 +17,26 @@ async def convert_to_image(event, borg):
         or lmao.sticker
         or lmao.media
     ):
-        await borg.send_message(event.chat_id, "`Format Not Supported.`")
+         borg.send_message(event.chat_id, "`Format Not Supported.`")
         return
     else:
         try:
             time.time()
-            downloaded_file_name = await borg.download_media(
+            downloaded_file_name =  borg.download_media(
                 lmao.media, sedpath, "`Downloading...`"
             )
 
         except Exception as e:  # pylint:disable=C0103,W0703
-            await borg.send_message(event.chat_id, str(e))
+             borg.send_message(event.chat_id, str(e))
         else:
-            lel = await borg.send_message(
+            lel =  borg.send_message(
                 event.chat_id,
                 "Downloaded to `{}` successfully.".format(downloaded_file_name),
             )
-            await lel.delete
+             lel.delete
     if not os.path.exists(downloaded_file_name):
-        lel = await borg.send_message(event.chat_id, "Download Unsucessfull :(")
-        await lel.delete
+        lel =  borg.send_message(event.chat_id, "Download Unsucessfull :(")
+         lel.delete
         return
     if lmao and lmao.photo:
         lmao_final = downloaded_file_name
@@ -44,7 +44,7 @@ async def convert_to_image(event, borg):
         rpath = downloaded_file_name
         image_name20 = os.path.join(sedpath, "SED.png")
         cmd = f"lottie_convert.py --frame 0 -if lottie -of png {downloaded_file_name} {image_name20}"
-        stdout, stderr = (await runcmd(cmd))[:2]
+        stdout, stderr = ( runcmd(cmd))[:2]
         os.remove(rpath)
         lmao_final = image_name20
     elif lmao.sticker and lmao.sticker.mime_type == "image/webp":
@@ -53,7 +53,7 @@ async def convert_to_image(event, borg):
         im = Image.open(pathofsticker2)
         im.save(image_new_path, "PNG")
         if not os.path.exists(image_new_path):
-            await event.reply("`Wasn't Able To Fetch Shot.`")
+             event.reply("`Wasn't Able To Fetch Shot.`")
             return
         lmao_final = image_new_path
     elif lmao.audio:
@@ -61,19 +61,19 @@ async def convert_to_image(event, borg):
         hmmyes = sedpath + "stark.mp3"
         imgpath = sedpath + "starky.jpg"
         os.rename(sed_p, hmmyes)
-        await runcmd(f"ffmpeg -i {hmmyes} -filter:v scale=500:500 -an {imgpath}")
+         runcmd(f"ffmpeg -i {hmmyes} -filter:v scale=500:500 -an {imgpath}")
         os.remove(sed_p)
         if not os.path.exists(imgpath):
-            await event.reply("`Wasn't Able To Fetch Shot.`")
+             event.reply("`Wasn't Able To Fetch Shot.`")
             return
         lmao_final = imgpath
     elif lmao.gif or lmao.video or lmao.video_note:
         sed_p2 = downloaded_file_name
         jpg_file = os.path.join(sedpath, "image.jpg")
-        await take_screen_shot(sed_p2, 0, jpg_file)
+         take_screen_shot(sed_p2, 0, jpg_file)
         os.remove(sed_p2)
         if not os.path.exists(jpg_file):
-            await event.reply("`Couldn't Fetch. SS`")
+             event.reply("`Couldn't Fetch. SS`")
             return
         lmao_final = jpg_file
     return lmao_final
@@ -91,7 +91,7 @@ async def take_screen_shot(
     ttl = duration // 2
     thumb_image_path = path or os.path.join(sedpath, f"{basename(video_file)}.jpg")
     command = f'''ffmpeg -ss {ttl} -i "{video_file}" -vframes 1 "{thumb_image_path}"'''
-    err = (await runcmd(command))[1]
+    err = ( runcmd(command))[1]
     if err:
         logger.error(err)
     return thumb_image_path if os.path.exists(thumb_image_path) else None
@@ -101,7 +101,7 @@ def get_all_admin_chats(event):
     lul_stark = []
     all_chats = [
         d.entity
-        for d in await event.client.get_dialogs()
+        for d in  event.client.get_dialogs()
         if (d.is_group or d.is_channel)
     ]
     try:
@@ -115,7 +115,7 @@ def get_all_admin_chats(event):
 
 async def is_admin(event, user):
     try:
-        sed = await event.client.get_permissions(event.chat_id, user)
+        sed =  event.client.get_permissions(event.chat_id, user)
         if sed.is_admin:
             is_mod = True
         else:
@@ -145,11 +145,11 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
             humanbytes(current), humanbytes(total), time_formatter(estimated_total_time)
         )
         if file_name:
-            await event.edit(
+             event.edit(
                 "{}\nFile Name: `{}`\n{}".format(type_of_ps, file_name, tmp)
             )
         else:
-            await event.edit("{}\n{}".format(type_of_ps, tmp))
+             event.edit("{}\n{}".format(type_of_ps, tmp))
 
 
 def humanbytes(size):

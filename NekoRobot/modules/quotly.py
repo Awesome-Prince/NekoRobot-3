@@ -35,7 +35,7 @@ from NekoRobot import pgram
 
 
 async def quotify(messages: list):
-    response = await arq.quotly(messages)
+    response =  arq.quotly(messages)
     if not response.ok:
         return [False, response.result]
     sticker = response.result
@@ -61,12 +61,12 @@ def isArgInt(message: Message) -> list:
 @capture_err
 async def quotly_func(client, message: Message):
     if not message.reply_to_message:
-        return await message.reply_text("Reply to a message to quote it.")
+        return  message.reply_text("Reply to a message to quote it.")
     if not message.reply_to_message.text:
-        return await message.reply_text(
+        return  message.reply_text(
             "Replied message has no text, can't quote it."
         )
-    m = await message.reply_text("Quoting Messages Please wait....")
+    m =  message.reply_text("Quoting Messages Please wait....")
     if len(message.command) < 2:
         messages = [message.reply_to_message]
 
@@ -74,9 +74,9 @@ async def quotly_func(client, message: Message):
         arg = isArgInt(message)
         if arg[0]:
             if arg[1] < 2 or arg[1] > 10:
-                return await m.edit("Argument must be between 2-10.")
+                return  m.edit("Argument must be between 2-10.")
             count = arg[1]
-            messages = await client.get_messages(
+            messages =  client.get_messages(
                 message.chat.id,
                 list(range(
                         message.reply_to_message.message_id,
@@ -86,30 +86,30 @@ async def quotly_func(client, message: Message):
             )
         else:
             if getArg(message) != "r":
-                return await m.edit(
+                return  m.edit(
                     "Incorrect Argument, Pass **'r'** or **'INT'**, **EX:** __/q 2__"
                 )
-            reply_message = await client.get_messages(
+            reply_message =  client.get_messages(
                 message.chat.id,
                 message.reply_to_message.message_id,
                 replies=1,
             )
             messages = [reply_message]
     else:
-        return await m.edit(
+        return  m.edit(
             "Incorrect argument, check quotly module in help section."
         )
     try:
-        sticker = await quotify(messages)
+        sticker =  quotify(messages)
         if not sticker[0]:
-            await message.reply_text(sticker[1])
-            return await m.delete()
+             message.reply_text(sticker[1])
+            return  m.delete()
         sticker = sticker[1]
-        await message.reply_sticker(sticker)
-        await m.delete()
+         message.reply_sticker(sticker)
+         m.delete()
         sticker.close()
     except Exception as e:
-        await m.edit(
+         m.edit(
             "Something wrong happened while quoting messages,"
             + " This error usually happens when there's a "
             + " message containing something other than text."

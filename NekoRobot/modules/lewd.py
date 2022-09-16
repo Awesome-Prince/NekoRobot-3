@@ -93,7 +93,7 @@ async def list_nsfw_chats(update: Update, context: CallbackContext):
         except (BadRequest, Forbidden):
             sql.rem_nsfw(*chat)
         except RetryAfter as e:
-            await sleep(e.retry_after)
+             sleep(e.retry_after)
     update.effective_message.reply_text(text, parse_mode="HTML")
 
 

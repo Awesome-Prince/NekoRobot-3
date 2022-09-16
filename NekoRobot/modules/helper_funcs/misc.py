@@ -123,13 +123,13 @@ async def send_to_list(
     for user_id in set(send_to):
         with contextlib.suppress(TelegramError):
             if markdown:
-                await bot.send_message(
+                 bot.send_message(
                     user_id, message, parse_mode=ParseMode.MARKDOWN_V2
                 )
             elif html:
-                await bot.send_message(user_id, message, parse_mode=ParseMode.HTML)
+                 bot.send_message(user_id, message, parse_mode=ParseMode.HTML)
             else:
-                await bot.send_message(user_id, message)
+                 bot.send_message(user_id, message)
 
 
 def build_keyboard(buttons):

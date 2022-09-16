@@ -136,7 +136,7 @@ async def restr_members(
 ):
     for mem in members:
         with contextlib.suppress(TelegramError):
-            await bot.restrict_chat_member(
+             bot.restrict_chat_member(
                 chat_id,
                 mem.user,
                 can_send_messages=messages,
@@ -152,7 +152,7 @@ async def unrestr_members(
 ):
     for mem in members:
         with contextlib.suppress(TelegramError):
-            await bot.restrict_chat_member(
+             bot.restrict_chat_member(
                 chat_id,
                 mem.user,
                 can_send_messages=messages,
@@ -163,7 +163,7 @@ async def unrestr_members(
 
 
 async def locktypes(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.effective_message.reply_text(
+     update.effective_message.reply_text(
         "\n ➛ ".join(
             ["Locks available: "]
             + sorted(list(LOCK_TYPES) + list(LOCK_CHAT_RESTRICTION))
@@ -288,8 +288,8 @@ async def del_lockables(
                     if "ARABIC" in check:
                         try:
                             # replyyy = "This action is restricted to admins only!"
-                            # await message.reply_text(replyyy)
-                            await message.delete()
+                            #  message.reply_text(replyyy)
+                             message.delete()
                         except BadRequest as excp:
                             if excp.message != "Message to delete not found":
                                 LOGGER.exception("ERROR in lockables")
@@ -299,8 +299,8 @@ async def del_lockables(
                     if "ARABIC" in check:
                         try:
                             # replyyy = "This action is restricted to admins only!"
-                            # await message.reply_text(replyyy)
-                            await message.delete()
+                            #  message.reply_text(replyyy)
+                             message.delete()
                         except BadRequest as excp:
                             if excp.message != "Message to delete not found":
                                 LOGGER.exception("ERROR in lockables")
@@ -315,8 +315,8 @@ async def del_lockables(
             ):
                 try:
                     # replyyy = "This action is restricted to admins only!"
-                    # await message.reply_text(replyyy)
-                    await message.delete()
+                    #  message.reply_text(replyyy)
+                     message.delete()
                 except BadRequest as excp:
                     if excp.message != "Message to delete not found":
                         LOGGER.exception("ERROR in lockables")
@@ -331,8 +331,8 @@ async def del_lockables(
             ):
                 try:
                     # replyyy = "This action is restricted to admins only!"
-                    # await message.reply_text(replyyy)
-                    await message.delete()
+                    #  message.reply_text(replyyy)
+                     message.delete()
                 except BadRequest as excp:
                     if excp.message != "Message to delete not found":
                         LOGGER.exception("ERROR in lockables")
@@ -364,8 +364,8 @@ async def del_lockables(
             else:
                 try:
                     # replyyy = "This action is restricted to admins only!"
-                    # await message.reply_text(replyyy)
-                    await message.delete()
+                    #  message.reply_text(replyyy)
+                     message.delete()
                 except BadRequest as excp:
                     if excp.message != "Message to delete not found":
                         LOGGER.exception("ERROR in lockables")
@@ -411,7 +411,7 @@ async def build_lock_message(chat_id):
             )
         )
 
-    permissions = await NEKO_PTB.bot.get_chat(chat_id).permissions
+    permissions =  NEKO_PTB.bot.get_chat(chat_id).permissions
     permslist = [
         f"messages = `{permissions.can_send_messages}`",
         f"media = `{permissions.can_send_media_messages}`",
@@ -442,9 +442,9 @@ def list_locks(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user = update.effective_user
 
     # Connection check
-    conn = await connected(context.bot, update, chat, user.id, need_admin=True)
+    conn =  connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:
-        chat = await NEKO_PTB.bot.getChat(conn)
+        chat =  NEKO_PTB.bot.getChat(conn)
         chat_name = chat.title
     else:
         if update.effective_message.chat.type == "private":
@@ -456,7 +456,7 @@ def list_locks(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         chat = update.effective_chat
         chat_name = update.effective_message.chat.title
 
-    res = await build_lock_message(chat.id)
+    res =  build_lock_message(chat.id)
     if conn:
         res = res.replace("Locks in", f"*{chat_name}*")
 

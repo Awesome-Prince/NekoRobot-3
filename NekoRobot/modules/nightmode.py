@@ -71,7 +71,7 @@ async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
         return isinstance(
             (
-                await tbot(functions.channels.GetParticipantRequest(chat, user))
+                 tbot(functions.channels.GetParticipantRequest(chat, user))
             ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
@@ -80,7 +80,7 @@ async def is_register_admin(chat, user):
 
 
 async def can_change_info(message):
-    result = await tbot(
+    result =  tbot(
         functions.channels.GetParticipantRequest(
             channel=message.chat_id,
             user_id=message.sender_id,
@@ -100,37 +100,37 @@ def profanity(event):
         return
     input = event.pattern_match.group(2)
     if not event.sender_id == OWNER_ID:
-        if not await is_register_admin(event.input_chat, event.sender_id):
-            await event.reply("Only admins can execute this command!")
+        if not  is_register_admin(event.input_chat, event.sender_id):
+             event.reply("Only admins can execute this command!")
             return
         else:
-            if not await can_change_info(message=event):
-                await event.reply(
+            if not  can_change_info(message=event):
+                 event.reply(
                     "You are missing the following rights to use this command:CanChangeinfo"
                 )
                 return
     if not input:
         if is_nightmode_indb(str(event.chat_id)):
-            await event.reply("Currently NightMode is Enabled for this Chat")
+             event.reply("Currently NightMode is Enabled for this Chat")
             return
-        await event.reply("Currently NightMode is Disabled for this Chat")
+         event.reply("Currently NightMode is Disabled for this Chat")
         return
     if "on" in input:
         if event.is_group:
             if is_nightmode_indb(str(event.chat_id)):
-                await event.reply("Night Mode is Already Turned ON for this Chat")
+                 event.reply("Night Mode is Already Turned ON for this Chat")
                 return
             add_nightmode(str(event.chat_id))
-            await event.reply("NightMode turned on for this chat.")
+             event.reply("NightMode turned on for this chat.")
     if "off" in input:
         if event.is_group:
             if not is_nightmode_indb(str(event.chat_id)):
-                await event.reply("Night Mode is Already Off for this Chat")
+                 event.reply("Night Mode is Already Off for this Chat")
                 return
         rmnightmode(str(event.chat_id))
-        await event.reply("NightMode Disabled!")
+         event.reply("NightMode Disabled!")
     if not "off" in input and not "on" in input:
-        await event.reply("Please Specify On or Off!")
+         event.reply("Please Specify On or Off!")
         return
 
 
@@ -140,11 +140,11 @@ async def job_close():
         return
     for pro in chats:
         try:
-            await tbot.send_message(
+             tbot.send_message(
                 int(pro.chat_id),
                 "12:00 Am, Group Is Closing Till 6 Am. Night Mode Started !",
             )
-            await tbot(
+             tbot(
                 functions.messages.EditChatDefaultBannedRightsRequest(
                     peer=int(pro.chat_id), banned_rights=hehes
                 )
@@ -165,8 +165,8 @@ async def job_open():
         return
     for pro in chats:
         try:
-            await tbot.send_message(int(pro.chat_id), "06:00 Am, Group Is Opening.")
-            await tbot(
+             tbot.send_message(int(pro.chat_id), "06:00 Am, Group Is Opening.")
+             tbot(
                 functions.messages.EditChatDefaultBannedRightsRequest(
                     peer=int(pro.chat_id), banned_rights=openhehe
                 )

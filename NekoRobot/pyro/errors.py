@@ -28,7 +28,7 @@ def capture_err(func):
     @wraps(func)
     async def capture(client, message, *args, **kwargs):
         try:
-            return await func(client, message, *args, **kwargs)
+            return  func(client, message, *args, **kwargs)
         except Exception as err:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             errors = traceback.format_exception(
@@ -45,7 +45,7 @@ def capture_err(func):
                 ),
             )
             for x in error_feedback:
-                await pgram.send_message(SUPPORT_CHAT, x)
+                 pgram.send_message(SUPPORT_CHAT, x)
             raise err
 
     return capture

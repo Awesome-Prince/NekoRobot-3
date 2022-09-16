@@ -53,7 +53,7 @@ async def chatbot_toggle(update: Update):
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.effective_message.reply_text("Choose an option:", reply_markup=reply_markup)
+     update.effective_message.reply_text("Choose an option:", reply_markup=reply_markup)
 
 
 async def chatbot_handle_callq(update: Update):
@@ -62,28 +62,28 @@ async def chatbot_handle_callq(update: Update):
     chat = update.effective_chat
     action = query.data.split("_")[1]
 
-    if not await is_user_admin(update, user.id):
-        return await query.answer("This is not for you.")
+    if not  is_user_admin(update, user.id):
+        return  query.answer("This is not for you.")
 
     if action == "delete":
-        await query.message.delete()
+         query.message.delete()
 
     elif action == "enable":
         if chat.id in CHATBOT_ENABLED_CHATS:
-            return await query.answer("Chatbot is already enabled")
+            return  query.answer("Chatbot is already enabled")
         CHATBOT_ENABLED_CHATS.append(chat.id)
-        await query.answer("Chatbot enabled")
-        await query.message.delete()
+         query.answer("Chatbot enabled")
+         query.message.delete()
 
     elif action == "disable":
         if chat.id not in CHATBOT_ENABLED_CHATS:
-            return await query.answer("Chatbot is already disabled")
+            return  query.answer("Chatbot is already disabled")
         CHATBOT_ENABLED_CHATS.remove(chat.id)
-        await query.answer("Chatbot disabled")
-        await query.message.delete()
+         query.answer("Chatbot disabled")
+         query.message.delete()
 
     else:
-        await query.answer()
+         query.answer()
 
 
 def chatbot_response(query: str) -> str:
@@ -120,7 +120,7 @@ async def chatbot(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         botname = bot.first_name.lower()
         if botname in query:
             query = query.replace(botname, "bot.name")
-        await bot.sendChatAction(chat_id, action="typing")
+         bot.sendChatAction(chat_id, action="typing")
         user_id = update.message.from_user.id
         response = chatbot_response(query, user_id)
         if "Aco" in response:
@@ -128,7 +128,7 @@ async def chatbot(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         if "bot.name" in response:
             response = response.replace("bot.name", bot.first_name)
         sleep(0.3)
-        await msg.reply_text(response
+         msg.reply_text(response
 #    , timeout=60
         )
 
@@ -136,10 +136,10 @@ async def chatbot(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def list_chatbot_chats(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     text = "<b>AI-Enabled Chats</b>\n"
     for chat in CHATBOT_ENABLED_CHATS:
-        x = await context.bot.get_chat(chat)
+        x =  context.bot.get_chat(chat)
         name = x.title or x.first_name
         text += f"➛ <code>{name}</code>\n"
-    await update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
+     update.effective_message.reply_text(text, parse_mode=ParseMode.HTML)
 
 
 __help__ = f"""

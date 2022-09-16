@@ -72,7 +72,7 @@ def user_admin(permission: AdminPerms):
                     func,
                 )
                 anon_callback_messages[(message.chat.id, message.message_id)] = (
-                    await message.reply_text(
+                     message.reply_text(
                         "Seems like you're anonymous, click the button below to prove your identity",
                         reply_markup=InlineKeyboardMarkup(
                             [
@@ -88,7 +88,7 @@ def user_admin(permission: AdminPerms):
             else:
                 user_id = message.from_user.id
                 chat_id = message.chat.id
-                mem = await context.bot.get_chat_member(
+                mem =  context.bot.get_chat_member(
                     chat_id=chat_id, user_id=user_id
                 )
                 if (
@@ -98,7 +98,7 @@ def user_admin(permission: AdminPerms):
                 ):
                     return func(update, context, *args, **kwargs)
                 else:
-                    return await message.reply_text(
+                    return  message.reply_text(
                         f"You lack the permission: `{permission.name}`",
                         parse_mode=ParseMode.MARKDOWN_V2,
                     )
@@ -121,10 +121,10 @@ async def anon_callback_handler1(upd: Update):
         return
     if mem.status not in [ChatStatus.ADMINISTRATOR.value, ChatStatus.OWNER.value]:
         callback.answer("You're aren't admin.")
-        await NEKO_PTB.bot.delete_message(
+         NEKO_PTB.bot.delete_message(
             chat_id, anon_callback_messages.pop((chat_id, message_id), None)
         )
-        await NEKO_PTB.bot.send_message(
+         NEKO_PTB.bot.send_message(
             chat_id, "You lack the permissions required for this command"
         )
     elif (
@@ -135,7 +135,7 @@ async def anon_callback_handler1(upd: Update):
         if cb := anon_callbacks.pop((chat_id, message_id), None):
             message_id = anon_callback_messages.pop((chat_id, message_id), None)
             if message_id is not None:
-                await NEKO_PTB.bot.delete_message(chat_id, message_id)
+                 NEKO_PTB.bot.delete_message(chat_id, message_id)
             return cb[1](cb[0][0], cb[0][1])
     else:
         callback.answer("This isn't for ya")
