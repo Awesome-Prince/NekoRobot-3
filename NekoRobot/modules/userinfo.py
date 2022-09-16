@@ -193,14 +193,14 @@ async def get_id(update: Update, context: CallbackContext):
 def group_info(event) -> None:
     chat = event.text.split(" ", 1)[1]
     try:
-        entity = await event.client.get_entity(chat)
-        totallist = await event.client.get_participants(
+        entity = event.client.get_entity(chat)
+        totallist = event.client.get_participants(
             entity,
             filter=ChannelParticipantsAdmins,
         )
-        ch_full = await event.client(GetFullChannelRequest(channel=entity))
+        ch_full = event.client(GetFullChannelRequest(channel=entity))
     except:
-        await event.reply(
+        event.reply(
             "Can't for some reason, maybe it is a private one or that I am banned there.",
         )
         return
