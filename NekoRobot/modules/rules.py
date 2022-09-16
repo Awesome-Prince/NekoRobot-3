@@ -154,13 +154,13 @@ __help__ = """
 __mod_name__ = "Rules"
 
 GET_RULES_HANDLER = CommandHandler(
-    "rules", get_rules, filters=filters.ChatType.GROUPS, block=False
+    "rules", get_rules, filters=filter.ChatType.GROUPS, block=False
 )
 SET_RULES_HANDLER = CommandHandler(
-    "setrules", set_rules, filters=filters.ChatType.GROUPS
+    "setrules", set_rules, filters=filter.ChatType.GROUPS
 )
 RESET_RULES_HANDLER = CommandHandler(
-    "clearrules", clear_rules, filters=filters.ChatType.GROUPS
+    "clearrules", clear_rules, filters=filter.ChatType.GROUPS
 )
 
 NEKO_PTB.add_handler(GET_RULES_HANDLER)
