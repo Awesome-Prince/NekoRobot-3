@@ -94,7 +94,7 @@ async def warn_immune(message, update, uid, warner):
     return True
 
 # Not async
-async def warn(
+def warn(
     user: User, update: Update, reason: str, message: Message, warner: User = None
 ) -> Optional[str]:  # sourcery no-metrics
     chat = update.effective_chat
