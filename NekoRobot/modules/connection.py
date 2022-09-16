@@ -383,7 +383,7 @@ async def connect_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                     )
                 )
                 chat_name = conn_chat.title
-                 query.message.edit_text(
+                await query.message.edit_text(
                     "Successfully connected to *{}*. \nUse `/helpconnect` to check available commands.".format(
                         chat_name
                     ),
