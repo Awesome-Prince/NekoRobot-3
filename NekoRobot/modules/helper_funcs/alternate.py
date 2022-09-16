@@ -36,10 +36,10 @@ from telegram import error
 
 async def send_message(message, *args, **kwargs):
     try:
-        return  message.reply_text(*args, **kwargs)
+        return await message.reply_text(*args, **kwargs)
     except error.BadRequest as err:
         if str(err) == "Reply message not found":
-            return  message.reply_text(quote=False, *args, **kwargs)
+            return await message.reply_text(quote=False, *args, **kwargs)
 
 
 def send_action(action):
@@ -48,7 +48,7 @@ def send_action(action):
     def decorator(func):
         @wraps(func)
         async def command_func(update, context, *args, **kwargs):
-             context.bot.send_chat_action(
+            await context.bot.send_chat_action(
                 chat_id=update.effective_chat.id, action=action
             )
             return func(update, context, *args, **kwargs)
