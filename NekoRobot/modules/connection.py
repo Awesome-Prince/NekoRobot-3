@@ -391,25 +391,25 @@ async def connect_button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                 )
                 sql.add_history_conn(user.id, str(conn_chat.id), chat_name)
             else:
-                 query.message.edit_text("Connection failed!")
+                await query.message.edit_text("Connection failed!")
         else:
              context.bot.answer_callback_query(
-                query.id, "Connection to this chat is not allowed!", show_alert=True
+               await query.id, "Connection to this chat is not allowed!", show_alert=True
             )
     elif disconnect_match:
         if disconnection_status := sql.disconnect(query.from_user.id):
-            sql.disconnected_chat =  query.message.edit_text(
+            sql.disconnected_chat = await query.message.edit_text(
                 "Disconnected from chat!"
             )
         else:
              context.bot.answer_callback_query(
-                query.id, "You're not connected!", show_alert=True
+               await query.id, "You're not connected!", show_alert=True
             )
     elif clear_match:
         sql.clear_history_conn(query.from_user.id)
-         query.message.edit_text("History connected has been cleared!")
+        await query.message.edit_text("History connected has been cleared!")
     elif connect_close:
-         query.message.edit_text("Closed.\nTo open again, type /connect")
+        await query.message.edit_text("Closed.\nTo open again, type /connect")
     else:
         connect_chat(update, context)
 
