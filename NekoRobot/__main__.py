@@ -35,7 +35,6 @@ import importlib
 import json
 import random
 import re
-import sys
 import time
 import traceback
 from sys import argv
@@ -74,7 +73,6 @@ from NekoRobot import (
     StartTime,
     pgram,
     tbot,
-    ubot,
     updater,
 )
 
@@ -763,6 +761,8 @@ def main():
     else:
         tbot.disconnect()
     updater.idle()
+
+
 """
 try:
     ubot.start()
