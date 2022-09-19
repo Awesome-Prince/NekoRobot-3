@@ -36,7 +36,7 @@
       },
        "STRING_SESSION": {
          "description": "Telethon Based String Session (2nd ID) [ From https://repl.it/@SpEcHiDe/GenerateStringSession ]",
-         "required": true,
+         "required": false,
          "value": ""
      },
       "SQLALCHEMY_DATABASE_URI": {
