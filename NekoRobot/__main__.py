@@ -121,21 +121,20 @@ PM_START_TEXT = """
 ❍ *Uptime:* `{}`
 ❍ `{}` *Users, Across* `{}` *Chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-➛ Try The Help Buttons Below To Know My Abilities ××
+➛ Try The Guidelines Button Below To Know My Abilities ××
 """
 
 buttons = [
     [
         InlineKeyboardButton(
             text=f"Add {BOT_NAME} To Your Group",
-            url=f"https://telegram.dog/{NEKO_PTB.bot.username}?startgroup=true",
+            url=f"https://telegram.dog/{BOT_USERNAME}?startgroup=true",
         )
     ],
     [
-        InlineKeyboardButton(text="[► Help ◄]", callback_data="help_back"),
-        InlineKeyboardButton(text="❔ Chit Chat", url="https://telegram.dog/Besties_XD"),
+        InlineKeyboardButton(text="📓 Guidelines", callback_data="help_back"),
         InlineKeyboardButton(
-            text="[► Repo ◄]", url="https://github.com/Awesome-Prince/NekoRobot-3"
+            text="Source 🌐", url="https://github.com/Awesome-Prince/NekoRobot-3.git"
         ),
     ],
     [
@@ -143,7 +142,7 @@ buttons = [
             text="🚑 Support", url=f"https://telegram.dog/{SUPPORT_CHAT}"
         ),
         InlineKeyboardButton(
-            text="📢 Updates", url="https://telegram.dog/BlackLover_Support"
+            text="📢 Updates", url="https://telegram.dog/Programmer_Updates"
         ),
     ],
 ]
@@ -222,17 +221,16 @@ for module_name in ALL_MODULES:
 
 
 # do not async
-def send_help(context: CallbackContext, chat_id, text, keyboard=None):
+async def send_help(chat_id, text, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     NEKO_PTB.bot.send_message(
         chat_id=chat_id,
-        text=HELP_STRINGS,
+        text=text,
         parse_mode=ParseMode.MARKDOWN,
         disable_web_page_preview=True,
         reply_markup=keyboard,
     )
-
 
 def test(update: Update):
     # pprint(eval(str(update)))
