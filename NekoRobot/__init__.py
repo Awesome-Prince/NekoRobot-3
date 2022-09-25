@@ -2,7 +2,7 @@
 BSD 2-Clause License
 Copyright (C) 2017-2019, Paul Larsen
 Copyright (C) 2022-2023, Awesome-Prince, [ https://github.com/Awesome-Prince ]
-Copyright (c) 2022-2023, BlackLover • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
+Copyright (c) 2022-2023, Programmer • Network, [ https://github.com/Awesome-Prince/NekoRobot-3 ]
 All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -254,10 +254,10 @@ pgram = Client(
 
 # Credits Logger
 print(
-    "[NEKOROBOT] NEKO Is Starting. | BlackLover Network Project | BSD 2-Clause License."
+    "[NEKOROBOT] NEKO Is Starting. | Programmer Network Project | BSD 2-Clause License."
 )
 print(
-    "[NEKOROBOT] Mewo Mewo! Successfully Connected With BlackLover • Data Center • Chennai"
+    "[NEKOROBOT] Mewo Mewo! Successfully Connected With Programmer • Data Center • Chennai"
 )
 print(
     "[NEKOROBOT] Project Maintained By: github.com/Awesome-Prince (https://github.com/Awesome-Prince/NekoRobot-3)"
@@ -296,11 +296,11 @@ aiohttpsession = ClientSession()
 print("[INFO]: INITIALIZING ARQ CLIENT")
 arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsession)
 print(
-    "[NEKOROBOT]: Connecting To BlackLover • Data Center • Chennai • PostgreSQL Database"
+    "[NEKOROBOT]: Connecting To Programmer • Data Center • Chennai • PostgreSQL Database"
 )
 ubot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 print(
-    "[NEKOROBOT]: Connecting To BlackLover • Neko Userbot (https://telegram.dog/Awesome_Neko)"
+    "[NEKOROBOT]: Connecting To Programmer • Neko Userbot (https://telegram.dog/Awesome_Neko)"
 )
 timeout = httpx.Timeout(40)
 http = httpx.AsyncClient(http2=True, timeout=timeout)

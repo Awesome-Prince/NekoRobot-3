@@ -242,10 +242,10 @@ def info(update: Update, context: CallbackContext):
     buttons = [
         [
             InlineKeyboardButton(
-                text="Health", url="https://t.me/BlackLover_Updates/10"
+                text="Health", url="https://t.me/Programmer_Updates/10"
             ),
             InlineKeyboardButton(
-                text="Disasters", url="https://t.me/BlackLover_Updates/11"
+                text="Disasters", url="https://t.me/Programmer_Updates/11"
             ),
         ],
     ]
@@ -329,7 +329,7 @@ def info(update: Update, context: CallbackContext):
     elif user.id in WOLVES:
         text += "\n\nThe Disaster level of this person is 'Wolf'."
     elif user.id == 5561111332:
-        text += "\n\nSenorita Is Girlfriend Of @BlackLover_Prince."
+        text += "\n\nSenorita Is Girlfriend Of @Its_IZ_PRINCE_xD."
 
     try:
         user_member = chat.get_member(user.id)
@@ -462,8 +462,8 @@ def stats(update, context):
             status
             + "\n*Bot statistics*:\n"
             + "\n".join([mod.__stats__() for mod in STATS])
-            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/BlackLover_Updates)\n\n"
-            + "\n╘══「 by [BlackLover • Network](https://t.me/BlackLover_Network) 」\n",
+            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/Programmer_Updates)\n\n"
+            + "\n╘══「 by [Programmer • Network](https://t.me/Programmer_Network) 」\n",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
@@ -483,9 +483,9 @@ def stats(update, context):
                         "\n*Bot statistics*:\n"
                         + "\n".join(mod.__stats__() for mod in STATS)
                     )
-                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/BlackLover_Updates)\n\n"
+                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/Programmer_Updates)\n\n"
                 )
-                + "╘══「 by [BlackLover • Network](https://t.me/BlackLover_Network) 」\n"
+                + "╘══「 by [Programmer • Network](https://t.me/Programmer_Network) 」\n"
             ),
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
