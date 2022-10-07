@@ -645,7 +645,7 @@ def donate(update: Update, context: CallbackContext) -> None:
             DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True
         )
 
-        if OWNER_ID != 5362971543 and DONATION_LINK:
+        if OWNER_ID != 5629305049 and DONATION_LINK:
             update.effective_message.reply_text(
                 f"You can also donate to the person currently running me [here]({DONATION_LINK})",
                 parse_mode=ParseMode.MARKDOWN,
