@@ -28,7 +28,7 @@ from NekoRobot import pgram
 
 Neko_PYRO_Hello = filters.command("hi")
 
-@pgram.on_message(Neko_PYRO_Paste) & ~filters.edited & ~filters.bot)
+@pgram.on_message(Neko_PYRO_Hello) & ~filters.edited & ~filters.bot)
 async def hmm(client, message):
     j = "Hello there"
     await message.reply(j)
