@@ -27,7 +27,7 @@ from telethon import Button
 
 from NekoRobot import tbot as tbot
 from NekoRobot.events import register
-from NekoRobot.helper_funcs.string_store import GDMORNING
+from NekoRobot.modules.helper_funcs.string_store import GDMORNING
 
 PHOTO = "https://te.legra.ph/file/880e3d713b81dfd7afaad.jpg"
 
