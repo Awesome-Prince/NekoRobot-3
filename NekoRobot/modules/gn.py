@@ -23,6 +23,7 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 
+import random
 from telethon import Button
 
 from NekoRobot import tbot as tbot
@@ -40,4 +41,4 @@ async def awake(event):
         ]
     ]
 
-    await tbot.send_file(event.chat_id, PHOTO, caption=GDNIGHT, buttons=BUTTON)
+    await tbot.send_file(event.chat_id, PHOTO, caption=random.choice(GDNIGHT), buttons=BUTTON)
