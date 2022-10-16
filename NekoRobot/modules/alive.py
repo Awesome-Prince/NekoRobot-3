@@ -29,6 +29,7 @@ from datetime import datetime
 
 from pyrogram import __version__ as pyrover
 from telethon import Button
+from telegram import __version__ as ptb
 from telethon import __version__ as tlhver
 
 from NekoRobot import BOT_NAME, BOT_USERNAME
@@ -74,7 +75,7 @@ async def hmm(yes):
     uptime = await _human_time_duration(int(uptime_sec))
     NekoX = f"** ♡ Hey [{yes.sender.first_name}](tg://user?id={yes.sender.id}) I'm {BOT_NAME} **\n\n"
     NekoX += f"**♡ My Uptime :** `{uptime}`\n\n"
-    NekoX += f"**♡ Python Version :** `{python_version}`\n\n"
+    NekoX += f"**♡ Python-telegram-bot Version :** `{ptb}`\n\n"
     NekoX += f"**♡ Telethon Version :** `{tlhver}`\n\n"
     NekoX += f"**♡ Pyrogram Version :** `{pyrover}`\n\n"
     NekoX += "**♡ My Master :** [LovelyPrince](https://t.me/Its_IZ_PRINCE_xD) "
