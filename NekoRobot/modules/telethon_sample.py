@@ -25,11 +25,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from telethon import Button
 
-from NekoRobot import tbot as tbot
+from NekoRobot import tbot
 from NekoRobot.events import register
 
 PHOTO = "https://te.legra.ph/file/3b3de12dc0fe11892d4ed.jpg"
-
 
 @register(pattern=("Hello"))
 async def awake(event):
