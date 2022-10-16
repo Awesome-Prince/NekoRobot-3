@@ -30,6 +30,7 @@ from NekoRobot.events import register
 
 PHOTO = "https://te.legra.ph/file/3b3de12dc0fe11892d4ed.jpg"
 
+
 @register(pattern=("Hello"))
 async def awake(event):
     NEKO = f"hola. {event.sender.first_name}"
