@@ -46,7 +46,7 @@ async def paste(content):
 async def inline_help_func(__HELP__):
     buttons = InlineKeyboard(row_width=2)
     buttons.add(
-        InlineKeyboardButton("More Help", url=f"t.me/NekoXRobot?start=start"),
+        InlineKeyboardButton("More Help", url=f"t.me/NekoCuteBot?start=start"),
         InlineKeyboardButton("Go Inline", switch_inline_query_current_chat=""),
     )
     answerss = [
@@ -67,18 +67,18 @@ async def alive_function(answers):
     bot_state = "Dead" if not await app.get_me() else "Alive"
     # ubot_state = 'Dead' if not await app2.get_me() else 'Alive'
     buttons.add(
-        InlineKeyboardButton("Main Bot", url="https://t.me/NekoXRobot"),
+        InlineKeyboardButton("Main Bot", url="https://t.me/NekoCuteBot"),
         InlineKeyboardButton("Go Inline", switch_inline_query_current_chat=""),
     )
 
     msg = f"""
-**[Neko X](https://t.me/NekoXRobot):**
+**[Neko X](https://t.me/NekoCuteBot):**
 **MainBot:** `{bot_state}`
 **UserBot:** `Alive`
 **Python:** `3.9`
 **Pyrogram:** `{pyrover}`
 **Platform:** `{sys.platform}`
-**Profiles:** [BOT](t.me/NekoXRobot) | [OWNER](t.me/DarlingPrince)
+**Profiles:** [BOT](t.me/NekoCuteBot) | [OWNER](t.me/DarlingPrince)
 """
 
     answers.append(

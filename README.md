@@ -16,7 +16,7 @@ A modular telegram Python bot running on python3 with an Sqlalchemy, mongodb dat
 - [x] Heroku Deploy
 - [x] Docker/Local Machine
 
-╘═━「 Can be found on telegram as [NekoRobot](https://telegram.dog/NekoX_bot) 」
+╘═━「 Can be found on telegram as [NekoRobot](https://telegram.dog/NekoCuteBot) 」
 
 ## ╔═━「 Credits 」
 The bot is based of on the original work done by [PaulSonOfLars](https://github.com/PaulSonOfLars)
@@ -39,7 +39,7 @@ This repo was just reamped to suit an Anime-centric community. All original cred
 
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
-The Support group can be reached out to at [Programmer • Support](https://telegram.dog/ProgrammerSupport) Or [Neko Support (Github)](https://github.com/Awesome-Prince/NekoRobot-3/discussions/15), where you can ask for help about [NekoRobot](https://telegram.dog/NekoX_bot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
+The Support group can be reached out to at [Programmer • Support](https://telegram.dog/ProgrammerSupport) Or [Neko Support (Github)](https://github.com/Awesome-Prince/NekoRobot-3/discussions/15), where you can ask for help about [NekoRobot](https://telegram.dog/NekoCuteBot), discover/request new features, report bugs, and stay in the loop whenever a new update is available. 
 
 <details>
 	<summary>Deploy Options</summary>

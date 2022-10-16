@@ -5,7 +5,7 @@ import requests
 from gtts import gTTS, gTTSError
 from telethon.tl import functions, types
 
-from NekoRobot import tbot as tbot
+from NekoRobot import tbot
 from NekoRobot.events import register
 
 IBM_WATSON_CRED_PASSWORD = ""
