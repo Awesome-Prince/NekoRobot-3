@@ -16,9 +16,10 @@ class Config(object):
 
     API_ID = 1234567  # integer value, dont use ""
     API_HASH = "123458494"
-    TOKEN = "5096800645:AAEqiDu0tIAz6Tj5mNPP38R9AyfzEWr1SO0"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    TOKEN = ""  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    STRING_SESSION = ""
     OWNER_ID = 1732814103  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "DarlingPrince"
+    OWNER_USERNAME = "Its_IZ_PRINCE_xD"
     SUPPORT_CHAT = "ProgrammerSupport"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
         -1001739802989
@@ -28,8 +29,8 @@ class Config(object):
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
     # RECOMMENDED
-    SQLALCHEMY_DATABASE_URI = "postgres://tluamgmb:wzHC-TipPrkuPGtbqHUpVNeGpqicuQCV@castor.db.elephantsql.com/tluamgmb"  # needed for any database modules
-    DB_URL = "postgresql://postgres:IE2wA6q9yKhLpaqeJ0RT@containers-us-west-17.railway.app:5819/railway"
+    SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
+    DB_URL = ""
     REDIS_URL = ""
     LOAD = []
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
@@ -110,7 +111,6 @@ class Config(object):
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
     DB_URL = ""
-    STRING_SESSION = None
     LOAD = []
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     WEBHOOK = False
