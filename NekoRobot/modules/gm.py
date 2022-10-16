@@ -40,4 +40,4 @@ async def awake(event):
         ]
     ]
 
-    await tbot.send_file(event.chat_id, PHOTO, caption=GDMORNING, buttons=BUTTON)
+    await tbot.send_file(event.chat_id, PHOTO, caption=random.choice(GDMORNING), buttons=BUTTON)
