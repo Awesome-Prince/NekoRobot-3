@@ -28,8 +28,8 @@ import datetime
 from datetime import datetime
 
 from pyrogram import __version__ as pyrover
-from telethon import Button
 from telegram import __version__ as ptb
+from telethon import Button
 from telethon import __version__ as tlhver
 
 from NekoRobot import BOT_NAME, BOT_USERNAME
