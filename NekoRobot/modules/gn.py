@@ -27,7 +27,7 @@ from telethon import Button
 
 from NekoRobot import tbot as tbot
 from NekoRobot.events import register
-from NekoRobot.helper_func.string_store import GDNIGHT
+from NekoRobot.modules.helper_func.string_store import GDNIGHT
 
 PHOTO = "https://te.legra.ph/file/4e959d8f074bef7061463.mp4"
 
