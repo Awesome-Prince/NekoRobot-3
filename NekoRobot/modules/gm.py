@@ -27,16 +27,16 @@ from telethon import Button
 
 from NekoRobot import tbot as tbot
 from NekoRobot.events import register
+from NekoRobot.helper_funcs.string_store import GDMORNING
 
 PHOTO = "https://te.legra.ph/file/880e3d713b81dfd7afaad.jpg"
 
 
 @register(pattern=("Good morning"))
 async def awake(event):
-    NEKO = f"Good morning Friend with a smile on your face. I hope you all have a great day today. Wishing you a very good morning! {event.sender.first_name}"
-    BUTTON = [
+     BUTTON = [
         [
             Button.url("Meet Me Here🎀", "https://telegram.dog/Besties_XD"),
         ]
     ]
-    await tbot.send_file(event.chat_id, PHOTO, caption=NEKO, buttons=BUTTON)
+    await tbot.send_file(event.chat_id, PHOTO, caption=GDMORNING, buttons=BUTTON)
