@@ -123,12 +123,12 @@ NEKO_STICKERS = (
 PM_START_TEXT = """
 ────「 [{}](https://telegra.ph/file/d80bb89c4aca2a87419b7.jpg) 」────
 *Hola! {},*
-*I am an Anime Themed Advance Group Management Bot With Lot Of Sexy Features.*
+*Meow Meow, Don't Touch Me Without My Permission!*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 ❍ *Uptime:* `{}`
 ❍ `{}` *Users, Across* `{}` *Chats.*
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-➛ Try The Guidelines Button Below To Know My Cat Abilities ××
+➛ Try The Guidelines Button Below To Know My Abilities ××
 """
 
 buttons = [
