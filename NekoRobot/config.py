@@ -110,6 +110,7 @@ class Config(object):
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
     DB_URL = ""
+    STRING_SESSION = None
     LOAD = []
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     WEBHOOK = False
