@@ -31,7 +31,7 @@ psutil
 jikanpy
 speedtest-cli==2.1.3
 coffeehouse
-regex==2022.9.13
+regex==2022.10.31
 bleach
 wikipedia
 spamwatch
