@@ -58,7 +58,7 @@ asyncio
 nltk
 aiohttp==3.8.3
 pykeyboard==0.1.2
-Pillow==9.2.0
+Pillow==9.3.0
 CurrencyConverter
 googletrans==4.0.0-rc1
 google_trans_new
