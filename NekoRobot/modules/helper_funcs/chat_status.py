@@ -117,9 +117,9 @@ def can_delete(chat: Chat, bot_id: int) -> bool:
     return chat.get_member(bot_id).can_delete_messages
 
 
-def is_user_ban_protected(update: Update,
-                          user_id: int,
-                          member: ChatMember = None) -> bool:
+def is_user_ban_protected(
+    update: Update, user_id: int, member: ChatMember = None
+) -> bool:
     if (
         chat.type == "private"
         or user_id in DRAGONS
