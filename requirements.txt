@@ -29,7 +29,7 @@ zalgo-text
 geopy
 psutil
 jikanpy
-speedtest-cli==2.1.3
+
 coffeehouse
 regex==2022.10.31
 bleach
@@ -63,7 +63,6 @@ CurrencyConverter
 googletrans==4.0.0-rc1
 google_trans_new
 pyrate-limiter
-nekos.py
 tgcrypto
 python-arq==6.0.3
 hachoir
@@ -74,7 +73,6 @@ parsel
 urllib3
 heroku3
 telegraph
-youtube_search
 search_engine_parser
 glitch_this
 NumPy
