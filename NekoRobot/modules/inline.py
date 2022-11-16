@@ -238,9 +238,7 @@ def about(query: str, update: Update, context: CallbackContext) -> None:
     kb = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    text="Support", url="https://t.me/Besties_XD"
-                ),
+                InlineKeyboardButton(text="Support", url="https://t.me/Besties_XD"),
                 InlineKeyboardButton(
                     text="Sys Stats",
                     callback_data="pingCB",
