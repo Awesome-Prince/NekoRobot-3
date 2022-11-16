@@ -258,7 +258,7 @@ def new_member(update: Update, context: CallbackContext):
                             [
                                 InlineKeyboardButton(
                                     text="Support🚑",
-                                    url=f"https://t.me/ProgrammerSupport",
+                                    url=f"https://t.me/Besties_XD",
                                 ),
                                 InlineKeyboardButton(
                                     text="Updates🛰️",
