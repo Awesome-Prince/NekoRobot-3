@@ -48,7 +48,6 @@ pythonping
 html_telegraph_poster
 pytube
 youtube-search-python
-instantmusic
 PyLyrics
 hachoir
 pybase64
@@ -63,7 +62,7 @@ CurrencyConverter
 googletrans==4.0.0-rc1
 google_trans_new
 pyrate-limiter
-python-arq==6.0.3
+python-arq==6.0.5
 hachoir
 configparser
 python-dotenv==0.19.2
