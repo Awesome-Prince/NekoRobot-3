@@ -80,7 +80,7 @@ python-rapidjson==1.9
 pytimeparse
 markdown2
 
-tgcrypto==1.2.4
+tgcrypto==1.2.5
 pycryptodome
 base58
 httpx
