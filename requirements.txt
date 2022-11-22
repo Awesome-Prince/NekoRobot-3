@@ -8,7 +8,7 @@ wget==3.2
 secureme==0.0.4
 cowpy
 motor==2.5.1
-gpytranslate==
+
 PyDictionary==2.0.1
 GitPython==3.1.29
 emoji==1.6.3
@@ -81,7 +81,7 @@ countryinfo==0.1.2
 python-rapidjson==1.9
 pytimeparse
 markdown2
-gpytranslate
+
 tgcrypto==1.2.4
 pycryptodome
 base58
