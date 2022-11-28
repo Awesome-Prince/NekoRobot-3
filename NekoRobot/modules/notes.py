@@ -27,13 +27,11 @@ import ast
 import random
 import re
 from io import BytesIO
-from typing import Optional
 
 from telegram import (
     MAX_MESSAGE_LENGTH,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    Message,
     ParseMode,
     Update,
 )
