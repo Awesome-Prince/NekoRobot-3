@@ -1,17 +1,9 @@
-# syntax=docker/dockerfile:1
+FROM python:3.9.1-buster
 
-FROM python:3.11.0
-
-WORKDIR /app
-
-RUN apt-get -y update
-
-RUN apt-get -y install git gcc python3-dev
-
-COPY requirements.txt requirements.txt
-
-RUN pip3 install -U -r requirements.txt
+WORKDIR /root/NekoRobot
 
 COPY . .
 
-CMD [ "python3", "-m" , "NekoRobot"]
+RUN pip3 install -r requirements.txt
+
+CMD ["python3","-m","NekoRobot"]
