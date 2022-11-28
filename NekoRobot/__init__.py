@@ -202,7 +202,6 @@ else:
     CERT_PATH = Config.CERT_PATH
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
-    STRING_SESSION = Config.STRING_SESSION
     DB_URI = Config.SQLALCHEMY_DATABASE_URI
     REDIS_URL = Config.REDIS_URL
     DONATION_LINK = Config.DONATION_LINK
@@ -298,7 +297,7 @@ arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsessi
 print(
     "[NEKOROBOT]: Connecting To Programmer • Data Center • Chennai • PostgreSQL Database"
 )
-ubot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
+# ubot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 print(
     "[NEKOROBOT]: Connecting To Programmer • Neko Userbot (https://telegram.dog/Awesome_Neko)"
 )
