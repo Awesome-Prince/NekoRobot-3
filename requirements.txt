@@ -37,7 +37,7 @@ wikipedia
 spamwatch
 alphabet_detector
 cachetools
-dnspython==2.1.0
+dnspython==2.3.0
 fontTools
 gtts
 tswift
