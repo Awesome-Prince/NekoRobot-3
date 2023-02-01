@@ -59,7 +59,6 @@ def logs(update: Update, context: CallbackContext):
         return
     user = update.effective_user
     with open("log.txt", "rb") as f:
-
         context.bot.send_document(document=f, filename=f.name, chat_id=user.id)
 
 

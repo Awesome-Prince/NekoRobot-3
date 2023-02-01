@@ -135,7 +135,6 @@ def import_data(update, context):
         # TODO: some of that link logic
         # NOTE: consider default permissions stuff?
         if conn:
-
             text = f"Backup fully restored on *{chat_name}*."
         else:
             text = "Backup fully restored"
