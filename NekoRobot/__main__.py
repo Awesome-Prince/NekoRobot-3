@@ -346,7 +346,7 @@ def error_handler(update: Update, context: CallbackContext):
 def error_callback(_, context: CallbackContext):
     try:
         raise context.error
-    except (BadRequest):
+    except BadRequest:
         pass
         # remove update.message.chat_id from conversation list
     except TimedOut:
@@ -465,7 +465,6 @@ def get_help(update: Update, context: CallbackContext) -> None:
 
     # ONLY send help in PM
     if chat.type != chat.PRIVATE:
-
         update.effective_message.reply_photo(
             HELP_IMG,
             HELP_MSG,
