@@ -85,7 +85,6 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         message.reply_text("I can't seem to find this user.")
         return ""
     if sql.is_user_blacklisted(user_id):
-
         sql.unblacklist_user(user_id)
         message.reply_text("*notices user*")
         return f"#UNBLACKLIST\n<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n<b>User:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
