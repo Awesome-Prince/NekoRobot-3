@@ -129,7 +129,6 @@ def gban(update: Update, context: CallbackContext):
         return
 
     if sql.is_user_gbanned(user_id):
-
         if not reason:
             message.reply_text(
                 "This user is already gbanned; I'd change the reason, but you haven't given me one..."
@@ -394,7 +393,6 @@ def gbanlist(update: Update, context: CallbackContext):
 
 
 def check_and_ban(update, user_id, should_message=True):
-
     chat = update.effective_chat  # type: Optional[Chat]
     try:
         sw_ban = sw.get_ban(int(user_id))
