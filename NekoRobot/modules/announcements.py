@@ -48,7 +48,6 @@ def chatmemberupdates(update: Update, context: CallbackContext) -> Optional[str]
         cause_name = update.chat_member.from_user.mention_html()
         member_name = update.chat_member.new_chat_member.user.mention_html()
         if oldtitle != newtitle:
-
             if str(update.chat_member.from_user.id) == str(bot.id):
                 return ""  # we handle these in their respective modules
             if oldtitle is None:

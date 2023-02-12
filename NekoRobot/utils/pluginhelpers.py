@@ -43,7 +43,6 @@ from NekoRobot.utils.errors import split_limits
 
 
 def get_user(message: Message, text: str) -> [int, str, None]:
-
     asplit = None if text is None else text.split(" ", 1)
 
     user_s = None
@@ -51,43 +50,35 @@ def get_user(message: Message, text: str) -> [int, str, None]:
     reason_ = None
 
     if message.reply_to_message:
-
         user_s = message.reply_to_message.from_user.id
 
         reason_ = text or None
 
     elif asplit is None:
-
         return None, None
 
     elif len(asplit[0]) > 0:
-
         user_s = int(asplit[0]) if asplit[0].isdigit() else asplit[0]
 
         if len(asplit) == 2:
-
             reason_ = asplit[1]
 
     return user_s, reason_
 
 
 async def is_admin(event, user):
-
     try:
-
         sed = await event.client.get_permissions(event.chat_id, user)
 
         is_mod = bool(sed.is_admin)
 
     except:
-
         is_mod = False
 
     return is_mod
 
 
 def get_readable_time(seconds: int) -> int:
-
     count = 0
 
     ping_time = ""
@@ -97,13 +88,11 @@ def get_readable_time(seconds: int) -> int:
     time_suffix_list = ["s", "m", "h", "days"]
 
     while count < 4:
-
         count += 1
 
         remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
 
         if seconds == 0 and remainder == 0:
-
             break
 
         time_list.append(int(result))
@@ -111,11 +100,9 @@ def get_readable_time(seconds: int) -> int:
         seconds = int(remainder)
 
     for x in range(len(time_list)):
-
         time_list[x] = str(time_list[x]) + time_suffix_list[x]
 
     if len(time_list) == 4:
-
         ping_time += time_list.pop() + ", "
 
     time_list.reverse()
@@ -126,7 +113,6 @@ def get_readable_time(seconds: int) -> int:
 
 
 def time_formatter(milliseconds: int) -> str:
-
     seconds, milliseconds = divmod(int(milliseconds), 1000)
 
     minutes, seconds = divmod(seconds, 60)
@@ -147,18 +133,14 @@ def time_formatter(milliseconds: int) -> str:
 
 
 async def delete_or_pass(message):
-
     if message.from_user.id == 1141839926:
-
         return message
 
     return await message.delete()
 
 
 def humanbytes(size):
-
     if not size:
-
         return ""
 
     power = 2**10
@@ -168,7 +150,6 @@ def humanbytes(size):
     dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
 
     while size > power:
-
         size /= power
 
         raised_to_pow += 1
@@ -177,13 +158,11 @@ def humanbytes(size):
 
 
 async def progress(current, total, message, start, type_of_ps, file_name=None):
-
     now = time.time()
 
     diff = now - start
 
     if round(diff % 10.00) == 0 or current == total:
-
         percentage = current * 100 / total
 
         speed = current / diff
@@ -191,7 +170,6 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
         elapsed_time = round(diff) * 1000
 
         if elapsed_time == 0:
-
             return
 
         time_to_completion = round((total - current) / speed) * 1000
@@ -209,76 +187,58 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
         )
 
         if file_name:
-
             try:
-
                 await message.edit(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
                 )
 
             except FloodWait as e:
-
                 await asyncio.sleep(e.x)
 
             except MessageNotModified:
-
                 pass
 
         else:
-
             try:
-
                 await message.edit("{}\n{}".format(type_of_ps, tmp))
 
             except FloodWait as e:
-
                 await asyncio.sleep(e.x)
 
             except MessageNotModified:
-
                 pass
 
 
 def get_text(message: Message) -> [None, str]:
-
     text_to_return = message.text
 
     if message.text is None:
-
         return None
 
     if " " not in text_to_return:
-
         return None
 
     try:
-
         return message.text.split(None, 1)[1]
 
     except IndexError:
-
         return None
 
 
 async def iter_chats(client):
-
     chats = []
 
     async for dialog in client.iter_dialogs():
-
         if dialog.chat.type in ["supergroup", "channel"]:
-
             chats.append(dialog.chat.id)
 
     return chats
 
 
 async def fetch_audio(client, message):
-
     time.time()
 
     if not message.reply_to_message:
-
         await message.reply("`Reply To A Video / Audio.`")
 
         return
@@ -286,13 +246,11 @@ async def fetch_audio(client, message):
     warner_stark = message.reply_to_message
 
     if warner_stark.audio is None and warner_stark.video is None:
-
         await message.reply("`Format Not Supported`")
 
         return
 
     if warner_stark.video:
-
         lel = await message.reply("`Video Detected, Converting To Audio !`")
 
         warner_bros = await message.reply_to_message.download()
@@ -304,7 +262,6 @@ async def fetch_audio(client, message):
         final_warner = "friday.mp3"
 
     elif warner_stark.audio:
-
         lel = await edit_or_reply(message, "`Download Started !`")
 
         final_warner = await message.reply_to_message.download()
@@ -317,11 +274,8 @@ async def fetch_audio(client, message):
 
 
 async def edit_or_reply(message, text, parse_mode="md"):
-
     if message.from_user.id:
-
         if message.reply_to_message:
-
             kk = message.reply_to_message.message_id
 
             return await message.reply_text(
@@ -334,7 +288,6 @@ async def edit_or_reply(message, text, parse_mode="md"):
 
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
-
     """run command in terminal"""
 
     args = shlex.split(cmd)
@@ -354,7 +307,6 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
 
 
 async def convert_to_image(message, client) -> [None, str]:
-
     """Convert Most Media Formats To Raw Image"""
 
     final_path = None
@@ -366,17 +318,13 @@ async def convert_to_image(message, client) -> [None, str]:
         or message.reply_to_message.animation
         or message.reply_to_message.audio
     ):
-
         return None
 
     if message.reply_to_message.photo:
-
         final_path = await message.reply_to_message.download()
 
     elif message.reply_to_message.sticker:
-
         if message.reply_to_message.sticker.mime_type == "image/webp":
-
             final_path = "webp_to_png_s_proton.png"
 
             path_s = await message.reply_to_message.download()
@@ -386,7 +334,6 @@ async def convert_to_image(message, client) -> [None, str]:
             im.save(final_path, "PNG")
 
         else:
-
             path_s = await client.download_media(message.reply_to_message)
 
             final_path = "lottie_proton.png"
@@ -398,13 +345,11 @@ async def convert_to_image(message, client) -> [None, str]:
             await runcmd(cmd)
 
     elif message.reply_to_message.audio:
-
         thumb = message.reply_to_message.audio.thumbs[0].file_id
 
         final_path = await client.download_media(thumb)
 
     elif message.reply_to_message.video or message.reply_to_message.animation:
-
         final_path = "fetched_thumb.png"
 
         vid_path = await client.download_media(message.reply_to_message)
@@ -415,25 +360,20 @@ async def convert_to_image(message, client) -> [None, str]:
 
 
 def get_text(message: Message) -> [None, str]:
-
     """Extract Text From Commands"""
 
     text_to_return = message.text
 
     if message.text is None:
-
         return None
 
     if " " not in text_to_return:
-
         return None
 
     try:
-
         return message.text.split(None, 1)[1]
 
     except IndexError:
-
         return None
 
 
@@ -443,33 +383,26 @@ admins: Dict[str, List[User]] = {}
 
 
 def set(chat_id: Union[str, int], admins_: List[User]):
-
     if isinstance(chat_id, int):
-
         chat_id = str(chat_id)
 
     admins[chat_id] = admins_
 
 
 def get(chat_id: Union[str, int]) -> Union[List[User], bool]:
-
     if isinstance(chat_id, int):
-
         chat_id = str(chat_id)
 
     if chat_id in admins:
-
         return admins[chat_id]
 
     return False
 
 
 async def get_administrators(chat: Chat) -> List[User]:
-
     _get = get(chat.id)
 
     if _get:
-
         return _get
 
     set(
@@ -482,17 +415,13 @@ async def get_administrators(chat: Chat) -> List[User]:
 
 def admins_only(func: Callable) -> Coroutine:
     async def wrapper(client: Client, message: Message):
-
         if message.from_user.id == OWNER_ID:
-
             return await func(client, message)
 
         admins = await get_administrators(message.chat)
 
         for admin in admins:
-
             if admin.id == message.from_user.id:
-
                 return await func(client, message)
 
     return wrapper
@@ -504,13 +433,10 @@ def admins_only(func: Callable) -> Coroutine:
 def capture_err(func):
     @wraps(func)
     async def capture(client, message, *args, **kwargs):
-
         try:
-
             return await func(client, message, *args, **kwargs)
 
         except Exception as err:
-
             exc_type, exc_obj, exc_tb = sys.exc_info()
 
             errors = traceback.format_exception(
@@ -529,7 +455,6 @@ def capture_err(func):
             )
 
             for x in error_feedback:
-
                 await pgram.send_message(SUPPORT_CHAT, x)
 
             raise err
@@ -541,94 +466,73 @@ def capture_err(func):
 
 
 async def member_permissions(chat_id, user_id):
-
     perms = []
 
     member = await pgram.get_chat_member(chat_id, user_id)
 
     if member.can_post_messages:
-
         perms.append("can_post_messages")
 
     if member.can_edit_messages:
-
         perms.append("can_edit_messages")
 
     if member.can_delete_messages:
-
         perms.append("can_delete_messages")
 
     if member.can_restrict_members:
-
         perms.append("can_restrict_members")
 
     if member.can_promote_members:
-
         perms.append("can_promote_members")
 
     if member.can_change_info:
-
         perms.append("can_change_info")
 
     if member.can_invite_users:
-
         perms.append("can_invite_users")
 
     if member.can_pin_messages:
-
         perms.append("can_pin_messages")
 
     return perms
 
 
 async def current_chat_permissions(chat_id):
-
     perms = []
 
     perm = (await pgram.get_chat(chat_id)).permissions
 
     if perm.can_send_messages:
-
         perms.append("can_send_messages")
 
     if perm.can_send_media_messages:
-
         perms.append("can_send_media_messages")
 
     if perm.can_send_stickers:
-
         perms.append("can_send_stickers")
 
     if perm.can_send_animations:
-
         perms.append("can_send_animations")
 
     if perm.can_send_games:
-
         perms.append("can_send_games")
 
     if perm.can_use_inline_bots:
-
         perms.append("can_use_inline_bots")
 
     if perm.can_add_web_page_previews:
-
         perms.append("can_add_web_page_previews")
 
     if perm.can_send_polls:
-
         perms.append("can_send_polls")
 
     if perm.can_change_info:
-
         perms.append("can_change_info")
 
     if perm.can_invite_users:
-
         perms.append("can_invite_users")
 
     if perm.can_pin_messages:
-
         perms.append("can_pin_messages")
 
     return perms
@@ -638,11 +542,9 @@ async def current_chat_permissions(chat_id):
 
 
 def get_url(message_1: Message) -> Union[str, None]:
-
     messages = [message_1]
 
     if message_1.reply_to_message:
-
         messages.append(message_1.reply_to_message)
 
     text = ""
@@ -652,17 +554,12 @@ def get_url(message_1: Message) -> Union[str, None]:
     length = None
 
     for message in messages:
-
         if offset:
-
             break
 
         if message.entities:
-
             for entity in message.entities:
-
                 if entity.type == "url":
-
                     text = message.text or message.caption
 
                     offset, length = entity.offset, entity.length
@@ -670,29 +567,23 @@ def get_url(message_1: Message) -> Union[str, None]:
                     break
 
     if offset in (None,):
-
         return None
 
     return text[offset : offset + length]
 
 
 async def fetch(url):
-
     async with aiohttp.ClientSession() as session, session.get(url) as resp:
-
         try:
-
             data = await resp.json()
 
         except Exception:
-
             data = await resp.text()
 
     return data
 
 
 async def convert_seconds_to_minutes(seconds: int):
-
     seconds = int(seconds)
 
     seconds %= 24 * 3600
@@ -707,7 +598,6 @@ async def convert_seconds_to_minutes(seconds: int):
 
 
 async def json_object_prettify(objecc):
-
     dicc = objecc.__dict__
 
     return "".join(
@@ -718,21 +608,15 @@ async def json_object_prettify(objecc):
 
 
 async def json_prettify(data):
-
     output = ""
 
     try:
-
         for key, value in data.items():
-
             output += f"**{key}:** `{value}`\n"
 
     except Exception:
-
         for datas in data:
-
             for key, value in datas.items():
-
                 output += f"**{key}:** `{value}`\n"
 
             output += "------------------------\n"
