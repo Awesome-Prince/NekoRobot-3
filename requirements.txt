@@ -65,7 +65,7 @@ pyrate-limiter
 python-arq==6.0.5
 hachoir
 configparser
-python-dotenv==0.21.1
+python-dotenv==1.0.0
 bing_image_downloader
 parsel
 urllib3
