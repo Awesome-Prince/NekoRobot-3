@@ -138,17 +138,17 @@ buttons = [
         )
     ],
     [
-        InlineKeyboardButton(text="📓 Guidelines", callback_data="help_back"),
+        InlineKeyboardButton(text="💙", callback_data="help_back"),
         InlineKeyboardButton(
-            text="Source 🌐", url="https://github.com/Awesome-Prince/NekoRobot-3.git"
+            text="❤️‍🔥", url="https://graph.org/file/49626af047c288c9a3743.jpg"
         ),
     ],
     [
         InlineKeyboardButton(
-            text="🚑 Support", url=f"https://telegram.dog/{SUPPORT_CHAT}"
+            text="❤️‍🔥Support❤️‍🔥", url=f"https://telegram.dog/{SUPPORT_CHAT}"
         ),
         InlineKeyboardButton(
-            text="📢 Updates", url="https://telegram.dog/Programmer_Updates"
+            text="🥀Updates❣️", url="https://t.me/king_x_network"
         ),
     ],
 ]
@@ -308,12 +308,12 @@ def start(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="🚑 Support",
+                            text="❤️‍🔥Support❤️‍🔥",
                             url=f"https://telegram.dog/{SUPPORT_CHAT}",
                         ),
                         InlineKeyboardButton(
-                            text="📢 Updates",
-                            url="https://telegram.dog/Programmer_Updates",
+                            text="🥀Updates❣️",
+                            url="https://t.me/king_x_network",
                         ),
                     ]
                 ]
@@ -676,11 +676,11 @@ def donate(update: Update, context: CallbackContext) -> None:
                     [
                         [
                             InlineKeyboardButton(
-                                text="📢 Updates",
-                                url="https://telegram.dog/Programmer_Updates",
+                                text="🥀Updates❣️",
+                                url="https://t.me/king_x_network",
                             ),
                             InlineKeyboardButton(
-                                text="🚑 Support",
+                                text="❤️‍🔥Support❤️‍🔥",
                                 url=f"https://telegram.dog/{SUPPORT_CHAT}",
                             ),
                         ]
