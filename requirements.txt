@@ -76,7 +76,7 @@ glitch_this
 NumPy
 opencv-python-headless
 countryinfo==0.1.2
-python-rapidjson==1.9
+python-rapidjson==1.10
 pytimeparse
 markdown2
 nekos.py
