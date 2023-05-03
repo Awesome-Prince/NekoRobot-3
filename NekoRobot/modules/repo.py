@@ -36,7 +36,7 @@ async def awake(event):
     NEKO = """
          We Are So Happy To Announce That We Have Public Our Repo. ✨🥀
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
-「@NekoCuteBot」
+「@Wolfwood_Bot」
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 Here is the Repo Deploy your Own NekoRobot.
 ⚜️Repo ➤ https://github.com/Dank-del/EnterpriseALRobot
@@ -44,7 +44,7 @@ Here is the Repo Deploy your Own NekoRobot.
 🔰 Thanks for your support 
 It's Fully stable Repo so you can deploy and make own Bot.
 ──────────────────
-Powered By:- {}
+Powered By:- {@Wolfwood_Bot}
 """
 
     BUTTON = [
