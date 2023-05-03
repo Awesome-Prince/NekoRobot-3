@@ -95,12 +95,12 @@ class Config(object):
     # REQUIRED
     # Login to https://my.telegram.org and fill in these slots with the details given by it
 
-    API_ID = 1234567  # integer value, dont use ""
-    API_HASH = "12345abcdefg23459"
+    API_ID = 16743442  # integer value, dont use ""
+    API_HASH = "12bbd720f4097ba7713c5e40a11dfd2a"
     TOKEN = ""  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
-    OWNER_ID = 1732814103  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "Awesome_Prince"
-    SUPPORT_CHAT = "Besties_XD"  # Your own group for support, do not add the @
+    OWNER_ID = 5885920877  # If you dont know, run the bot and do /id in your private chat with it, also an integer
+    OWNER_USERNAME = "MH17_KUNAL"
+    SUPPORT_CHAT = "Anime_Krew"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
         -1001739802989
     )  # Prints any new group the bot is added to, prints just the name and ID.
