@@ -2,7 +2,7 @@ import speedtest
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext, CallbackQueryHandler
 
-from NekoRobot import DEV_USERS, dispatcher
+from NekoRobot import DEV_USERS
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from NekoRobot.modules.helper_funcs.decorators import nekocmd
