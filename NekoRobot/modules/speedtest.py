@@ -8,7 +8,7 @@ from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from NekoRobot import nekocmd
 
 def convert(speed):
-    return round(int(speed) / 1048576, 2)
+    return round(int(speed)/1048576, 2)
 
 
 @dev_plus
