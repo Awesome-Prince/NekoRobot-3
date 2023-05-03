@@ -21,31 +21,36 @@ def speedtestxyz(update: Update, context: CallbackContext):
             InlineKeyboardButton("help", callback_data="help"), 
         ]
     ]
-    update.effective_message.reply_text(
+    update.effective_message.reply_text(
         "speedtest mode", reply_markup=InlineKeyboardMarkup(buttons)
-      ) 
-
+        ) 
 
 @run_async
 def speedtestxyz_callback(update: Update, context: CallbackContext):
     query = update.callback_query
 
     if query.from_user.id in DEV_USERS:
+        
         msg = update.effective_message.edit_text("running a speedtest...")
-        speed = speedtest.Speedtest()
-        speed.get_best_server()
-        speed.download()
-        speed.upload()
+        speed = speedtest.Speedtest()
+        speed.get_best_server()
+        speed.download()
+        speed.upload()
         replymsg = "speedtest result"
-
-        if query.data == "speedtest_image":
-            speedtest_image = speed.results.share()
+       
+        if query.data == "speedtest_image":
+           
+            speedtest_image = speed.results.share()
             update.effective_message.reply_photo(
-                photo=speedtest_image, caption=replymsg
-            )
+                photo=speedtest_image, caption=replymsg
+           
+            )
+            
             msg.delete()
+            
 
         elif query.data == "speedtest_text":
+            
             result = speed.results.dict()
             replymsg += f"\nDownload: {convert(result['download'])}Mb/s\nUpload: {convert(result['upload'])}Mb/s\nPing: {result['ping']}"
             update.effective_message.edit_text(replymsg, parse_mode=ParseMode.MARKDOWN)
