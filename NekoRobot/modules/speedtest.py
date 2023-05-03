@@ -15,14 +15,15 @@ def convert(speed):
 @run_async
 def speedtestxyz(update: Update, context: CallbackContext):
     buttons = [
-        [
+        [
             InlineKeyboardButton("image", callback_data="speedtest_image"),
             InlineKeyboardButton("text", callback_data="speedtest_text"),
-        ]
-    ]
+            InlineKeyboardButton("help", callback_data="help"), 
+        ]
+    ]
     update.effective_message.reply_text(
         "speedtest mode", reply_markup=InlineKeyboardMarkup(buttons)
-    )
+      ) 
 
 
 @run_async
