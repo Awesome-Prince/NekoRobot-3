@@ -7,11 +7,11 @@ from NekoRobot import NEKO_PTB
 from NekoRobot.modules.disable import MessageHandler
 
 OWO = (
-    "*Neko pats {} on the head.",
+    "*wolfwood pats {} on the head.",
     "*gently rubs {}'s head*.",
-    "*Neko mofumofus {}'s head*",
-    "*Neko messes up {}'s head*",
-    "*Neko intensly rubs {}'s head*",
+    "*wolfwood mofumofus {}'s head*",
+    "*wolfwood messes up {}'s head*",
+    "*wolfwood intensly rubs {}'s head*",
     "*{}'s waifu pats their head*",
     "*{}'s got free headpats*",
     "No pats for {}!",
