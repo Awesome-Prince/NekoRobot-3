@@ -14,14 +14,14 @@ def convert(speed):
 @dev_plus
 @run_async
 def speedtestxyz(update: Update, context: CallbackContext):
-    buttons = [
+    buttons = [
         [
-            InlineKeyboardButton("ɪᴍᴀɢᴇ", callback_data="speedtest_image"),
-            InlineKeyboardButton("ᴛᴇxᴛ", callback_data="speedtest_text"),
+            InlineKeyboardButton("image", callback_data="speedtest_image"),
+            InlineKeyboardButton("text", callback_data="speedtest_text"),
         ]
     ]
     update.effective_message.reply_text(
-        "sᴩᴇᴇᴅᴛᴇsᴛ ᴍᴏᴅᴇ", reply_markup=InlineKeyboardMarkup(buttons)
+        "speedtest mode", reply_markup=InlineKeyboardMarkup(buttons)
     )
 
 
@@ -30,12 +30,12 @@ def speedtestxyz_callback(update: Update, context: CallbackContext):
     query = update.callback_query
 
     if query.from_user.id in DEV_USERS:
-        msg = update.effective_message.edit_text("ʀᴜɴɴɪɴɢ ᴀ sᴩᴇᴇᴅᴛᴇsᴛ...")
+        msg = update.effective_message.edit_text("running a speedtest...")
         speed = speedtest.Speedtest()
         speed.get_best_server()
         speed.download()
         speed.upload()
-        replymsg = "sᴩᴇᴇᴅᴛᴇsᴛ ʀᴇsᴜʟᴛ"
+        replymsg = "speedtest result"
 
         if query.data == "speedtest_image":
             speedtest_image = speed.results.share()
@@ -64,6 +64,6 @@ help = """
 » /speedtest *:* Runs a speedtest and check the server speed.
 """
 
-mod_name = "SᴘᴇᴇᴅTᴇsᴛ​"
+mod_name = "speedtest"
 command_list = ["speedtest"]
 handlers = [SPEED_TEST_HANDLER, SPEED_TEST_CALLBACKHANDLER]
