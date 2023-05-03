@@ -36,7 +36,7 @@ async def awake(event):
     NEKO = f" ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴏᴜʀ ᴋɪɴɢᴅᴏᴍ♡︎ ɪ ʜᴏᴘᴇ ʏᴏᴜ ᴄᴀɴ ɢᴇᴛ ᴍᴀɴʏ ғʀɪᴇɴᴅs ɪɴ ᴛʜɪs ɢʀᴏᴜᴘ"
     BUTTON = [
         [
-            Button.url("Meet Me Here🎀", "https://telegram.dog/Besties_XD"),
+            Button.url("Meet Me Here🎀", "https://telegram.dog/Anime_Krew"),
         ]
     ]
     await tbot.send_file(event.chat_id, PHOTO, caption=NEKO, buttons=BUTTON)
