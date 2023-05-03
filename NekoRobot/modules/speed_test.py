@@ -1,7 +1,7 @@
 import speedtest
-from Senku import DEV_USERS, dispatcher
-from Senku.modules.disable import DisableAbleCommandHandler
-from Senku.modules.helper_funcs.chat_status import dev_plus
+from NekoRobot import DEV_USERS, dispatcher
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.chat_status import dev_plus
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext, CallbackQueryHandler
 
