@@ -31,13 +31,13 @@ class Config(object):
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = "postgres://brmhwhgf:Eq_ZuGoNei_j50ST1iGf7WMymc6IO9vf@hattie.db.elephantsql.com/brmhwhgf"  # needed for any database modules
     DB_URL = ""
-    REDIS_URL = ""
+    REDIS_URL = "redis://Kunal-free-db:CjqTBtTTKrMR6auYE0mSm8Z9YxN7VusS@redis-13082.c241.us-east-1-4.ec2.cloud.redislabs.com:13082"
     LOAD = []
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     WEBHOOK = False
     INFOPIC = True
     URL = None
-    SPAMWATCH_API = "P5_FWlwgUrpchwJceZDUSDxa41G396dn7J0vSEMWeBhHJ6C4q8VJLzjhfZPxNKUZ"  # go to support.spamwat.ch to get key
+    SPAMWATCH_API = "YvmbZdX4td1WgKSEun9yG7qVl1WVB9it8hVIyoFEHYFBaTrESPWTIFvyEiF8Esj~"  # go to support.spamwat.ch to get key
     SPAMWATCH_SUPPORT_CHAT = "@SpamWatchSupport"
 
     # OPTIONAL
