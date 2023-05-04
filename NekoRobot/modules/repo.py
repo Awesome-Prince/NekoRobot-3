@@ -49,7 +49,7 @@ Powered By:- {@Wolfwood_Bot}
 
     BUTTON = [
         [
-            Button.url("📢 Repository", "https://github.com/Dank-del/EnterpriseALRobot"),
+            Button.url("📢 Support", "https://t.me/JHBots"),
             Button.url("💻 Collaborators", "https://telegra.ph/Neko-X-05-23"),
         ]
     ]
