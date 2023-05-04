@@ -39,7 +39,7 @@ async def awake(event):
 「@Wolfwood_Bot」
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 Here is the Repo Deploy your Own NekoRobot.
-⚜️Repo ➤ https://github.com/Dank-del/EnterpriseALRobot
+⚜️Support ➤ https://t.me/JHBots
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 🔰 Thanks for your support 
 It's Fully stable Repo so you can deploy and make own Bot.
