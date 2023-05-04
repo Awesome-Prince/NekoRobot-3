@@ -28,22 +28,14 @@ from telethon import Button
 from NekoRobot import tbot
 from NekoRobot.events import register
 
-PHOTO = "https://graph.org/file/544cf3a98b369a5d7f233.jpg"
+PHOTO = "https://graph.org/file/4e5c9f0c728cf94bf6846.mp4"
 
 
 @register(pattern=("/repo"))
 async def awake(event):
     NEKO = """
          We Are So Happy To Announce That We Have Public Our Repo. ✨🥀
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-「@Wolfwood_Bot」
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-Here is the Repo Deploy your Own NekoRobot.
-⚜️Support ➤ https://t.me/JHBots
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-🔰 Thanks for your support 
-It's Fully stable Repo so you can deploy and make own Bot.
-──────────────────
+         ━━━━━━━━━━━━━━━━━━━━━━━
 Powered By:- {@Wolfwood_Bot}
 """
 
