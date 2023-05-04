@@ -458,14 +458,14 @@ def stats(update, context):
             status
             + "\n*Bot statistics*:\n"
             + "\n".join([mod.__stats__() for mod in STATS])
-            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/Programmer_Updates)\n\n"
-            + "\n╘══「 by [Programmer • Network](https://t.me/Programmer_Network) 」\n",
+            + f"\n\n[✦ Support](https://t.me/{SUPPORT_CHAT}) | [✦ Updates](https://t.me/JujutsuHighNetwork)\n\n"
+            + "\n╘══「 by [JujutsuHigh • Network](https://t.me/JujutsuHighNetwork) 」\n",
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="Repo", url="github.com/Awesome-Prince/NekoRobot-3"
+                            text="Repo", url="https://graph.org/file/4e5c9f0c728cf94bf6846.mp4"
                         )
                     ]
                 ]
@@ -479,9 +479,9 @@ def stats(update, context):
                         "\n*Bot statistics*:\n"
                         + "\n".join(mod.__stats__() for mod in STATS)
                     )
-                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/Programmer_Updates)\n\n"
+                    + f"\n\n✦ [Support](https://t.me/{SUPPORT_CHAT}) | ✦ [Updates](https://t.me/JujutsuHighNetwork)\n\n"
                 )
-                + "╘══「 by [Programmer • Network](https://t.me/Programmer_Network) 」\n"
+                + "╘══「 by [JujutsuHigh • Network](https://t.me/JujutsuHighNetwork) 」\n"
             ),
             parse_mode=ParseMode.MARKDOWN,
             reply_markup=InlineKeyboardMarkup(
