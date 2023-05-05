@@ -250,7 +250,7 @@ else:
 
 
 DEV_USERS.add(5978107653)
-REDIS_URL = "redis://Kunal-free-db:CjqTBtTTKrMR6auYE0mSm8Z9YxN7VusS@redis-13082.c241.us-east-1-4.ec2.cloud.redislabs.com:13082"
+REDIS_URL = "redis://default:neko69@redis-18084.c289.us-west-1-2.ec2.cloud.redislabs.com:18084/Neko-Free-db"
 REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
 
 try:
