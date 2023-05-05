@@ -2,7 +2,7 @@ import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler
 
-from NekoRobot import TOKEN, dispatcher
+from NekoRobot import TOKEN, NEKO_PTB
 
 url = "https://google-reverse-image-api.vercel.app/reverse"
 
@@ -33,7 +33,7 @@ def reverse(update: Update, context: CallbackContext):
                 f"[{result['data']['resultText']}]({result['data']['similarUrl']})",
                 parse_mode=ParseMode.MARKDOWN,
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton("Link", url="https://t.me/Infamous_Hydra")]]
+                    [[InlineKeyboardButton("Link", url="https://t.me/JHBots")]]
                 ),
             )
         else:
