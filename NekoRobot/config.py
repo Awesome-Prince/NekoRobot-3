@@ -24,7 +24,7 @@ class Config(object):
     TEMP_DOWNLOAD_DIRECTORY = "./"
     MONGO_DB_URI = "mongodb+srv://sonu55:sonu55@cluster0.vqztrvk.mongodb.net/?retryWrites=true&w=majority"
     OWNER_ID = 5885920877  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "RGAnimeLover"
+    OWNER_USERNAME = "MH17_KUNAL"
     SUPPORT_CHAT = "Anime_Krew"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
         -1001935950378
@@ -37,10 +37,10 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = "postgres://brmhwhgf:Eq_ZuGoNei_j50ST1iGf7WMymc6IO9vf@hattie.db.elephantsql.com/brmhwhgf"  # needed for any database modules
     DB_URL = "postgres://brmhwhgf:Eq_ZuGoNei_j50ST1iGf7WMymc6IO9vf@hattie.db.elephantsql.com/brmhwhgf"
     LOAD = []
-    BOT_USERNAME = "Dazai_ProRobot"
+    BOT_USERNAME = "Wolfwood_Bot"
     ARQ_API_URL = "arq.hamker.dev"
     ARQ_API_KEY = "CPYPCC-ZGUYAQ-RUMHTL-KMEAYY-ARQ"
-    ERROR_LOGS = -1001823656633
+    ERROR_LOGS = -1001935950378
     BOT_NAME = "Dazai"
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     WEBHOOK = False
