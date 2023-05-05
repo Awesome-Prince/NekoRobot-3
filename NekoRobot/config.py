@@ -43,6 +43,7 @@ class Config(object):
     ERROR_LOGS = -1001935950378
     BOT_NAME = "Dazai"
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
+    OPENWEATHERMAP_ID = ""
     WEBHOOK = False
     INFOPIC = True
     URL = None
