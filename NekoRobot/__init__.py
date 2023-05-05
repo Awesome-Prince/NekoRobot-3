@@ -157,9 +157,9 @@ if ENV:
         "OPENWEATHERMAP_ID", ""
     )  # From:- https://openweathermap.org/api
     LOG_GROUP_ID = os.environ.get("LOG_GROUP_ID", None)
-    BOT_ID = 5722771565
+    BOT_ID =6286654828 5722771565
     STRICT_GMUTE = bool(os.environ.get("STRICT_GMUTE", True))
-    MONGO_DB = "Dazai"
+    MONGO_DB = "NekoRobot"
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     REM_BG_API_KEY = os.environ.get(
         "REM_BG_API_KEY", None
@@ -238,8 +238,8 @@ else:
     ARQ_API_URL = "arq.hamker.dev"
     ARQ_API_KEY = "HOYQOV-EYTKTC-RLELMG-IPFLVH-ARQ"
 
-    BOT_USERNAME = "Dazai_ProRobot"
-    OPENWEATHERMAP_ID = "ca1f9caacbb92187db96c0bf5686017b"
+    BOT_USERNAME = Config.BOT_USERNAME
+    OPENWEATHERMAP_ID = Config.OPENWEATHERMAP_ID
 
     REM_BG_API_KEY = Config.REM_BG_API_KEY
 
