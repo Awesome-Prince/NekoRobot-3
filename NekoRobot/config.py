@@ -40,7 +40,7 @@ class Config(object):
     BOT_USERNAME = "Wolfwood_Bot"
     ARQ_API_URL = "arq.hamker.dev"
     ARQ_API_KEY = "CPYPCC-ZGUYAQ-RUMHTL-KMEAYY-ARQ"
-    ERROR_LOGS = -1001935950378
+    ERROR_LOGS = -1001909608236
     BOT_NAME = "ᴡᴏʟғᴡᴏᴏᴅ"
     NO_LOAD = ["rss", "cleaner", "connection", "math"]
     OPENWEATHERMAP_ID = ""
