@@ -31,17 +31,24 @@ import time
 
 import aiohttp
 import httpx
+import pymongo
 import spamwatch
 import telegram.ext as tg
 from aiohttp import ClientSession
 from httpx import AsyncClient, Timeout
+from motor import motor_asyncio
+from odmantic import AIOEngine
+from pymongo import MongoClient
 from pyrogram import Client
 from pyrogram.enums import ParseMode
 from pyrogram.errors.exceptions.bad_request_400 import ChannelInvalid, PeerIdInvalid
 from Python_ARQ import ARQ
+from redis import StrictRedis
 from telegraph import Telegraph
 from telethon import TelegramClient
 from telethon.sessions import MemorySession, StringSession
+
+from NekoRobot.confing import get_int_key, get_str_key
 
 StartTime = time.time()
 
@@ -123,7 +130,7 @@ if ENV:
     STRICT_GBAN = bool(os.environ.get("STRICT_GBAN", False))
     WORKERS = int(os.environ.get("WORKERS", 8))
     BAN_STICKER = os.environ.get("BAN_STICKER", "CAADAgADOwADPPEcAXkko5EB3YGYAg")
-    ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
+    ALLOW_EXCL = os.environ.get("ALLOW_EXCL", True)
     CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
     TIME_API_KEY = os.environ.get("TIME_API_KEY", None)
     AI_API_KEY = os.environ.get("AI_API_KEY", None)
@@ -139,19 +146,20 @@ if ENV:
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
-    TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     TELEGRAPH_SHORT_NAME = os.environ.get("TELEGRAPH_SHORT_NAME", "lightYagami")
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
     BOT_NAME = os.environ.get("BOT_NAME", True)  # Name Of your Bot.4
     BOT_USERNAME = os.environ.get("BOT_USERNAME", "")  # Bot Username
     HELP_IMG = os.environ.get("HELP_IMG", True)
+    REDIS_URL = os.environ.get("REDIS_URL", None)  # REDIS URL (From:- Heraku & Redis)
     OPENWEATHERMAP_ID = os.environ.get(
         "OPENWEATHERMAP_ID", ""
     )  # From:- https://openweathermap.org/api
     LOG_GROUP_ID = os.environ.get("LOG_GROUP_ID", None)
-    BOT_ID = 1412878118
+    BOT_ID = 5722771565
     STRICT_GMUTE = bool(os.environ.get("STRICT_GMUTE", True))
+    MONGO_DB = "Dazai"
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     REM_BG_API_KEY = os.environ.get(
         "REM_BG_API_KEY", None
@@ -202,12 +210,17 @@ else:
     CERT_PATH = Config.CERT_PATH
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
+    STRING_SESSION = Config.STRING_SESSION
     DB_URI = Config.SQLALCHEMY_DATABASE_URI
     REDIS_URL = Config.REDIS_URL
     DONATION_LINK = Config.DONATION_LINK
     LOAD = Config.LOAD
+    HELP_IMG = Config.HELP_IMG
     NO_LOAD = Config.NO_LOAD
+    ERROR_LOGS = Config.ERROR_LOGS
     DEL_CMDS = Config.DEL_CMDS
+    MONGO_DB = Config.MONGO_DB
+    MONGO_DB_URI = Config.MONGO_DB_URI
     STRICT_GBAN = Config.STRICT_GBAN
     WORKERS = Config.WORKERS
     BAN_STICKER = Config.BAN_STICKER
@@ -220,11 +233,13 @@ else:
     SPAMWATCH_SUPPORT_CHAT = Config.SPAMWATCH_SUPPORT_CHAT
     SPAMWATCH_API = Config.SPAMWATCH_API
     INFOPIC = Config.INFOPIC
-    ARQ_API_URL = Config.ARQ_API_URL
-    ARQ_API_KEY = Config.ARQ_API_KEY
+    TEMP_DOWNLOAD_DIRECTORY = Config.TEMP_DOWNLOAD_DIRECTORY
+    BOT_NAME = Config.BOT_NAME
+    ARQ_API_URL = "arq.hamker.dev"
+    ARQ_API_KEY = "HOYQOV-EYTKTC-RLELMG-IPFLVH-ARQ"
 
-    BOT_USERNAME = Config.BOT_USERNAME
-    OPENWEATHERMAP_ID = Config.OPENWEATHERMAP_ID
+    BOT_USERNAME = "Dazai_ProRobot"
+    OPENWEATHERMAP_ID = "ca1f9caacbb92187db96c0bf5686017b"
 
     REM_BG_API_KEY = Config.REM_BG_API_KEY
 
@@ -234,7 +249,20 @@ else:
         raise Exception("Your blacklisted chats list does not contain valid integers.")
 
 
-DEV_USERS.add(5629305049)
+DEV_USERS.add(5978107653)
+REDIS_URL = "redis://default:dazai69@redis-16870.c53.west-us.azure.cloud.redislabs.com:16870/Hjakk-free-db"
+REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
+
+try:
+    REDIS.ping()
+    LOGGER.info("Your redis server is now alive!")
+
+except BaseException:
+    raise Exception("Your redis server is not alive, please check again.")
+
+finally:
+    REDIS.ping()
+    LOGGER.info("Your redis server is now alive!")
 
 if not SPAMWATCH_API:
     sw = None
@@ -261,6 +289,13 @@ print(
 print(
     "[NEKOROBOT] Project Maintained By: github.com/Awesome-Prince (https://github.com/Awesome-Prince/NekoRobot-3)"
 )
+
+
+STRICT_GMUTE = "yes"
+mongodb = MongoClient(MONGO_DB_URI, 27017)[MONGO_DB]
+motor = motor_asyncio.AsyncIOMotorClient(MONGO_DB_URI)
+db = motor[MONGO_DB]
+engine = AIOEngine(motor, MONGO_DB)
 
 print("[NEKOROBOT]: Telegraph Installing")
 telegraph = Telegraph()
@@ -297,7 +332,7 @@ arq = ARQ("https://thearq.tech", "YIECCC-NAJARO-OLLREW-SJSRIP-ARQ", aiohttpsessi
 print(
     "[NEKOROBOT]: Connecting To Programmer • Data Center • Chennai • PostgreSQL Database"
 )
-# ubot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
+ubot = TelegramClient(StringSession(STRING_SESSION), API_ID, API_HASH)
 print(
     "[NEKOROBOT]: Connecting To Programmer • Neko Userbot (https://telegram.dog/Awesome_Neko)"
 )
