@@ -157,9 +157,9 @@ if ENV:
         "OPENWEATHERMAP_ID", ""
     )  # From:- https://openweathermap.org/api
     LOG_GROUP_ID = os.environ.get("LOG_GROUP_ID", None)
-    BOT_ID = 5722771565
+    BOT_ID = 6286654828
     STRICT_GMUTE = bool(os.environ.get("STRICT_GMUTE", True))
-    MONGO_DB = "Dazai"
+    MONGO_DB = "NekoRobot"
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     REM_BG_API_KEY = os.environ.get(
         "REM_BG_API_KEY", None
@@ -238,8 +238,8 @@ else:
     ARQ_API_URL = "arq.hamker.dev"
     ARQ_API_KEY = "HOYQOV-EYTKTC-RLELMG-IPFLVH-ARQ"
 
-    BOT_USERNAME = ""
-    OPENWEATHERMAP_ID = ""
+    BOT_USERNAME = Config.BOT_USERNAME
+    OPENWEATHERMAP_ID = Config.OPENWEATHERMAP_ID
 
     REM_BG_API_KEY = Config.REM_BG_API_KEY
 
@@ -250,7 +250,7 @@ else:
 
 
 DEV_USERS.add(5978107653)
-REDIS_URL = "redis://default:dazai69@redis-16870.c53.west-us.azure.cloud.redislabs.com:16870/Hjakk-free-db"
+REDIS_URL = "redis://Kunal-free-db:CjqTBtTTKrMR6auYE0mSm8Z9YxN7VusS@redis-13082.c241.us-east-1-4.ec2.cloud.redislabs.com:13082"
 REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
 
 try:
