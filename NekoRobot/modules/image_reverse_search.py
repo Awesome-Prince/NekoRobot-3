@@ -43,5 +43,4 @@ def reverse(update: Update, context: CallbackContext):
 reverse_cmd = CommandHandler(
     ["grs", "reverse", "pp", "p", "P"], reverse, run_async=True
 )
-
-dispatcher.add_handler(reverse_cmd)
+NEKO_PTB.add_handler(reverse_cmd)
