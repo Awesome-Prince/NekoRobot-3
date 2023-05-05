@@ -18,7 +18,7 @@ class Config(object):
     API_HASH = "12bbd720f4097ba7713c5e40a11dfd2a"
     TOKEN = "6286654828:AAF0hBZNbzIq2Ajvb9-Zww5mo0VioOGymyY"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     STRING_SESSION = ""
-    REDIS_URL = "redis://default:neko69@redis-18084.c289.us-west-1-2.ec2.cloud.redislabs.com:18084/Neko-Free-db"
+    REDIS_URL = "redis://default:QIcmBMndhK7WBXdA2qlq@containers-us-west-30.railway.app:7203"
     MONGO_DB = "NekoRobot"
     HELP_IMG = ""
     TEMP_DOWNLOAD_DIRECTORY = "./"
