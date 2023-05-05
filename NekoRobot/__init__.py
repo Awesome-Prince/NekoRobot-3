@@ -157,7 +157,7 @@ if ENV:
         "OPENWEATHERMAP_ID", ""
     )  # From:- https://openweathermap.org/api
     LOG_GROUP_ID = os.environ.get("LOG_GROUP_ID", None)
-    BOT_ID =6286654828 5722771565
+    BOT_ID = 6286654828
     STRICT_GMUTE = bool(os.environ.get("STRICT_GMUTE", True))
     MONGO_DB = "NekoRobot"
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
