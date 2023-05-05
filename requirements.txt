@@ -1,4 +1,5 @@
 future
+odmantic
 envparse==0.2.0
 multicolorcaptcha
 faker
