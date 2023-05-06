@@ -5,6 +5,7 @@ future
 pretty_errors
 requests 
 envparse==0.2.0
+redis
 multicolorcaptcha
 faker
 odmantic
