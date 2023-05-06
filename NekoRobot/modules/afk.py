@@ -8,7 +8,7 @@ from telegram.ext import Filters, MessageHandler
 from NekoRobot import NEKO_PTB, REDIS
 from NekoRobot.modules.disable import DisableAbleCommandHandler
 from NekoRobot.modules.helper_funcs.readable_time import get_readable_time
-from NekoRobot.modules.redis.afk_redis import (
+from NekoRobot.modules.sql_extended.afk_redis import (
     afk_reason,
     end_afk,
     is_user_afk,
