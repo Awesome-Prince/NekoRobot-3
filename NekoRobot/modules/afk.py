@@ -1,79 +1,84 @@
-import html
 import random
+import time
 
-from telegram import MessageEntity, Update
+from telegram import MessageEntity
 from telegram.error import BadRequest
-from telegram.ext import CallbackContext, Filters, MessageHandler
+from telegram.ext import Filters, MessageHandler
 
-from NekoRobot import NEKO_PTB
-from NekoRobot.modules.disable import (
-    DisableAbleCommandHandler,
-    DisableAbleMessageHandler,
+from NekoRobot import NEKO_PTB, REDIS
+from NekoRobot.modules.disable import DisableAbleCommandHandler
+from NekoRobot.modules.helper_funcs.readable_time import get_readable_time
+from NekoRobot.modules.redis.afk_redis import (
+    afk_reason,
+    end_afk,
+    is_user_afk,
+    start_afk,
 )
-from NekoRobot.modules.sql import afk_sql as sql
 from NekoRobot.modules.users import get_user_id
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
+AFKVID = "https://telegra.ph/file/54bc5cf9c942d017fc4fb.mp4"
 
-def afk(update: Update, context: CallbackContext):
+
+def afk(update, context):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
-
     if not user:  # ignore channels
         return
 
-    if user.id in [777000, 1087968824]:
+    if user.id == 777000:
         return
-
-    notice = ""
-    if len(args) >= 2:
-        reason = args[1]
-        if len(reason) > 100:
-            reason = reason[:100]
-            notice = "\nYour afk reason was shortened to 100 characters."
-    else:
-        reason = ""
-
-    sql.set_afk(update.effective_user.id, reason)
+    start_afk_time = time.time()
+    reason = args[1] if len(args) >= 2 else "none"
+    start_afk(update.effective_user.id, reason)
+    REDIS.set(f"afk_time_{update.effective_user.id}", start_afk_time)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text(f"{fname} is now away!{notice}")
+        update.effective_message.reply_video(
+            AFKVID, caption="Byii Byiii {}!".format(fname)
+        )
     except BadRequest:
         pass
 
 
-def no_longer_afk(update: Update, context: CallbackContext):
+def no_longer_afk(update, context):
     user = update.effective_user
     message = update.effective_message
-
     if not user:  # ignore channels
         return
 
-    if res := sql.rm_afk(user.id):
+    if not is_user_afk(user.id):  # Check if user is afk or not
+        return
+    end_afk_time = get_readable_time(
+        (time.time() - float(REDIS.get(f"afk_time_{user.id}")))
+    )
+    REDIS.delete(f"afk_time_{user.id}")
+    res = end_afk(user.id)
+    if res:
         if message.new_chat_members:  # dont say msg
             return
         firstname = update.effective_user.first_name
         try:
             options = [
-                "{} is here!",
-                "{} is back!",
-                "{} is now in the chat!",
-                "{} is awake!",
-                "{} is back online!",
-                "{} is finally here!",
-                "Welcome back! {}",
-                "Where is {}?\nIn the chat!",
+                "The Dead {} Came Back From His Grave! Time Taken: {}",
+                "Hey {} Darling, Welcome Back! We Were Apart For {}",
+                "{} Is now back from his date! Time Taken: {}",
+                "Guys, {} got a girlfried, that's why he was busy for: {}",
+                "{} Came Back From Work! Time Taken: {}",
+                "OwO, Welcome back {}, you left us for {} ",
+                "OwO, Welcome Back {}! You Were Missing Since {} ",
             ]
             chosen_option = random.choice(options)
-            update.effective_message.reply_text(chosen_option.format(firstname))
-        except:
-            return
+            update.effective_message.reply_text(
+                chosen_option.format(firstname, end_afk_time),
+            )
+        except BaseException:
+            pass
 
 
-def reply_afk(update: Update, context: CallbackContext):
-    bot = context.bot
+def reply_afk(update, context):
     message = update.effective_message
     userc = update.effective_user
     userc_id = userc.id
@@ -94,24 +99,31 @@ def reply_afk(update: Update, context: CallbackContext):
                     return
                 chk_users.append(user_id)
 
-            if ent.type != MessageEntity.MENTION:
-                return
+            elif ent.type == MessageEntity.MENTION:
+                user_id = get_user_id(
+                    message.text[ent.offset : ent.offset + ent.length]
+                )
+                if not user_id:
+                    # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
+                    return
 
-            user_id = get_user_id(message.text[ent.offset : ent.offset + ent.length])
-            if not user_id:
-                # Should never happen, since for a user to become AFK they must have spoken. Maybe changed username?
-                return
+                if user_id in chk_users:
+                    return
+                chk_users.append(user_id)
 
-            if user_id in chk_users:
-                return
-            chk_users.append(user_id)
+                try:
+                    chat = context.bot.get_chat(user_id)
+                except BadRequest:
+                    print(
+                        "Error: Could not fetch userid {} for AFK module".format(
+                            user_id
+                        )
+                    )
+                    return
+                fst_name = chat.first_name
 
-            try:
-                chat = bot.get_chat(user_id)
-            except BadRequest:
-                print(f"Error: Could not fetch userid {user_id} for AFK module")
+            else:
                 return
-            fst_name = chat.first_name
 
             check_afk(update, context, user_id, fst_name, userc_id)
 
@@ -122,23 +134,56 @@ def reply_afk(update: Update, context: CallbackContext):
 
 
 def check_afk(update, context, user_id, fst_name, userc_id):
-    if sql.is_afk(user_id):
-        user = sql.check_afk_status(user_id)
+    if is_user_afk(user_id):
+        reason = afk_reason(user_id)
+        since_afk = get_readable_time(
+            (time.time() - float(REDIS.get(f"afk_time_{user_id}")))
+        )
         if int(userc_id) == int(user_id):
             return
-        if not user.reason:
-            res = f"{fst_name} is afk"
-            update.effective_message.reply_text(res)
+        if reason == "none":
+            res = "{} Is Missing!\nLast Seen Here: {} Ago.".format(fst_name, since_afk)
         else:
-            res = f"{html.escape(fst_name)} is afk.\nReason: <code>{html.escape(user.reason)}</code>"
+            res = "{} Is Dead!\nReason: {}\nLast Liveliness: {} Ago.".format(
+                fst_name, reason, since_afk
+            )
 
-            update.effective_message.reply_text(res, parse_mode="html")
+        update.effective_message.reply_text(res)
+
+
+def __user_info__(user_id):
+    is_afk = is_user_afk(user_id)
+    text = ""
+    if is_afk:
+        since_afk = get_readable_time(
+            (time.time() - float(REDIS.get(f"afk_time_{user_id}")))
+        )
+        text = "This user is currently afk (away from keyboard)."
+        text += f"\nLast Seen: {since_afk} Ago."
+
+    else:
+        text = "This user currently isn't afk (not away from keyboard)."
+    return text
+
+
+def __stats__():
+    return f"• {len(REDIS.keys())} Total Keys in Redis Database."
+
+
+def __gdpr__(user_id):
+    end_afk(user_id)
+
+
+__mod_name__ = "Afk"
+__help__ = """
+  When marked as AFK, any mentions will be replied to with a message stating that you're not available!
+ • `/afk <reason>`*:* Mark yourself as AFK.
+ - `brb <reason>`*:* Same as the afk command, but not a command.
+"""
 
 
 AFK_HANDLER = DisableAbleCommandHandler("afk", afk, run_async=True)
-AFK_REGEX_HANDLER = DisableAbleMessageHandler(
-    Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk"
-)
+AFK_REGEX_HANDLER = MessageHandler(Filters.regex("(?i)brb"), afk)
 NO_AFK_HANDLER = MessageHandler(
     Filters.all & Filters.chat_type.groups, no_longer_afk, run_async=True
 )
@@ -150,12 +195,3 @@ NEKO_PTB.add_handler(AFK_HANDLER, AFK_GROUP)
 NEKO_PTB.add_handler(AFK_REGEX_HANDLER, AFK_GROUP)
 NEKO_PTB.add_handler(NO_AFK_HANDLER, AFK_GROUP)
 NEKO_PTB.add_handler(AFK_REPLY_HANDLER, AFK_REPLY_GROUP)
-
-__mod_name__ = "Afk"
-__command_list__ = ["afk"]
-__handlers__ = [
-    (AFK_HANDLER, AFK_GROUP),
-    (AFK_REGEX_HANDLER, AFK_GROUP),
-    (NO_AFK_HANDLER, AFK_GROUP),
-    (AFK_REPLY_HANDLER, AFK_REPLY_GROUP),
-]
