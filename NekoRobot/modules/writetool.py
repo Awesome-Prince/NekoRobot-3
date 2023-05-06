@@ -1,7 +1,7 @@
 import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
 from telegram.ext import CallbackContext
-from telegram.ext.NEKO_PTB import run_async
+from telegram.ext import run_async
 
 from NekoRobot import BOT_NAME, BOT_USERNAME, NEKO_PTB
 from NekoRobot.modules.disable import DisableAbleCommandHandler
