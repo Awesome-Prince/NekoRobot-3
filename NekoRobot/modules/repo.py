@@ -28,7 +28,7 @@ from telethon import Button
 from NekoRobot import tbot
 from NekoRobot.events import register
 
-PHOTO = "https://graph.org/file/4e5c9f0c728cf94bf6846.mp4"
+PHOTO = "https://graph.org/file/6a2506bdf72802406b9a2.mp4"
 
 
 @register(pattern=("/repo"))
@@ -42,7 +42,7 @@ Powered By:- {@Wolfwood_Bot}
     BUTTON = [
         [
             Button.url("📢 Support", "https://t.me/JHBots"),
-            Button.url("💻 Collaborators", "https://telegra.ph/Neko-X-05-23"),
+            Button.url("💻 Collaborators", "https://graph.org/Kunal-Gaikwad-05-06-2"),
         ]
     ]
     await tbot.send_file(event.chat_id, PHOTO, caption=NEKO, buttons=BUTTON)
