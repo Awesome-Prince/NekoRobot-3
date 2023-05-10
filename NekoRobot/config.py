@@ -34,7 +34,7 @@ class Config(object):
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
     # RECOMMENDED
-    SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
+    SQLALCHEMY_DATABASE_URI = "postgresql://kunalgaikwad932244:tIQq5nmiW7KY@ep-little-wood-723080.ap-southeast-1.aws.neon.tech/neondb"  # needed for any database modules
     DB_URL = "postgresql://kunalgaikwad932244:tIQq5nmiW7KY@ep-little-wood-723080.ap-southeast-1.aws.neon.tech/neondb"
     LOAD = []
     BOT_USERNAME = "Wolfwood_Bot"
