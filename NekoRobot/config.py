@@ -35,7 +35,7 @@ class Config(object):
 
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
-    DB_URL = "postgres://brmhwhgf:Eq_ZuGoNei_j50ST1iGf7WMymc6IO9vf@hattie.db.elephantsql.com/brmhwhgf"
+    DB_URL = "psql 'postgresql://kunalgaikwad932244:tIQq5nmiW7KY@ep-little-wood-723080.ap-southeast-1.aws.neon.tech/neondb'"
     LOAD = []
     BOT_USERNAME = "Wolfwood_Bot"
     ARQ_API_URL = "arq.hamker.dev"
