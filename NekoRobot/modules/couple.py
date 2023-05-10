@@ -1,7 +1,7 @@
 import random
 from NekoRobot import pgram as app
 from NekoRobot.utils.errors import capture_err
-from NEkoRobot.modules.couples_mongo import get_couple, save_couple
+from NEkoRobot.modules.mongo.couples_mongo import get_couple, save_couple
 from pyrogram import filters
 from datetime import datetime
 
