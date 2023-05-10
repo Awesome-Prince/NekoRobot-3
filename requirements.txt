@@ -1,12 +1,10 @@
 nekos.py
-httpx
+pyjokes
 uvloop
 cryptography==40.0.2
 future
-pretty_errors
 requests 
 envparse==0.2.0
-redis
 multicolorcaptcha
 faker
 odmantic
