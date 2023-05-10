@@ -1,5 +1,5 @@
 nekos.py
-pbot
+httpx
 pbot
 uvloop
 cryptography==40.0.2
