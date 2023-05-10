@@ -16,7 +16,7 @@ class Config(object):
 
     API_ID = 16743442  # integer value, dont use ""
     API_HASH = "12bbd720f4097ba7713c5e40a11dfd2a"
-    TOKEN = "6286654828:AAF0hBZNbzIq2Ajvb9-Zww5mo0VioOGymyY"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    TOKEN = "6286654828:AAGVeE7Rz8X9VdUOgm1LAqu5c9x418-zFA"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     STRING_SESSION = ""
     REDIS_URL = "redis://default:neko69@redis-18084.c289.us-west-1-2.ec2.cloud.redislabs.com:18084/Neko-Free-db"
     MONGO_DB = "NekoRobot"
@@ -34,7 +34,7 @@ class Config(object):
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
 
     # RECOMMENDED
-    SQLALCHEMY_DATABASE_URI = "postgres://brmhwhgf:Eq_ZuGoNei_j50ST1iGf7WMymc6IO9vf@hattie.db.elephantsql.com/brmhwhgf"  # needed for any database modules
+    SQLALCHEMY_DATABASE_URI = ""  # needed for any database modules
     DB_URL = "postgres://brmhwhgf:Eq_ZuGoNei_j50ST1iGf7WMymc6IO9vf@hattie.db.elephantsql.com/brmhwhgf"
     LOAD = []
     BOT_USERNAME = "Wolfwood_Bot"
