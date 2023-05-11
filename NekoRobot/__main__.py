@@ -140,7 +140,7 @@ buttons = [
     [
         InlineKeyboardButton(text="📓 Guidelines", callback_data="help_back"),
         InlineKeyboardButton(
-            text="Source 🌐", url="https://github.com/Dank-del/EnterpriseALRobot"
+            text="Source 🌐", url="https://graph.org/file/6a2506bdf72802406b9a2.mp4"
         ),
     ],
     [
