@@ -31,7 +31,7 @@ psutil
 jikanpy
 youtube_search
 coffeehouse
-regex==2022.10.31
+regex==2023.12.25
 bleach
 wikipedia
 spamwatch
