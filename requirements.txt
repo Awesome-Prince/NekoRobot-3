@@ -10,7 +10,7 @@ cowpy
 motor==2.5.1
 gpytranslate==1.5.1
 PyDictionary==2.0.1
-GitPython==3.1.30
+GitPython==3.1.41
 emoji==1.6.3
 pretty-errors==1.2.25
 lxml
