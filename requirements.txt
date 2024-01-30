@@ -55,7 +55,7 @@ pySmartDL
 validators
 asyncio
 nltk
-aiohttp==3.8.3
+aiohttp==3.9.2
 pykeyboard==0.1.2
 Pillow==9.3.0
 CurrencyConverter
