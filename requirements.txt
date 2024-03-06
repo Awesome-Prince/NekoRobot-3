@@ -42,7 +42,7 @@ fontTools
 gtts
 tswift
 pytz
-PyYAML==6.0
+PyYAML==6.0.1
 html2text
 pythonping
 html_telegraph_poster
