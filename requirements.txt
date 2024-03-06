@@ -19,7 +19,7 @@ beautifulsoup4
 requests
 sqlalchemy==1.3.23
 telethon==1.24.0
-python-telegram-bot==13.13
+python-telegram-bot==20.1
 pyrogram==2.0.40
 psycopg2-binary
 feedparser
