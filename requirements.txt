@@ -85,5 +85,5 @@ pycryptodome
 base58
 httpx
 httpx[http2]
-async-timeout==4.0.2
+async-timeout==4.0.3
 speedtest-cli==2.1.3
