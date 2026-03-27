@@ -59,7 +59,7 @@ aiohttp==3.8.3
 pykeyboard==0.1.2
 Pillow==9.3.0
 CurrencyConverter
-googletrans==4.0.0-rc1
+googletrans==4.0.2
 google_trans_new
 pyrate-limiter==2.8.2
 python-arq==6.0.5
